@@ -13,6 +13,7 @@ import Link from 'next/link';
 import { Icon } from '@/components/utils/icon';
 
 export const Sidebar = () => {
+  const linkClass = 'flex gap-2';
   return (
     <div className="lg:hidden">
       <Sheet>
@@ -26,15 +27,38 @@ export const Sidebar = () => {
         </SheetTrigger>
         <SheetContent side={'left'}>
           <SheetHeader>
-            <SheetTitle>Edit profile</SheetTitle>
-            <SheetDescription>
-              Make changes to your profile here. Click save when done.
-            </SheetDescription>
+            <SheetTitle className="hidden">Side navigation menu</SheetTitle>
+            <SheetDescription className="hidden"></SheetDescription>
           </SheetHeader>
           <div className="grid gap-4">
-            <Link href="/">Dashboard</Link>
-            <Link href="/balans">Balans</Link>
-            <Link href="/profile">Profile</Link>
+            <Link href="/" className={linkClass}>
+              <Icon width={24} height={24} iconName="Dashboard" />
+              Дашбоард
+            </Link>
+            <Link href="/balans" className={linkClass}>
+              <Icon width={24} height={24} iconName="Balans" />
+              Баланс
+            </Link>
+            <Link href="/profile" className={linkClass}>
+              <Icon width={24} height={24} iconName="User" />
+              Мої дані
+            </Link>
+            <Link href="/bag" className={linkClass}>
+              <Icon width={24} height={24} iconName="Bag" />
+              Покупки
+            </Link>
+            <Link href="/task" className={linkClass}>
+              <Icon width={24} height={24} iconName="Task" />
+              Заявки / Задачі
+            </Link>
+            <Link href="/repair" className={linkClass}>
+              <Icon width={24} height={24} iconName="Repair" />
+              Ремонт техніки
+            </Link>
+            <Link href="/product" className={linkClass}>
+              <Icon width={24} height={24} iconName="Product" />
+              Мої продукти
+            </Link>
           </div>
           <SheetFooter>
             <SheetClose asChild>
