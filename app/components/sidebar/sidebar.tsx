@@ -1,4 +1,3 @@
-import { Button } from '@/components/ui/button';
 import {
   Sheet,
   SheetClose,
@@ -11,6 +10,7 @@ import {
 } from '@/components/ui/sheet';
 import Link from 'next/link';
 import { Icon } from '@/components/utils/icon';
+import { SideMenu } from '@/app/components/sidebar/side-menu';
 
 export const Sidebar = () => {
   const linkClass = 'flex gap-2';
@@ -25,44 +25,28 @@ export const Sidebar = () => {
             className="fill-main-dark hover:fill-main-color cursor-pointer transition-all"
           />
         </SheetTrigger>
-        <SheetContent side={'left'}>
+        <SheetContent
+          side={'left'}
+          className="p-0 pt-10 flex flex-col justify-between items-start"
+        >
           <SheetHeader>
             <SheetTitle className="hidden">Side navigation menu</SheetTitle>
             <SheetDescription className="hidden"></SheetDescription>
           </SheetHeader>
-          <div className="grid gap-4">
-            <Link href="/" className={linkClass}>
-              <Icon width={24} height={24} iconName="Dashboard" />
-              Дашбоард
-            </Link>
-            <Link href="/balans" className={linkClass}>
-              <Icon width={24} height={24} iconName="Balans" />
-              Баланс
-            </Link>
-            <Link href="/profile" className={linkClass}>
-              <Icon width={24} height={24} iconName="User" />
-              Мої дані
-            </Link>
-            <Link href="/bag" className={linkClass}>
-              <Icon width={24} height={24} iconName="Bag" />
-              Покупки
-            </Link>
-            <Link href="/task" className={linkClass}>
-              <Icon width={24} height={24} iconName="Task" />
-              Заявки / Задачі
-            </Link>
-            <Link href="/repair" className={linkClass}>
-              <Icon width={24} height={24} iconName="Repair" />
-              Ремонт техніки
-            </Link>
-            <Link href="/product" className={linkClass}>
-              <Icon width={24} height={24} iconName="Product" />
-              Мої продукти
-            </Link>
-          </div>
-          <SheetFooter>
+
+          <SideMenu />
+
+          <SheetFooter className="p-6 text-left sm:justify-start text-warning">
             <SheetClose asChild>
-              <Button type="submit">Save changes</Button>
+              <Link href="/call" className={linkClass}>
+                <Icon
+                  width={24}
+                  height={24}
+                  iconName="Logout"
+                  className="fill-warning"
+                />
+                Вийти
+              </Link>
             </SheetClose>
           </SheetFooter>
         </SheetContent>
