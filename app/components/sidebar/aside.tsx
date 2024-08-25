@@ -10,7 +10,7 @@ export const Aside = () => {
       <div className="fixed bottom-0 left-0 w-[234px] p-6 bg-white shadow-[0_-6px_20px_0_rgba(89, 125, 137, 0.08)]">
         <Link
           href="/logout"
-          className="hidden lg:flex gap-2 items-center font-semibold text-sm lg:text-base leading-[1.14] text-main-dark hover:text-main-color"
+          className="hidden lg:flex gap-2 items-center font-semibold text-sm lg:text-base leading-[1.14] text-main-dark hover:text-main-color hover:fill-main-color"
         >
           <Icon
             width={24}

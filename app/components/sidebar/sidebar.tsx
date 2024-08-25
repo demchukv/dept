@@ -28,7 +28,7 @@ export const Sidebar = () => {
         </SheetTrigger>
         <SheetContent
           side={'left'}
-          className="p-0  flex gap-0 flex-col justify-between items-start bg-bg-color"
+          className="p-0  flex gap-0 flex-col justify-between items-start bg-bg-color w-[300px] xs:w-[348px]"
         >
           <SheetHeader>
             <SheetTitle className="hidden">Side navigation menu</SheetTitle>

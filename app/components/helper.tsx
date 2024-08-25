@@ -1,4 +1,5 @@
 'use client';
+
 import React, { useEffect, useState } from 'react';
 
 export const Helper = () => {
@@ -18,7 +19,7 @@ export const Helper = () => {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  });
+  }, []);
   return (
     <div className="w-full">
       <div className="w-full h-[4px] bg-yellow-500 xs:bg-orange-500 sm:bg-red-500 md:bg-blue-500 lg:bg-green-500 xl:bg-violet-500"></div>

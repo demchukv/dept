@@ -10,7 +10,7 @@ export default function Home() {
         <main className="flex-grow">Main contet here</main>
         <Aside />
       </div>
-      <Helper />
+      {/* <Helper /> */}
     </>
   );
 }
