@@ -1,12 +1,15 @@
 import { Header } from '@/app/components/header/header';
 import { Aside } from '@/app/components/sidebar/aside';
 
-export default function Home() {
+interface LayoutProps {
+  children: React.ReactNode;
+}
+export default function ProtectedLayout({ children }: LayoutProps) {
   return (
     <>
       <Header />
       <div className="flex-grow  flex flex-row-reverse justify-between">
-        <main className="flex-grow">Main contet here</main>
+        <main className="flex-grow">{children}</main>
         <Aside />
       </div>
     </>
