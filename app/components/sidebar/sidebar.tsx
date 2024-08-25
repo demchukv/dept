@@ -8,6 +8,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
+
 import Link from 'next/link';
 import { Icon } from '@/components/utils/icon';
 import { SideMenu } from '@/app/components/sidebar/side-menu';
@@ -27,7 +28,7 @@ export const Sidebar = () => {
         </SheetTrigger>
         <SheetContent
           side={'left'}
-          className="p-0 pt-10 flex flex-col justify-between items-start"
+          className="p-0  flex gap-0 flex-col justify-between items-start bg-bg-color"
         >
           <SheetHeader>
             <SheetTitle className="hidden">Side navigation menu</SheetTitle>
@@ -36,9 +37,9 @@ export const Sidebar = () => {
 
           <SideMenu />
 
-          <SheetFooter className="p-6 text-left sm:justify-start text-warning">
+          <SheetFooter className="p-6 text-left sm:justify-start text-warning bg-bg-color">
             <SheetClose asChild>
-              <Link href="/call" className={linkClass}>
+              <Link href="/logout" className={linkClass}>
                 <Icon
                   width={24}
                   height={24}

@@ -1,12 +1,17 @@
 import React from 'react';
 import { Icon } from '@/components/utils/icon';
 import Link from 'next/link';
+import { Separator } from '@/components/ui/separator';
 
 export const SideMenu = () => {
-  const linkClass = 'flex gap-2';
+  const linkClass =
+    'flex gap-2 items-center font-semibold text-sm lg:text-base leading-[1.14] text-main-dark hover:text-main-color';
   return (
-    <div className="grid gap-4 px-6">
-      <Link href="/" className={linkClass}>
+    <div className="flex flex-col gap-6 my-10 px-6 w-full h-full overflow-y-auto">
+      <Link
+        href="/"
+        className="flex gap-2 items-center font-semibold text-sm lg:text-base leading-[1.14] text-main-dark hover:text-main-color"
+      >
         <Icon width={24} height={24} iconName="Dashboard" />
         Дашбоард
       </Link>
@@ -50,21 +55,21 @@ export const SideMenu = () => {
         <Icon width={24} height={24} iconName="Settings" />
         Налаштування
       </Link>
-      <hr />
-      <Link href="/call" className={linkClass}>
+      <Separator className="my-5" />
+      <Link href="/" className={linkClass}>
         <Icon width={24} height={24} iconName="Home" />
         На сайт
       </Link>
-      <Link href="/call" className={linkClass}>
+      <Link href="/docs" className={linkClass}>
         <Icon width={24} height={24} iconName="Help" />
         Інструкції
       </Link>
-      <Link href="/call" className={linkClass}>
+      <Link href="/academy" className={linkClass}>
         <Icon width={24} height={24} iconName="Academy" />
         Dept академія
       </Link>
-      <hr />
-      <Link href="/call" className={linkClass}>
+      <Separator className="my-5" />
+      <Link href="#" className={linkClass}>
         <Icon width={24} height={24} iconName="Globe" />
         Мова
       </Link>
