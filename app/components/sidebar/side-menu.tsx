@@ -7,7 +7,7 @@ export const SideMenu = () => {
   const linkClass =
     'flex gap-2 items-center font-semibold text-sm lg:text-base leading-[1.14] text-main-dark hover:text-main-color';
   return (
-    <div className="flex flex-col gap-6 my-10 px-6 w-full h-full overflow-y-auto">
+    <div className="flex flex-col gap-6 my-10 lg:my-6 px-6 w-full h-full overflow-y-auto">
       <Link
         href="/"
         className="flex gap-2 items-center font-semibold text-sm lg:text-base leading-[1.14] text-main-dark hover:text-main-color"

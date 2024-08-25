@@ -27,7 +27,7 @@ export default function RootLayout({
       <body
         className={cn(
           montserrat.className,
-          'bg-bg-color',
+          'bg-bg-color flex flex-col justify-between',
           accoutType === 'user' && 'dark',
         )}
       >
