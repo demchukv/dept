@@ -1,6 +1,9 @@
 import React from 'react';
 import { Card } from '@/app/components/card/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Bag } from '@/app/components/dashboard/bag';
+import { Task } from '@/app/components/dashboard/task';
+import { Repair } from '@/app/components/dashboard/repair';
 
 export const TabsLeft = () => {
   return (
@@ -11,13 +14,19 @@ export const TabsLeft = () => {
         <TabsTrigger value="tab3">Ремонт техніки</TabsTrigger>
       </TabsList>
       <TabsContent value="tab1">
-        <Card>TabsLeft 1</Card>
+        <Card>
+          <Bag />
+        </Card>
       </TabsContent>
       <TabsContent value="tab2">
-        <Card>TabsLeft 2</Card>
+        <Card>
+          <Task />
+        </Card>
       </TabsContent>
       <TabsContent value="tab3">
-        <Card>TabsLeft 3</Card>
+        <Card>
+          <Repair />
+        </Card>
       </TabsContent>
     </Tabs>
   );

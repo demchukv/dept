@@ -61,7 +61,10 @@ export const SideMenu = () => {
         />
         Баланс
       </Link>
-      <Link href="/profile" className={linkClass}>
+      <Link
+        href="/profile"
+        className={cn(linkClass, path === '/profile' && 'text-main-color')}
+      >
         <Icon
           width={24}
           height={24}
@@ -70,11 +73,17 @@ export const SideMenu = () => {
         />
         Мої дані
       </Link>
-      <Link href="/bag" className={linkClass}>
+      <Link
+        href="/bag"
+        className={cn(linkClass, path === '/bag' && 'text-main-color')}
+      >
         <Icon width={24} height={24} iconName="Bag" className="flex-shrink-0" />
         Покупки
       </Link>
-      <Link href="/task" className={linkClass}>
+      <Link
+        href="/task"
+        className={cn(linkClass, path === '/task' && 'text-main-color')}
+      >
         <Icon
           width={24}
           height={24}
@@ -83,7 +92,10 @@ export const SideMenu = () => {
         />
         Заявки / Задачі
       </Link>
-      <Link href="/repair" className={linkClass}>
+      <Link
+        href="/repair"
+        className={cn(linkClass, path === '/repair' && 'text-main-color')}
+      >
         <Icon
           width={24}
           height={24}
@@ -180,7 +192,10 @@ export const SideMenu = () => {
           </Link>
         </CollapsibleContent>
       </Collapsible>
-      <Link href="/electrinic" className={linkClass}>
+      <Link
+        href="/electronic"
+        className={cn(linkClass, path === '/electronic' && 'text-main-color')}
+      >
         <Icon
           width={24}
           height={24}

@@ -27,7 +27,7 @@ export const User = ({ userInfo }: UserProps) => {
       <div className="flex flex-col gap-3 md:gap-4">
         <div className="flex justify-between lg:justify-start gap-2 items-center">
           <span className="font-normal text-sm leading-[1.14] text-main-dark">
-            E-mail
+            E-mail:
           </span>
           <span className="font-medium text-sm leading-[1.14] text-main-dark">
             {userInfo.email}
@@ -36,7 +36,7 @@ export const User = ({ userInfo }: UserProps) => {
 
         <div className="flex justify-between lg:justify-start gap-2 items-center">
           <span className="font-normal text-sm leading-[1.14] text-main-dark">
-            Телефон
+            Телефон:
           </span>
           <span className="font-medium text-sm leading-[1.14] text-main-dark">
             {userInfo.phone}
@@ -45,7 +45,7 @@ export const User = ({ userInfo }: UserProps) => {
 
         <div className="flex justify-between lg:justify-start gap-2 items-center">
           <span className="font-normal text-sm leading-[1.14] text-main-dark">
-            ЄДРПОУ
+            ЄДРПОУ:
           </span>
           <span className="font-medium text-sm leading-[1.14] text-main-dark">
             {userInfo.edrpou}
@@ -54,7 +54,7 @@ export const User = ({ userInfo }: UserProps) => {
 
         <div className="flex justify-between lg:justify-start gap-2 items-center">
           <span className="font-normal text-sm leading-[1.14] text-main-dark">
-            Номер договору
+            Номер договору:
           </span>
           <span className="flex gap-2 items-center font-medium text-sm leading-[1.14] text-main-dark">
             {userInfo.contract}
