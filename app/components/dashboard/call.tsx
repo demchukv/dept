@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardHeader, CardSeparator } from '@/app/components/card/card';
 import { Icon } from '@/components/utils/icon';
 import Link from 'next/link';
@@ -17,6 +17,9 @@ import { z } from 'zod';
 import { toast } from '@/components/ui/use-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { useTransition } from 'react';
+//TODO: API
+import { getJson } from '@/data/get-json';
 
 import { DatePicker } from '@/app/components/common/date-picker';
 import { parseISO, formatISO } from 'date-fns';
@@ -34,6 +37,14 @@ const FormSchema = z.object({
 });
 
 export const Call = ({ callInfo }: callInfoType) => {
+  const [data, setData] = useState({
+    incoming: callInfo.incoming,
+    outgoing: callInfo.outgoing,
+    total: callInfo.total,
+  });
+
+  const [isPendig, startTransition] = useTransition();
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -44,6 +55,20 @@ export const Call = ({ callInfo }: callInfoType) => {
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     console.log(data);
+    const values = {
+      startDate: formatISO(data.startDate),
+      endDate: formatISO(data.endDate),
+    };
+    startTransition(() => {
+      //TODO: make API request and setData
+      // const newData = getJson('/data/call-summary.json');
+      setData({
+        ...data,
+        incoming: '02:58:31',
+        outgoing: '02:24:44',
+        total: 110.05,
+      });
+    });
     toast({
       title: 'Ви відправили наступні значення:',
       description: (
@@ -129,7 +154,7 @@ export const Call = ({ callInfo }: callInfoType) => {
             Вхідні
           </span>
           <span className="font-medium text-sm leading-[1.14] text-main-dark">
-            {callInfo.incoming}
+            {data.incoming}
           </span>
         </div>
 
@@ -138,7 +163,7 @@ export const Call = ({ callInfo }: callInfoType) => {
             Вихідні
           </span>
           <span className="font-medium text-sm leading-[1.14] text-main-dark">
-            {callInfo.outgoing}
+            {data.outgoing}
           </span>
         </div>
 
@@ -147,7 +172,7 @@ export const Call = ({ callInfo }: callInfoType) => {
             Витрати
           </span>
           <span className="font-medium text-sm leading-[1.14] text-main-dark">
-            {callInfo.total.toFixed(2)} грн
+            {data.total.toFixed(2)} грн
           </span>
         </div>
 
