@@ -308,13 +308,21 @@ export const SideMenu = () => {
         <CollapsibleContent
           className={cn(subContentClass, isOpen.home && 'pt-3')}
         >
-          <Link href="/my-numbers" className={subLinkClass}>
+          <Link href="https://dept.ua" target="_blank" className={subLinkClass}>
             Користувачам
           </Link>
-          <Link href="/scenario" className={subLinkClass}>
+          <Link
+            href="https://dept.ua/business/"
+            target="_blank"
+            className={subLinkClass}
+          >
             Бізнесу
           </Link>
-          <Link href="/my-group" className={subLinkClass}>
+          <Link
+            href="https://dept.ua/shop/"
+            target="_blank"
+            className={subLinkClass}
+          >
             Магазин
           </Link>
         </CollapsibleContent>

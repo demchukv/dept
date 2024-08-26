@@ -29,7 +29,8 @@ export const TopMenu = () => {
               <ul className="bg-white rounded-[6px] border border-gray-light py-2">
                 <li className="py-[10px] px-5">
                   <Link
-                    href="№"
+                    href="https://dept.ua/"
+                    target="_blank"
                     className="text-main-dark font-normal text-base leading-none hover:text-main-color transition-colors"
                   >
                     Користувачам
@@ -37,7 +38,8 @@ export const TopMenu = () => {
                 </li>
                 <li className="py-[10px] px-5">
                   <Link
-                    href="№"
+                    href="https://dept.ua/business/"
+                    target="_blank"
                     className="text-main-dark font-normal text-base leading-none hover:text-main-color transition-colors"
                   >
                     Бізнесу
@@ -45,7 +47,8 @@ export const TopMenu = () => {
                 </li>
                 <li className="py-[10px] px-5">
                   <Link
-                    href="№"
+                    href="https://dept.ua/shop/"
+                    target="_blank"
                     className="text-main-dark font-normal text-base leading-none hover:text-main-color transition-colors"
                   >
                     Магазин

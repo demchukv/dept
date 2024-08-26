@@ -8,7 +8,6 @@ import { callType } from '@/types/account';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -18,15 +17,9 @@ import { z } from 'zod';
 import { toast } from '@/components/ui/use-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
-import { Calendar } from '@/components/ui/calendar';
-import { Button } from '@/components/ui/button';
-import { format } from 'date-fns';
-import { cn } from '@/lib/utils';
+
+import { DatePicker } from '@/app/components/common/date-picker';
+import { parseISO, formatISO } from 'date-fns';
 
 interface callInfoType {
   callInfo: callType;
@@ -44,21 +37,22 @@ export const Call = ({ callInfo }: callInfoType) => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      startDate: callInfo.startDate
-        ? new Date(Date.parse(callInfo.startDate))
-        : new Date(),
-      endDate: callInfo.endDate
-        ? new Date(Date.parse(callInfo.endDate))
-        : new Date(),
+      startDate: callInfo.startDate ? parseISO(callInfo.startDate) : new Date(),
+      endDate: callInfo.endDate ? parseISO(callInfo.endDate) : new Date(),
     },
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
+    console.log(data);
     toast({
       title: 'Ви відправили наступні значення:',
       description: (
         <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+          <code className="text-white">
+            startDate: {formatISO(data.startDate)}
+            {'\n'}
+            endtDate: {formatISO(data.endDate)}
+          </code>
         </pre>
       ),
     });
@@ -79,7 +73,7 @@ export const Call = ({ callInfo }: callInfoType) => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          onChange={form.handleSubmit(onSubmit)}
+          onChange={() => alert('form submitted')}
           className=""
         >
           <div className="flex flex-row gap-2 mb-5 justify-between items-center w-full">
@@ -90,43 +84,15 @@ export const Call = ({ callInfo }: callInfoType) => {
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
                     <FormLabel className="hidden">Select start date</FormLabel>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <FormControl>
-                          <Button
-                            variant={'ghost'}
-                            className={cn(
-                              'w-full justify-between py-[11px] px-2 xs:px-4 text-left font-medium text-sm xs:text-base text-main-dark leading-[1.37] border border-gray-light bg-bg-color',
-                              !field.value && 'text-gray-light',
-                            )}
-                          >
-                            {field.value ? (
-                              format(field.value, 'dd.MM.yyyy')
-                            ) : (
-                              <span className="text-xs">дд.мм.рррр</span>
-                            )}
-                            <Icon
-                              width={20}
-                              height={20}
-                              iconName="Calendar"
-                              className="fill-main-color"
-                            />
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          mode="single"
-                          selected={field.value}
-                          onSelect={field.onChange}
-                          disabled={(date) =>
-                            date > new Date() || date < new Date('2024-01-01')
-                          }
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
-                    <FormDescription className="hidden"></FormDescription>
+                    <FormControl>
+                      <DatePicker
+                        selected={field.value}
+                        onSelect={(value: Date) => {
+                          field.onChange(value);
+                          onSubmit(form.getValues());
+                        }}
+                      />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -139,44 +105,16 @@ export const Call = ({ callInfo }: callInfoType) => {
                 name="endDate"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel className="hidden">Select start date</FormLabel>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <FormControl>
-                          <Button
-                            variant={'ghost'}
-                            className={cn(
-                              'w-full justify-between py-[11px] px-2 xs:px-4 text-left font-medium text-sm xs:text-base text-main-dark leading-[1.37] border border-gray-light bg-bg-color',
-                              !field.value && 'text-gray-light',
-                            )}
-                          >
-                            {field.value ? (
-                              format(field.value, 'dd.MM.yyyy')
-                            ) : (
-                              <span className="text-xs">дд.мм.рррр</span>
-                            )}
-                            <Icon
-                              width={20}
-                              height={20}
-                              iconName="Calendar"
-                              className="fill-main-color"
-                            />
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          mode="single"
-                          selected={field.value}
-                          onSelect={field.onChange}
-                          disabled={(date) =>
-                            date > new Date() || date < new Date('2024-01-01')
-                          }
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
-                    <FormDescription className="hidden"></FormDescription>
+                    <FormLabel className="hidden">Select end date</FormLabel>
+                    <FormControl>
+                      <DatePicker
+                        selected={field.value}
+                        onSelect={(value: Date) => {
+                          field.onChange(value);
+                          onSubmit(form.getValues());
+                        }}
+                      />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
