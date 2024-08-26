@@ -32,7 +32,7 @@ export function DatePicker({ selected, onSelect }: DatePickerProps) {
         <Button
           variant={'ghost'}
           className={cn(
-            'w-full justify-between py-[11px] px-2 xs:px-4 text-left font-medium text-sm xs:text-base text-main-dark leading-[1.37] border border-gray-light bg-bg-color',
+            'w-full justify-between py-2.5 px-2 xs:px-4 lg:py-2 text-left font-medium text-sm xs:text-base text-main-dark leading-[1.37] border border-gray-light bg-bg-color',
             !selected && 'text-gray-light',
           )}
         >

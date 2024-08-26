@@ -1,8 +1,5 @@
 import React from 'react';
-import { Card, CardHeader } from '@/app/components/card/card';
-import { Separator } from '@/components/ui/separator';
-import { Icon } from '@/components/utils/icon';
-import Link from 'next/link';
+import { Card } from '@/app/components/card/card';
 import { Balance } from '@/app/components/dashboard/balance';
 //TODO: load data from API
 import { getJson } from '@/data/get-json';

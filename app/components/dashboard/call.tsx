@@ -68,7 +68,7 @@ export const Call = ({ callInfo }: callInfoType) => {
           <>
             <p className="py-1 text-2xl">Виберіть правильну дату!</p>
             <p className="py-1 text-xl">
-              Початкова дата не може бути більшою за кінцеву
+              Початкова дата не може бути більшою за кінцеву.
             </p>
           </>
         ),
@@ -89,7 +89,7 @@ export const Call = ({ callInfo }: callInfoType) => {
     toast({
       title: 'Ви відправили наступні значення:',
       description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+        <pre className="mt-2 w-full rounded-md bg-slate-950 p-4">
           <code className="text-white">
             startDate: {formatISO(data.startDate)}
             {'\n'}
