@@ -50,8 +50,8 @@ export const SideMenu = () => {
         Дашбоард
       </Link>
       <Link
-        href="/balans"
-        className={cn(linkClass, path === '/balans' && 'text-main-color')}
+        href="/balance"
+        className={cn(linkClass, path === '/balance' && 'text-main-color')}
       >
         <Icon
           width={24}

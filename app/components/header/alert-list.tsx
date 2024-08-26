@@ -1,10 +1,13 @@
 'use client';
 
 import React from 'react';
-import alertData from '@/data/alerts.json';
-import { AlertItem } from '@/app/components/header/alert-item';
 
-export const AlertList = () => {
+import { AlertItem } from '@/app/components/header/alert-item';
+import { alertTypes } from '@/types/alert';
+interface AlertListProps {
+  alertData: alertTypes[];
+}
+export const AlertList = ({ alertData }: AlertListProps) => {
   const [data, setData] = React.useState(alertData);
 
   const newAlerts = data.filter((item) => !item.read);

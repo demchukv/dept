@@ -12,3 +12,20 @@ export const Card = ({ children, className }: CardProps) => {
     </div>
   );
 };
+
+interface CardHeaderProps {
+  children: React.ReactNode;
+  className?: string;
+}
+export const CardHeader = ({ children, className }: CardHeaderProps) => {
+  return (
+    <div
+      className={cn(
+        'flex justify-between items-center gap-1 py-2 text-main-dark font-semibold text-base leading-[1.25]',
+        className,
+      )}
+    >
+      {children}
+    </div>
+  );
+};

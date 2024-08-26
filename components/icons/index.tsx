@@ -7,6 +7,7 @@ import Call from '@/components/icons/call';
 import Case from '@/components/icons/case';
 import Check from '@/components/icons/check';
 import Close from '@/components/icons/close';
+import DangerTriangle from '@/components/icons/danger-triangle';
 import Dashboard from '@/components/icons/dashboard';
 import Electronics from '@/components/icons/electronics';
 import Help from '@/components/icons/help';
@@ -18,6 +19,7 @@ import Menu from '@/components/icons/menu';
 import Plus from '@/components/icons/plus';
 import Product from '@/components/icons/product';
 import Repair from '@/components/icons/repair';
+import RoundedRrrowRigth from '@/components/icons/rounded-arrow-rigth';
 import Settings from '@/components/icons/settings';
 import Task from '@/components/icons/task';
 import Trash from '@/components/icons/trash';
@@ -33,6 +35,7 @@ export const Icons = {
   Case,
   Check,
   Close,
+  DangerTriangle,
   Dashboard,
   Electronics,
   Help,
@@ -44,6 +47,7 @@ export const Icons = {
   Plus,
   Product,
   Repair,
+  RoundedRrrowRigth,
   Settings,
   Task,
   Trash,

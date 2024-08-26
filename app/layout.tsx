@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 import { Montserrat } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/utils';
-import accountData from '@/data/account.json';
+//TODO: get account type from backend or session
+import { getJson } from '@/data/get-json';
 
 const montserrat = Montserrat({
   subsets: ['latin', 'cyrillic'],
@@ -14,12 +15,13 @@ export const metadata: Metadata = {
   description: 'Dept - Особистий кабінет клієнта компанії',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   //TODO: get account type from backend or session
+  const accountData = await getJson('/data/account.json');
   const accoutType = accountData.account;
 
   return (
