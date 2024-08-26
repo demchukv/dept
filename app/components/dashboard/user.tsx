@@ -24,8 +24,8 @@ export const User = ({ userInfo }: UserProps) => {
         <Icon width={24} height={24} iconName="Case" />
         {userInfo.name}
       </div>
-      <div className="flex flex-col gap-3">
-        <div className="flex justify-between gap-2 items-center">
+      <div className="flex flex-col gap-3 md:gap-4">
+        <div className="flex justify-between lg:justify-start gap-2 items-center">
           <span className="font-normal text-sm leading-[1.14] text-main-dark">
             E-mail
           </span>
@@ -34,7 +34,7 @@ export const User = ({ userInfo }: UserProps) => {
           </span>
         </div>
 
-        <div className="flex justify-between gap-2 items-center">
+        <div className="flex justify-between lg:justify-start gap-2 items-center">
           <span className="font-normal text-sm leading-[1.14] text-main-dark">
             Телефон
           </span>
@@ -43,7 +43,7 @@ export const User = ({ userInfo }: UserProps) => {
           </span>
         </div>
 
-        <div className="flex justify-between gap-2 items-center">
+        <div className="flex justify-between lg:justify-start gap-2 items-center">
           <span className="font-normal text-sm leading-[1.14] text-main-dark">
             ЄДРПОУ
           </span>
@@ -52,19 +52,15 @@ export const User = ({ userInfo }: UserProps) => {
           </span>
         </div>
 
-        <div className="flex justify-between gap-2 items-center">
+        <div className="flex justify-between lg:justify-start gap-2 items-center">
           <span className="font-normal text-sm leading-[1.14] text-main-dark">
             Номер договору
           </span>
           <span className="flex gap-2 items-center font-medium text-sm leading-[1.14] text-main-dark">
             {userInfo.contract}
-
-            <Icon
-              width={24}
-              height={24}
-              iconName="Document"
-              className="fill-main-color"
-            />
+            <Link href="#" className="text-main-color hover:text-main-dark">
+              <Icon width={24} height={24} iconName="Document" />
+            </Link>
           </span>
         </div>
       </div>
