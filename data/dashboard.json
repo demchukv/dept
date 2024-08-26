@@ -10,5 +10,12 @@
         "balance": 1200.00,
         "writeOff": 2350.00,
         "nextDate": "01.04.2024"
+    },
+    "callInfo":{
+        "startDate": "24.04.2024",
+        "endDate": "24.04.2024",
+        "incoming": "01:58:31",
+        "outgoing": "03:24:44",
+        "total": 144.54
     }
 }

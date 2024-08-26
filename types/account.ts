@@ -10,3 +10,11 @@ export type userInfoType = {
   phone: string;
   edrpou: number;
 };
+
+export type callType = {
+  startDate: string;
+  endDate: string;
+  incoming: string;
+  outgoing: string;
+  total: number;
+};
