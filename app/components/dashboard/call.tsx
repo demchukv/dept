@@ -26,6 +26,7 @@ import { parseISO, formatISO, compareAsc } from 'date-fns';
 
 interface callInfoType {
   callInfo: callType;
+  className?: string;
 }
 const FormSchema = z.object({
   startDate: z.date({
@@ -36,7 +37,7 @@ const FormSchema = z.object({
   }),
 });
 
-export const Call = ({ callInfo }: callInfoType) => {
+export const Call = ({ callInfo, className }: callInfoType) => {
   const [data, setData] = useState({
     incoming: callInfo.incoming,
     outgoing: callInfo.outgoing,
@@ -101,7 +102,7 @@ export const Call = ({ callInfo }: callInfoType) => {
   }
 
   return (
-    <Card>
+    <Card className={className}>
       <CardHeader>
         <span className="flex gap-2 items-center">
           <Icon width={24} height={24} iconName="Call" />
