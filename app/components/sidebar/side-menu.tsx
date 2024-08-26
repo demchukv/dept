@@ -129,7 +129,7 @@ export const SideMenu = () => {
             Сервери і хостинг
           </Link>
           <Link href="/domain" className={subLinkClass}>
-            Доиени
+            Домени
           </Link>
           <Link href="/certificate" className={subLinkClass}>
             Сертифікати

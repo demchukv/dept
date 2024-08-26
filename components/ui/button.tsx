@@ -22,7 +22,7 @@ const buttonVariants = cva(
         link: 'text-slate-900 underline-offset-4 hover:underline dark:text-slate-50',
       },
       size: {
-        default: '',
+        default: '' /*padding: 12px 20px 13px 20px;*/,
         sm: 'pt-[10px] pb-[11px] px-[15px] text-xs',
         md: 'pt-[11px] pb-3 px-5 text-xs',
         lg: 'pt-[15px] pb-4 px-6',

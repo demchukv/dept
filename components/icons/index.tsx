@@ -3,6 +3,8 @@ import ArrowDown from '@/components/icons/arrow-down';
 import Bag from '@/components/icons/bag';
 import Balans from '@/components/icons/balans';
 import Bell from '@/components/icons/bell';
+import BillCheck from '@/components/icons/bill-check';
+import Calendar from '@/components/icons/calendar';
 import Call from '@/components/icons/call';
 import Case from '@/components/icons/case';
 import Check from '@/components/icons/check';
@@ -24,6 +26,7 @@ import Settings from '@/components/icons/settings';
 import Task from '@/components/icons/task';
 import Trash from '@/components/icons/trash';
 import User from '@/components/icons/user';
+import UserBalance from '@/components/icons/user-balance';
 
 export const Icons = {
   Academy,
@@ -31,6 +34,8 @@ export const Icons = {
   Bag,
   Balans,
   Bell,
+  BillCheck,
+  Calendar,
   Call,
   Case,
   Check,
@@ -52,4 +57,5 @@ export const Icons = {
   Task,
   Trash,
   User,
+  UserBalance,
 };

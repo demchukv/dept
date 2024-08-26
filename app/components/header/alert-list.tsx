@@ -1,7 +1,13 @@
 'use client';
 
 import React from 'react';
-
+import { Icon } from '@/components/utils/icon';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { AlertItem } from '@/app/components/header/alert-item';
 import { alertTypes } from '@/types/alert';
 interface AlertListProps {
@@ -26,53 +32,73 @@ export const AlertList = ({ alertData }: AlertListProps) => {
   };
   return (
     <>
-      {data.length > 0 && newAlerts.length > 0 && (
-        <div className="py-2.5 mb-2.5 border-b border-gray-light text-right">
-          <span
-            onClick={markAllAsRead}
-            className="text-main-color font-semibold text-xs leading-none cursor-pointer"
-          >
-            Позначити всі як прочитані
-          </span>
-        </div>
-      )}
-      {/* {data.length > 0 && newAlerts.length === 0 && (
+      <DropdownMenu>
+        <DropdownMenuTrigger className="hidden sm:block outline-none">
+          <div className="relative">
+            <Icon
+              width={24}
+              height={24}
+              iconName="Bell"
+              className="fill-main-dark hover:fill-main-color cursor-pointer"
+            />
+            {newAlerts.length > 0 && (
+              <span className="block absolute top-0 right-1 w-2 h-2 bg-main-color rounded-full"></span>
+            )}
+          </div>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="w-[340px] h-[328px] rounded-[6px] py-2 pr-1 pl-0 shadow-[0_6px_40px_0_rgba(89, 125, 137, 0.2)] mr-4 border-none">
+          <ScrollArea className="h-[312px] w-[334px] pr-2 border-none px-5">
+            {data.length > 0 && newAlerts.length > 0 && (
+              <div className="py-2.5 mb-2.5 border-b border-gray-light text-right">
+                <span
+                  onClick={markAllAsRead}
+                  className="text-main-color font-semibold text-xs leading-none cursor-pointer"
+                >
+                  Позначити всі як прочитані
+                </span>
+              </div>
+            )}
+            {/* {data.length > 0 && newAlerts.length === 0 && (
         <div className="py-2.5 mb-2.5 border-b border-gray-light text-right">
           <span className="text-main-color font-semibold text-xs leading-none">
             Всі сповіщення прочитано
           </span>
         </div>
       )} */}
-      {data.length === 0 && (
-        <div className="py-10 text-center">
-          <span className="text-main-color font-semibold text-xs leading-none">
-            У вас немає нових сповіщень
-          </span>
-        </div>
-      )}
-      <ul>
-        {newAlerts.length > 0 && (
-          <>
-            {newAlerts.map((item) => (
-              <AlertItem
-                key={item.id}
-                {...item}
-                markAsRead={markAsRead}
-                deleteAlert={deleteAlert}
-              />
-            ))}
-            <li className="py-2.5 border-b border-gray-light"></li>
-          </>
-        )}
-        {readAlerts.map((item) => (
-          <AlertItem
-            key={item.id}
-            {...item}
-            markAsRead={markAsRead}
-            deleteAlert={deleteAlert}
-          />
-        ))}
-      </ul>
+            {data.length === 0 && (
+              <div className="py-10 text-center">
+                <span className="text-main-color font-semibold text-xs leading-none">
+                  У вас немає нових сповіщень
+                </span>
+              </div>
+            )}
+            <ul>
+              {newAlerts.length > 0 && (
+                <>
+                  {newAlerts.map((item) => (
+                    <AlertItem
+                      key={item.id}
+                      {...item}
+                      markAsRead={markAsRead}
+                      deleteAlert={deleteAlert}
+                    />
+                  ))}
+                  <li className="py-2.5 border-b border-gray-light"></li>
+                </>
+              )}
+              {readAlerts.map((item) => (
+                <AlertItem
+                  key={item.id}
+                  {...item}
+                  markAsRead={markAsRead}
+                  deleteAlert={deleteAlert}
+                />
+              ))}
+            </ul>
+            <ScrollBar orientation="vertical" />
+          </ScrollArea>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </>
   );
 };
