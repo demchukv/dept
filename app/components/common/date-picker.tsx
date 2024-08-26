@@ -22,11 +22,15 @@ export function DatePicker() {
         <Button
           variant={'ghost'}
           className={cn(
-            'w-full justify-between py-[11px] px-4 text-left font-medium text-base text-main-dark leading-[1.37] border border-gray-light bg-bg-color',
+            'w-full justify-between py-[11px] px-2 xs:px-4 text-left font-medium text-sm xs:text-base text-main-dark leading-[1.37] border border-gray-light bg-bg-color',
             !date && 'text-gray-light',
           )}
         >
-          {date ? format(date, 'dd.MM.yyyy') : <span>дд.мм.рррр</span>}
+          {date ? (
+            format(date, 'dd.MM.yyyy')
+          ) : (
+            <span className="text-xs">дд.мм.рррр</span>
+          )}
           <Icon
             width={20}
             height={20}

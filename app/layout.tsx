@@ -4,6 +4,7 @@ import './globals.css';
 import { cn } from '@/lib/utils';
 //TODO: get account type from backend or session
 import { getJson } from '@/data/get-json';
+import { Toaster } from '@/components/ui/toaster';
 
 const montserrat = Montserrat({
   subsets: ['latin', 'cyrillic'],
@@ -34,6 +35,7 @@ export default async function RootLayout({
         )}
       >
         {children}
+        <Toaster />
       </body>
     </html>
   );
