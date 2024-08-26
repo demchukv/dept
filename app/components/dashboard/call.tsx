@@ -1,8 +1,11 @@
+'use client';
+
 import React from 'react';
 import { Card, CardHeader, CardSeparator } from '@/app/components/card/card';
 import { Icon } from '@/components/utils/icon';
 import Link from 'next/link';
 import { callType } from '@/types/account';
+import { DatePicker } from '@/app/components/common/date-picker';
 
 interface callInfoType {
   callInfo: callType;
@@ -20,8 +23,17 @@ export const Call = ({ callInfo }: callInfoType) => {
         </Link>
       </CardHeader>
       <CardSeparator />
+      <div className="flex flex-row gap-2 mb-5 justify-between items-center w-full">
+        <div className="flex-grow">
+          <DatePicker />
+        </div>
+        <div className="flex-shrink-0">–</div>
+        <div className="flex-grow">
+          <DatePicker />
+        </div>
+      </div>
       <div className="flex flex-col gap-3 md:gap-4">
-        <div className="flex justify-between lg:justify-start gap-2 items-center">
+        <div className="flex justify-between gap-2 items-center">
           <span className="font-normal text-sm leading-[1.14] text-main-dark">
             Вхідні
           </span>
@@ -30,7 +42,7 @@ export const Call = ({ callInfo }: callInfoType) => {
           </span>
         </div>
 
-        <div className="flex justify-between lg:justify-start gap-2 items-center">
+        <div className="flex justify-between gap-2 items-center">
           <span className="font-normal text-sm leading-[1.14] text-main-dark">
             Вихідні
           </span>
@@ -39,12 +51,12 @@ export const Call = ({ callInfo }: callInfoType) => {
           </span>
         </div>
 
-        <div className="flex justify-between lg:justify-start gap-2 items-center">
+        <div className="flex justify-between gap-2 items-center">
           <span className="font-normal text-sm leading-[1.14] text-main-dark">
             Витрати
           </span>
           <span className="font-medium text-sm leading-[1.14] text-main-dark">
-            {callInfo.total}
+            {callInfo.total.toFixed(2)} грн
           </span>
         </div>
 
