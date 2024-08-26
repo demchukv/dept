@@ -22,7 +22,7 @@ import { useTransition } from 'react';
 import { getJson } from '@/data/get-json';
 
 import { DatePicker } from '@/app/components/common/date-picker';
-import { parseISO, formatISO } from 'date-fns';
+import { parseISO, formatISO, compareAsc } from 'date-fns';
 
 interface callInfoType {
   callInfo: callType;
@@ -59,6 +59,23 @@ export const Call = ({ callInfo }: callInfoType) => {
       startDate: formatISO(data.startDate),
       endDate: formatISO(data.endDate),
     };
+    const cres = compareAsc(data.startDate, data.endDate);
+    console.log(cres);
+    if (cres === 1) {
+      toast({
+        title: 'Помилка',
+        description: (
+          <>
+            <p className="py-1 text-2xl">Виберіть правильну дату!</p>
+            <p className="py-1 text-xl">
+              Початкова дата не може бути більшою за кінцеву
+            </p>
+          </>
+        ),
+        variant: 'destructive',
+      });
+      return;
+    }
     startTransition(() => {
       //TODO: make API request and setData
       // const newData = getJson('/data/call-summary.json');
