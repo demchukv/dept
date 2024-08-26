@@ -1,4 +1,11 @@
 {
+    "userInfo":{
+        "contract": "8490475",
+        "name": "ТОВ Агропромбуд",
+        "email": "mail_address@gmail.com",
+        "phone": "+38(097) 321-65-87",
+        "edrpou": "3508934009"
+    },
     "balance":{
         "balance": 1200.00,
         "writeOff": 2350.00,

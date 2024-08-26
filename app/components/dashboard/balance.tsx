@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardHeader } from '@/app/components/card/card';
+import { Card, CardHeader, CardSeparator } from '@/app/components/card/card';
 import { Icon } from '@/components/utils/icon';
 import Link from 'next/link';
 import { Separator } from '@/components/ui/separator';
@@ -11,10 +11,11 @@ interface BalanceProps {
     writeOff: number;
     nextDate: string;
   };
+  className?: string;
 }
-export const Balance = ({ balance }: BalanceProps) => {
+export const Balance = ({ balance, className }: BalanceProps) => {
   return (
-    <Card>
+    <Card className={className}>
       <CardHeader>
         <span className="flex gap-2 items-center">
           <Icon width={24} height={24} iconName="Balans" />
@@ -24,8 +25,8 @@ export const Balance = ({ balance }: BalanceProps) => {
           <Icon width={24} height={24} iconName="RoundedRrrowRigth" />
         </Link>
       </CardHeader>
-      <Separator className="my-4" />
-      <div className="flex flex-col gap-3 mb-4">
+      <CardSeparator />
+      <div className="flex flex-col gap-3 mb-4 lg:mb-7">
         <div className="flex justify-between gap-2 items-center">
           <span className="flex gap-2 items-center font-semibold text-base leading-tight">
             <Icon width={24} height={24} iconName="UserBalance" />

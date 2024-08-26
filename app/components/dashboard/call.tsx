@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardHeader } from '@/app/components/card/card';
+import { Card, CardHeader, CardSeparator } from '@/app/components/card/card';
 import { Icon } from '@/components/utils/icon';
 import Link from 'next/link';
 import { Separator } from '@/components/ui/separator';
@@ -16,7 +16,7 @@ export const Call = () => {
           <Icon width={24} height={24} iconName="RoundedRrrowRigth" />
         </Link>
       </CardHeader>
-      <Separator className="my-4" />
+      <CardSeparator />
     </Card>
   );
 };

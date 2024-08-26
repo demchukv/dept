@@ -18,7 +18,7 @@ export const Dashboard = async () => {
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:gap-6">
         <Balance balance={data.balance} />
         <Call />
-        <User />
+        <User userInfo={data.userInfo} />
       </div>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:gap-6">
         <Card>Покупки</Card>
