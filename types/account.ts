@@ -65,3 +65,9 @@ export type domainType = {
   price: number;
   activeTo: string;
 };
+export type certificateType = {
+  id: number;
+  cert: string;
+  price: number | string;
+  activeTo: string;
+};

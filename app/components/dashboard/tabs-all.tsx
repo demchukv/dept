@@ -68,7 +68,7 @@ export const TabsAll = ({ data }: TabsProps) => {
       <AccordionItem value="item-7" className={accItemClass}>
         <AccordionTrigger>SSL-Сертифікати</AccordionTrigger>
         <AccordionContent>
-          <Certificate />
+          <Certificate certificate={data.certificate} />
         </AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-8" className={accItemClass}>

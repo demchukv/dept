@@ -37,7 +37,7 @@ export const TabsRight = ({ data }: TabsProps) => {
       </TabsContent>
       <TabsContent value="tab4" className="h-full">
         <Card className="h-full">
-          <Certificate />
+          <Certificate certificate={data.certificate} />
         </Card>
       </TabsContent>
       <TabsContent value="tab5" className="h-full">
