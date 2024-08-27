@@ -27,7 +27,7 @@ export const TabsRight = ({ data }: TabsProps) => {
       </TabsContent>
       <TabsContent value="tab2" className="h-full">
         <Card className="h-full">
-          <Server />
+          <Server server={data.server} />
         </Card>
       </TabsContent>
       <TabsContent value="tab3" className="h-full">

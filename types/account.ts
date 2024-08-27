@@ -71,3 +71,11 @@ export type certificateType = {
   price: number | string;
   activeTo: string;
 };
+
+export type serverType = {
+  id: number;
+  brand: string;
+  name: string;
+  price: number;
+  activeTo: string;
+};
