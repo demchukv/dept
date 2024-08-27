@@ -38,7 +38,7 @@ export const Bag = ({ bag }: BagProps) => {
                 >
                   {item.state}
                 </td>
-                <td className="font-medium text-sm leading-[1.14] pb-2.5 text-right">
+                <td className="font-medium text-sm leading-[1.14] pb-2.5 text-right w-7">
                   <Link href="#" className="group">
                     <Icon
                       iconName="Doc"
@@ -75,11 +75,11 @@ export const Bag = ({ bag }: BagProps) => {
                     {format(item.date, 'dd.MM.yyyy')}
                   </span>
                   <br />
-                  <span className="font-semibold text-sm text-main-dark leading-[1.14] text-right">
+                  <span className="font-semibold text-sm text-main-dark leading-[1.14] text-right w-min">
                     {item.amount.toFixed(2)} грн
                   </span>
                 </td>
-                <td className="py-1.5 text-right">
+                <td className="py-1.5 text-right w-10">
                   <Link href="#" className="group">
                     <Icon
                       iconName="Doc"
@@ -97,7 +97,7 @@ export const Bag = ({ bag }: BagProps) => {
       <Separator className="md:hidden mb-4 mt-2.5 border-gray-light lg:hidden" />
       <Link
         href="/bag"
-        className="block text-center lg:text-right text-main-color hover:text-main-dark py-3 lg:py-2.5 font-semibold text-sm leading-[1.14]"
+        className="block text-center lg:text-right text-main-color hover:text-main-dark pt-3 lg:pt-2.5 font-semibold text-sm leading-[1.14]"
       >
         Показати всі
       </Link>

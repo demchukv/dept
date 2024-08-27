@@ -37,7 +37,7 @@ export const TabsAll = ({ data }: TabsProps) => {
       <AccordionItem value="item-2" className={accItemClass}>
         <AccordionTrigger>Заявки/задачі</AccordionTrigger>
         <AccordionContent>
-          <Task />
+          <Task task={data.task} />
         </AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-3" className={accItemClass}>

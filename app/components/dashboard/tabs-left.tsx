@@ -28,7 +28,7 @@ export const TabsLeft = ({ data }: TabsProps) => {
       </TabsContent>
       <TabsContent value="tab2">
         <Card>
-          <Task />
+          <Task task={data.task} />
         </Card>
       </TabsContent>
       <TabsContent value="tab3">

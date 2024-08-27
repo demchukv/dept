@@ -26,3 +26,11 @@ export type bagType = {
   state: string;
   amount: number;
 };
+
+export type taskType = {
+  id: number;
+  date: string;
+  title: string;
+  state: string;
+  amount: number | string;
+};
