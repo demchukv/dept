@@ -42,3 +42,11 @@ export type repairType = {
   state: string;
   amount: number | string;
 };
+
+export type subscriptionType = {
+  id: number;
+  type: string;
+  title: string;
+  price: number;
+  activeTo: string;
+};

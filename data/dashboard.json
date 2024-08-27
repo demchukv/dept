@@ -143,5 +143,49 @@
             "state":"Завершено",
             "amount":8000.00
         }
+    ],
+    "subscription":[
+        {
+            "id":1,
+            "type":"tv",
+            "title":"Мегого Максимальна",
+            "price":299,
+            "activeTo":"2024-03-20T00:00:00.000Z"
+        },
+        {
+            "id":2,
+            "type":"tv",
+            "title":"Мегого Максимальна",
+            "price":299,
+            "activeTo":"2024-03-20T00:00:00.000Z"
+        },
+        {
+            "id":3,
+            "type":"soft",
+            "title":"Avast Antivirus",
+            "price":299,
+            "activeTo":"2024-03-20T00:00:00.000Z"
+        },
+        {
+            "id":4,
+            "type":"soft",
+            "title":"Avast Antivirus",
+            "price":299,
+            "activeTo":"2024-03-20T00:00:00.000Z"
+        },
+        {
+            "id":5,
+            "type":"tv",
+            "title":"Мегого Максимальна",
+            "price":299,
+            "activeTo":"2024-03-20T00:00:00.000Z"
+        },
+        {
+            "id":6,
+            "type":"tv",
+            "title":"Sweet TV",
+            "price":299,
+            "activeTo":"2024-03-20T00:00:00.000Z"
+        }
     ]
 }

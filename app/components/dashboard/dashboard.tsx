@@ -21,7 +21,7 @@ export const Dashboard = async () => {
         <User userInfo={data.userInfo} />
       </div>
 
-      <div className="hidden md:grid md:gap-4 md:grid-cols-2 lg:gap-6 items-stretch justify-stretch">
+      <div className="hidden md:grid md:gap-4 md:grid-cols-2 lg:gap-6 ">
         <TabsLeft data={data} />
         <TabsRight data={data} />
       </div>

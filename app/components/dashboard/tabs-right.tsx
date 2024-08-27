@@ -20,28 +20,28 @@ export const TabsRight = ({ data }: TabsProps) => {
         <TabsTrigger value="tab4">SSL-Сертифікати</TabsTrigger>
         <TabsTrigger value="tab5">Номери</TabsTrigger>
       </TabsList>
-      <TabsContent value="tab1">
-        <Card>
-          <Subscription />
+      <TabsContent value="tab1" className="h-full">
+        <Card className="h-full">
+          <Subscription subscription={data.subscription} />
         </Card>
       </TabsContent>
-      <TabsContent value="tab2">
-        <Card>
+      <TabsContent value="tab2" className="h-full">
+        <Card className="h-full">
           <Server />
         </Card>
       </TabsContent>
-      <TabsContent value="tab3">
-        <Card>
+      <TabsContent value="tab3" className="h-full">
+        <Card className="h-full">
           <Domain />
         </Card>
       </TabsContent>
-      <TabsContent value="tab4">
-        <Card>
+      <TabsContent value="tab4" className="h-full">
+        <Card className="h-full">
           <Certificate />
         </Card>
       </TabsContent>
-      <TabsContent value="tab5">
-        <Card>
+      <TabsContent value="tab5" className="h-full">
+        <Card className="h-full">
           <Numbers />
         </Card>
       </TabsContent>

@@ -50,7 +50,7 @@ export const TabsAll = ({ data }: TabsProps) => {
       <AccordionItem value="item-4" className={accItemClass}>
         <AccordionTrigger>Підписки</AccordionTrigger>
         <AccordionContent>
-          <Subscription />
+          <Subscription subscription={data.subscription} />
         </AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-5" className={accItemClass}>

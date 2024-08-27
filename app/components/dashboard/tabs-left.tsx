@@ -21,18 +21,18 @@ export const TabsLeft = ({ data }: TabsProps) => {
         <TabsTrigger value="tab2">Заявки/задачі</TabsTrigger>
         <TabsTrigger value="tab3">Ремонт техніки</TabsTrigger>
       </TabsList>
-      <TabsContent value="tab1">
-        <Card>
+      <TabsContent value="tab1" className="h-full">
+        <Card className="h-full">
           <Bag bag={data.bag} />
         </Card>
       </TabsContent>
-      <TabsContent value="tab2">
-        <Card>
+      <TabsContent value="tab2" className="h-full">
+        <Card className="h-full">
           <Task task={data.task} />
         </Card>
       </TabsContent>
-      <TabsContent value="tab3">
-        <Card>
+      <TabsContent value="tab3" className="h-full">
+        <Card className="h-full">
           <Repair repair={data.repair} />
         </Card>
       </TabsContent>

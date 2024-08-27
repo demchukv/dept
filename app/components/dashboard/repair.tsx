@@ -12,7 +12,7 @@ export const Repair = ({ repair }: RepairProps) => {
   return (
     <>
       <p className="hidden md:block lg:hidden font-semibold text-base leading-normal text-main-dark">
-        Заявки/задачі
+        Ремонт техніки
       </p>
       <Separator className="lg:hidden mt-4 mb-2.5 border-gray-light" />
       <table className="table-auto w-full border-collapse">
