@@ -16,14 +16,14 @@ export const Dashboard = async () => {
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:items-start md:grid-cols-1 md:gap-5 lg:gap-8">
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:gap-6">
-        {/* <Balance balance={data.balance} />
+        <Balance balance={data.balance} />
         <Call callInfo={data.callInfo} className={cn('')} />
-        <User userInfo={data.userInfo} /> */}
+        <User userInfo={data.userInfo} />
       </div>
 
       <div className="hidden md:grid md:gap-4 md:grid-cols-2 lg:gap-6 ">
-        {/* <TabsLeft data={data} />
-        <TabsRight data={data} /> */}
+        <TabsLeft data={data} />
+        <TabsRight data={data} />
       </div>
 
       <div className="flex flex-col gap-4 md:hidden">
