@@ -58,3 +58,10 @@ export type numbersType = {
   price: number;
   activeTo: string;
 };
+
+export type domainType = {
+  id: number;
+  domain: string;
+  price: number;
+  activeTo: string;
+};

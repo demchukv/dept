@@ -29,7 +29,7 @@ export const Numbers = ({ numbers }: NumbersProps) => {
                   item.type === 'sim' && 'bg-green-additional-color',
                 )}
               >
-                {item.type}
+                {item.type.toUpperCase()}
               </div>
               <div className="font-normal text-sm text-main-dark leading-main-lh lg:hidden">
                 до {format(item.activeTo, 'yyyy-MM-dd')}

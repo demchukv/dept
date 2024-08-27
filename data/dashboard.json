@@ -217,5 +217,19 @@
             "price": 120,
             "activeTo":"2024-03-20T00:00:00.000Z"
         }
+    ],
+    "domain":[
+        {
+            "id":1,
+            "domain": "mydomain.ukr",
+            "price": 500,
+            "activeTo":"2024-03-20T00:00:00.000Z"
+        },
+        {
+            "id":2,
+            "domain": "mydomain2.ukr",
+            "price": 500,
+            "activeTo":"2024-03-20T00:00:00.000Z"
+        }
     ]
 }
