@@ -74,7 +74,7 @@ export const TabsAll = ({ data }: TabsProps) => {
       <AccordionItem value="item-8" className={accItemClass}>
         <AccordionTrigger>Номери</AccordionTrigger>
         <AccordionContent>
-          <Numbers />
+          <Numbers numbers={data.numbers} />
         </AccordionContent>
       </AccordionItem>
     </Accordion>

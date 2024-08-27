@@ -42,7 +42,7 @@ export const TabsRight = ({ data }: TabsProps) => {
       </TabsContent>
       <TabsContent value="tab5" className="h-full">
         <Card className="h-full">
-          <Numbers />
+          <Numbers numbers={data.numbers} />
         </Card>
       </TabsContent>
     </Tabs>

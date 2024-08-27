@@ -50,3 +50,11 @@ export type subscriptionType = {
   price: number;
   activeTo: string;
 };
+
+export type numbersType = {
+  id: number;
+  type: string;
+  number: string;
+  price: number;
+  activeTo: string;
+};
