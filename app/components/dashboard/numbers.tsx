@@ -12,7 +12,7 @@ export const Numbers = ({ numbers }: NumbersProps) => {
   return (
     <>
       <p className="hidden md:block lg:hidden font-semibold text-base leading-normal text-main-dark">
-        Підписки
+        Номери
       </p>
       <Separator className="lg:hidden mt-4 mb-4 border-gray-light" />
       <div className="grid grid-cols-1 gap-3 lg:gap-5">
@@ -48,7 +48,7 @@ export const Numbers = ({ numbers }: NumbersProps) => {
       </div>
       <Separator className="md:hidden mb-4 mt-4 border-gray-light lg:hidden" />
       <Link
-        href="/subscription"
+        href="/my-numbers"
         className="block text-center lg:text-right text-main-color hover:text-main-dark pt-3 lg:pt-5 font-semibold text-sm leading-main-lh"
       >
         Показати всі
