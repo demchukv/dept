@@ -18,3 +18,11 @@ export type callType = {
   outgoing: string;
   total: number;
 };
+
+export type bagType = {
+  id: number;
+  number: string;
+  date: string;
+  state: string;
+  amount: number;
+};

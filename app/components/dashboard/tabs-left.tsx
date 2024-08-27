@@ -5,7 +5,10 @@ import { Bag } from '@/app/components/dashboard/bag';
 import { Task } from '@/app/components/dashboard/task';
 import { Repair } from '@/app/components/dashboard/repair';
 
-export const TabsLeft = () => {
+export interface TabsProps {
+  data: any;
+}
+export const TabsLeft = ({ data }: TabsProps) => {
   return (
     <Tabs defaultValue="tab1" className="w-full">
       <TabsList>
@@ -15,7 +18,7 @@ export const TabsLeft = () => {
       </TabsList>
       <TabsContent value="tab1">
         <Card>
-          <Bag />
+          <Bag bag={data.bag} />
         </Card>
       </TabsContent>
       <TabsContent value="tab2">

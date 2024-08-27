@@ -1,8 +1,16 @@
 import React from 'react';
 import { Card } from '@/app/components/card/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Subscription } from '@/app/components/dashboard/subscription';
+import { Server } from '@/app/components/dashboard/server';
+import { Domain } from '@/app/components/dashboard/domain';
+import { Certificate } from '@/app/components/dashboard/certificate';
+import { Numbers } from '@/app/components/dashboard/numbers';
 
-export const TabsRight = () => {
+interface TabsProps {
+  data: any;
+}
+export const TabsRight = ({ data }: TabsProps) => {
   return (
     <Tabs defaultValue="tab1" className="w-full">
       <TabsList>
@@ -13,19 +21,29 @@ export const TabsRight = () => {
         <TabsTrigger value="tab5">Номери</TabsTrigger>
       </TabsList>
       <TabsContent value="tab1">
-        <Card>TabsRight 1</Card>
+        <Card>
+          <Subscription />
+        </Card>
       </TabsContent>
       <TabsContent value="tab2">
-        <Card>TabsRight 2</Card>
+        <Card>
+          <Server />
+        </Card>
       </TabsContent>
       <TabsContent value="tab3">
-        <Card>TabsRight 3</Card>
+        <Card>
+          <Domain />
+        </Card>
       </TabsContent>
       <TabsContent value="tab4">
-        <Card>TabsRight 4</Card>
+        <Card>
+          <Certificate />
+        </Card>
       </TabsContent>
       <TabsContent value="tab5">
-        <Card>TabsRight 5</Card>
+        <Card>
+          <Numbers />
+        </Card>
       </TabsContent>
     </Tabs>
   );

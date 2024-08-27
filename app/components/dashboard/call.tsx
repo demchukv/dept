@@ -55,13 +55,8 @@ export const Call = ({ callInfo, className }: callInfoType) => {
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data);
-    const values = {
-      startDate: formatISO(data.startDate),
-      endDate: formatISO(data.endDate),
-    };
     const cres = compareAsc(data.startDate, data.endDate);
-    console.log(cres);
+
     if (cres === 1) {
       toast({
         title: 'Помилка',
@@ -77,6 +72,11 @@ export const Call = ({ callInfo, className }: callInfoType) => {
       });
       return;
     }
+    const values = {
+      startDate: formatISO(data.startDate),
+      endDate: formatISO(data.endDate),
+    };
+
     startTransition(() => {
       //TODO: make API request and setData
       // const newData = getJson('/data/call-summary.json');

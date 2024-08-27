@@ -26,7 +26,7 @@ export default async function RootLayout({
   const accoutType = accountData.account;
 
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <body
         className={cn(
           montserrat.className,

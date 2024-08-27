@@ -22,12 +22,12 @@ export const Dashboard = async () => {
       </div>
 
       <div className="hidden md:grid md:gap-4 md:grid-cols-2 lg:gap-6 items-stretch justify-stretch">
-        <TabsLeft />
-        <TabsRight />
+        <TabsLeft data={data} />
+        <TabsRight data={data} />
       </div>
 
       <div className="flex flex-col gap-4 md:hidden">
-        <TabsAll />
+        <TabsAll data={data} />
       </div>
     </div>
   );

@@ -11,6 +11,7 @@ import Check from '@/components/icons/check';
 import Close from '@/components/icons/close';
 import DangerTriangle from '@/components/icons/danger-triangle';
 import Dashboard from '@/components/icons/dashboard';
+import Doc from '@/components/icons/doc';
 import Document from '@/components/icons/document';
 import Electronics from '@/components/icons/electronics';
 import Help from '@/components/icons/help';
@@ -43,6 +44,7 @@ export const Icons = {
   Close,
   DangerTriangle,
   Dashboard,
+  Doc,
   Document,
   Electronics,
   Help,

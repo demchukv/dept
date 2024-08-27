@@ -42,7 +42,11 @@ export const AlertList = ({ alertData }: AlertListProps) => {
               className="fill-main-dark hover:fill-main-color cursor-pointer"
             />
             {newAlerts.length > 0 && (
-              <span className="block absolute top-0 right-1 w-2 h-2 bg-main-color rounded-full"></span>
+              // <span className="block absolute top-0 right-1 w-2 h-2 bg-main-color rounded-full"></span>
+              <span className="absolute top-0 right-1 flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-main-color opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-main-color"></span>
+              </span>
             )}
           </div>
         </DropdownMenuTrigger>
