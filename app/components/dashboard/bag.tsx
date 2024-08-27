@@ -16,7 +16,7 @@ export const Bag = ({ bag }: BagProps) => {
       <p className="hidden md:block lg:hidden font-semibold text-base leading-normal text-main-dark">
         Покупки
       </p>
-      <Separator className="lg:hidden mt-4 mb-2.5 border-gray-light lg:hidden" />
+      <Separator className="lg:hidden mt-4 mb-2.5 border-gray-light" />
       <table className="table-auto w-full border-collapse">
         <tbody>
           {bag.map((item: any) => (
@@ -53,7 +53,7 @@ export const Bag = ({ bag }: BagProps) => {
                 </td>
               </tr>
 
-              <tr key={item.id} className="lg:hidden">
+              <tr key={`${item.id}-m`} className="lg:hidden">
                 <td className="py-1.5">
                   <span className="font-medium text-sm text-main-dark leading-[1.14]">
                     № {item.number}

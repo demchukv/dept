@@ -12,7 +12,12 @@ export const TabsLeft = ({ data }: TabsProps) => {
   return (
     <Tabs defaultValue="tab1" className="w-full">
       <TabsList>
-        <TabsTrigger value="tab1">Покупки</TabsTrigger>
+        <TabsTrigger
+          value="tab1"
+          className="after:pl-5 after:border-r after:border-gray-light after:h-[40px] after:last:border-r-0"
+        >
+          Покупки
+        </TabsTrigger>
         <TabsTrigger value="tab2">Заявки/задачі</TabsTrigger>
         <TabsTrigger value="tab3">Ремонт техніки</TabsTrigger>
       </TabsList>
