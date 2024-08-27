@@ -38,7 +38,7 @@ export const Bag = ({ bag }: BagProps) => {
                 >
                   {item.state}
                 </td>
-                <td className="font-medium text-sm leading-[1.14]  pb-2.5">
+                <td className="font-medium text-sm leading-[1.14] pb-2.5 text-right">
                   <Link href="#" className="group">
                     <Icon
                       iconName="Doc"
