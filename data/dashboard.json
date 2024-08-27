@@ -99,5 +99,49 @@
             "state":"Завершено",
             "amount":2000.00
         }
+    ],
+    "repair":[
+        {
+            "id":1,
+            "date":"2024-03-20T00:00:00.000Z",
+            "title":"Xiaomi Redmi Note Pro 10",
+            "state":"Відправлено",
+            "amount":8000.00
+        },
+        {
+            "id":2,
+            "date":"2024-03-20T00:00:00.000Z",
+            "title":"MacBook Air 2022",
+            "state":"Проводимо ремонт",
+            "amount":"В пакеті"
+        },
+        {
+            "id":3,
+            "date":"2024-03-20T00:00:00.000Z",
+            "title":"IMac Pro 27’",
+            "state":"Замовлені комплектуючі",
+            "amount":8000.00
+        },
+        {
+            "id":4,
+            "date":"2024-03-20T00:00:00.000Z",
+            "title":"Xiaomi Redmi Note Pro 10 + Xiaomi Redmi Note Pro 10",
+            "state":"Завершено",
+            "amount":8000.00
+        },
+        {
+            "id":5,
+            "date":"2024-03-20T00:00:00.000Z",
+            "title":"Xiaomi Redmi Note Pro 10",
+            "state":"Завершено",
+            "amount":8000.00
+        },
+        {
+            "id":6,
+            "date":"2024-03-20T00:00:00.000Z",
+            "title":"Xiaomi Redmi Note Pro 10",
+            "state":"Завершено",
+            "amount":8000.00
+        }
     ]
 }

@@ -46,6 +46,8 @@
     --blue-additional-color: #5bc0de;
     --green-additional-color: #5cb85c;
     --dark-transparent: rgba(29, 32, 46, 0.5);
+
+    --main-lh: 1.14;
   }
 
   .dark {
@@ -91,6 +93,8 @@
     --blue-additional-color: #5bc0de;
     --green-additional-color: #5cb85c;
     --dark-transparent: rgba(29, 32, 46, 0.5);
+
+    --main-lh: 1.14;
   }
 }
 

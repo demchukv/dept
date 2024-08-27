@@ -29,6 +29,11 @@ const config = {
       fontFamily: {
         montserrat: ['var(--font-montserrat)', ...fontFamily.sans],
       },
+      lineHeight: {
+        'main-lh': '1.14',
+        'extra-loose': '2.5',
+        '12': '3rem',
+      },
       colors: {
         'main-color': 'var(--main-color)',
         'main-blue': 'var(--main-blue)',

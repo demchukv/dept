@@ -34,3 +34,11 @@ export type taskType = {
   state: string;
   amount: number | string;
 };
+
+export type repairType = {
+  id: number;
+  date: string;
+  title: string;
+  state: string;
+  amount: number | string;
+};

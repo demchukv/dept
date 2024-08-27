@@ -33,7 +33,7 @@ export const TabsLeft = ({ data }: TabsProps) => {
       </TabsContent>
       <TabsContent value="tab3">
         <Card>
-          <Repair />
+          <Repair repair={data.repair} />
         </Card>
       </TabsContent>
     </Tabs>

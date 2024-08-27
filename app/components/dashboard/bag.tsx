@@ -58,18 +58,18 @@ export const Bag = ({ bag }: BagProps) => {
       </div> */}
       <table className="table-auto w-full border-collapse">
         <tbody>
-          {bag.map((item: any) => (
+          {bag.map((item: bagType) => (
             <>
               <tr key={item.id} className="hidden lg:table-row">
-                <td className="font-normal text-sm text-main-dark leading-[1.14] pb-5">
+                <td className="font-normal text-sm text-main-dark leading-main-lh pb-5">
                   {format(item.date, 'dd.MM.yyyy')}
                 </td>
-                <td className="font-medium text-sm text-main-dark leading-[1.14] pb-5">
+                <td className="font-medium text-sm text-main-dark leading-main-lh pb-5">
                   № {item.number}
                 </td>
                 <td
                   className={cn(
-                    'font-medium text-sm leading-[1.14] pb-5',
+                    'font-medium text-sm leading-main-lh pb-5',
                     item.state === 'Виконано'
                       ? 'text-green-additional-color'
                       : 'text-attention',
@@ -77,7 +77,7 @@ export const Bag = ({ bag }: BagProps) => {
                 >
                   {item.state}
                 </td>
-                <td className="font-medium text-sm leading-[1.14] pb-5 text-right w-7">
+                <td className="font-medium text-sm leading-main-lh pb-5 text-right w-7">
                   <Link href="#" className="group">
                     <Icon
                       iconName="Doc"
@@ -87,20 +87,20 @@ export const Bag = ({ bag }: BagProps) => {
                     />
                   </Link>
                 </td>
-                <td className="font-semibold text-sm text-main-dark leading-[1.14] text-right pb-5">
-                  {item.amount.toFixed(2)} грн
+                <td className="font-semibold text-sm text-main-dark leading-main-lh text-right pb-5">
+                  {Number(item.amount).toFixed(2)} грн
                 </td>
               </tr>
 
               <tr key={`${item.id}-m`} className="lg:hidden">
                 <td className="py-1.5">
-                  <span className="font-medium text-sm text-main-dark leading-[1.14]">
+                  <span className="font-medium text-sm text-main-dark leading-main-lh">
                     № {item.number}
                   </span>
                   <br />
                   <span
                     className={cn(
-                      'font-medium text-sm leading-[1.14]',
+                      'font-medium text-sm leading-main-lh',
                       item.state === 'Виконано'
                         ? 'text-green-additional-color'
                         : 'text-attention',
@@ -110,12 +110,12 @@ export const Bag = ({ bag }: BagProps) => {
                   </span>
                 </td>
                 <td className="py-1.5 text-right">
-                  <span className="font-normal text-sm text-main-dark leading-[1.14]">
+                  <span className="font-normal text-sm text-main-dark leading-main-lh">
                     {format(item.date, 'dd.MM.yyyy')}
                   </span>
                   <br />
-                  <span className="font-semibold text-sm text-main-dark leading-[1.14] text-right w-min">
-                    {item.amount.toFixed(2)} грн
+                  <span className="font-semibold text-sm text-main-dark leading-main-lh text-right w-min">
+                    {Number(item.amount).toFixed(2)} грн
                   </span>
                 </td>
                 <td className="py-1.5 text-right w-10">
@@ -136,7 +136,7 @@ export const Bag = ({ bag }: BagProps) => {
       <Separator className="md:hidden mb-4 mt-2.5 border-gray-light lg:hidden" />
       <Link
         href="/bag"
-        className="block text-center lg:text-right text-main-color hover:text-main-dark pt-3 lg:pt-0 font-semibold text-sm leading-[1.14]"
+        className="block text-center lg:text-right text-main-color hover:text-main-dark pt-3 lg:pt-0 font-semibold text-sm leading-main-lh"
       >
         Показати всі
       </Link>
