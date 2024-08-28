@@ -10,6 +10,7 @@ import {
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { AlertItem } from '@/app/components/header/alert-item';
 import { alertTypes } from '@/types/alert';
+import { Button } from '@/components/ui/button';
 interface AlertListProps {
   alertData: alertTypes[];
 }
@@ -35,19 +36,27 @@ export const AlertList = ({ alertData }: AlertListProps) => {
       <DropdownMenu>
         <DropdownMenuTrigger className="hidden sm:block outline-none">
           <div className="relative">
-            <Icon
-              width={24}
-              height={24}
-              iconName="Bell"
-              className="fill-main-dark hover:fill-main-color cursor-pointer"
-            />
-            {newAlerts.length > 0 && (
-              // <span className="block absolute top-0 right-1 w-2 h-2 bg-main-color rounded-full"></span>
-              <span className="absolute top-0 right-1 flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-main-color opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-main-color"></span>
-              </span>
-            )}
+            <Button
+              type="button"
+              className="w-[24px] h-[24px]"
+              variant="hidden"
+              title="Сповіщення"
+            >
+              <Icon
+                width={24}
+                height={24}
+                iconName="Bell"
+                className="fill-main-dark hover:fill-main-color cursor-pointer"
+              />
+
+              {newAlerts.length > 0 && (
+                // <span className="block absolute top-0 right-1 w-2 h-2 bg-main-color rounded-full"></span>
+                <span className="absolute top-0 right-1 flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-main-color opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-main-color"></span>
+                </span>
+              )}
+            </Button>
           </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-[340px] h-[328px] rounded-[6px] py-2 pr-1 pl-0 shadow-[0_6px_40px_0_rgba(89, 125, 137, 0.2)] mr-4 border-none">

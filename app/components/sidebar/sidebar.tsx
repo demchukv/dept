@@ -12,6 +12,7 @@ import {
 import Link from 'next/link';
 import { Icon } from '@/components/utils/icon';
 import { SideMenu } from '@/app/components/sidebar/side-menu';
+import { Button } from '@/components/ui/button';
 
 export const Sidebar = () => {
   const linkClass = 'flex gap-2';
@@ -19,12 +20,20 @@ export const Sidebar = () => {
     <div className="lg:hidden">
       <Sheet>
         <SheetTrigger asChild>
-          <Icon
-            width={24}
-            height={24}
-            iconName="Menu"
-            className="fill-main-dark hover:fill-main-color cursor-pointer transition-all"
-          />
+          <Button
+            type="button"
+            variant="hidden"
+            title="Open menu"
+            className="w-6 h-6"
+            aria-haspopup="menu"
+          >
+            <Icon
+              width={24}
+              height={24}
+              iconName="Menu"
+              className="fill-main-dark hover:fill-main-color cursor-pointer transition-all"
+            />
+          </Button>
         </SheetTrigger>
         <SheetContent
           side={'left'}

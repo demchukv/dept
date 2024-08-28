@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import { Icon } from '@/components/utils/icon';
 import Link from 'next/link';
 import { Separator } from '@/components/ui/separator';
+import { TooltipShow } from '@/app/components/common/tooltip-show';
 
 interface BagProps {
   bag: bagType[];
@@ -78,14 +79,19 @@ export const Bag = ({ bag }: BagProps) => {
                   {item.state}
                 </td>
                 <td className="font-medium text-sm leading-main-lh pb-5 text-right w-7">
-                  <Link href="#" className="group">
-                    <Icon
-                      iconName="Doc"
-                      width={16}
-                      height={16}
-                      className="fill-main-color group-hover:fill-main-dark transition-all"
-                    />
-                  </Link>
+                  <TooltipShow
+                    content={<p>Документи до замовлення</p>}
+                    className="max-w-[160px] text-center"
+                  >
+                    <Link href="#" className="group">
+                      <Icon
+                        iconName="Doc"
+                        width={16}
+                        height={16}
+                        className="fill-main-color group-hover:fill-main-dark transition-all"
+                      />
+                    </Link>
+                  </TooltipShow>
                 </td>
                 <td className="font-semibold text-sm text-main-dark leading-main-lh text-right pb-5">
                   {Number(item.amount).toFixed(2)} грн
@@ -119,14 +125,19 @@ export const Bag = ({ bag }: BagProps) => {
                   </span>
                 </td>
                 <td className="py-1.5 text-right w-10">
-                  <Link href="#" className="group">
-                    <Icon
-                      iconName="Doc"
-                      width={24}
-                      height={24}
-                      className="fill-main-color group-hover:fill-main-dark transition-all w-6 h-6 ml-4 flex-shrink-0"
-                    />
-                  </Link>
+                  <TooltipShow
+                    content={<p>Документи до замовлення</p>}
+                    className="max-w-[160px] text-center"
+                  >
+                    <Link href="#" className="group">
+                      <Icon
+                        iconName="Doc"
+                        width={24}
+                        height={24}
+                        className="fill-main-color group-hover:fill-main-dark transition-all w-6 h-6 ml-4 flex-shrink-0"
+                      />
+                    </Link>
+                  </TooltipShow>
                 </td>
               </tr>
             </>

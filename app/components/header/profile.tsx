@@ -16,6 +16,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { Button } from '@/components/ui/button';
 
 export const Profile = () => {
   //TODO: get account type from backend
@@ -27,21 +28,28 @@ export const Profile = () => {
         <DropdownMenu>
           <DropdownMenuTrigger className="group flex lg:gap-2 items-center outline-none">
             <>
-              {accoutType === 'company' ? (
-                <Icon
-                  width={24}
-                  height={24}
-                  iconName="Case"
-                  className="fill-main-dark group-hover:fill-main-color cursor-pointer"
-                />
-              ) : (
-                <Icon
-                  width={24}
-                  height={24}
-                  iconName="User"
-                  className="fill-main-dark group-hover:fill-main-color cursor-pointer"
-                />
-              )}
+              <Button
+                type="button"
+                className="w-[24px] h-[24px]"
+                variant="hidden"
+                title="Особистий кабінет"
+              >
+                {accoutType === 'company' ? (
+                  <Icon
+                    width={24}
+                    height={24}
+                    iconName="Case"
+                    className="fill-main-dark group-hover:fill-main-color cursor-pointer"
+                  />
+                ) : (
+                  <Icon
+                    width={24}
+                    height={24}
+                    iconName="User"
+                    className="fill-main-dark group-hover:fill-main-color cursor-pointer"
+                  />
+                )}
+              </Button>
               <div className="hidden lg:flex lg:flex-col lg:items-start lg:justify-center gap-1 cursor-pointer">
                 <span className="block text-main-dark text-sm leading-[1.14] font-semibold text-left group-hover:text-main-color">
                   {accountData.name}
