@@ -1,59 +1,59 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect } from 'react';
 import {
   ModalDescription,
   ModalFooter,
   ModalHeader,
   ModalTitle,
 } from '@/app/components/common/modal';
-import { Button } from '@/components/ui/button';
+import { ModalLoading } from '@/app/components/common/modal-loading';
+// import { getJson } from '@/data/get-json';
+import { orderDocType } from '@/types/orders';
+import useSWR from 'swr';
 
 interface ListOfDocsProps {
   docId: number | null;
+  onClose: (state: boolean, e: React.MouseEvent | undefined) => void;
 }
-export const ListOfDocs = ({ docId }: ListOfDocsProps) => {
-  if (docId === null) {
-    return null;
-  }
-  //TODO: query for API to get list of docs and render them
+
+//TODO: query for API to get list of docs and render them
+const fetcher = () =>
+  fetch('/test-data/bag-doc.json').then((res) => res.json());
+
+export const ListOfDocs = ({ docId, onClose }: ListOfDocsProps) => {
+  const { data, error } = useSWR('/test-data/bag-doc.json', fetcher);
+
+  if (error) return <ModalLoading type="error">Failed to load</ModalLoading>;
+  if (!data) return <ModalLoading type="loading">Loading...</ModalLoading>;
+
   return (
     <>
       <ModalHeader>
-        <ModalTitle>Edit profile</ModalTitle>
-        <ModalDescription>
-          Make changes to your profile here. Click save when done.
-        </ModalDescription>
+        <ModalTitle className="font-semibold text-base leading-normal text-main-dark text-center">
+          Документи по замовленню{' '}
+          <span className="text-main-color">№ 45 715 811</span>
+        </ModalTitle>
+        <ModalDescription className="hidden"></ModalDescription>
       </ModalHeader>
       <div>
-        <p className="py-2">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et dolores
-          voluptate impedit eaque neque sed est provident corrupti accusantium
-          mollitia alias quasi praesentium laborum, eligendi nam, minima dolore
-          error consequuntur?
-        </p>
-        <p className="py-2">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et dolores
-          voluptate impedit eaque neque sed est provident corrupti accusantium
-          mollitia alias quasi praesentium laborum, eligendi nam, minima dolore
-          error consequuntur?
-        </p>
-        <p className="py-2">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et dolores
-          voluptate impedit eaque neque sed est provident corrupti accusantium
-          mollitia alias quasi praesentium laborum, eligendi nam, minima dolore
-          error consequuntur?
-        </p>
-        <p className="py-2">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et dolores
-          voluptate impedit eaque neque sed est provident corrupti accusantium
-          mollitia alias quasi praesentium laborum, eligendi nam, minima dolore
-          error consequuntur?
-        </p>
+        <div className="grid grid-cols-1">
+          <div key="headrow" className="grid grid-cols-3 py-1">
+            <div>Назва документу</div>
+            <div>Деталі</div>
+            <div></div>
+          </div>
+          {data.map((doc: orderDocType) => (
+            <div key={doc.id} className="grid grid-cols-3 py-1">
+              <div>{doc.name}</div>
+              <div>{doc.info}</div>
+              <div>{doc.file}</div>
+            </div>
+          ))}
+        </div>
+        <div>ID: {docId}</div>
       </div>
-      <ModalFooter>
-        <Button variant={'outline'} type="submit">
-          Save changes
-        </Button>
-      </ModalFooter>
+      <ModalFooter className="hidden"></ModalFooter>
     </>
   );
 };

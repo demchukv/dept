@@ -151,7 +151,7 @@ export const Bag = ({ bag }: BagProps) => {
 
       <Modal open={open} onOpenChange={() => onClose(false, undefined)}>
         <ModalContent>
-          <ListOfDocs docId={id} />
+          <ListOfDocs docId={id} onClose={onClose} />
         </ModalContent>
       </Modal>
     </>

@@ -1,0 +1,65 @@
+[
+        {
+            "docId": 1,
+            "id": 1,
+            "name":"Чек",
+            "info":"від 07.03.2024",
+            "file":"check.pdf"
+        },
+    {
+        "docId": 1,
+        "id": 2,
+        "name":"Гарантійний талон ",
+        "info":"SSD-накопичувач Samsung Portable SSD T7 500GB USB 3.2 Type-C (MU-PC500R/WW) Red",
+        "file":"garanty_one.pdf"
+    },
+    {
+        "docId": 1,
+        "id": 3,
+        "name":"Гарантійний талон ",
+        "info":"Macbook Air M1 Silver",
+        "file":"garanty_two.pdf"
+    },
+        {
+            "docId": 1,
+            "id": 4,
+            "name":"Чек",
+            "info":"від 07.03.2024",
+            "file":"check.pdf"
+        },
+    {
+        "docId": 1,
+        "id": 5,
+        "name":"Гарантійний талон ",
+        "info":"SSD-накопичувач Samsung Portable SSD T7 500GB USB 3.2 Type-C (MU-PC500R/WW) Red",
+        "file":"garanty_one.pdf"
+    },
+    {
+        "docId": 1,
+        "id": 6,
+        "name":"Гарантійний талон ",
+        "info":"Macbook Air M1 Silver",
+        "file":"garanty_two.pdf"
+    },
+        {
+            "docId": 1,
+            "id": 7,
+            "name":"Чек",
+            "info":"від 07.03.2024",
+            "file":"check.pdf"
+        },
+    {
+        "docId": 1,
+        "id": 8,
+        "name":"Гарантійний талон ",
+        "info":"SSD-накопичувач Samsung Portable SSD T7 500GB USB 3.2 Type-C (MU-PC500R/WW) Red",
+        "file":"garanty_one.pdf"
+    },
+    {
+        "docId": 1,
+        "id": 9,
+        "name":"Гарантійний талон ",
+        "info":"Macbook Air M1 Silver",
+        "file":"garanty_two.pdf"
+    }
+]
