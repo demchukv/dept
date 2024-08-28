@@ -292,7 +292,7 @@ export const SideMenu = () => {
           </Link>
         </CollapsibleContent>
       </Collapsible>
-      <Separator className="my-5" />
+      <Separator className="my-5 lg:hidden" />
       {/* <Link href="/" className={linkClass}>
         <Icon width={24} height={24} iconName="Home" />
         На сайт
@@ -300,7 +300,7 @@ export const SideMenu = () => {
       <Collapsible
         open={isOpen.home}
         onOpenChange={() => setAllIsOpenState('home', !isOpen.home)}
-        className="w-auto"
+        className="w-auto lg:hidden"
       >
         <CollapsibleTrigger className={cn(linkClass, 'justify-between')}>
           <span className="flex items-center gap-2 justify-start">
@@ -321,7 +321,7 @@ export const SideMenu = () => {
         </CollapsibleTrigger>
 
         <CollapsibleContent
-          className={cn(subContentClass, isOpen.home && 'pt-3')}
+          className={cn(subContentClass, isOpen.home && 'pt-3', 'lg:hidden')}
         >
           <Link href="https://dept.ua" target="_blank" className={subLinkClass}>
             Користувачам
@@ -342,7 +342,7 @@ export const SideMenu = () => {
           </Link>
         </CollapsibleContent>
       </Collapsible>
-      <Link href="/docs" className={linkClass}>
+      <Link href="/docs" className={cn(linkClass, 'lg:hidden')}>
         <Icon
           width={24}
           height={24}
@@ -351,7 +351,7 @@ export const SideMenu = () => {
         />
         Інструкції
       </Link>
-      <Link href="/academy" className={linkClass}>
+      <Link href="/academy" className={cn(linkClass, 'lg:hidden')}>
         <Icon
           width={24}
           height={24}
@@ -360,7 +360,7 @@ export const SideMenu = () => {
         />
         Dept академія
       </Link>
-      <Separator className="my-5" />
+      <Separator className="my-5 lg:hidden" />
       {/* <Link href="#" className={linkClass}>
         <Icon
           width={24}
@@ -373,7 +373,7 @@ export const SideMenu = () => {
       <Collapsible
         open={isOpen.lang}
         onOpenChange={() => setAllIsOpenState('lang', !isOpen.lang)}
-        className="w-auto"
+        className="w-auto lg:hidden"
       >
         <CollapsibleTrigger className={cn(linkClass, 'justify-between')}>
           <span className="flex items-center gap-2 justify-start">

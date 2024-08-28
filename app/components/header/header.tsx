@@ -17,7 +17,7 @@ export const Header = () => {
   const newAlert = true;
 
   return (
-    <header className="sticky top-0 w-full bg-white py-3 md:border-b md:border-gray-light">
+    <header className="w-full bg-white py-3 md:border-b md:border-gray-light">
       <div className="f-full px-2 xs:px-4 lg:px-6 flex gap-1 xs:gap-2 sm:gap-10 md:gap-14 lg:gap-32 items-center justify-between">
         <div className="flex gap-3 items-center flex-shrink-0 ml-0 xs:ml-2 lg:ml-9">
           <Sidebar />

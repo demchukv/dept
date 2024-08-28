@@ -10,8 +10,11 @@ export interface TabsProps {
 }
 export const TabsLeft = ({ data }: TabsProps) => {
   return (
-    <Tabs defaultValue="tab1" className="w-full">
-      <TabsList>
+    <Tabs
+      defaultValue="tab1"
+      className="w-full grid md:grid-rows-[minmax(0,72px)_auto] lg:grid-rows-[minmax(0,52px)_auto]"
+    >
+      <TabsList className="justify-start">
         <TabsTrigger
           value="tab1"
           className="after:pl-5 after:border-r after:border-gray-light after:h-[40px] after:last:border-r-0"

@@ -12,8 +12,11 @@ interface TabsProps {
 }
 export const TabsRight = ({ data }: TabsProps) => {
   return (
-    <Tabs defaultValue="tab1" className="w-full">
-      <TabsList>
+    <Tabs
+      defaultValue="tab1"
+      className="w-full grid md:grid-rows-[minmax(0,72px)_auto] lg:grid-rows-[minmax(0,52px)_auto]"
+    >
+      <TabsList className="justify-start">
         <TabsTrigger value="tab1">Підписки</TabsTrigger>
         <TabsTrigger value="tab2">Сервери</TabsTrigger>
         <TabsTrigger value="tab3">Домени</TabsTrigger>

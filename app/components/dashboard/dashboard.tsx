@@ -26,7 +26,7 @@ export const Dashboard = async () => {
         <TabsRight data={data} />
       </div>
 
-      <div className="flex flex-col gap-4 md:hidden">
+      <div className="flex flex-col gap-4 md:hidden lg:hidden">
         <TabsAll data={data} />
       </div>
     </div>
