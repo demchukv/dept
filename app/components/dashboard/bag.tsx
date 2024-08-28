@@ -150,7 +150,7 @@ export const Bag = ({ bag }: BagProps) => {
       </Link>
 
       <Modal open={open} onOpenChange={() => onClose(false, undefined)}>
-        <ModalContent>
+        <ModalContent className="grid grid-cols-1 gap-6">
           <ListOfDocs docId={id} onClose={onClose} />
         </ModalContent>
       </Modal>

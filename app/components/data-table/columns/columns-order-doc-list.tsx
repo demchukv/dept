@@ -2,7 +2,8 @@
 
 import { ColumnDef, RowData } from '@tanstack/react-table';
 import { orderDocType } from '@/types/orders';
-import { Button } from '@/components/ui/button';
+import { Icon } from '@/components/utils/icon';
+import Link from 'next/link';
 
 declare module '@tanstack/react-table' {
   interface ColumnMeta<TData extends RowData, TValue> {
@@ -24,5 +25,18 @@ export const columns: ColumnDef<orderDocType>[] = [
   {
     accessorKey: 'file',
     header: '',
+    cell: ({ getValue }) => {
+      const file = getValue<string>();
+      return (
+        <Link href={file} download={file}>
+          <Icon
+            width={24}
+            height={24}
+            iconName="Document"
+            className="fill-main-color hover:fill-main-dark"
+          />
+        </Link>
+      );
+    },
   },
 ];

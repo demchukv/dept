@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   ModalDescription,
   ModalFooter,
@@ -10,13 +10,7 @@ import {
 import { ModalLoading } from '@/app/components/common/modal-loading';
 
 import { columns } from '@/app/components/data-table/columns/columns-order-doc-list';
-import {
-  DataTable,
-  PaginationState,
-} from '@/app/components/data-table/data-table';
-import { ColumnFiltersState, SortingState } from '@tanstack/react-table';
-// import { getJson } from '@/data/get-json';
-import { orderDocType } from '@/types/orders';
+import { DataTable } from '@/app/components/data-table/data-table';
 import useSWR from 'swr';
 
 interface ListOfDocsProps {
@@ -55,7 +49,6 @@ export const ListOfDocs = ({ docId, onClose }: ListOfDocsProps) => {
         pagination={initPagination}
         isPending={!data}
       />
-
       <ModalFooter className="hidden"></ModalFooter>
     </>
   );

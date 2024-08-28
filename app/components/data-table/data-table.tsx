@@ -12,6 +12,7 @@ import {
 import {
   Table,
   TableBody,
+  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -79,7 +80,7 @@ export function DataTable<TData, TValue>({
   return (
     <div className="max-h-full">
       <div className="max-h-full">
-        <div className="rounded-md border">
+        <div className="rounded-[6px] border border-gray-light overflow-hidden">
           <Table>
             <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (
@@ -144,7 +145,7 @@ export function DataTable<TData, TValue>({
           </Table>
         </div>
       </div>
-      <div className="flex items-center justify-center space-x-2 py-4">
+      <div className="flex items-center justify-between gap-2 py-4">
         <Select
           value={table.getState().pagination.pageSize.toString()}
           onValueChange={(selectedValue) => {
@@ -162,47 +163,48 @@ export function DataTable<TData, TValue>({
             ))}
           </SelectContent>
         </Select>
-
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => {
-            table.firstPage();
-          }}
-          disabled={!table.getCanPreviousPage()}
-        >
-          {'<<'}
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => {
-            table.previousPage();
-          }}
-          disabled={!table.getCanPreviousPage()}
-        >
-          {'<'}
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => {
-            table.nextPage();
-          }}
-          disabled={!table.getCanNextPage()}
-        >
-          {'>'}
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => {
-            table.lastPage();
-          }}
-          disabled={!table.getCanNextPage()}
-        >
-          {'>>'}
-        </Button>
+        <div>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              table.firstPage();
+            }}
+            disabled={!table.getCanPreviousPage()}
+          >
+            {'<<'}
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              table.previousPage();
+            }}
+            disabled={!table.getCanPreviousPage()}
+          >
+            {'<'}
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              table.nextPage();
+            }}
+            disabled={!table.getCanNextPage()}
+          >
+            {'>'}
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              table.lastPage();
+            }}
+            disabled={!table.getCanNextPage()}
+          >
+            {'>>'}
+          </Button>
+        </div>
       </div>
     </div>
   );
