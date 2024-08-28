@@ -12,7 +12,6 @@ import {
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -25,9 +24,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-
-import { Filter } from '@/app/components/data-table/table-filters';
+} from '@/components/ui/select-tab';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -156,7 +153,9 @@ export function DataTable<TData, TValue>({
             <SelectValue placeholder="Page size" />
           </SelectTrigger>
           <SelectContent>
-            {[1, 2, 4, 6, 8, 10, 20, 30, 40, 50, 100].map((pageSize) => (
+            {[
+              1, 2, 4, 5, 8, 10, 20, 30, 40, 50, 100
+            ].map((pageSize) => (
               <SelectItem key={pageSize} value={pageSize.toString()}>
                 {pageSize}
               </SelectItem>
