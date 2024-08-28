@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import { bagType } from '@/types/account';
 import { format } from 'date-fns';
@@ -6,12 +7,32 @@ import { Icon } from '@/components/utils/icon';
 import Link from 'next/link';
 import { Separator } from '@/components/ui/separator';
 import { TooltipShow } from '@/app/components/common/tooltip-show';
+import {
+  Modal,
+  ModalContent,
+  ModalDescription,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+} from '@/app/components/common/modal';
+import { ListOfDocs } from '@/app/components/bag/list-of-docs';
+import { Button } from '@/components/ui/button';
+
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 interface BagProps {
   bag: bagType[];
 }
 export const Bag = ({ bag }: BagProps) => {
-  console.log(bag);
+  const [open, setOpen] = React.useState(false);
+  const [id, setId] = React.useState<number | null>(null);
+
+  const onClose = (state: boolean, e: React.MouseEvent | undefined) => {
+    if (e) e.preventDefault();
+    setOpen(state);
+  };
+
   return (
     <>
       <p className="hidden md:block lg:hidden font-semibold text-base leading-normal text-main-dark">
@@ -19,49 +40,11 @@ export const Bag = ({ bag }: BagProps) => {
       </p>
       <Separator className="lg:hidden mt-4 mb-2.5 border-gray-light" />
 
-      {/* <div className="grid grid-cols-1 gap-5">
-        {bag.map((item: any) => (
-          <div
-            key={item.id}
-            className="grid grid-flow-col grid-cols-[20%_20%_auto_5%_20%] items-center justify-between"
-          >
-            <div className="font-normal text-sm text-main-dark leading-[1.14]">
-              {format(item.date, 'dd.MM.yyyy')}
-            </div>
-            <div className="font-medium text-sm text-main-dark leading-[1.14]">
-              № {item.number}
-            </div>
-            <div
-              className={cn(
-                'font-medium text-sm leading-[1.14]',
-                item.state === 'Виконано'
-                  ? 'text-green-additional-color'
-                  : 'text-attention',
-              )}
-            >
-              {item.state}
-            </div>
-            <div className="font-medium text-sm leading-[1.14] text-right justify-self-end">
-              <Link href="#" className="group">
-                <Icon
-                  iconName="Doc"
-                  width={16}
-                  height={16}
-                  className="fill-main-color group-hover:fill-main-dark transition-all"
-                />
-              </Link>
-            </div>
-            <div className="font-semibold text-sm text-main-dark leading-[1.14] justify-self-end">
-              {item.amount.toFixed(2)} грн
-            </div>
-          </div>
-        ))}
-      </div> */}
       <table className="table-auto w-full border-collapse">
         <tbody>
           {bag.map((item: bagType) => (
-            <>
-              <tr key={item.id} className="hidden lg:table-row">
+            <React.Fragment key={item.id}>
+              <tr key={'${item.id}-d'} className="hidden lg:table-row">
                 <td className="font-normal text-sm text-main-dark leading-main-lh pb-5">
                   {format(item.date, 'dd.MM.yyyy')}
                 </td>
@@ -83,7 +66,14 @@ export const Bag = ({ bag }: BagProps) => {
                     content={<p>Документи до замовлення</p>}
                     className="max-w-[160px] text-center"
                   >
-                    <Link href="#" className="group">
+                    <Link
+                      href="#"
+                      onClick={(e) => {
+                        setId(item.id);
+                        onClose(true, e);
+                      }}
+                      className="group"
+                    >
                       <Icon
                         iconName="Doc"
                         width={16}
@@ -129,7 +119,14 @@ export const Bag = ({ bag }: BagProps) => {
                     content={<p>Документи до замовлення</p>}
                     className="max-w-[160px] text-center"
                   >
-                    <Link href="#" className="group">
+                    <Link
+                      href="#"
+                      onClick={(e) => {
+                        setId(item.id);
+                        onClose(true, e);
+                      }}
+                      className="group"
+                    >
                       <Icon
                         iconName="Doc"
                         width={24}
@@ -140,7 +137,7 @@ export const Bag = ({ bag }: BagProps) => {
                   </TooltipShow>
                 </td>
               </tr>
-            </>
+            </React.Fragment>
           ))}
         </tbody>
       </table>
@@ -151,6 +148,45 @@ export const Bag = ({ bag }: BagProps) => {
       >
         Показати всі
       </Link>
+
+      <Button type="button" onClick={(e) => onClose(true, e)} className="mt-4">
+        Open Modal
+      </Button>
+
+      <Modal open={open} onOpenChange={() => onClose(false, undefined)}>
+        <ModalContent>
+          <ModalHeader>
+            <ModalTitle>Edit profile</ModalTitle>
+            <ModalDescription>
+              Make changes to your profile here. Click save when done.
+            </ModalDescription>
+          </ModalHeader>
+          <div className="grid gap-4 py-4">
+            <ListOfDocs docId={id} />
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="name" className="text-right">
+                Name
+              </Label>
+              <Input id="name" className="col-span-3" />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="username" className="text-right">
+                Username
+              </Label>
+              <Input id="username" className="col-span-3" />
+            </div>
+            <p className="py-2">
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et
+              dolores voluptate impedit eaque neque sed est provident corrupti
+              accusantium mollitia alias quasi praesentium laborum, eligendi
+              nam, minima dolore error consequuntur?
+            </p>
+          </div>
+          <ModalFooter>
+            <Button type="submit">Save changes</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   );
 };

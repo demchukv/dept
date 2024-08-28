@@ -26,6 +26,7 @@ export const Sidebar = () => {
             title="Open menu"
             className="w-6 h-6"
             aria-haspopup="menu"
+            asChild
           >
             <Icon
               width={24}
