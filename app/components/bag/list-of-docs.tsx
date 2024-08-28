@@ -34,7 +34,7 @@ export const ListOfDocs = ({ docId, onClose }: ListOfDocsProps) => {
   };
 
   return (
-    <>
+    <div className="grid grid-cols-1 justify-center gap-6">
       <ModalHeader>
         <ModalTitle className="font-semibold text-base leading-normal text-main-dark text-center">
           Документи по замовленню{' '}
@@ -50,6 +50,6 @@ export const ListOfDocs = ({ docId, onClose }: ListOfDocsProps) => {
         isPending={!data}
       />
       <ModalFooter className="hidden"></ModalFooter>
-    </>
+    </div>
   );
 };

@@ -12,7 +12,9 @@ import {
 import {
   Table,
   TableBody,
+  TableCaption,
   TableCell,
+  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -139,70 +141,80 @@ export function DataTable<TData, TValue>({
                 </>
               )}
             </TableBody>
+            <TableCaption>
+              <div className="w-full flex items-center justify-between gap-1 xs:gap-2 py-4">
+                <div className="flex gap-1 xs:gap-2 items-center">
+                  <div className="text-main-dark font-normal text-sm hidden sm:block">
+                    Показувати по
+                  </div>
+                  <Select
+                    value={table.getState().pagination.pageSize.toString()}
+                    onValueChange={(selectedValue) => {
+                      table.setPageSize(Number(selectedValue));
+                    }}
+                  >
+                    <SelectTrigger className="w-auto">
+                      <SelectValue placeholder="Page size" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {[1, 2, 4, 5, 8, 10, 20, 30, 40, 50, 100].map(
+                        (pageSize) => (
+                          <SelectItem
+                            key={pageSize}
+                            value={pageSize.toString()}
+                          >
+                            {pageSize}
+                          </SelectItem>
+                        ),
+                      )}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="flex gap-1 xs:gap-2">
+                  <Button
+                    variant="default"
+                    size="sm"
+                    onClick={() => {
+                      table.firstPage();
+                    }}
+                    disabled={!table.getCanPreviousPage()}
+                  >
+                    {'<<'}
+                  </Button>
+                  <Button
+                    variant="default"
+                    size="sm"
+                    onClick={() => {
+                      table.previousPage();
+                    }}
+                    disabled={!table.getCanPreviousPage()}
+                  >
+                    {'<'}
+                  </Button>
+                  <Button
+                    variant="default"
+                    size="sm"
+                    onClick={() => {
+                      table.nextPage();
+                    }}
+                    disabled={!table.getCanNextPage()}
+                  >
+                    {'>'}
+                  </Button>
+                  <Button
+                    variant="default"
+                    size="sm"
+                    onClick={() => {
+                      table.lastPage();
+                    }}
+                    disabled={!table.getCanNextPage()}
+                  >
+                    {'>>'}
+                  </Button>
+                </div>
+              </div>
+            </TableCaption>
           </Table>
-        </div>
-      </div>
-      <div className="flex items-center justify-between gap-2 py-4">
-        <Select
-          value={table.getState().pagination.pageSize.toString()}
-          onValueChange={(selectedValue) => {
-            table.setPageSize(Number(selectedValue));
-          }}
-        >
-          <SelectTrigger className="w-[80px]">
-            <SelectValue placeholder="Page size" />
-          </SelectTrigger>
-          <SelectContent>
-            {[
-              1, 2, 4, 5, 8, 10, 20, 30, 40, 50, 100
-            ].map((pageSize) => (
-              <SelectItem key={pageSize} value={pageSize.toString()}>
-                {pageSize}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        <div>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => {
-              table.firstPage();
-            }}
-            disabled={!table.getCanPreviousPage()}
-          >
-            {'<<'}
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => {
-              table.previousPage();
-            }}
-            disabled={!table.getCanPreviousPage()}
-          >
-            {'<'}
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => {
-              table.nextPage();
-            }}
-            disabled={!table.getCanNextPage()}
-          >
-            {'>'}
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => {
-              table.lastPage();
-            }}
-            disabled={!table.getCanNextPage()}
-          >
-            {'>>'}
-          </Button>
         </div>
       </div>
     </div>
