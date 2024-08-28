@@ -23,7 +23,7 @@ const buttonVariants = cva(
         hidden: 'focus-visible:outline-none',
         pagination: 'font-medium text-sm text-main-dark leading-main-lh',
         paginationActive:
-          'font-medium text-sm text-white leading-main-lh bg-main-color',
+          'font-medium text-sm text-white leading-main-lh bg-main-color cursor-default',
       },
       size: {
         default: '' /*padding: 12px 20px 13px 20px;*/,

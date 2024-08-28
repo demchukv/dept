@@ -18,7 +18,12 @@ export const TablePagination = ({
   for (let i = 0; i < pagination.length; i++) {
     if (pagination[i] === '...') {
       const pageBtn = (
-        <Button key={i} variant={'pagination'} size="sm">
+        <Button
+          key={i}
+          variant={'pagination'}
+          size="sm"
+          className="cursor-default"
+        >
           {'...'}
         </Button>
       );
