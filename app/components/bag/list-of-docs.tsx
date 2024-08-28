@@ -8,6 +8,13 @@ import {
   ModalTitle,
 } from '@/app/components/common/modal';
 import { ModalLoading } from '@/app/components/common/modal-loading';
+
+import { columns } from '@/app/components/data-table/columns/columns-order-doc-list';
+import {
+  DataTable,
+  PaginationState,
+} from '@/app/components/data-table/data-table';
+import { ColumnFiltersState, SortingState } from '@tanstack/react-table';
 // import { getJson } from '@/data/get-json';
 import { orderDocType } from '@/types/orders';
 import useSWR from 'swr';
@@ -27,6 +34,11 @@ export const ListOfDocs = ({ docId, onClose }: ListOfDocsProps) => {
   if (error) return <ModalLoading type="error">Failed to load</ModalLoading>;
   if (!data) return <ModalLoading type="loading">Loading...</ModalLoading>;
 
+  const initPagination = {
+    pageIndex: 0,
+    pageSize: 4,
+  };
+
   return (
     <>
       <ModalHeader>
@@ -36,23 +48,14 @@ export const ListOfDocs = ({ docId, onClose }: ListOfDocsProps) => {
         </ModalTitle>
         <ModalDescription className="hidden"></ModalDescription>
       </ModalHeader>
-      <div>
-        <div className="grid grid-cols-1">
-          <div key="headrow" className="grid grid-cols-3 py-1">
-            <div>Назва документу</div>
-            <div>Деталі</div>
-            <div></div>
-          </div>
-          {data.map((doc: orderDocType) => (
-            <div key={doc.id} className="grid grid-cols-3 py-1">
-              <div>{doc.name}</div>
-              <div>{doc.info}</div>
-              <div>{doc.file}</div>
-            </div>
-          ))}
-        </div>
-        <div>ID: {docId}</div>
-      </div>
+      <DataTable
+        columns={columns}
+        data={data}
+        rowCount={data.length}
+        pagination={initPagination}
+        isPending={!data}
+      />
+
       <ModalFooter className="hidden"></ModalFooter>
     </>
   );
