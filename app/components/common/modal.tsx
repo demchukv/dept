@@ -38,9 +38,9 @@ const ModalContent = React.forwardRef<
       <DialogPrimitive.Content
         ref={ref}
         className={cn(
-          'fixed max-h-full h-full sm:max-h-[calc(100%-1rem)] md:max-h-[calc(100%-2rem)] lg:max-h-[calc(100%-3rem)] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2',
+          'fixed h-full sm:h-auto max-h-full sm:max-h-[calc(100%-1rem)] md:max-h-[calc(100%-2rem)] lg:max-h-[calc(100%-3rem)] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2',
           'overflow-y-auto max-h-screen',
-          ' z-50 grid w-full min-w-[319px] max-w-[616px] gap-4 border-none rounded-[6px] bg-white p-9 shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)]',
+          'z-50 grid grid-cols-1 gap-4 items-start w-full min-w-[319px] max-w-[616px] border-none rounded-[6px] bg-white p-9 shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)]',
           'duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]',
           className,
         )}
@@ -63,7 +63,7 @@ const ModalHeader = ({
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
     className={cn(
-      'flex flex-col space-y-1.5 text-center sm:text-left',
+      'flex flex-col space-y-1 text-center sm:text-left',
       className,
     )}
     {...props}
@@ -75,13 +75,7 @@ const ModalFooter = ({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div
-    className={cn(
-      'flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2',
-      className,
-    )}
-    {...props}
-  />
+  <div className={cn('flex gap-2', className)} {...props} />
 );
 ModalFooter.displayName = 'ModalFooter';
 

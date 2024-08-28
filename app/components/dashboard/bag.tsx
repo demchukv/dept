@@ -161,7 +161,7 @@ export const Bag = ({ bag }: BagProps) => {
               Make changes to your profile here. Click save when done.
             </ModalDescription>
           </ModalHeader>
-          <div className="grid gap-4 py-4">
+          <div>
             <ListOfDocs docId={id} />
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="name" className="text-right">
@@ -183,7 +183,9 @@ export const Bag = ({ bag }: BagProps) => {
             </p>
           </div>
           <ModalFooter>
-            <Button type="submit">Save changes</Button>
+            <Button variant={'outline'} type="submit">
+              Save changes
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
