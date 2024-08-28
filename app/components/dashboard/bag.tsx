@@ -149,44 +149,9 @@ export const Bag = ({ bag }: BagProps) => {
         Показати всі
       </Link>
 
-      <Button type="button" onClick={(e) => onClose(true, e)} className="mt-4">
-        Open Modal
-      </Button>
-
       <Modal open={open} onOpenChange={() => onClose(false, undefined)}>
         <ModalContent>
-          <ModalHeader>
-            <ModalTitle>Edit profile</ModalTitle>
-            <ModalDescription>
-              Make changes to your profile here. Click save when done.
-            </ModalDescription>
-          </ModalHeader>
-          <div>
-            <ListOfDocs docId={id} />
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="name" className="text-right">
-                Name
-              </Label>
-              <Input id="name" className="col-span-3" />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="username" className="text-right">
-                Username
-              </Label>
-              <Input id="username" className="col-span-3" />
-            </div>
-            <p className="py-2">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et
-              dolores voluptate impedit eaque neque sed est provident corrupti
-              accusantium mollitia alias quasi praesentium laborum, eligendi
-              nam, minima dolore error consequuntur?
-            </p>
-          </div>
-          <ModalFooter>
-            <Button variant={'outline'} type="submit">
-              Save changes
-            </Button>
-          </ModalFooter>
+          <ListOfDocs docId={id} />
         </ModalContent>
       </Modal>
     </>
