@@ -27,6 +27,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select-tab';
+import { TablePagination } from '@/app/components/data-table/table-pagination';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -170,7 +171,7 @@ export function DataTable<TData, TValue>({
                     </SelectContent>
                   </Select>
                 </div>
-                <div className="flex gap-1 xs:gap-2">
+                {/* <div className="flex gap-1 xs:gap-2">
                   <Button
                     variant="default"
                     size="sm"
@@ -201,6 +202,7 @@ export function DataTable<TData, TValue>({
                   >
                     {'>'}
                   </Button>
+
                   <Button
                     variant="default"
                     size="sm"
@@ -211,7 +213,11 @@ export function DataTable<TData, TValue>({
                   >
                     {'>>'}
                   </Button>
-                </div>
+                </div> */}
+                <TablePagination
+                  table={table}
+                  currentPage={pagination.pageIndex}
+                />
               </div>
             </TableCaption>
           </Table>

@@ -21,6 +21,9 @@ const buttonVariants = cva(
           'hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-50',
         link: 'text-slate-900 underline-offset-4 hover:underline dark:text-slate-50',
         hidden: 'focus-visible:outline-none',
+        pagination: 'font-medium text-sm text-main-dark leading-main-lh',
+        paginationActive:
+          'font-medium text-sm text-white leading-main-lh bg-main-color',
       },
       size: {
         default: '' /*padding: 12px 20px 13px 20px;*/,
@@ -28,6 +31,7 @@ const buttonVariants = cva(
         md: 'pt-[11px] pb-3 px-5 text-xs',
         lg: 'pt-[15px] pb-4 px-6',
         icon: 'h-10 w-10',
+        pagination: 'h-6 w-6',
       },
     },
     defaultVariants: {
