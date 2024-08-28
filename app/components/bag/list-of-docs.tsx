@@ -38,7 +38,9 @@ export const ListOfDocs = ({ docId, onClose }: ListOfDocsProps) => {
       <ModalHeader>
         <ModalTitle className="font-semibold text-base leading-normal text-main-dark text-center">
           Документи по замовленню{' '}
-          <span className="text-main-color">№ 45 715 811</span>
+          <span className="text-main-color whitespace-nowrap">
+            № 45 715 811
+          </span>
         </ModalTitle>
         <ModalDescription className="hidden"></ModalDescription>
       </ModalHeader>
