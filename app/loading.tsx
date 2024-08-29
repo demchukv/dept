@@ -1,6 +1,6 @@
 export default function Loading() {
   return (
-    <div className="fixed inset-0 grid place-items-center">
+    <div className="w-screen h-screen grid place-items-center">
       <div className="loader"></div>
     </div>
   );

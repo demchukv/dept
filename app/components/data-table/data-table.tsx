@@ -19,7 +19,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Button } from '@/components/ui/button';
 import {
   Select,
   SelectContent,
@@ -104,8 +103,12 @@ export function DataTable<TData, TValue>({
             </TableHeader>
             <TableBody className="max-h-full overflow-y-auto">
               {isPending ? (
-                <TableRow>
-                  <TableCell colSpan={columns.length} className="h-24 ">
+                <TableRow key={'row-loading'}>
+                  <TableCell
+                    colSpan={columns.length}
+                    className="h-24 "
+                    key={'cell-loading'}
+                  >
                     <div className="flex items-center justify-center w-full gap-4">
                       <span>Loading data ...</span>
                     </div>
@@ -130,8 +133,9 @@ export function DataTable<TData, TValue>({
                       </TableRow>
                     ))
                   ) : (
-                    <TableRow>
+                    <TableRow key={'row-empty'}>
                       <TableCell
+                        key={'cell-empty'}
                         colSpan={columns.length}
                         className="h-24 text-center"
                       >

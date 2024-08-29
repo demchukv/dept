@@ -4,16 +4,16 @@ import { Aside } from '@/app/components/sidebar/aside';
 interface LayoutProps {
   children: React.ReactNode;
 }
-export default function ProtectedLayout({ children }: LayoutProps) {
+export default async function ProtectedLayout({ children }: LayoutProps) {
   return (
     <>
       <Header />
-      <div className="flex-grow  flex flex-row-reverse justify-between">
-        <main className="flex-grow px-4 py-6 sm:py-5 lg:px-[30px] lg:py-6">
-          {children}
-        </main>
-        <Aside />
-      </div>
+
+      <main className="flex-grow px-4 py-6 sm:py-5 lg:px-[30px] lg:py-6 lg:ml-[234px] mt-[63px] md:mt-[69px] ">
+        {children}
+      </main>
+
+      <Aside />
     </>
   );
 }

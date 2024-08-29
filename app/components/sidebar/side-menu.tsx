@@ -40,6 +40,7 @@ export const SideMenu = () => {
       <Link
         href="/"
         className={cn(linkClass, path === '/' && 'text-main-color')}
+        scroll={false}
       >
         <Icon
           width={24}
@@ -52,6 +53,7 @@ export const SideMenu = () => {
       <Link
         href="/balance"
         className={cn(linkClass, path === '/balance' && 'text-main-color')}
+        scroll={false}
       >
         <Icon
           width={24}
@@ -64,6 +66,7 @@ export const SideMenu = () => {
       <Link
         href="/profile"
         className={cn(linkClass, path === '/profile' && 'text-main-color')}
+        scroll={false}
       >
         <Icon
           width={24}
@@ -76,6 +79,7 @@ export const SideMenu = () => {
       <Link
         href="/bag"
         className={cn(linkClass, path === '/bag' && 'text-main-color')}
+        scroll={false}
       >
         <Icon width={24} height={24} iconName="Bag" className="flex-shrink-0" />
         Покупки
@@ -83,6 +87,7 @@ export const SideMenu = () => {
       <Link
         href="/task"
         className={cn(linkClass, path === '/task' && 'text-main-color')}
+        scroll={false}
       >
         <Icon
           width={24}
@@ -95,6 +100,7 @@ export const SideMenu = () => {
       <Link
         href="/repair"
         className={cn(linkClass, path === '/repair' && 'text-main-color')}
+        scroll={false}
       >
         <Icon
           width={24}
@@ -104,10 +110,7 @@ export const SideMenu = () => {
         />
         Ремонт техніки
       </Link>
-      {/* <Link href="/product" className={linkClass}>
-        <Icon width={24} height={24} iconName="Product" />
-        Мої продукти
-      </Link> */}
+
       <Collapsible
         open={isOpen.product}
         onOpenChange={() => setAllIsOpenState('product', !isOpen.product)}
@@ -134,24 +137,21 @@ export const SideMenu = () => {
         <CollapsibleContent
           className={cn(subContentClass, isOpen.product && 'pt-3')}
         >
-          <Link href="/subscription" className={subLinkClass}>
+          <Link href="/subscription" className={subLinkClass} scroll={false}>
             Підписки
           </Link>
-          <Link href="/server" className={subLinkClass}>
+          <Link href="/server" className={subLinkClass} scroll={false}>
             Сервери і хостинг
           </Link>
-          <Link href="/domain" className={subLinkClass}>
+          <Link href="/domain" className={subLinkClass} scroll={false}>
             Домени
           </Link>
-          <Link href="/certificate" className={subLinkClass}>
+          <Link href="/certificate" className={subLinkClass} scroll={false}>
             Сертифікати
           </Link>
         </CollapsibleContent>
       </Collapsible>
-      {/* <Link href="/call" className={linkClass}>
-        <Icon width={24} height={24} iconName="Call" />
-        Телефонія
-      </Link> */}
+
       <Collapsible
         open={isOpen.call}
         onOpenChange={() => setAllIsOpenState('call', !isOpen.call)}
@@ -178,16 +178,16 @@ export const SideMenu = () => {
         <CollapsibleContent
           className={cn(subContentClass, isOpen.call && 'pt-3')}
         >
-          <Link href="/my-numbers" className={subLinkClass}>
+          <Link href="/my-numbers" className={subLinkClass} scroll={false}>
             Мої номери
           </Link>
-          <Link href="/scenario" className={subLinkClass}>
+          <Link href="/scenario" className={subLinkClass} scroll={false}>
             Сценарії
           </Link>
-          <Link href="/my-group" className={subLinkClass}>
+          <Link href="/my-group" className={subLinkClass} scroll={false}>
             Групи
           </Link>
-          <Link href="/internal-lines" className={subLinkClass}>
+          <Link href="/internal-lines" className={subLinkClass} scroll={false}>
             Внутрішні лінії
           </Link>
         </CollapsibleContent>
@@ -195,6 +195,7 @@ export const SideMenu = () => {
       <Link
         href="/electronic"
         className={cn(linkClass, path === '/electronic' && 'text-main-color')}
+        scroll={false}
       >
         <Icon
           width={24}
@@ -204,10 +205,7 @@ export const SideMenu = () => {
         />
         Техніка та девайси
       </Link>
-      {/* <Link href="/call" className={linkClass}>
-        <Icon width={24} height={24} iconName="Mail" />
-        Корпоративна пошта
-      </Link> */}
+
       <Collapsible
         open={isOpen.mail}
         onOpenChange={() => setAllIsOpenState('mail', !isOpen.mail)}
@@ -234,24 +232,21 @@ export const SideMenu = () => {
         <CollapsibleContent
           className={cn(subContentClass, isOpen.mail && 'pt-3')}
         >
-          <Link href="/my-numbers" className={subLinkClass}>
+          <Link href="/my-numbers" className={subLinkClass} scroll={false}>
             Акаунти
           </Link>
-          <Link href="/scenario" className={subLinkClass}>
+          <Link href="/scenario" className={subLinkClass} scroll={false}>
             Домени
           </Link>
-          <Link href="/my-group" className={subLinkClass}>
+          <Link href="/my-group" className={subLinkClass} scroll={false}>
             Групи
           </Link>
-          <Link href="/internal-lines" className={subLinkClass}>
+          <Link href="/internal-lines" className={subLinkClass} scroll={false}>
             Внутрішні лінії
           </Link>
         </CollapsibleContent>
       </Collapsible>
-      {/* <Link href="/call" className={linkClass}>
-        <Icon width={24} height={24} iconName="Settings" />
-        Налаштування
-      </Link> */}
+
       <Collapsible
         open={isOpen.setting}
         onOpenChange={() => setAllIsOpenState('setting', !isOpen.setting)}
@@ -278,25 +273,22 @@ export const SideMenu = () => {
         <CollapsibleContent
           className={cn(subContentClass, isOpen.setting && 'pt-3')}
         >
-          <Link href="/my-numbers" className={subLinkClass}>
+          <Link href="/my-numbers" className={subLinkClass} scroll={false}>
             Співробітники
           </Link>
-          <Link href="/scenario" className={subLinkClass}>
+          <Link href="/scenario" className={subLinkClass} scroll={false}>
             Відділи
           </Link>
-          <Link href="/my-group" className={subLinkClass}>
+          <Link href="/my-group" className={subLinkClass} scroll={false}>
             Інтеграції
           </Link>
-          <Link href="/internal-lines" className={subLinkClass}>
+          <Link href="/internal-lines" className={subLinkClass} scroll={false}>
             Ролі
           </Link>
         </CollapsibleContent>
       </Collapsible>
       <Separator className="my-5 lg:hidden" />
-      {/* <Link href="/" className={linkClass}>
-        <Icon width={24} height={24} iconName="Home" />
-        На сайт
-      </Link> */}
+
       <Collapsible
         open={isOpen.home}
         onOpenChange={() => setAllIsOpenState('home', !isOpen.home)}
@@ -323,13 +315,19 @@ export const SideMenu = () => {
         <CollapsibleContent
           className={cn(subContentClass, isOpen.home && 'pt-3', 'lg:hidden')}
         >
-          <Link href="https://dept.ua" target="_blank" className={subLinkClass}>
+          <Link
+            href="https://dept.ua"
+            target="_blank"
+            className={subLinkClass}
+            scroll={false}
+          >
             Користувачам
           </Link>
           <Link
             href="https://dept.ua/business/"
             target="_blank"
             className={subLinkClass}
+            scroll={false}
           >
             Бізнесу
           </Link>
@@ -337,12 +335,13 @@ export const SideMenu = () => {
             href="https://dept.ua/shop/"
             target="_blank"
             className={subLinkClass}
+            scroll={false}
           >
             Магазин
           </Link>
         </CollapsibleContent>
       </Collapsible>
-      <Link href="/docs" className={cn(linkClass, 'lg:hidden')}>
+      <Link href="/docs" className={cn(linkClass, 'lg:hidden')} scroll={false}>
         <Icon
           width={24}
           height={24}
@@ -351,7 +350,11 @@ export const SideMenu = () => {
         />
         Інструкції
       </Link>
-      <Link href="/academy" className={cn(linkClass, 'lg:hidden')}>
+      <Link
+        href="/academy"
+        className={cn(linkClass, 'lg:hidden')}
+        scroll={false}
+      >
         <Icon
           width={24}
           height={24}
@@ -361,15 +364,7 @@ export const SideMenu = () => {
         Dept академія
       </Link>
       <Separator className="my-5 lg:hidden" />
-      {/* <Link href="#" className={linkClass}>
-        <Icon
-          width={24}
-          height={24}
-          iconName="Globe"
-          className="flex-shrink-0"
-        />
-        Мова
-      </Link> */}
+
       <Collapsible
         open={isOpen.lang}
         onOpenChange={() => setAllIsOpenState('lang', !isOpen.lang)}
@@ -396,7 +391,7 @@ export const SideMenu = () => {
         <CollapsibleContent
           className={cn(subContentClass, isOpen.lang && 'pt-3')}
         >
-          <Link href="#" className={subLinkClass}>
+          <Link href="#" className={subLinkClass} scroll={false}>
             EN
           </Link>
         </CollapsibleContent>
