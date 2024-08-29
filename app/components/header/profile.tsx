@@ -26,7 +26,10 @@ export const Profile = () => {
     <>
       <div className="group flex lg:gap-2 items-center">
         <DropdownMenu>
-          <DropdownMenuTrigger className="group flex lg:gap-2 items-center outline-none">
+          <DropdownMenuTrigger
+            className="group flex lg:gap-2 items-center outline-none"
+            title="Profile menu"
+          >
             <>
               {accoutType === 'company' ? (
                 <Icon
