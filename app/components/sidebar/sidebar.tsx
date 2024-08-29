@@ -19,7 +19,7 @@ export const Sidebar = () => {
   return (
     <div className="lg:hidden">
       <Sheet>
-        <SheetTrigger asChild title="Open side menu" aria-haspopup="menu">
+        <SheetTrigger title="Open side menu" aria-haspopup="menu">
           <Icon
             width={24}
             height={24}
