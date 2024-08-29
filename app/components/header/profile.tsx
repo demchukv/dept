@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import accountData from '@/data/account.json';
 import { accoutTypeT } from '@/types/account';
 import { Icon } from '@/components/utils/icon';
+import { cn } from '@/lib/utils';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -78,15 +79,29 @@ export const Profile = () => {
                 return (
                   <DropdownMenuItem
                     key={item.id}
-                    className="group py-2.5 px-4 flex-col gap-1 justify-start items-start cursor-pointer focus:bg-none bg-none"
+                    className="group py-2.5 px-4 flex-col gap-1 justify-start items-start cursor-pointer"
                     onSelect={() => {
                       setAccount(item as accoutTypeT);
                     }}
                   >
-                    <div className="w-[228px] font-semibold text-sm text-main-dark group-hover:text-main-color transition-colors leading-main-lh truncate overflow-hidden">
+                    <div
+                      className={cn(
+                        'w-[228px] font-semibold text-sm text-main-dark transition-colors leading-main-lh truncate overflow-hidden',
+                        item.account === 'company'
+                          ? 'group-hover:text-main-blue'
+                          : 'group-hover:text-main-green',
+                      )}
+                    >
                       {item.name}
                     </div>
-                    <div className="font-normal text-[10px] text-gray-dark group-hover:text-main-color transition-colors leading-none">
+                    <div
+                      className={cn(
+                        'font-normal text-[10px] text-gray-dark transition-colors leading-none',
+                        item.account === 'company'
+                          ? 'group-hover:text-main-blue'
+                          : 'group-hover:text-main-green',
+                      )}
+                    >
                       {item.account === 'user'
                         ? 'Персональний акаунт'
                         : 'Акаунт компанії'}
