@@ -7,19 +7,8 @@ import { Icon } from '@/components/utils/icon';
 import Link from 'next/link';
 import { Separator } from '@/components/ui/separator';
 import { TooltipShow } from '@/app/components/common/tooltip-show';
-import {
-  Modal,
-  ModalContent,
-  ModalDescription,
-  ModalFooter,
-  ModalHeader,
-  ModalTitle,
-} from '@/app/components/common/modal';
+import { Modal, ModalContent } from '@/app/components/common/modal';
 import { ListOfDocs } from '@/app/components/bag/list-of-docs';
-import { Button } from '@/components/ui/button';
-
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 
 interface BagProps {
   bag: bagType[];

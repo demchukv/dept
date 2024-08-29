@@ -1,14 +1,34 @@
 import React from 'react';
-import { Balance } from '@/app/components/dashboard/balance';
+
 import { cn } from '@/lib/utils';
 //TODO: load data from API
 import { getJson } from '@/data/get-json';
-import { Call } from '@/app/components/dashboard/call';
-import { User } from '@/app/components/dashboard/user';
-import { TabsLeft } from '@/app/components/dashboard/tabs-left';
-import { TabsRight } from '@/app/components/dashboard/tabs-right';
-import { TabsAll } from '@/app/components/dashboard/tabs-all';
+// import { Balance } from '@/app/components/dashboard/balance';
+// import { Call } from '@/app/components/dashboard/call';
+// import { User } from '@/app/components/dashboard/user';
+// import { TabsLeft } from '@/app/components/dashboard/tabs-left';
+// import { TabsRight } from '@/app/components/dashboard/tabs-right';
+// import { TabsAll } from '@/app/components/dashboard/tabs-all';
+import dynamic from 'next/dynamic';
 
+const Balance = dynamic(() =>
+  import('@/app/components/dashboard/balance').then((mod) => mod.Balance),
+);
+const Call = dynamic(() =>
+  import('@/app/components/dashboard/call').then((mod) => mod.Call),
+);
+const User = dynamic(() =>
+  import('@/app/components/dashboard/user').then((mod) => mod.User),
+);
+const TabsLeft = dynamic(() =>
+  import('@/app/components/dashboard/tabs-left').then((mod) => mod.TabsLeft),
+);
+const TabsRight = dynamic(() =>
+  import('@/app/components/dashboard/tabs-right').then((mod) => mod.TabsRight),
+);
+const TabsAll = dynamic(() =>
+  import('@/app/components/dashboard/tabs-all').then((mod) => mod.TabsAll),
+);
 export const Dashboard = async () => {
   //TODO: load data from API
   const data = await getJson('/data/dashboard.json');
