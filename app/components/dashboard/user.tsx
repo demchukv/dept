@@ -15,7 +15,11 @@ export const User = ({ userInfo }: UserProps) => {
           <Icon width={24} height={24} iconName="User" />
           Мої дані
         </span>
-        <Link href="/profile" className="hover:text-main-color">
+        <Link
+          href="/profile"
+          className="hover:text-main-color"
+          title="Мої дані"
+        >
           <Icon width={24} height={24} iconName="RoundedRrrowRigth" />
         </Link>
       </CardHeader>
@@ -58,7 +62,11 @@ export const User = ({ userInfo }: UserProps) => {
           </span>
           <span className="flex gap-2 items-center font-medium text-sm leading-[1.14] text-main-dark">
             {userInfo.contract}
-            <Link href="#" className="text-main-color hover:text-main-dark">
+            <Link
+              href="#"
+              className="text-main-color hover:text-main-dark"
+              title="Договір"
+            >
               <Icon width={24} height={24} iconName="Document" />
             </Link>
           </span>

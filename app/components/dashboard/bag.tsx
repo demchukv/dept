@@ -115,6 +115,7 @@ export const Bag = ({ bag }: BagProps) => {
                         onClose(true, e);
                       }}
                       className="group"
+                      aria-label="Документи до замовлення"
                     >
                       <Icon
                         iconName="Doc"

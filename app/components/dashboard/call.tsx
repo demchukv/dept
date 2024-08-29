@@ -108,7 +108,11 @@ export const Call = ({ callInfo, className }: callInfoType) => {
           <Icon width={24} height={24} iconName="Call" />
           Телефонія
         </span>
-        <Link href="/my-numbers" className="hover:text-main-color">
+        <Link
+          href="/my-numbers"
+          className="hover:text-main-color"
+          title="Телефонія"
+        >
           <Icon width={24} height={24} iconName="RoundedRrrowRigth" />
         </Link>
       </CardHeader>

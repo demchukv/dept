@@ -21,7 +21,7 @@ export const Balance = ({ balance, className }: BalanceProps) => {
           <Icon width={24} height={24} iconName="Balans" />
           Баланс
         </span>
-        <Link href="/balance" className="hover:text-main-color">
+        <Link href="/balance" className="hover:text-main-color" title="Баланс">
           <Icon width={24} height={24} iconName="RoundedRrrowRigth" />
         </Link>
       </CardHeader>
