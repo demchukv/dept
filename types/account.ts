@@ -1,4 +1,5 @@
 export type accoutTypeT = {
+  id: number;
   account: 'company' | 'user';
   name: string;
 };

@@ -3,7 +3,7 @@ import { Montserrat } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/utils';
 //TODO: get account type from backend or session
-import { getJson } from '@/data/get-json';
+// import { getJson } from '@/data/get-json';
 import { Toaster } from '@/components/ui/toaster';
 
 const montserrat = Montserrat({
@@ -22,8 +22,9 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   //TODO: get account type from backend or session
-  const accountData = await getJson('/data/account.json');
-  const accoutType = accountData.account;
+  // const accountData = await getJson('/data/account.json');
+  // console.log('accountData', accountData);
+  // const accoutType = accountData[0].account;
 
   return (
     <html lang="en" className="scroll-smooth">
@@ -31,7 +32,7 @@ export default async function RootLayout({
         className={cn(
           montserrat.className,
           'bg-bg-color flex flex-col justify-between ',
-          accoutType === 'user' && 'dark',
+          // accoutType === 'user' && 'dark',
         )}
       >
         {children}
