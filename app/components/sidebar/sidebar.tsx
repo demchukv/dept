@@ -19,22 +19,13 @@ export const Sidebar = () => {
   return (
     <div className="lg:hidden">
       <Sheet>
-        <SheetTrigger asChild>
-          <Button
-            type="button"
-            variant="hidden"
-            title="Open menu"
-            className="w-6 h-6"
-            aria-haspopup="menu"
-            asChild
-          >
-            <Icon
-              width={24}
-              height={24}
-              iconName="Menu"
-              className="fill-main-dark hover:fill-main-color cursor-pointer transition-all"
-            />
-          </Button>
+        <SheetTrigger asChild title="Open side menu" aria-haspopup="menu">
+          <Icon
+            width={24}
+            height={24}
+            iconName="Menu"
+            className="fill-main-dark hover:fill-main-color cursor-pointer transition-all"
+          />
         </SheetTrigger>
         <SheetContent
           side={'left'}
