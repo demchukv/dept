@@ -8,9 +8,16 @@ import {
 } from '@/components/ui/navigation-menu';
 import Link from 'next/link';
 import { Icon } from '@/components/utils/icon';
+
 import React from 'react';
 
-export const TopMenu = () => {
+import initTranslations from '@/app/i18n';
+import { cookies } from 'next/headers';
+
+export const TopMenu = async () => {
+  const locale = cookies().get('NEXT_LOCALE')?.value || 'uk';
+  const { t } = await initTranslations(locale, ['header']);
+
   return (
     <div className="hidden md:flex">
       <NavigationMenu>
@@ -23,7 +30,7 @@ export const TopMenu = () => {
                 iconName="Home"
                 className="fill-main-color"
               />{' '}
-              На сайт
+              {t('toSite')}
             </NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="bg-white rounded-[6px] border border-gray-light py-2">
@@ -33,7 +40,7 @@ export const TopMenu = () => {
                     target="_blank"
                     className="text-main-dark font-normal text-base leading-none hover:text-main-color transition-colors"
                   >
-                    Користувачам
+                    {t('toUsers')}
                   </Link>
                 </li>
                 <li className="py-[10px] px-5">
@@ -42,7 +49,7 @@ export const TopMenu = () => {
                     target="_blank"
                     className="text-main-dark font-normal text-base leading-none hover:text-main-color transition-colors"
                   >
-                    Бізнесу
+                    {t('business')}
                   </Link>
                 </li>
                 <li className="py-[10px] px-5">
@@ -51,7 +58,7 @@ export const TopMenu = () => {
                     target="_blank"
                     className="text-main-dark font-normal text-base leading-none hover:text-main-color transition-colors"
                   >
-                    Магазин
+                    {t('shop')}
                   </Link>
                 </li>
               </ul>
@@ -67,7 +74,7 @@ export const TopMenu = () => {
                   iconName="Help"
                   className="fill-main-color"
                 />
-                Інструкції
+                {t('instructions')}
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
@@ -81,7 +88,7 @@ export const TopMenu = () => {
                   iconName="Academy"
                   className="fill-main-color"
                 />
-                Dept академія
+                {t('academy')}
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
@@ -95,7 +102,7 @@ export const TopMenu = () => {
                   iconName="Plus"
                   className="fill-main-color w-5 h-5 transition-all"
                 />
-                Додати заявку/задачу
+                {t('addTask')}
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>

@@ -160,7 +160,10 @@ export function DataTable<TData, TValue>({
                         table.setPageSize(Number(selectedValue));
                       }}
                     >
-                      <SelectTrigger className="w-auto">
+                      <SelectTrigger
+                        className="w-auto"
+                        key={'pageSize-trigger'}
+                      >
                         <SelectValue placeholder="Page size" key={'pageSize'} />
                       </SelectTrigger>
                       <SelectContent>

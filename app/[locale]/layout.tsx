@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import { Montserrat } from 'next/font/google';
+import { i18nConfig } from '@/i18nConfig';
+import { dir } from 'i18next';
 import './globals.css';
 import { cn } from '@/lib/utils';
 //TODO: get account type from backend or session
@@ -16,10 +18,16 @@ export const metadata: Metadata = {
   description: 'Dept - Особистий кабінет клієнта компанії',
 };
 
+export function generateStaticParams() {
+  return i18nConfig.locales.map((locale) => ({ locale }));
+}
+
 export default async function RootLayout({
   children,
+  params: { locale },
 }: Readonly<{
   children: React.ReactNode;
+  params: { locale: string };
 }>) {
   //TODO: get account type from backend or session
   // const accountData = await getJson('/data/account.json');
@@ -27,7 +35,7 @@ export default async function RootLayout({
   // const accoutType = accountData[0].account;
 
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang={locale} dir={dir(locale)} className="scroll-smooth">
       <body
         className={cn(
           montserrat.className,
