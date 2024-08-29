@@ -147,28 +147,26 @@ export function DataTable<TData, TValue>({
               )}
             </TableBody>
             {table.getPageCount() > 1 && (
-              <TableCaption>
+              <TableCaption key={'caption'}>
                 <div className="w-full flex items-center justify-between gap-1 xs:gap-2 py-4">
                   <div className="flex gap-1 xs:gap-2 items-center">
                     <div className="text-main-dark font-normal text-sm hidden sm:block">
                       Показувати по
                     </div>
                     <Select
+                      key={'pageSize-select'}
                       value={table.getState().pagination.pageSize.toString()}
                       onValueChange={(selectedValue) => {
                         table.setPageSize(Number(selectedValue));
                       }}
                     >
                       <SelectTrigger className="w-auto">
-                        <SelectValue placeholder="Page size" />
+                        <SelectValue placeholder="Page size" key={'pageSize'} />
                       </SelectTrigger>
                       <SelectContent>
                         {[1, 2, 4, 6, 8, 10, 20, 30, 40, 50, 100].map(
-                          (pageSize) => (
-                            <SelectItem
-                              key={pageSize}
-                              value={pageSize.toString()}
-                            >
+                          (pageSize, index) => (
+                            <SelectItem key={index} value={pageSize.toString()}>
                               {pageSize}
                             </SelectItem>
                           ),
@@ -176,50 +174,6 @@ export function DataTable<TData, TValue>({
                       </SelectContent>
                     </Select>
                   </div>
-                  {/* <div className="flex gap-1 xs:gap-2">
-                  <Button
-                    variant="default"
-                    size="sm"
-                    onClick={() => {
-                      table.firstPage();
-                    }}
-                    disabled={!table.getCanPreviousPage()}
-                  >
-                    {'<<'}
-                  </Button>
-                  <Button
-                    variant="default"
-                    size="sm"
-                    onClick={() => {
-                      table.previousPage();
-                    }}
-                    disabled={!table.getCanPreviousPage()}
-                  >
-                    {'<'}
-                  </Button>
-                  <Button
-                    variant="default"
-                    size="sm"
-                    onClick={() => {
-                      table.nextPage();
-                    }}
-                    disabled={!table.getCanNextPage()}
-                  >
-                    {'>'}
-                  </Button>
-
-                  <Button
-                    variant="default"
-                    size="sm"
-                    onClick={() => {
-                      table.lastPage();
-                    }}
-                    disabled={!table.getCanNextPage()}
-                  >
-                    {'>>'}
-                  </Button>
-                </div> */}
-
                   <TablePagination
                     table={table}
                     currentPage={pagination.pageIndex}
