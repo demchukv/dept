@@ -30,7 +30,7 @@ export default async function RootLayout({
       <body
         className={cn(
           montserrat.className,
-          'bg-bg-color flex flex-col justify-between pt-[63px] md:pt-[69px] lg:pl-[234px]',
+          'bg-bg-color flex flex-col justify-between ',
           accoutType === 'user' && 'dark',
         )}
       >
