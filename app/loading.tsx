@@ -1,4 +1,7 @@
 export default function Loading() {
-  // Or a custom loading skeleton component
-  return <p>Loading...</p>;
+  return (
+    <div className="fixed inset-0 grid place-items-center">
+      <div className="loader"></div>
+    </div>
+  );
 }
