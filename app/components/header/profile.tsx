@@ -18,21 +18,35 @@ import {
   selectCurrentAccount,
   setCurrentAccount,
 } from '@/store/account/accountSlice';
+import storage from 'redux-persist/lib/storage';
 
 export const Profile = () => {
   const dispatch = useDispatch();
   const accounts = useSelector(selectAccounts);
   const currentAccount = useSelector(selectCurrentAccount);
 
-  const setAccount = (account: accoutTypeT) => {
-    dispatch(setCurrentAccount(account));
-
+  const changeAccount = async (account: accoutTypeT) => {
+    await dispatch(setCurrentAccount(account));
+  };
+  const setAccount = async (account: accoutTypeT) => {
+    await changeAccount(account);
     if (account.account === 'company') {
       document.documentElement.classList.remove('dark');
+      await localStorage.setItem('theme', 'light');
     } else {
       document.documentElement.classList.add('dark');
+      await localStorage.setItem('theme', 'dark');
     }
   };
+
+  if (
+    localStorage.theme === 'dark' ||
+    (!('theme' in localStorage) && currentAccount === 'user')
+  ) {
+    document.documentElement.classList.add('dark');
+  } else {
+    document.documentElement.classList.remove('dark');
+  }
 
   return (
     <>
@@ -79,7 +93,7 @@ export const Profile = () => {
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-[268px]">
             <DropdownMenuGroup>
-              {accounts?.map((item) => {
+              {accounts?.map((item: accoutTypeT) => {
                 return (
                   <DropdownMenuItem
                     key={item.id}

@@ -8,6 +8,7 @@ import { cn } from '@/lib/utils';
 // import { getJson } from '@/data/get-json';
 import { Toaster } from '@/components/ui/toaster';
 import StoreProvider from '@/app/StoreProvider';
+import storage from 'redux-persist/lib/storage';
 
 // import { AuthProvider } from '@/components/auth-provider';
 
@@ -43,7 +44,7 @@ export default async function RootLayout({
         className={cn(
           montserrat.className,
           'bg-bg-color flex flex-col justify-between ',
-          // accoutType === 'user' && 'dark',
+          // theme && theme === 'dark' && 'dark',
         )}
       >
         <StoreProvider>{children}</StoreProvider>
