@@ -24,6 +24,7 @@ export const Header = () => {
           {accoutType === 'company' && (
             <Image
               src={LogoBlue}
+              priority
               alt="logo"
               width={60}
               height={34}
@@ -33,6 +34,7 @@ export const Header = () => {
           {accoutType === 'user' && (
             <Image
               src={LogoGreen}
+              priority
               alt="logo"
               width={60}
               height={34}
