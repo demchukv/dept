@@ -5,18 +5,23 @@ import { Icon } from '@/components/utils/icon';
 import Link from 'next/link';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
-import { usePathname } from 'next/navigation';
 
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/ui/collapsible';
+
+import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
+import { i18nConfig, LOCALES } from '@/i18nConfig';
+
 export const SideMenu = () => {
   const path = usePathname();
   const { t, i18n } = useTranslation();
-  const lang = i18n.language;
+  const lang = i18n.language || i18nConfig.defaultLocale;
+  const router = useRouter();
 
   const subStates = {
     product: false,
@@ -27,6 +32,29 @@ export const SideMenu = () => {
     lang: false,
   };
   const [isOpen, setIsOpen] = React.useState(subStates);
+
+  const handleLangChange = (newLocale: string) => {
+    // set cookie for next-i18n-router
+    const days = 30;
+    const date = new Date();
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+    document.cookie = `NEXT_LOCALE=${newLocale};expires=${date.toUTCString()};path=/`;
+    console.log(lang, 'to', newLocale);
+    // redirect to the new locale path
+    console.log('start redirect');
+    console.log('defaultLocale', i18nConfig.defaultLocale);
+    console.log('prefixDefault', i18nConfig.prefixDefault);
+    if (lang === i18nConfig.defaultLocale && !i18nConfig.prefixDefault) {
+      console.log('/' + newLocale + path);
+      router.push('/' + newLocale + path);
+    } else {
+      console.log(`/${lang}`, `/${newLocale}`);
+      router.push(path.replace(`/${lang}`, `/${newLocale}`));
+    }
+    console.log('start router refresh');
+    router.refresh();
+    console.log('end router refresh');
+  };
 
   const setAllIsOpenState = (variable: string, value: boolean) => {
     setIsOpen({ ...subStates, [variable]: value });
@@ -193,7 +221,7 @@ export const SideMenu = () => {
               iconName="Call"
               className="flex-shrink-0"
             />
-            Телефонія
+            {t('telephony')}
           </span>
           <Icon
             width={24}
@@ -252,7 +280,7 @@ export const SideMenu = () => {
           iconName="Electronics"
           className="flex-shrink-0"
         />
-        Техніка та девайси
+        {t('equipment')}
       </Link>
 
       <Collapsible
@@ -268,7 +296,7 @@ export const SideMenu = () => {
               iconName="Mail"
               className="flex-shrink-0"
             />
-            Корпоративна пошта
+            {t('corporateMail')}
           </span>
           <Icon
             width={24}
@@ -329,7 +357,7 @@ export const SideMenu = () => {
               iconName="Settings"
               className="flex-shrink-0"
             />
-            Налаштування
+            {t('settings')}
           </span>
           <Icon
             width={24}
@@ -391,7 +419,7 @@ export const SideMenu = () => {
               iconName="Home"
               className="flex-shrink-0"
             />
-            На сайт
+            {t('toSite')}
           </span>
           <Icon
             width={24}
@@ -411,7 +439,7 @@ export const SideMenu = () => {
             locale={lang}
             scroll={false}
           >
-            Користувачам
+            {t('toUsers')}
           </Link>
           <Link
             href="https://dept.ua/business/"
@@ -420,7 +448,7 @@ export const SideMenu = () => {
             locale={lang}
             scroll={false}
           >
-            Бізнесу
+            {t('business')}
           </Link>
           <Link
             href="https://dept.ua/shop/"
@@ -429,7 +457,7 @@ export const SideMenu = () => {
             locale={lang}
             scroll={false}
           >
-            Магазин
+            {t('shop')}
           </Link>
         </CollapsibleContent>
       </Collapsible>
@@ -445,7 +473,7 @@ export const SideMenu = () => {
           iconName="Help"
           className="flex-shrink-0"
         />
-        Інструкції
+        {t('instructions')}
       </Link>
       <Link
         href="/academy"
@@ -459,7 +487,7 @@ export const SideMenu = () => {
           iconName="Academy"
           className="flex-shrink-0"
         />
-        Dept академія
+        {t('academy')}
       </Link>
       <Separator className="my-5 lg:hidden" />
 
@@ -476,7 +504,7 @@ export const SideMenu = () => {
               iconName="Globe"
               className="flex-shrink-0"
             />
-            Мова
+            {t('language')}
           </span>
           <Icon
             width={24}
@@ -489,9 +517,22 @@ export const SideMenu = () => {
         <CollapsibleContent
           className={cn(subContentClass, isOpen.lang && 'pt-3')}
         >
-          <Link href="#" className={subLinkClass} locale={lang} scroll={false}>
-            EN
-          </Link>
+          {Object.values(LOCALES).map((locale) => {
+            return (
+              <Link
+                key={locale.code}
+                locale={lang}
+                href="#"
+                className={subLinkClass}
+                scroll={false}
+                onClick={() => {
+                  handleLangChange(locale.code);
+                }}
+              >
+                {locale.upper}
+              </Link>
+            );
+          })}
         </CollapsibleContent>
       </Collapsible>
     </div>

@@ -8,12 +8,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 
 import { useTranslation } from 'react-i18next';
 import { i18nConfig, LOCALES } from '@/i18nConfig';
-import { i18n } from 'i18next';
 
 export const LangSwitch = () => {
   const { i18n } = useTranslation();

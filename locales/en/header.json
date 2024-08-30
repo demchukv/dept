@@ -7,10 +7,20 @@
     "toUsers": "To users",
     "business": "Business",
     "shop": "Shop",
+
+    "language": "Language",
     
     "dashboard":"Dashboard",
     "balance": "Balance",
     "profile": "Profile",
     "shopping": "Shopping",
-    "task": "Applications / Tasks"
+    "task": "Applications / Tasks",
+    "repair": "Repair of equipment",
+    "myproducts":"My products",
+    "telephony": "Telephony",
+    "equipment": "Equipment and devices",
+    "corporateMail": "Corporate mail",
+    "settings": "Settings",
+
+    "logout": "Logout"
 }

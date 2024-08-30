@@ -7,6 +7,8 @@
     "toUsers": "Користувачам",
     "business": "Бізнесу",
     "shop": "Магазин",
+
+    "language": "Мова",
     
     "dashboard":"Дашбоард",
     "balance": "Баланс",
@@ -14,5 +16,11 @@
     "shopping": "Покупки",
     "task": "Заявки / Задачі",
     "repair": "Ремонт техніки",
-    "myproducts":"Мої продукти"
+    "myproducts":"Мої продукти",
+    "telephony": "Телефонія",
+    "equipment": "Техніка та девайси",
+    "corporateMail": "Корпоративна пошта",
+    "settings": "Налаштування",
+
+    "logout": "Вийти"
 }
