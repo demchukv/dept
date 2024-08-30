@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils';
 //TODO: get account type from backend or session
 // import { getJson } from '@/data/get-json';
 import { Toaster } from '@/components/ui/toaster';
+import StoreProvider from '@/app/StoreProvider';
 
 // import { AuthProvider } from '@/components/auth-provider';
 
@@ -45,7 +46,7 @@ export default async function RootLayout({
           // accoutType === 'user' && 'dark',
         )}
       >
-        {children}
+        <StoreProvider>{children}</StoreProvider>
         <Toaster />
       </body>
     </html>

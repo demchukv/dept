@@ -1,6 +1,11 @@
+'use client';
 import React from 'react';
 
 import { cn } from '@/lib/utils';
+
+import { useSelector } from 'react-redux';
+import { selectCurrentAccount } from '@/store/account/accountSlice';
+
 //TODO: load data from API
 // import { getJson } from '@/data/get-json';
 
@@ -31,7 +36,8 @@ const TabsAll = dynamic(() =>
   import('@/app/components/dashboard/tabs-all').then((mod) => mod.TabsAll),
 );
 
-export const Dashboard = async () => {
+export const Dashboard = () => {
+  const currentAccount = useSelector(selectCurrentAccount);
   //TODO: load data from API
   // const data = await getJson('/public/test-data/dashboard.json');
   const data = JSON.parse(`{
@@ -318,8 +324,13 @@ export const Dashboard = async () => {
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:items-start md:grid-cols-1 md:gap-5 lg:gap-8">
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:gap-6">
-        <Balance balance={data.balance} />
-        <Call callInfo={data.callInfo} className={cn('')} />
+        <Balance
+          balance={data.balance}
+          className={cn(currentAccount?.account === 'user' && 'col-span-2')}
+        />
+        {currentAccount?.account === 'company' && (
+          <Call callInfo={data.callInfo} className={cn('')} />
+        )}
         <User userInfo={data.userInfo} />
       </div>
 

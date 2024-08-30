@@ -1,7 +1,6 @@
 'use client';
-import React, { useEffect } from 'react';
+import React from 'react';
 
-import accountData from '@/data/account.json';
 import { accoutTypeT } from '@/types/account';
 import { Icon } from '@/components/utils/icon';
 import { cn } from '@/lib/utils';
@@ -13,22 +12,27 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  selectAccounts,
+  selectCurrentAccount,
+  setCurrentAccount,
+} from '@/store/account/accountSlice';
+
 export const Profile = () => {
-  const [account, setAccount] = React.useState(accountData[0] as accoutTypeT);
+  const dispatch = useDispatch();
+  const accounts = useSelector(selectAccounts);
+  const currentAccount = useSelector(selectCurrentAccount);
 
-  //TODO: get account type from backend
+  const setAccount = (account: accoutTypeT) => {
+    dispatch(setCurrentAccount(account));
 
-  const setTheme = (account: accoutTypeT) => {
     if (account.account === 'company') {
       document.documentElement.classList.remove('dark');
     } else {
       document.documentElement.classList.add('dark');
     }
   };
-
-  useEffect(() => {
-    setTheme(account);
-  }, [account]);
 
   return (
     <>
@@ -39,7 +43,7 @@ export const Profile = () => {
             title="Profile menu"
           >
             <>
-              {account.account === 'company' ? (
+              {currentAccount?.account === 'company' ? (
                 <Icon
                   width={24}
                   height={24}
@@ -57,10 +61,10 @@ export const Profile = () => {
 
               <div className="hidden lg:flex lg:flex-col lg:items-start lg:justify-center gap-1 cursor-pointer">
                 <div className="max-w-[270px] block text-main-dark text-sm leading-[1.14] font-semibold text-left group-hover:text-main-color truncate overflow-hidden">
-                  {account.name}
+                  {currentAccount?.name}
                 </div>
                 <span className="block text-gray-dark text-[10px] leading-none font-normal text-left group-hover:text-main-color">
-                  {account.account === 'user'
+                  {currentAccount?.account === 'user'
                     ? 'Персональний акаунт'
                     : 'Акаунт компанії'}
                 </span>
@@ -75,7 +79,7 @@ export const Profile = () => {
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-[268px]">
             <DropdownMenuGroup>
-              {accountData.map((item) => {
+              {accounts?.map((item) => {
                 return (
                   <DropdownMenuItem
                     key={item.id}
