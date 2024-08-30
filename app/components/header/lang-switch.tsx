@@ -60,7 +60,7 @@ export const LangSwitch = () => {
               width={20}
               height={20}
               iconName="ArrowDown"
-              className="fill-main-dark group-hover:fill-main-color cursor-pointer"
+              className="fill-main-dark group-hover:fill-main-color cursor-pointer text-b"
             />
           </div>
         </DropdownMenuTrigger>

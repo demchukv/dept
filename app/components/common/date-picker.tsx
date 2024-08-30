@@ -49,7 +49,10 @@ export function DatePicker({ selected, onSelect }: DatePickerProps) {
           />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-0" align="start">
+      <PopoverContent
+        className="w-auto p-0 border-0 border-none shadow-none"
+        align="start"
+      >
         <Calendar
           // captionLayout="dropdown-buttons"
           // fromYear={2020}
