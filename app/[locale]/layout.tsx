@@ -8,6 +8,8 @@ import { cn } from '@/lib/utils';
 // import { getJson } from '@/data/get-json';
 import { Toaster } from '@/components/ui/toaster';
 
+// import { AuthProvider } from '@/components/auth-provider';
+
 const montserrat = Montserrat({
   subsets: ['latin', 'cyrillic'],
   variable: '--font-montserrat',

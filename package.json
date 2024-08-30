@@ -32,6 +32,7 @@
     "i18next": "^23.14.0",
     "i18next-resources-to-backend": "^1.2.1",
     "next": "14.2.6",
+    "next-auth": "^5.0.0-beta.20",
     "next-i18n-router": "^5.5.1",
     "react": "^18",
     "react-day-picker": "^8.10.1",
