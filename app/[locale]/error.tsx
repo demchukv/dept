@@ -16,16 +16,18 @@ export default function Error({
 
   return (
     <div className="w-screen h-screen grid place-items-center">
-      <h2 className="text-xl text-main-dark">Something went wrong!</h2>
-      <button
-        className="text-main-color px-5 py-3 rounded-[4px] border border-main-color hover:bg-main-color hover:text-white transition-colors"
-        onClick={
-          // Attempt to recover by trying to re-render the segment
-          () => reset()
-        }
-      >
-        Try again
-      </button>
+      <div className="flex flex-col gap-8">
+        <h2 className="text-2xl text-main-dark">Something went wrong!</h2>
+        <button
+          className="text-main-color px-5 py-3 rounded-[4px] border border-main-color hover:bg-main-color hover:text-white transition-colors"
+          onClick={
+            // Attempt to recover by trying to re-render the segment
+            () => reset()
+          }
+        >
+          Try again
+        </button>
+      </div>
     </div>
   );
 }

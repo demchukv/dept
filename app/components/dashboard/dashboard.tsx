@@ -3,6 +3,7 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 //TODO: load data from API
 import { getJson } from '@/data/get-json';
+
 // import { Balance } from '@/app/components/dashboard/balance';
 // import { Call } from '@/app/components/dashboard/call';
 // import { User } from '@/app/components/dashboard/user';
@@ -29,9 +30,13 @@ const TabsRight = dynamic(() =>
 const TabsAll = dynamic(() =>
   import('@/app/components/dashboard/tabs-all').then((mod) => mod.TabsAll),
 );
+
+const fetcher = () =>
+  fetch('/test-data/dashboard.json').then((res) => res.json());
+
 export const Dashboard = async () => {
   //TODO: load data from API
-  const data = await getJson('/data/dashboard.json');
+  const data = await getJson('/public/test-data/dashboard.json');
 
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:items-start md:grid-cols-1 md:gap-5 lg:gap-8">

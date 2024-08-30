@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bag } from '@/app/components/dashboard/bag';
+import { Shopping } from '@/app/components/dashboard/shopping';
 import { Task } from '@/app/components/dashboard/task';
 import { Repair } from '@/app/components/dashboard/repair';
 import { Subscription } from '@/app/components/dashboard/subscription';
@@ -31,7 +31,7 @@ export const TabsAll = ({ data }: TabsProps) => {
       <AccordionItem value="item-1" className={accItemClass}>
         <AccordionTrigger>Покупки</AccordionTrigger>
         <AccordionContent>
-          <Bag bag={data.bag} />
+          <Shopping bag={data.bag} />
         </AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-2" className={accItemClass}>

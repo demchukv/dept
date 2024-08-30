@@ -8,12 +8,12 @@ import Link from 'next/link';
 import { Separator } from '@/components/ui/separator';
 import { TooltipShow } from '@/app/components/common/tooltip-show';
 import { Modal, ModalContent } from '@/app/components/common/modal';
-import { ListOfDocs } from '@/app/components/bag/list-of-docs';
+import { ListOfDocs } from '@/app/components/shopping/list-of-docs';
 
-interface BagProps {
+interface ShoppingProps {
   bag: bagType[];
 }
-export const Bag = ({ bag }: BagProps) => {
+export const Shopping = ({ bag }: ShoppingProps) => {
   const [open, setOpen] = React.useState(false);
   const [id, setId] = React.useState<number | null>(null);
 

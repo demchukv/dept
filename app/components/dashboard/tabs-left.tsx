@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card } from '@/app/components/card/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Bag } from '@/app/components/dashboard/bag';
+import { Shopping } from '@/app/components/dashboard/shopping';
 import { Task } from '@/app/components/dashboard/task';
 import { Repair } from '@/app/components/dashboard/repair';
 
@@ -26,7 +26,7 @@ export const TabsLeft = ({ data }: TabsProps) => {
       </TabsList>
       <TabsContent value="tab1" className="h-full">
         <Card className="h-full">
-          <Bag bag={data.bag} />
+          <Shopping bag={data.bag} />
         </Card>
       </TabsContent>
       <TabsContent value="tab2" className="h-full">
