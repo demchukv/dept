@@ -17,4 +17,5 @@ export const i18nConfig: Config = {
   locales: [LOCALES.UA.code, LOCALES.EN.code],
   defaultLocale: LOCALES.UA.code,
   serverSetCookie: 'if-empty',
+  prefixDefault: false,
 };

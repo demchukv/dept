@@ -1,6 +1,6 @@
 'use client';
 import { Icon } from '@/components/utils/icon';
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,15 +10,15 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
+
 import { useTranslation } from 'react-i18next';
 import { i18nConfig, LOCALES } from '@/i18nConfig';
-import Link from 'next/link';
-// import i18n from 'i18next';
+import { i18n } from 'i18next';
 
 export const LangSwitch = () => {
   const { i18n } = useTranslation();
   const currentLocale = i18n.language || i18nConfig.defaultLocale;
-  const [lang, setLang] = React.useState(currentLocale);
+
   const router = useRouter();
   const currentPathname = usePathname();
 
@@ -44,23 +44,15 @@ export const LangSwitch = () => {
     router.refresh();
   };
 
-  useEffect(() => {
-    handleChange(lang);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lang]);
-
   return (
     <div className="hidden sm:block">
       <DropdownMenu>
-        <DropdownMenuTrigger
-          className="hidden sm:block outline-none"
-          key={'switcher'}
-        >
+        <DropdownMenuTrigger className="hidden sm:block outline-none">
           <div className="group flex items-center">
             <span className="text-main-dark group-hover:text-main-color font-semibold leading-[1.14] cursor-pointer">
               {Object.values(LOCALES).map((locale) => {
                 if (locale.code === currentLocale) {
-                  return <span key={locale.code}>{locale.upper}</span>;
+                  return locale.upper;
                 }
               })}
             </span>
@@ -80,19 +72,13 @@ export const LangSwitch = () => {
                   <DropdownMenuItem
                     className="group py-2.5 px-4 flex-col gap-1 justify-start items-start cursor-pointer"
                     key={locale.code}
-                    asChild
+                    onSelect={() => {
+                      handleChange(locale.code);
+                    }}
                   >
-                    <Link
-                      scroll={false}
-                      href="#"
-                      key={locale.upper}
-                      className="w-[50px] font-semibold text-sm text-main-dark transition-colors leading-main-lh truncate overflow-hidden"
-                      onClick={() => {
-                        setLang(locale.code);
-                      }}
-                    >
+                    <div className="w-[50px] font-semibold text-sm text-main-dark transition-colors leading-main-lh truncate overflow-hidden">
                       {locale.upper}
-                    </Link>
+                    </div>
                   </DropdownMenuItem>
                 );
               }

@@ -6,5 +6,11 @@
     "addTask": "Add application/task",
     "toUsers": "To users",
     "business": "Business",
-    "shop": "Shop"
+    "shop": "Shop",
+    
+    "dashboard":"Dashboard",
+    "balance": "Balance",
+    "profile": "Profile",
+    "shopping": "Shopping",
+    "task": "Applications / Tasks"
 }

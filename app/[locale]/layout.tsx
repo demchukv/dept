@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Montserrat } from 'next/font/google';
 import { i18nConfig } from '@/i18nConfig';
 import { dir } from 'i18next';
-import './globals.css';
+import '@/app/globals.css';
 import { cn } from '@/lib/utils';
 //TODO: get account type from backend or session
 // import { getJson } from '@/data/get-json';
@@ -35,7 +35,7 @@ export default async function RootLayout({
   // const accoutType = accountData[0].account;
 
   return (
-    <html lang={locale} dir={dir(locale)} className="scroll-smooth">
+    <html lang={locale} dir={dir(locale)}>
       <body
         className={cn(
           montserrat.className,

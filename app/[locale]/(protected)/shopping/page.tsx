@@ -3,9 +3,9 @@ import React from 'react';
 import initTranslations from '@/app/i18n';
 import TranslationsProvider from '@/components/translations-provider';
 
-const i18nNamespaces = ['task'];
+const i18nNamespaces = ['shopping'];
 
-const TaskPage = async ({
+const ShoppingPage = async ({
   params: { locale },
 }: {
   params: { locale: string };
@@ -17,9 +17,9 @@ const TaskPage = async ({
       locale={locale}
       resources={resources}
     >
-      <div>Task Page</div>
+      <div>Shopping Page</div>
     </TranslationsProvider>
   );
 };
 
-export default TaskPage;
+export default ShoppingPage;

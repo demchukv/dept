@@ -19,6 +19,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { Button } from '@/components/ui/button';
 import {
   Select,
   SelectContent,
@@ -103,11 +104,11 @@ export function DataTable<TData, TValue>({
             </TableHeader>
             <TableBody className="max-h-full overflow-y-auto">
               {isPending ? (
-                <TableRow key={'row-loading'}>
+                <TableRow key={'loading-row'}>
                   <TableCell
                     colSpan={columns.length}
                     className="h-24 "
-                    key={'cell-loading'}
+                    key={'loading-cell'}
                   >
                     <div className="flex items-center justify-center w-full gap-4">
                       <span>Loading data ...</span>
@@ -133,9 +134,9 @@ export function DataTable<TData, TValue>({
                       </TableRow>
                     ))
                   ) : (
-                    <TableRow key={'row-empty'}>
+                    <TableRow key={'empty-row'}>
                       <TableCell
-                        key={'cell-empty'}
+                        key={'empty-cell'}
                         colSpan={columns.length}
                         className="h-24 text-center"
                       >
@@ -154,22 +155,25 @@ export function DataTable<TData, TValue>({
                       Показувати по
                     </div>
                     <Select
-                      key={'pageSize-select'}
+                      key={'page-select'}
                       value={table.getState().pagination.pageSize.toString()}
                       onValueChange={(selectedValue) => {
                         table.setPageSize(Number(selectedValue));
                       }}
                     >
-                      <SelectTrigger
-                        className="w-auto"
-                        key={'pageSize-trigger'}
-                      >
-                        <SelectValue placeholder="Page size" key={'pageSize'} />
+                      <SelectTrigger className="w-auto" key={'page-trigger'}>
+                        <SelectValue
+                          placeholder="Page size"
+                          key={'def-value'}
+                        />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent key={'page-content'}>
                         {[1, 2, 4, 6, 8, 10, 20, 30, 40, 50, 100].map(
-                          (pageSize, index) => (
-                            <SelectItem key={index} value={pageSize.toString()}>
+                          (pageSize) => (
+                            <SelectItem
+                              key={pageSize.toString()}
+                              value={pageSize.toString()}
+                            >
                               {pageSize}
                             </SelectItem>
                           ),
@@ -177,9 +181,11 @@ export function DataTable<TData, TValue>({
                       </SelectContent>
                     </Select>
                   </div>
+
                   <TablePagination
                     table={table}
                     currentPage={pagination.pageIndex}
+                    key={'tab-pagination'}
                   />
                 </div>
               </TableCaption>
