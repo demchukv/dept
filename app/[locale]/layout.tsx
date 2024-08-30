@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
 // import { getJson } from '@/data/get-json';
 import { Toaster } from '@/components/ui/toaster';
 import StoreProvider from '@/app/StoreProvider';
-import storage from 'redux-persist/lib/storage';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 // import { AuthProvider } from '@/components/auth-provider';
 
@@ -47,8 +47,11 @@ export default async function RootLayout({
           // theme && theme === 'dark' && 'dark',
         )}
       >
-        <StoreProvider>{children}</StoreProvider>
-        <Toaster />
+        <StoreProvider>
+          {children}
+          <Toaster />
+          <SpeedInsights />
+        </StoreProvider>
       </body>
     </html>
   );

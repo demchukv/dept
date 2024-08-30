@@ -18,7 +18,6 @@ import {
   selectCurrentAccount,
   setCurrentAccount,
 } from '@/store/account/accountSlice';
-import storage from 'redux-persist/lib/storage';
 
 export const Profile = () => {
   const dispatch = useDispatch();
