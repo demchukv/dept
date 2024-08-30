@@ -6,7 +6,9 @@ import { getJson } from '@/data/get-json';
 
 export const Alert = async () => {
   //TODO: replace with real data
-  const alertData: alertTypes[] = await getJson('/data/alerts.json');
+  const alertData: alertTypes[] = await getJson(
+    '/public/test-data/alerts.json',
+  );
 
   return <AlertList alertData={alertData} />;
 };

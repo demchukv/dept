@@ -31,9 +31,6 @@ const TabsAll = dynamic(() =>
   import('@/app/components/dashboard/tabs-all').then((mod) => mod.TabsAll),
 );
 
-const fetcher = () =>
-  fetch('/test-data/dashboard.json').then((res) => res.json());
-
 export const Dashboard = async () => {
   //TODO: load data from API
   const data = await getJson('/public/test-data/dashboard.json');
