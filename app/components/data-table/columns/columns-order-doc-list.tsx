@@ -28,7 +28,7 @@ export const columns: ColumnDef<orderDocType>[] = [
     cell: ({ getValue }) => {
       const file = getValue<string>();
       return (
-        <Link href={file} download={file}>
+        <Link href={file} download={file} title="Завантажити">
           <Icon
             width={24}
             height={24}
