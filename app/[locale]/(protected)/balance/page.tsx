@@ -29,14 +29,3 @@ const BalancePage = async ({ params: { locale } }: BalancePageProps) => {
 };
 
 export default BalancePage;
-
-// export async function getServersSideProps() {
-//   const store = makeStore();
-//   store.dispatch({ type: 'FETCH_DATA' });
-
-//   return {
-//     props: {
-//       initialReduxState: store.getState(),
-//     },
-//   };
-// }

@@ -10,7 +10,6 @@ import {
 } from 'redux-persist';
 import storage from '@/store/web-store';
 import { thunk } from 'redux-thunk';
-// import { createWrapper, HYDRATE } from 'next-redux-wrapper';
 
 import accountSlice from '@/store/account/accountSlice';
 
@@ -43,5 +42,3 @@ export const makeStore = () => {
 export type AppStore = ReturnType<typeof makeStore>;
 export type RootState = ReturnType<AppStore['getState']>;
 export type AppDispatch = AppStore['dispatch'];
-
-// export const wrapper = createWrapper(makeStore, { debug: true });

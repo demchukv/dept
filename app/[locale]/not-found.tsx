@@ -2,9 +2,23 @@ import Link from 'next/link';
 import { Header } from '@/app/components/header/header';
 import { Aside } from '@/app/components/sidebar/aside';
 
-export default function NotFound() {
+import initTranslations from '@/app/i18n';
+import TranslationsProvider from '@/components/translations-provider';
+
+const i18nNamespaces = ['header'];
+
+interface CatchAllPage {
+  params: { locale: string };
+}
+// { params: { locale } }: CatchAllPage
+export default async function NotFound({ locale = 'uk' }) {
+  const { t, resources } = await initTranslations(locale, i18nNamespaces);
   return (
-    <>
+    <TranslationsProvider
+      namespaces={i18nNamespaces}
+      locale={locale}
+      resources={resources}
+    >
       <Header />
       <div className="flex-grow flex flex-row-reverse justify-between">
         <main className="flex-grow px-4 py-6 sm:py-5 lg:px-[30px] lg:py-6">
@@ -22,6 +36,6 @@ export default function NotFound() {
         </main>
         <Aside />
       </div>
-    </>
+    </TranslationsProvider>
   );
 }
