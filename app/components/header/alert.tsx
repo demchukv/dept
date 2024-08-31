@@ -4,7 +4,7 @@ import { alertTypes } from '@/types/alert';
 //TODO: load data from API
 // import { getJson } from '@/data/get-json';
 
-export const Alert = async () => {
+export const Alert = () => {
   //TODO: replace with real data
 
   const alertData: alertTypes[] = JSON.parse(`[

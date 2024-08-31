@@ -13,7 +13,8 @@ import storage from 'redux-persist/lib/storage';
 import accountSlice from './account/accountSlice';
 
 const persistConfig = {
-  key: 'account',
+  key: 'root',
+  version: 1,
   storage,
   whitelist: ['account'],
 };
@@ -25,7 +26,6 @@ const makeConfiguredStore = () =>
   configureStore({
     reducer: rootReducer,
   });
-
 export const makeStore = () => {
   const isServer = typeof window === 'undefined';
   if (isServer) {
@@ -45,16 +45,6 @@ export const makeStore = () => {
     store.__persistor = persistStore(store);
     return store;
   }
-
-  // return configureStore({
-  //   reducer: {
-  //     account: accountSlice,
-  //   },
-  //   middleware: (getDefaultMiddleware) =>
-  //     getDefaultMiddleware({
-  //       serializableCheck: false,
-  //     }),
-  // });
 };
 
 // Infer the type of makeStore

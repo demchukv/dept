@@ -324,18 +324,21 @@ export const Dashboard = () => {
 }`);
   const to = setTimeout(() => {
     setLoading(false);
-  }, 3000);
+  }, 500);
 
   return (
-    <div className="w-full grid grid-cols-1 gap-4 sm:grid-cols-2 sm:items-start md:grid-cols-1 md:gap-5 lg:gap-8">
-      <div className="w-full grid grid-cols-1 gap-4 md:grid-cols-3 lg:gap-6">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:items-start md:grid-cols-1 md:gap-5 lg:gap-8">
+      <div
+        className={cn(
+          'grid grid-cols-1 gap-4  lg:gap-6',
+          currentAccount?.account === 'user' && 'md:grid-cols-2',
+          currentAccount?.account === 'company' && 'md:grid-cols-3',
+        )}
+      >
         {loading && <Loading className="min-h-52" />}
         {!loading && (
           <>
-            <Balance
-              balance={data.balance}
-              className={cn(currentAccount?.account === 'user' && 'col-span-2')}
-            />
+            <Balance balance={data.balance} />
             {currentAccount?.account === 'company' && (
               <Call callInfo={data.callInfo} className={cn('')} />
             )}
@@ -344,7 +347,7 @@ export const Dashboard = () => {
         )}
       </div>
 
-      <div className="w-full hidden md:grid md:gap-4 md:grid-cols-2 lg:gap-6 ">
+      <div className="hidden md:grid md:gap-4 md:grid-cols-2 lg:gap-6 ">
         {loading && <Loading className="min-h-52" />}
         {!loading && (
           <>
@@ -354,7 +357,7 @@ export const Dashboard = () => {
         )}
       </div>
 
-      <div className="w-full flex flex-col gap-4 md:hidden lg:hidden">
+      <div className="flex flex-col gap-4 md:hidden lg:hidden">
         {loading && <Loading className="min-h-52" />}
         {!loading && <TabsAll data={data} />}
       </div>

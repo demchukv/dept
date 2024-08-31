@@ -1,3 +1,4 @@
+'use client';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -11,12 +12,15 @@ import { Icon } from '@/components/utils/icon';
 
 import React from 'react';
 
-import initTranslations from '@/app/i18n';
-import { cookies } from 'next/headers';
+import { useTranslation } from 'react-i18next';
+// import initTranslations from '@/app/i18n';
+// import { cookies } from 'next/headers';
 
-export const TopMenu = async () => {
-  const locale = cookies().get('NEXT_LOCALE')?.value || 'uk';
-  const { t } = await initTranslations(locale, ['header']);
+export const TopMenu = () => {
+  // const locale = cookies().get('NEXT_LOCALE')?.value || 'uk';
+  // const { t } = await initTranslations(locale, ['header']);
+  const { t, i18n } = useTranslation();
+  const currentLocale = i18n.language;
 
   return (
     <div className="hidden md:flex">

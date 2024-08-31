@@ -8,6 +8,7 @@ import {
   ModalTitle,
 } from '@/app/components/common/modal';
 import { ModalLoading } from '@/app/components/common/modal-loading';
+import { Loading } from '@/app/components/common/loading';
 
 import { columns } from '@/app/components/data-table/columns/columns-order-doc-list';
 import { DataTable } from '@/app/components/data-table/data-table';
@@ -26,7 +27,12 @@ export const ListOfDocs = ({ docId, onClose }: ListOfDocsProps) => {
   const { data, error } = useSWR('/test-data/bag-doc.json', fetcher);
 
   if (error) return <ModalLoading type="error">Failed to load</ModalLoading>;
-  if (!data) return <ModalLoading type="loading">Loading...</ModalLoading>;
+  if (!data)
+    return (
+      <ModalLoading type="loading">
+        <Loading />
+      </ModalLoading>
+    );
 
   const initPagination = {
     pageIndex: 0,

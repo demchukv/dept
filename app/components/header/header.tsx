@@ -1,3 +1,4 @@
+'use client';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 
@@ -9,11 +10,15 @@ import { Profile } from '@/app/components/header/profile';
 import { LangSwitch } from '@/app/components/header/lang-switch';
 import { TopMenu } from '@/app/components/header/top-menu';
 
-import accountData from '@/data/account.json';
+import { useSelector } from 'react-redux';
+import { selectCurrentAccount } from '@/store/account/accountSlice';
+// import accountData from '@/data/account.json';
 
 export const Header = () => {
   //TODO: get account type from backend or session
-  const accoutType = accountData[0].account;
+  const currentAccount = useSelector(selectCurrentAccount);
+  const accoutType = currentAccount.account;
+  console.log(accoutType);
   const newAlert = true;
 
   return (
@@ -21,26 +26,14 @@ export const Header = () => {
       <div className="f-full px-2 xs:px-4 lg:px-6 flex gap-1 xs:gap-2 sm:gap-10 md:gap-14 lg:gap-16 items-center justify-between">
         <div className="flex gap-3 items-center flex-shrink-0 ml-0 xs:ml-2 lg:ml-9 lg:mr-16">
           <Sidebar />
-          {accoutType === 'company' && (
-            <Image
-              src={LogoBlue}
-              priority
-              alt="logo"
-              width={60}
-              height={34}
-              className="w-[60px] h-[34px] md:w-[76px] md:h-[44px]"
-            />
-          )}
-          {accoutType === 'user' && (
-            <Image
-              src={LogoGreen}
-              priority
-              alt="logo"
-              width={60}
-              height={34}
-              className="w-[60px] h-[34px] md:w-[76px] md:h-[44px]"
-            />
-          )}
+          <Image
+            src={accoutType === 'company' ? LogoBlue : LogoGreen}
+            priority
+            alt="logo"
+            width={60}
+            height={34}
+            className="w-[60px] h-[34px] md:w-[76px] md:h-[44px]"
+          />
         </div>
         <div className="flex items-center flex-grow">
           <div className="flex flex-grow items-center justify-center sm:justify-end md:justify-start md:hidden">

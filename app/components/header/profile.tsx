@@ -127,35 +127,6 @@ export const Profile = () => {
                 );
               })}
 
-              {/* <DropdownMenuItem className="group py-2.5 px-4 flex-col gap-1 justify-start items-start cursor-pointer focus:bg-none bg-none">
-                <div className="w-[228px] font-semibold text-sm text-main-dark group-hover:text-main-color transition-colors leading-main-lh truncate overflow-hidden">
-                  Шевченко Василь Петрович
-                </div>
-                <div className="font-normal text-[10px] text-gray-dark group-hover:text-main-color transition-colors leading-none">
-                  Персональний акаунт
-                </div>
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                className="group py-2.5 px-4 flex-col gap-1 justify-start items-start cursor-pointer focus:bg-none"
-                onSelect={(item) => {
-                  console.log(item);
-                }}
-              >
-                <div className="w-[228px] font-semibold text-sm group-hover:text-main-color text-main-dark transition-colors leading-main-lh truncate overflow-hidden">
-                  ТОВ Агропромбуд
-                </div>
-                <div className="font-normal text-[10px] text-gray-dark group-hover:text-main-color transition-colors leading-none">
-                  Акаунт компанії
-                </div>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="group py-2.5 px-4 flex-col gap-1 justify-start items-start cursor-pointer focus:bg-none">
-                <div className="w-[228px] font-semibold text-sm text-main-dark group-hover:text-main-color transition-colors leading-main-lh truncate overflow-hidden">
-                  ФОП Шевченко Василь Петрович
-                </div>
-                <div className="font-normal text-[10px] text-gray-dark group-hover:text-main-color transition-colors leading-none">
-                  Акаунт компанії
-                </div>
-              </DropdownMenuItem> */}
             </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>
