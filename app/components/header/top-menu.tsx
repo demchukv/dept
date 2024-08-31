@@ -10,8 +10,6 @@ import {
 import Link from 'next/link';
 import { Icon } from '@/components/utils/icon';
 
-import React from 'react';
-
 import { useTranslation } from 'react-i18next';
 // import initTranslations from '@/app/i18n';
 // import { cookies } from 'next/headers';
@@ -19,8 +17,7 @@ import { useTranslation } from 'react-i18next';
 export const TopMenu = () => {
   // const locale = cookies().get('NEXT_LOCALE')?.value || 'uk';
   // const { t } = await initTranslations(locale, ['header']);
-  const { t, i18n } = useTranslation();
-  const currentLocale = i18n.language;
+  const { t } = useTranslation();
 
   return (
     <div className="hidden md:flex">

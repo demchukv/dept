@@ -17,7 +17,10 @@ import { usePathname } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { i18nConfig, LOCALES } from '@/i18nConfig';
 
-export const SideMenu = () => {
+interface MenuItemProps {
+  closeSidebar?: () => void;
+}
+export const SideMenu = ({ closeSidebar }: MenuItemProps) => {
   const path = usePathname();
   const { t, i18n } = useTranslation();
   const lang = i18n.language || i18nConfig.defaultLocale;
@@ -33,27 +36,21 @@ export const SideMenu = () => {
   };
   const [isOpen, setIsOpen] = React.useState(subStates);
 
-  const handleLangChange = (newLocale: string) => {
+  const handleLangChange = (e: React.MouseEvent, newLocale: string) => {
+    e.preventDefault();
     // set cookie for next-i18n-router
     const days = 30;
     const date = new Date();
     date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
     document.cookie = `NEXT_LOCALE=${newLocale};expires=${date.toUTCString()};path=/`;
-    console.log(lang, 'to', newLocale);
     // redirect to the new locale path
-    console.log('start redirect');
-    console.log('defaultLocale', i18nConfig.defaultLocale);
-    console.log('prefixDefault', i18nConfig.prefixDefault);
     if (lang === i18nConfig.defaultLocale && !i18nConfig.prefixDefault) {
-      console.log('/' + newLocale + path);
       router.push('/' + newLocale + path);
     } else {
-      console.log(`/${lang}`, `/${newLocale}`);
       router.push(path.replace(`/${lang}`, `/${newLocale}`));
     }
-    console.log('start router refresh');
+    () => closeSidebar && closeSidebar();
     router.refresh();
-    console.log('end router refresh');
   };
 
   const setAllIsOpenState = (variable: string, value: boolean) => {
@@ -72,6 +69,7 @@ export const SideMenu = () => {
         className={cn(linkClass, path === '/' && 'text-main-color')}
         locale={lang}
         scroll={false}
+        onClick={() => closeSidebar && closeSidebar()}
       >
         <Icon
           width={24}
@@ -86,6 +84,7 @@ export const SideMenu = () => {
         className={cn(linkClass, path === '/balance' && 'text-main-color')}
         locale={lang}
         scroll={false}
+        onClick={() => closeSidebar && closeSidebar()}
       >
         <Icon
           width={24}
@@ -100,6 +99,7 @@ export const SideMenu = () => {
         className={cn(linkClass, path === '/profile' && 'text-main-color')}
         locale={lang}
         scroll={false}
+        onClick={() => closeSidebar && closeSidebar()}
       >
         <Icon
           width={24}
@@ -114,6 +114,7 @@ export const SideMenu = () => {
         className={cn(linkClass, path === '/bag' && 'text-main-color')}
         locale={lang}
         scroll={false}
+        onClick={() => closeSidebar && closeSidebar()}
       >
         <Icon width={24} height={24} iconName="Bag" className="flex-shrink-0" />
         {t('shopping')}
@@ -123,6 +124,7 @@ export const SideMenu = () => {
         className={cn(linkClass, path === '/task' && 'text-main-color')}
         locale={lang}
         scroll={false}
+        onClick={() => closeSidebar && closeSidebar()}
       >
         <Icon
           width={24}
@@ -137,6 +139,7 @@ export const SideMenu = () => {
         className={cn(linkClass, path === '/repair' && 'text-main-color')}
         locale={lang}
         scroll={false}
+        onClick={() => closeSidebar && closeSidebar()}
       >
         <Icon
           width={24}
@@ -178,6 +181,7 @@ export const SideMenu = () => {
             className={subLinkClass}
             locale={lang}
             scroll={false}
+            onClick={() => closeSidebar && closeSidebar()}
           >
             Підписки
           </Link>
@@ -186,6 +190,7 @@ export const SideMenu = () => {
             className={subLinkClass}
             locale={lang}
             scroll={false}
+            onClick={() => closeSidebar && closeSidebar()}
           >
             Сервери і хостинг
           </Link>
@@ -194,6 +199,7 @@ export const SideMenu = () => {
             className={subLinkClass}
             locale={lang}
             scroll={false}
+            onClick={() => closeSidebar && closeSidebar()}
           >
             Домени
           </Link>
@@ -202,6 +208,7 @@ export const SideMenu = () => {
             className={subLinkClass}
             locale={lang}
             scroll={false}
+            onClick={() => closeSidebar && closeSidebar()}
           >
             Сертифікати
           </Link>
@@ -239,6 +246,7 @@ export const SideMenu = () => {
             className={subLinkClass}
             locale={lang}
             scroll={false}
+            onClick={() => closeSidebar && closeSidebar()}
           >
             Мої номери
           </Link>
@@ -247,6 +255,7 @@ export const SideMenu = () => {
             className={subLinkClass}
             locale={lang}
             scroll={false}
+            onClick={() => closeSidebar && closeSidebar()}
           >
             Сценарії
           </Link>
@@ -255,6 +264,7 @@ export const SideMenu = () => {
             className={subLinkClass}
             locale={lang}
             scroll={false}
+            onClick={() => closeSidebar && closeSidebar()}
           >
             Групи
           </Link>
@@ -263,6 +273,7 @@ export const SideMenu = () => {
             className={subLinkClass}
             locale={lang}
             scroll={false}
+            onClick={() => closeSidebar && closeSidebar()}
           >
             Внутрішні лінії
           </Link>
@@ -273,6 +284,7 @@ export const SideMenu = () => {
         className={cn(linkClass, path === '/electronic' && 'text-main-color')}
         locale={lang}
         scroll={false}
+        onClick={() => closeSidebar && closeSidebar()}
       >
         <Icon
           width={24}
@@ -314,6 +326,7 @@ export const SideMenu = () => {
             className={subLinkClass}
             locale={lang}
             scroll={false}
+            onClick={() => closeSidebar && closeSidebar()}
           >
             Акаунти
           </Link>
@@ -322,6 +335,7 @@ export const SideMenu = () => {
             className={subLinkClass}
             locale={lang}
             scroll={false}
+            onClick={() => closeSidebar && closeSidebar()}
           >
             Домени
           </Link>
@@ -330,6 +344,7 @@ export const SideMenu = () => {
             className={subLinkClass}
             locale={lang}
             scroll={false}
+            onClick={() => closeSidebar && closeSidebar()}
           >
             Групи
           </Link>
@@ -338,6 +353,7 @@ export const SideMenu = () => {
             className={subLinkClass}
             locale={lang}
             scroll={false}
+            onClick={() => closeSidebar && closeSidebar()}
           >
             Внутрішні лінії
           </Link>
@@ -375,6 +391,7 @@ export const SideMenu = () => {
             className={subLinkClass}
             locale={lang}
             scroll={false}
+            onClick={() => closeSidebar && closeSidebar()}
           >
             Співробітники
           </Link>
@@ -383,6 +400,7 @@ export const SideMenu = () => {
             className={subLinkClass}
             locale={lang}
             scroll={false}
+            onClick={() => closeSidebar && closeSidebar()}
           >
             Відділи
           </Link>
@@ -391,6 +409,7 @@ export const SideMenu = () => {
             className={subLinkClass}
             locale={lang}
             scroll={false}
+            onClick={() => closeSidebar && closeSidebar()}
           >
             Інтеграції
           </Link>
@@ -399,6 +418,7 @@ export const SideMenu = () => {
             className={subLinkClass}
             locale={lang}
             scroll={false}
+            onClick={() => closeSidebar && closeSidebar()}
           >
             Ролі
           </Link>
@@ -438,6 +458,7 @@ export const SideMenu = () => {
             className={subLinkClass}
             locale={lang}
             scroll={false}
+            onClick={() => closeSidebar && closeSidebar()}
           >
             {t('toUsers')}
           </Link>
@@ -447,6 +468,7 @@ export const SideMenu = () => {
             className={subLinkClass}
             locale={lang}
             scroll={false}
+            onClick={() => closeSidebar && closeSidebar()}
           >
             {t('business')}
           </Link>
@@ -456,6 +478,7 @@ export const SideMenu = () => {
             className={subLinkClass}
             locale={lang}
             scroll={false}
+            onClick={() => closeSidebar && closeSidebar()}
           >
             {t('shop')}
           </Link>
@@ -466,6 +489,7 @@ export const SideMenu = () => {
         className={cn(linkClass, 'lg:hidden')}
         locale={lang}
         scroll={false}
+        onClick={() => closeSidebar && closeSidebar()}
       >
         <Icon
           width={24}
@@ -480,6 +504,7 @@ export const SideMenu = () => {
         className={cn(linkClass, 'lg:hidden')}
         locale={lang}
         scroll={false}
+        onClick={() => closeSidebar && closeSidebar()}
       >
         <Icon
           width={24}
@@ -525,8 +550,8 @@ export const SideMenu = () => {
                 href="#"
                 className={subLinkClass}
                 scroll={false}
-                onClick={() => {
-                  handleLangChange(locale.code);
+                onClick={(e) => {
+                  handleLangChange(e, locale.code);
                 }}
               >
                 {locale.upper}

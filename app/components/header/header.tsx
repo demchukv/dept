@@ -18,7 +18,7 @@ export const Header = () => {
   //TODO: get account type from backend or session
   const currentAccount = useSelector(selectCurrentAccount);
   const accoutType = currentAccount.account;
-  console.log(accoutType);
+
   const newAlert = true;
 
   return (

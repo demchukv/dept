@@ -1,3 +1,4 @@
+'use client';
 import {
   Sheet,
   SheetClose,
@@ -12,12 +13,15 @@ import {
 import Link from 'next/link';
 import { Icon } from '@/components/utils/icon';
 import { SideMenu } from '@/app/components/sidebar/side-menu';
+import { useState } from 'react';
 
 export const Sidebar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   const linkClass = 'flex gap-2';
   return (
     <div className="lg:hidden">
-      <Sheet>
+      <Sheet open={isOpen} onOpenChange={setIsOpen}>
         <SheetTrigger title="Open side menu" aria-haspopup="menu">
           <Icon
             width={24}
@@ -35,7 +39,7 @@ export const Sidebar = () => {
             <SheetDescription className="hidden"></SheetDescription>
           </SheetHeader>
 
-          <SideMenu />
+          <SideMenu closeSidebar={() => setIsOpen(false)} />
 
           <SheetFooter className="p-6 text-left sm:justify-start text-warning bg-bg-color">
             <SheetClose asChild>
