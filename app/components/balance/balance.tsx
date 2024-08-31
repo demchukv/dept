@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import { Card, CardHeader, CardSeparator } from '@/app/components/card/card';
 import { Icon } from '@/components/utils/icon';

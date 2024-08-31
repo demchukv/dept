@@ -8,6 +8,7 @@ import { cn } from '@/lib/utils';
 // import { getJson } from '@/data/get-json';
 import { Toaster } from '@/components/ui/toaster';
 import StoreProvider from '@/app/StoreProvider';
+
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
 // import { AuthProvider } from '@/components/auth-provider';
@@ -33,11 +34,6 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: { locale: string };
 }>) {
-  //TODO: get account type from backend or session
-  // const accountData = await getJson('/data/account.json');
-  // console.log('accountData', accountData);
-  // const accoutType = accountData[0].account;
-
   return (
     <html lang={locale} dir={dir(locale)}>
       <body
