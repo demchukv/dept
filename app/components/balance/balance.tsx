@@ -16,16 +16,6 @@ interface BalanceProps {
 export const Balance = ({ balance, className }: BalanceProps) => {
   return (
     <Card className={className}>
-      <CardHeader>
-        <span className="flex gap-2 items-center">
-          <Icon width={24} height={24} iconName="Balans" />
-          Баланс
-        </span>
-        <Link href="/balance" className="hover:text-main-color" title="Баланс">
-          <Icon width={24} height={24} iconName="RoundedRrrowRigth" />
-        </Link>
-      </CardHeader>
-      <CardSeparator />
       <div className="flex flex-col gap-3 mb-4 lg:mb-7">
         <div className="flex justify-between gap-2 items-center">
           <span className="flex gap-2 items-center font-semibold text-base leading-tight">
@@ -56,7 +46,16 @@ export const Balance = ({ balance, className }: BalanceProps) => {
           </span>
         </div>
       </div>
-      <Button className="w-full">Поповнити баланс</Button>
+      <div className="flex flex-col md:flex-row-reverse md:justify-between gap-3 items-center">
+        <Button className="w-full md:w-auto">Поповнити баланс</Button>
+        <Button
+          variant={'ghost'}
+          title="Повернення коштів"
+          className="font-semibold text-main-color  text-sm leading-main-lh"
+        >
+          Повернення коштів
+        </Button>
+      </div>
     </Card>
   );
 };
