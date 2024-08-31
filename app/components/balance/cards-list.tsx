@@ -7,11 +7,30 @@ import {
 import { Card } from '@/app/components/card/card';
 import { Separator } from '@/components/ui/separator';
 import { Icon } from '@/components/utils/icon';
+import React from 'react';
 
 interface CardsListProps {
   className?: string;
 }
 export const CardsList = ({ className }: CardsListProps) => {
+  const cards = [
+    {
+      id: 1,
+      name: 'Шевченко Василь Петрович',
+      valute: 'UAH',
+      type: 'Visa',
+      number: '5556 **** **** 4567',
+      status: 'Основна',
+    },
+    {
+      id: 2,
+      name: 'Шевченко Василь Петрович',
+      valute: 'UAH',
+      type: 'MC',
+      number: '4441 **** **** 0065',
+      status: 'Резервна',
+    },
+  ];
   return (
     <Card className={className}>
       <Accordion
@@ -29,8 +48,21 @@ export const CardsList = ({ className }: CardsListProps) => {
           </AccordionTrigger>
           <AccordionContent>
             <Separator className="mt-4 mb-4 border-gray-light" />
-
-            <div>Component for list operations</div>
+            <div className="grid grid-cols-[70%_20%_10%] gap-y-4">
+              {cards.map((item) => (
+                <React.Fragment key={item.id}>
+                  <div>
+                    <p>{item.status}</p>
+                    <p>{item.name}</p>
+                    <p>
+                      {item.valute} {item.number}
+                    </p>
+                  </div>
+                  <div>{item.type}</div>
+                  <div>E</div>
+                </React.Fragment>
+              ))}
+            </div>
           </AccordionContent>
         </AccordionItem>
       </Accordion>

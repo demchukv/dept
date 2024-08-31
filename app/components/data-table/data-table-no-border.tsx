@@ -18,8 +18,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { Button } from '@/components/ui/button';
+} from '@/components/ui/table-no-border';
 import {
   Select,
   SelectContent,
@@ -50,7 +49,7 @@ export type PaginationInitialTableState = {
   pagination?: Partial<PaginationState>;
 };
 
-export function DataTable<TData, TValue>({
+export function DataTableNoBorder<TData, TValue>({
   columns,
   data,
   pagination: { pageIndex, pageSize },
@@ -80,7 +79,7 @@ export function DataTable<TData, TValue>({
   return (
     <div className="max-h-full">
       <div className="max-h-full">
-        <div className="rounded-[6px] border border-gray-light overflow-hidden">
+        <div className="rounded-[6px] border-0 overflow-hidden">
           <Table>
             <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (
