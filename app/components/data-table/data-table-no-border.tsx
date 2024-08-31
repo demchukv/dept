@@ -80,8 +80,8 @@ export function DataTableNoBorder<TData, TValue>({
     <div className="max-h-full">
       <div className="max-h-full">
         <div className="rounded-[6px] border-0 overflow-hidden">
-          <Table>
-            <TableHeader>
+          <Table className="p-0">
+            <TableHeader className="hidden">
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id}>
                   {headerGroup.headers.map((header) => {

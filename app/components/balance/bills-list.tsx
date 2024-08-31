@@ -47,7 +47,7 @@ export const BillsList = ({ className }: BillsListProps) => {
             </div>
           </AccordionTrigger>
           <AccordionContent>
-            <Separator className="mt-4 mb-4 border-gray-light" />
+            <Separator className="mt-4 mb-2 border-gray-light" />
 
             <DataTableNoBorder
               columns={columns}

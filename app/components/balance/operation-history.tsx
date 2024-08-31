@@ -11,7 +11,7 @@ import { Icon } from '@/components/utils/icon';
 import { Loading } from '@/app/components/common/loading';
 import { ErrorMessage } from '@/app/components/common/error-message';
 
-import { columns } from '@/app/components/data-table/columns/columns-order-doc-list';
+import { columns } from '@/app/components/data-table/columns/columns-operation-history-list';
 import { DataTableNoBorder } from '@/app/components/data-table/data-table-no-border';
 import useSWR from 'swr';
 
@@ -20,10 +20,10 @@ interface OperationHistoryProps {
 }
 
 const fetcher = () =>
-  fetch('/test-data/bag-doc.json').then((res) => res.json());
+  fetch('/test-data/operation-history.json').then((res) => res.json());
 
 export const OperationHistory = ({ className = '' }: OperationHistoryProps) => {
-  const { data, error } = useSWR('/test-data/bag-doc.json', fetcher);
+  const { data, error } = useSWR('/test-data/operation-history.json', fetcher);
 
   if (error) return <ErrorMessage>Failed to load</ErrorMessage>;
   if (!data) return <Loading className="min-h-60" />;
@@ -49,7 +49,7 @@ export const OperationHistory = ({ className = '' }: OperationHistoryProps) => {
             </div>
           </AccordionTrigger>
           <AccordionContent>
-            <Separator className="mt-4 mb-4 border-gray-light" />
+            <Separator className="mt-4 mb-2 border-gray-light" />
 
             <DataTableNoBorder
               columns={columns}
