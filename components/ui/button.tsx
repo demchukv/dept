@@ -16,7 +16,7 @@ const buttonVariants = cva(
           'bg-white border border-main-color rounded-[4px] pt-3 pb-[13px] px-5 text-main-color font-bold text-sm hover:shadow-md disabled:border-gray-medium disabled:text-gray-medium',
         secondary:
           'bg-slate-100 text-slate-900 shadow-sm hover:bg-slate-100/80',
-        ghost: 'hover:bg-slate-100 hover:text-slate-900 ',
+        ghost: 'hover:text-main-dark ',
         link: 'text-slate-900 underline-offset-4 hover:underline',
         hidden: 'focus-visible:outline-none',
         pagination: 'font-medium text-sm text-main-dark leading-main-lh',

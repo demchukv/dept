@@ -1,8 +1,13 @@
 import initTranslations from '@/app/i18n';
 import TranslationsProvider from '@/components/translations-provider';
-
+import { Metadata } from 'next';
 // import { makeStore } from '@/store/store';
 import { BalanceDashboard } from '@/app/components/balance/balance-dashboard';
+
+export const metadata: Metadata = {
+  title: 'Dept | Баланс',
+  description: 'Dept - Інформація про баланс і операції клієнта компанії',
+};
 
 const i18nNamespaces = ['balance'];
 
