@@ -13,9 +13,7 @@ export const ReplenishBalanse = ({ open, onClose }: ListOfDocsProps) => {
   return (
     <Modal open={open} onOpenChange={() => onClose(false, undefined)}>
       <ModalContent className="grid grid-cols-1 gap-6">
-        <div>
-          <ReplenishBalanseForm onClose={onClose} />
-        </div>
+        <ReplenishBalanseForm onClose={onClose} />
       </ModalContent>
     </Modal>
   );
