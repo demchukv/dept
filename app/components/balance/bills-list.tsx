@@ -36,7 +36,7 @@ export const BillsList = ({ className }: BillsListProps) => {
       <Accordion
         type="single"
         collapsible
-        className="border-none"
+        className="border-none w-full"
         defaultValue="item-1"
       >
         <AccordionItem value="item-1">

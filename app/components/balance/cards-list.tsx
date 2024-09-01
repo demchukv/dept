@@ -39,12 +39,12 @@ export const CardsList = ({ className }: CardsListProps) => {
       <Accordion
         type="single"
         collapsible
-        className="border-none"
+        className="border-none w-full "
         defaultValue="item-1"
       >
         <AccordionItem value="item-1">
           <AccordionTrigger>
-            <div className="flex gap-2 font-semibold text-base leading-tight text-main-dark items-center">
+            <div className="w-full flex gap-2 font-semibold text-base leading-tight text-main-dark items-center">
               <Icon iconName="CardsList" width={24} height={24} />
               <p>Додані картки</p>
             </div>

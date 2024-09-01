@@ -25,11 +25,13 @@ export const BalanceDashboard = () => {
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-[30px] place-items-start">
         <div className="w-full grid grid-cols-1 gap-4 lg:gap-[30px]">
           <Balance balance={balance} className="" />
-          <OperationHistory className="order-" />
+          <OperationHistory className="w-full" />
         </div>
-        <div className="grid grid-cols-1 gap-4 sm:block sm:w-full">
-          <CardsList className="sm:mb-4 lg:mb-[30px]" />
-          {currentAccount?.account === 'company' && <BillsList className="" />}
+        <div className="grid grid-cols-1 gap-4 sm:block w-full">
+          <CardsList className="w-full sm:mb-4 lg:mb-[30px]" />
+          {currentAccount?.account === 'company' && (
+            <BillsList className="w-full" />
+          )}
         </div>
       </div>
     </>
