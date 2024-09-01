@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardHeader, CardSeparator } from '@/app/components/card/card';
 import { Icon } from '@/components/utils/icon';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+
+import { ReplenishBalanse } from '@/app/components/balance/replenish-balance';
 
 interface BalanceProps {
   balance: {
@@ -13,6 +15,12 @@ interface BalanceProps {
   className?: string;
 }
 export const Balance = ({ balance, className }: BalanceProps) => {
+  const [open, setOpen] = useState(false);
+
+  const onClose = (state: boolean, e: React.MouseEvent | undefined) => {
+    if (e) e.preventDefault();
+    setOpen(state);
+  };
   return (
     <Card className={className}>
       <CardHeader>
@@ -55,7 +63,10 @@ export const Balance = ({ balance, className }: BalanceProps) => {
           </span>
         </div>
       </div>
-      <Button className="w-full">Поповнити баланс</Button>
+      <Button className="w-full" onClick={() => setOpen(true)}>
+        Поповнити баланс
+      </Button>
+      <ReplenishBalanse open={open} onClose={onClose} />
     </Card>
   );
 };

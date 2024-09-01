@@ -1,9 +1,9 @@
 'use client';
 import React from 'react';
-import { Card, CardHeader, CardSeparator } from '@/app/components/card/card';
+import { Card } from '@/app/components/card/card';
 import { Icon } from '@/components/utils/icon';
-import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { ReplenishBalanse } from '@/app/components/balance/replenish-balance';
 
 interface BalanceProps {
   balance: {
@@ -14,6 +14,13 @@ interface BalanceProps {
   className?: string;
 }
 export const Balance = ({ balance, className }: BalanceProps) => {
+  const [open, setOpen] = React.useState(false);
+
+  const onClose = (state: boolean, e: React.MouseEvent | undefined) => {
+    if (e) e.preventDefault();
+    setOpen(state);
+  };
+
   return (
     <Card className={className}>
       <div className="flex flex-col gap-3 mb-4 lg:mb-7">
@@ -47,7 +54,10 @@ export const Balance = ({ balance, className }: BalanceProps) => {
         </div>
       </div>
       <div className="flex flex-col md:flex-row-reverse md:justify-between gap-3 items-center">
-        <Button className="w-full md:w-auto">Поповнити баланс</Button>
+        <Button className="w-full md:w-auto" onClick={() => setOpen(true)}>
+          Поповнити баланс
+        </Button>
+        <ReplenishBalanse open={open} onClose={onClose} />
         <Button
           variant={'ghost'}
           title="Повернення коштів"
