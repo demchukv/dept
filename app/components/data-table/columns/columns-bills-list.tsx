@@ -1,11 +1,11 @@
 'use client';
 
 import { ColumnDef, RowData } from '@tanstack/react-table';
-import { operationType } from '@/types/orders';
+import { billsType } from '@/types/orders';
 import { Icon } from '@/components/utils/icon';
 import Link from 'next/link';
-import { TooltipShow } from '@/app/components/common/tooltip-show';
 import { format } from 'date-fns';
+import { TooltipShow } from '@/app/components/common/tooltip-show';
 
 declare module '@tanstack/react-table' {
   interface ColumnMeta<TData extends RowData, TValue> {
@@ -14,7 +14,7 @@ declare module '@tanstack/react-table' {
   }
 }
 
-export const columns: ColumnDef<operationType>[] = [
+export const columns: ColumnDef<billsType>[] = [
   {
     accessorKey: 'date',
     header: 'Дата',
@@ -28,17 +28,30 @@ export const columns: ColumnDef<operationType>[] = [
     },
   },
   {
-    accessorKey: 'name',
+    accessorKey: 'number',
     header: 'Назва документу',
     cell: ({ getValue, row }) => {
-      const name = getValue<string>();
+      const number = getValue<string>();
       const date = row.original.date;
       return (
         <div className="ml-[-16px]">
           <div className="md:hidden">
             {format(new Date(date), 'dd.MM.yyyy')}
           </div>
-          <div className="text-main-dark font-medium">{name}</div>
+          <div className="text-main-dark font-medium">Рахунок № {number}</div>
+        </div>
+      );
+    },
+  },
+
+  {
+    accessorKey: 'amount',
+    header: 'Сума',
+    cell: ({ getValue, row }) => {
+      const amount = getValue<number>();
+      return (
+        <div className="text-main-dark font-medium whitespace-nowrap text-right">
+          {Number(amount).toFixed(2)} грн
         </div>
       );
     },
@@ -51,7 +64,7 @@ export const columns: ColumnDef<operationType>[] = [
       if (!file) return null;
       return (
         <TooltipShow
-          content={<p>Акт про надання послуг</p>}
+          content={<p>Завантажити рахунок у PDF</p>}
           className="max-w-[160px] text-center"
         >
           <Link href={file} download={file} aria-describedby="Завантажити">
@@ -63,20 +76,6 @@ export const columns: ColumnDef<operationType>[] = [
             />
           </Link>
         </TooltipShow>
-      );
-    },
-  },
-
-  {
-    accessorKey: 'amount',
-    header: 'Сума',
-    cell: ({ getValue, row }) => {
-      const type = row.original.type;
-      const amount = getValue<number>();
-      return (
-        <div className="text-main-dark font-semibold whitespace-nowrap text-right">
-          {type === 'income' ? '+' : '-'} {Number(amount).toFixed(2)} грн
-        </div>
       );
     },
   },

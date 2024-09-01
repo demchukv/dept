@@ -27,6 +27,7 @@ import {
   SelectValue,
 } from '@/components/ui/select-tab';
 import { TablePagination } from '@/app/components/data-table/table-pagination';
+import { cn } from '@/lib/utils';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -34,6 +35,7 @@ interface DataTableProps<TData, TValue> {
   rowCount: number;
   pagination: PaginationState;
   isPending: boolean;
+  classTableCell?: string;
 }
 
 export type PaginationState = {
@@ -54,6 +56,7 @@ export function DataTableNoBorder<TData, TValue>({
   data,
   pagination: { pageIndex, pageSize },
   isPending,
+  classTableCell = '',
 }: DataTableProps<TData, TValue>) {
   const [pagination, setPagination] = React.useState<PaginationState>({
     pageIndex,
@@ -123,7 +126,10 @@ export function DataTableNoBorder<TData, TValue>({
                         data-state={row.getIsSelected() && 'selected'}
                       >
                         {row.getVisibleCells().map((cell) => (
-                          <TableCell key={cell.id}>
+                          <TableCell
+                            key={cell.id}
+                            className={cn(classTableCell)}
+                          >
                             {flexRender(
                               cell.column.columnDef.cell,
                               cell.getContext(),
@@ -147,7 +153,7 @@ export function DataTableNoBorder<TData, TValue>({
               )}
             </TableBody>
             {table.getPageCount() > 1 && (
-              <TableCaption key={'caption'}>
+              <TableCaption key={'caption'} className="mt-[10px]">
                 <div className="w-full flex items-center justify-between gap-1 xs:gap-2 py-4">
                   <div className="flex gap-1 xs:gap-2 items-center">
                     <div className="text-main-dark font-normal text-sm hidden sm:block">

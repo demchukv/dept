@@ -1,0 +1,72 @@
+[
+        {
+            "id": 1,
+            "date": "2024-03-20T00:00:00.000Z",
+            "number":"PR-546382",
+            "amount":5000,
+            "file":""
+        },
+    {
+        "id": 2,
+        "date": "2024-03-20T00:00:00.000Z",
+        "number":"PR-546382",
+        "amount":2350,
+        "file":"garanty_one.pdf"
+    },
+    {
+        "id": 3,
+        "date": "2024-03-20T00:00:00.000Z",
+        "number":"PR-546382",
+        "amount":599,
+        "file":"garanty_two.pdf"
+    },
+        {
+            "id": 4,
+            "date": "2024-03-20T00:00:00.000Z",
+            "number":"PR-546382",
+            "amount":5000,
+            "file":""
+        },
+    {
+        "id": 5,
+        "date": "2024-03-20T00:00:00.000Z",
+        "number":"PR-546382",
+        "amount":2350,
+        "file":"garanty_one.pdf"
+    },
+    {
+            "id": 6,
+            "date": "2024-03-20T00:00:00.000Z",
+            "number":"PR-546382",
+            "amount":5000,
+            "file":""
+        },
+        {
+            "id": 9,
+            "date": "2024-03-20T00:00:00.000Z",
+            "number":"PR-546382",
+            "amount":5000,
+            "file":""
+        },
+    {
+        "id": 10,
+        "date": "2024-03-20T00:00:00.000Z",
+        "number":"PR-546382",
+        "amount":2350,
+        "file":"garanty_one.pdf"
+    },
+    {
+        "id": 7,
+        "date": "2024-03-20T00:00:00.000Z",
+        "number":"PR-546382",
+        "amount":2350,
+        "file":"garanty_one.pdf"
+    },
+    {
+        "id": 8,
+        "date": "2024-03-20T00:00:00.000Z",
+        "number":"PR-546382",
+        "amount":599,
+        "file":"garanty_two.pdf"
+    }
+]

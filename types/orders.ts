@@ -14,3 +14,11 @@ export type operationType = {
   type: string;
   file?: string;
 };
+
+export type billsType = {
+  id: number;
+  date: string;
+  number: string;
+  amount: number;
+  file?: string;
+};

@@ -10,7 +10,7 @@ import { Icon } from '@/components/utils/icon';
 import { Loading } from '@/app/components/common/loading';
 import { ErrorMessage } from '@/app/components/common/error-message';
 
-import { columns } from '@/app/components/data-table/columns/columns-order-doc-list';
+import { columns } from '@/app/components/data-table/columns/columns-bills-list';
 import { DataTableNoBorder } from '@/app/components/data-table/data-table-no-border';
 import useSWR from 'swr';
 
@@ -19,10 +19,10 @@ interface BillsListProps {
 }
 
 const fetcher = () =>
-  fetch('/test-data/bag-doc.json').then((res) => res.json());
+  fetch('/test-data/bills-list.json').then((res) => res.json());
 
 export const BillsList = ({ className }: BillsListProps) => {
-  const { data, error } = useSWR('/test-data/bag-doc.json', fetcher);
+  const { data, error } = useSWR('/test-data/bills-list.json', fetcher);
 
   if (error) return <ErrorMessage>Failed to load</ErrorMessage>;
   if (!data) return <Loading className="min-h-60" />;
@@ -55,6 +55,7 @@ export const BillsList = ({ className }: BillsListProps) => {
               rowCount={data.length}
               pagination={initPagination}
               isPending={!data}
+              classTableCell="py-2"
             />
           </AccordionContent>
         </AccordionItem>
