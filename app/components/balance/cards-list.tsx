@@ -10,6 +10,7 @@ import { Icon } from '@/components/utils/icon';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import React from 'react';
+import { Button } from '@/components/ui/button';
 
 interface CardsListProps {
   className?: string;
@@ -50,7 +51,7 @@ export const CardsList = ({ className }: CardsListProps) => {
           </AccordionTrigger>
           <AccordionContent>
             <Separator className="mt-4 mb-4 border-gray-light" />
-            <div className="grid grid-cols-[80%_20%] gap-y-4 items-center">
+            <div className="grid grid-cols-[80%_20%] lg:grid-cols-[70%_20%_10%] gap-y-4 items-center">
               {cards.map((item) => (
                 <React.Fragment key={item.id}>
                   <div className="flex flex-col gap-1">
@@ -91,10 +92,29 @@ export const CardsList = ({ className }: CardsListProps) => {
                       )}
                     </div>
                   </div>
-                  <div className="hidden">E</div>
+                  <div className="hidden lg:grid place-items-end ">
+                    <Icon
+                      iconName="ActionMenu"
+                      width={24}
+                      height={24}
+                      className="w-6 h-6"
+                    />
+                  </div>
                 </React.Fragment>
               ))}
             </div>
+            <Button
+              variant="ghost"
+              className="font-semibold text-sm leading-main-lh text-main-color hover:text-main-dark gap-1 mt-6"
+            >
+              Додати картку{' '}
+              <Icon
+                iconName="Plus"
+                width={20}
+                height={20}
+                className="w-5 h-5"
+              />
+            </Button>
           </AccordionContent>
         </AccordionItem>
       </Accordion>

@@ -1,4 +1,5 @@
 import Academy from '@/components/icons/academy';
+import ActionMenu from '@/components/icons/action-menu';
 import ArrowDown from '@/components/icons/arrow-down';
 import Bag from '@/components/icons/bag';
 import Balans from '@/components/icons/balans';
@@ -35,6 +36,7 @@ import HistoryList from '@/components/icons/history-list';
 
 export const Icons = {
   Academy,
+  ActionMenu,
   ArrowDown,
   Bag,
   Balans,
