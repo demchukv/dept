@@ -20,9 +20,9 @@ export const columns: ColumnDef<operationType>[] = [
     cell: ({ getValue }) => {
       const date = getValue<string>();
       return (
-        <span className="text-gray-dark text-xs md:text-sm hidden md:inline">
+        <div className="text-gray-dark text-xs md:text-sm hidden md:inline">
           {format(new Date(date), 'dd.MM.yyyy')}
-        </span>
+        </div>
       );
     },
   },

@@ -7,6 +7,8 @@ import {
 import { Card } from '@/app/components/card/card';
 import { Separator } from '@/components/ui/separator';
 import { Icon } from '@/components/utils/icon';
+import Image from 'next/image';
+import { cn } from '@/lib/utils';
 import React from 'react';
 
 interface CardsListProps {
@@ -48,18 +50,48 @@ export const CardsList = ({ className }: CardsListProps) => {
           </AccordionTrigger>
           <AccordionContent>
             <Separator className="mt-4 mb-4 border-gray-light" />
-            <div className="grid grid-cols-[70%_20%_10%] gap-y-4">
+            <div className="grid grid-cols-[80%_20%] gap-y-4 items-center">
               {cards.map((item) => (
                 <React.Fragment key={item.id}>
-                  <div>
-                    <p>{item.status}</p>
-                    <p>{item.name}</p>
-                    <p>
+                  <div className="flex flex-col gap-1">
+                    <p
+                      className={cn(
+                        'font-medium text-xs leading-[1.33]',
+                        item.status === 'Основна'
+                          ? 'text-green-additional-color'
+                          : 'text-blue-additional-color',
+                      )}
+                    >
+                      {item.status}
+                    </p>
+                    <p className="font-semibold text-base leading-normal text-main-dark">
+                      {item.name}
+                    </p>
+                    <p className="font-medium text-sm leading-[1.14] text-main-dark">
                       {item.valute} {item.number}
                     </p>
                   </div>
-                  <div>{item.type}</div>
-                  <div>E</div>
+                  <div className="grid place-items-end">
+                    <div className="bg-bg-color rounded w-10 h-[26px] flex items-center">
+                      {item.type === 'Visa' && (
+                        <Image
+                          src="/img/visa.png"
+                          alt="Visa card"
+                          width={36}
+                          height={11}
+                        />
+                      )}
+                      {item.type === 'MC' && (
+                        <Image
+                          src="/img/mc.png"
+                          alt="MasterCard"
+                          width={32}
+                          height={20}
+                        />
+                      )}
+                    </div>
+                  </div>
+                  <div className="hidden">E</div>
                 </React.Fragment>
               ))}
             </div>
