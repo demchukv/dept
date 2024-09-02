@@ -93,6 +93,7 @@ export const ReplenishBalanseForm = ({
       });
     });
   }
+
   return (
     <>
       <ModalHeader>
@@ -272,7 +273,7 @@ export const ReplenishBalanseForm = ({
       >
         <Button
           type="button"
-          onClick={() => onSubmit(form.getValues())}
+          onClick={form.handleSubmit(onSubmit)}
           className="w-full"
         >
           Поповнити баланс

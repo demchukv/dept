@@ -36,8 +36,8 @@ const AddCardSchema = z.object({
   ownerName: z.string().min(2, 'Вкажіть ім’я власника'),
   cardNumber: z.string().regex(/^\d{16}$/, 'Номер картки повинен мати 16 цифр'),
   cardCvv: z.string().regex(/^\d{3,4}$/, 'CVV повинен мати 3 або 4 цифри'),
-  cardMonth: z.string().regex(/^\d{1,2}$/, 'Місяць повинен мати 2 цифри'),
-  cardYear: z.string().regex(/^\d{4}$/, 'Рік повинен мати 4 цифри'),
+  cardMonth: z.string().regex(/^\d{2}$/, 'Місяць повинен мати 2 цифри'),
+  cardYear: z.string().regex(/^\d{2}$/, 'Рік повинен мати 4 цифри'),
 });
 
 export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
@@ -196,7 +196,7 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
       >
         <Button
           type="button"
-          onClick={() => onSubmit(addForm.getValues())}
+          onClick={addForm.handleSubmit(onSubmit)}
           className="w-full"
         >
           Поповнити баланс
