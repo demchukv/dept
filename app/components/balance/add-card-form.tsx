@@ -41,6 +41,7 @@ const AddCardSchema = z.object({
 });
 
 export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
+  const [cvvVisible, setCvvVisible] = React.useState(false);
   const addForm = useForm<z.infer<typeof AddCardSchema>>({
     resolver: zodResolver(AddCardSchema),
     defaultValues: {
@@ -67,6 +68,7 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
       });
     });
   }
+
   return (
     <>
       <Form {...addForm}>
@@ -119,52 +121,56 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
                 </FormItem>
               )}
             />
-            <div className="flex gap-8">
-              <div className="flex gap-1.5 w-50%">
-                <FormField
-                  control={addForm.control}
-                  name="cardMonth"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="font-normal text-xs text-gray-dark leading-none">
-                        Термін дії:
-                      </FormLabel>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          // disabled={isPending}
-                          placeholder="_ _"
-                          type="tel"
-                          pattern="\d\d"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <div className="self-end">/</div>
-                <FormField
-                  control={addForm.control}
-                  name="cardYear"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="font-normal text-xs text-gray-dark leading-none">
-                        &nbsp;
-                      </FormLabel>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          // disabled={isPending}
-                          placeholder="_ _"
-                          type="tel"
-                          pattern="\d\d"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+
+            <div className="grid grid-cols-[1fr_1fr] gap-8">
+              <div>
+                <div className="grid grid-cols-[1fr_10px_1fr] gap-1.5">
+                  <FormField
+                    control={addForm.control}
+                    name="cardMonth"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="font-normal text-xs text-gray-dark leading-none">
+                          Термін дії:
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            // disabled={isPending}
+                            placeholder="_ _"
+                            type="tel"
+                            pattern="\d\d"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <div className="self-end">/</div>
+                  <FormField
+                    control={addForm.control}
+                    name="cardYear"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="font-normal text-xs text-gray-dark leading-none">
+                          &nbsp;
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            // disabled={isPending}
+                            placeholder="_ _"
+                            type="tel"
+                            pattern="\d\d"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
               </div>
+
               <FormField
                 control={addForm.control}
                 name="cardCvv"
@@ -174,12 +180,29 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
                       CVV код:
                     </FormLabel>
                     <FormControl>
-                      <Input
-                        {...field}
-                        // disabled={isPending}
-                        placeholder="..."
-                        type="text"
-                      />
+                      <div className="relative">
+                        <Input
+                          {...field}
+                          // disabled={isPending}
+                          placeholder="..."
+                          type={cvvVisible === true ? 'text' : 'password'}
+                        />
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          className="w-5 h-5 p-0 bg-transparent absolute top-0 right-4 translate-y-1/2"
+                          onClick={() => setCvvVisible(!cvvVisible)}
+                        >
+                          <Icon
+                            iconName={
+                              cvvVisible === true ? 'EyeClosed' : 'EyeOpen'
+                            }
+                            width={20}
+                            height={20}
+                            className="fill-main-dark"
+                          />
+                        </Button>
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -189,6 +212,7 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
           </div>
         </form>
       </Form>
+
       <ModalFooter
         className={cn(
           'flex flex-col gap-3 py-4 shadow-[0_-6px_20px_0_rgba(89,125,137,0.08)]',
