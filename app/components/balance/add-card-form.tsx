@@ -9,19 +9,22 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import { ModalFooter } from '@/app/components/common/modal';
 
 import { z } from 'zod';
 import { toast } from '@/components/ui/use-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { useForm, UseFormReturn } from 'react-hook-form';
 
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/utils/icon';
 import { cn } from '@/lib/utils';
+import { ReplenishBalansSchema } from '@/app/components/balance/replenish-balance-form';
 
 interface AddCardFormProps {
-  amount: number;
+  onClose: (state: boolean, e: React.MouseEvent | undefined) => void;
+  form: UseFormReturn<z.infer<typeof ReplenishBalansSchema>>;
 }
 
 const AddCardSchema = z.object({
@@ -37,11 +40,11 @@ const AddCardSchema = z.object({
   cardYear: z.string().regex(/^\d{4}$/, 'Рік повинен мати 4 цифри'),
 });
 
-export const AddCardForm = ({ amount }: AddCardFormProps) => {
+export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
   const addForm = useForm<z.infer<typeof AddCardSchema>>({
     resolver: zodResolver(AddCardSchema),
     defaultValues: {
-      amount: amount,
+      amount: form?.getValues().amount,
       ownerName: '',
       cardNumber: '',
       cardMonth: '',
@@ -53,6 +56,7 @@ export const AddCardForm = ({ amount }: AddCardFormProps) => {
     startTransition(() => {
       //TODO: make API request and setData
       // const newData = getJson('/data/call-summary.json');
+      data.amount = form?.getValues().amount || 0;
       toast({
         title: 'Ви відправили наступні значення:',
         description: (
@@ -70,7 +74,6 @@ export const AddCardForm = ({ amount }: AddCardFormProps) => {
           onSubmit={addForm.handleSubmit(onSubmit)}
           className="min-h-full flex flex-col gap-6 justify-between"
         >
-          <p>{amount}</p>
           <div className="min-h-full flex flex-col gap-3 w-full self-stretch">
             <FormField
               control={addForm.control}
@@ -186,6 +189,27 @@ export const AddCardForm = ({ amount }: AddCardFormProps) => {
           </div>
         </form>
       </Form>
+      <ModalFooter
+        className={cn(
+          'flex flex-col gap-3 py-4 shadow-[0_-6px_20px_0_rgba(89,125,137,0.08)]',
+        )}
+      >
+        <Button
+          type="button"
+          onClick={() => onSubmit(addForm.getValues())}
+          className="w-full"
+        >
+          Поповнити баланс
+        </Button>
+        <Button
+          type="button"
+          variant="outline"
+          onClick={() => onClose(false, undefined)}
+          className="w-full"
+        >
+          Відмінити
+        </Button>
+      </ModalFooter>
     </>
   );
 };

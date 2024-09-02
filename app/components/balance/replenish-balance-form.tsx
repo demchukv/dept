@@ -7,7 +7,6 @@ import {
   ModalHeader,
   ModalTitle,
 } from '@/app/components/common/modal';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
   Form,
   FormControl,
@@ -33,7 +32,7 @@ interface ReplenishBalanseFormProps {
   onClose: (state: boolean, e: React.MouseEvent | undefined) => void;
 }
 
-const ReplenishBalansSchema = z.object({
+export const ReplenishBalansSchema = z.object({
   amount: z.coerce
     .number({
       invalid_type_error: 'Вкажіть коректну суму поповнення',
@@ -262,14 +261,19 @@ export const ReplenishBalanseForm = ({
       </Form>
 
       <div className={cn('hidden', currentForm === 1 && 'block')}>
-        <AddCardForm amount={form.getValues().amount} />
+        <AddCardForm form={form} onClose={() => onClose(false, undefined)} />
       </div>
 
-      <ModalFooter className="flex flex-col gap-3 py-4 shadow-[0_-6px_20px_0_rgba(89,125,137,0.08)]">
+      <ModalFooter
+        className={cn(
+          'hidden flex-col gap-3 py-4 shadow-[0_-6px_20px_0_rgba(89,125,137,0.08)]',
+          currentForm === 0 && 'flex',
+        )}
+      >
         <Button
           type="button"
-          className="w-full"
           onClick={() => onSubmit(form.getValues())}
+          className="w-full"
         >
           Поповнити баланс
         </Button>
