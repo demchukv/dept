@@ -1,5 +1,5 @@
 'use client';
-import React, { startTransition } from 'react';
+import React, { startTransition, useState } from 'react';
 
 import {
   Form,
@@ -18,6 +18,7 @@ import { useForm, UseFormReturn } from 'react-hook-form';
 
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Icon } from '@/components/utils/icon';
 import { cn } from '@/lib/utils';
 import { ReplenishBalansSchema } from '@/app/components/balance/replenish-balance-form';
@@ -38,10 +39,12 @@ const AddCardSchema = z.object({
   cardCvv: z.string().regex(/^\d{3,4}$/, 'CVV повинен мати 3 або 4 цифри'),
   cardMonth: z.string().regex(/^\d{2}$/, 'Місяць повинен мати 2 цифри'),
   cardYear: z.string().regex(/^\d{2}$/, 'Рік повинен мати 4 цифри'),
+  saveCard: z.boolean().default(false).optional(),
 });
 
 export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
-  const [cvvVisible, setCvvVisible] = React.useState(false);
+  const [cvvVisible, setCvvVisible] = useState(false);
+
   const addForm = useForm<z.infer<typeof AddCardSchema>>({
     resolver: zodResolver(AddCardSchema),
     defaultValues: {
@@ -51,6 +54,7 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
       cardMonth: '',
       cardYear: '',
       cardCvv: '',
+      saveCard: true,
     },
   });
   function onSubmit(data: z.infer<typeof AddCardSchema>) {
@@ -123,16 +127,22 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
             />
 
             <div className="grid grid-cols-[1fr_1fr] gap-8">
-              <div>
-                <div className="grid grid-cols-[1fr_10px_1fr] gap-1.5">
+              <div className="grid grid-cols-[1fr_10px_1fr] gap-1.5 place-items-center">
+                <FormLabel
+                  htmlFor="cardMonth"
+                  className="font-normal text-xs text-gray-dark leading-none col-span-3 place-self-start"
+                >
+                  Термін дії:
+                </FormLabel>
+                <div>
                   <FormField
                     control={addForm.control}
                     name="cardMonth"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="font-normal text-xs text-gray-dark leading-none">
-                          Термін дії:
-                        </FormLabel>
+                        {/* <FormLabel className="font-normal text-xs text-gray-dark leading-none ізфт">
+                        Термін дії:
+                      </FormLabel> */}
                         <FormControl>
                           <Input
                             {...field}
@@ -146,15 +156,17 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
                       </FormItem>
                     )}
                   />
-                  <div className="self-end">/</div>
+                </div>
+                <div>/</div>
+                <div>
                   <FormField
                     control={addForm.control}
                     name="cardYear"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="font-normal text-xs text-gray-dark leading-none">
-                          &nbsp;
-                        </FormLabel>
+                        {/* <FormLabel className="font-normal text-xs text-gray-dark leading-none">
+                        &nbsp;
+                      </FormLabel> */}
                         <FormControl>
                           <Input
                             {...field}
@@ -177,7 +189,7 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="font-normal text-xs text-gray-dark leading-none">
-                      CVV код:
+                      CVV код: {cvvVisible}
                     </FormLabel>
                     <FormControl>
                       <div className="relative">
@@ -192,15 +204,23 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
                           variant="ghost"
                           className="w-5 h-5 p-0 bg-transparent absolute top-0 right-4 translate-y-1/2"
                           onClick={() => setCvvVisible(!cvvVisible)}
+                          title="Показати/Приховати CVV код"
                         >
-                          <Icon
-                            iconName={
-                              cvvVisible === true ? 'EyeClosed' : 'EyeOpen'
-                            }
-                            width={20}
-                            height={20}
-                            className="fill-main-dark"
-                          />
+                          {cvvVisible === true ? (
+                            <Icon
+                              iconName="EyeClosed"
+                              width={20}
+                              height={20}
+                              className="fill-main-dark"
+                            />
+                          ) : (
+                            <Icon
+                              iconName="EyeOpen"
+                              width={20}
+                              height={20}
+                              className="fill-main-dark"
+                            />
+                          )}
                         </Button>
                       </div>
                     </FormControl>
@@ -209,6 +229,23 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
                 )}
               />
             </div>
+            <FormField
+              control={form.control}
+              name="saveCard"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 shadow">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormLabel>Зберегти картку</FormLabel>
+                  </div>
+                </FormItem>
+              )}
+            />
           </div>
         </form>
       </Form>
