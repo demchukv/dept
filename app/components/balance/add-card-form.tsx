@@ -25,22 +25,67 @@ import { ReplenishBalansSchema } from '@/app/components/balance/replenish-balanc
 
 interface AddCardFormProps {
   onClose: (state: boolean, e: React.MouseEvent | undefined) => void;
-  form: UseFormReturn<z.infer<typeof ReplenishBalansSchema>>;
+  form?: UseFormReturn<z.infer<typeof ReplenishBalansSchema>>;
 }
 
-const AddCardSchema = z.object({
-  amount: z.coerce
-    .number({
-      invalid_type_error: 'Вкажіть коректну суму поповнення',
-    })
-    .gte(10, { message: 'Вкажіть коректну суму поповнення' }),
-  ownerName: z.string().min(2, 'Вкажіть ім’я власника'),
-  cardNumber: z.string().regex(/^\d{16}$/, 'Номер картки повинен мати 16 цифр'),
-  cardCvv: z.string().regex(/^\d{3,4}$/, 'CVV повинен мати 3 або 4 цифри'),
-  cardMonth: z.string().regex(/^\d{2}$/, 'Місяць повинен мати 2 цифри'),
-  cardYear: z.string().regex(/^\d{2}$/, 'Рік повинен мати 4 цифри'),
-  saveCard: z.boolean().default(false).optional(),
-});
+const AddCardSchema = z
+  .object({
+    amount: z.coerce
+      .number({
+        invalid_type_error: 'Вкажіть коректну суму поповнення',
+      })
+      .gte(10, { message: 'Вкажіть коректну суму поповнення' }),
+    ownerName: z.string().min(2, 'Вкажіть ім’я власника'),
+    cardNumber: z
+      .string()
+      .regex(/^\d{16}$/, 'Номер картки повинен мати 16 цифр'),
+    cardCvv: z.string().regex(/^\d{3,4}$/, 'CVV повинен мати 3 або 4 цифри'),
+    cardMonth: z.string().refine(
+      (value) => {
+        return Number(value) >= 1 && Number(value) <= 12;
+      },
+      {
+        message: 'Місяць повинен бути від 01 до 12',
+      },
+    ),
+    cardYear: z.string().refine(
+      (value) => {
+        return (
+          Number('20' + value) >= new Date().getFullYear() &&
+          Number('20' + value) <= new Date().getFullYear() + 10
+        );
+      },
+      {
+        message: 'Перевірте рік дії картки',
+      },
+    ),
+    saveCard: z.boolean().optional(),
+  })
+  .refine(
+    (data) => {
+      console.log(Number('20' + data.cardYear));
+      const currentDate = new Date();
+      const currentMonth = currentDate.getMonth() + 1;
+      const currentYear = currentDate.getFullYear();
+      console.log(currentYear, currentMonth);
+      console.log(Number(data.cardMonth));
+
+      if (Number('20' + data.cardYear) < currentYear) {
+        return true;
+      } else if (
+        Number('20' + data.cardYear) === currentYear &&
+        Number(data.cardMonth) < currentMonth
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    {
+      message: 'Картка прострочена. Використайте іншу картку.',
+      path: ['cardMonth', 'cardYear'],
+    },
+  );
 
 export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
   const [cvvVisible, setCvvVisible] = useState(false);
@@ -54,7 +99,7 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
       cardMonth: '',
       cardYear: '',
       cardCvv: '',
-      saveCard: true,
+      saveCard: false,
     },
   });
   function onSubmit(data: z.infer<typeof AddCardSchema>) {
@@ -116,7 +161,7 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
                       placeholder=""
                       type="tel"
                       inputMode="numeric"
-                      pattern="[0-9\s]{13,19}"
+                      pattern="[0-9\s ]{13,19}"
                       autoComplete="cc-number"
                       maxLength={19}
                     />
@@ -125,7 +170,7 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
                 </FormItem>
               )}
             />
-            <div className="grid grid-cols-[1fr_1fr] grid_rows-[auto_auto] gap-x-8">
+            <div className="grid grid-cols-[1fr_1fr] grid_rows-[auto_auto_auto] gap-x-8">
               <div className="pb-2">
                 <FormLabel
                   htmlFor="cardMonth"
@@ -158,7 +203,6 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
                             pattern="\d\d"
                           />
                         </FormControl>
-                        <FormMessage />
                       </FormItem>
                     )}
                   />
@@ -179,12 +223,13 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
                             pattern="\d\d"
                           />
                         </FormControl>
-                        <FormMessage />
+                        {/* <FormMessage /> */}
                       </FormItem>
                     )}
                   />
                 </div>
               </div>
+
               <div>
                 <FormField
                   control={addForm.control}
@@ -224,10 +269,29 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
                           </Button>
                         </div>
                       </FormControl>
-                      <FormMessage />
+                      {/* <FormMessage /> */}
                     </FormItem>
                   )}
                 />
+              </div>
+              <div>
+                {addForm.formState.errors?.cardMonth && (
+                  <p className="text-[0.8rem] text-warning font-medium">
+                    {addForm.formState.errors?.cardMonth.message}
+                  </p>
+                )}
+                {addForm.formState.errors?.cardYear && (
+                  <p className="text-[0.8rem] text-warning font-medium">
+                    {addForm.formState.errors?.cardYear.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                {addForm.formState.errors?.cardCvv && (
+                  <p className="text-[0.8rem] text-warning font-medium">
+                    {addForm.formState.errors?.cardCvv.message}
+                  </p>
+                )}
               </div>
             </div>
 
@@ -235,7 +299,7 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
               control={addForm.control}
               name="saveCard"
               render={({ field }) => (
-                <FormItem className="flex flex-row items-start space-x-3 space-y-0 p-4">
+                <FormItem className="flex flex-row items-center space-x-3 space-y-0 py-4">
                   <FormControl>
                     <Checkbox
                       checked={field.value}
@@ -243,7 +307,9 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
                     />
                   </FormControl>
                   <div className="space-y-1 leading-none">
-                    <FormLabel>Зберегти картку</FormLabel>
+                    <FormLabel className="font-normal text-sm text-main-dark">
+                      Зберегти картку
+                    </FormLabel>
                   </div>
                 </FormItem>
               )}
