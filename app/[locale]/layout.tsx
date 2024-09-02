@@ -33,6 +33,14 @@ export default async function RootLayout({
   console.log(locale);
   return (
     <html lang={locale} dir={dir(locale)}>
+      <head>
+        <link rel="shortcut icon" href="/favicon.png" type="image/png" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/vzcom0q3xyachjccsrp6lq7hp8jglfvl.png"
+        />
+      </head>
       <body
         className={cn(
           montserrat.className,

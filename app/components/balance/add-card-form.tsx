@@ -1,5 +1,5 @@
 'use client';
-import React, { startTransition } from 'react';
+import React, { startTransition, useState } from 'react';
 
 import {
   Form,
@@ -18,6 +18,7 @@ import { useForm, UseFormReturn } from 'react-hook-form';
 
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Icon } from '@/components/utils/icon';
 import { cn } from '@/lib/utils';
 import { ReplenishBalansSchema } from '@/app/components/balance/replenish-balance-form';
@@ -38,9 +39,12 @@ const AddCardSchema = z.object({
   cardCvv: z.string().regex(/^\d{3,4}$/, 'CVV повинен мати 3 або 4 цифри'),
   cardMonth: z.string().regex(/^\d{2}$/, 'Місяць повинен мати 2 цифри'),
   cardYear: z.string().regex(/^\d{2}$/, 'Рік повинен мати 4 цифри'),
+  saveCard: z.boolean().default(false).optional(),
 });
 
 export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
+  const [cvvVisible, setCvvVisible] = useState(false);
+
   const addForm = useForm<z.infer<typeof AddCardSchema>>({
     resolver: zodResolver(AddCardSchema),
     defaultValues: {
@@ -50,6 +54,7 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
       cardMonth: '',
       cardYear: '',
       cardCvv: '',
+      saveCard: true,
     },
   });
   function onSubmit(data: z.infer<typeof AddCardSchema>) {
@@ -67,6 +72,7 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
       });
     });
   }
+
   return (
     <>
       <Form {...addForm}>
@@ -119,76 +125,133 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
                 </FormItem>
               )}
             />
-            <div className="flex gap-8">
-              <div className="flex gap-1.5 w-50%">
+            <div className="grid grid-cols-[1fr_1fr] grid_rows-[auto_auto] gap-x-8">
+              <div className="pb-2">
+                <FormLabel
+                  htmlFor="cardMonth"
+                  className="font-normal text-xs text-gray-dark leading-none"
+                >
+                  Термін дії:
+                </FormLabel>
+              </div>
+              <div className="pb-2">
+                <FormLabel
+                  htmlFor="cardCvv"
+                  className="font-normal text-xs text-gray-dark leading-none"
+                >
+                  CVV код:
+                </FormLabel>
+              </div>
+              <div className="grid grid-cols-[1fr_16px_1fr] items-center">
+                <div>
+                  <FormField
+                    control={addForm.control}
+                    name="cardMonth"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            // disabled={isPending}
+                            placeholder="_ _"
+                            type="tel"
+                            pattern="\d\d"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <div className="text-center text-main-dark">/</div>
+                <div>
+                  <FormField
+                    control={addForm.control}
+                    name="cardYear"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            // disabled={isPending}
+                            placeholder="_ _"
+                            type="tel"
+                            pattern="\d\d"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </div>
+              <div>
                 <FormField
                   control={addForm.control}
-                  name="cardMonth"
+                  name="cardCvv"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="font-normal text-xs text-gray-dark leading-none">
-                        Термін дії:
-                      </FormLabel>
                       <FormControl>
-                        <Input
-                          {...field}
-                          // disabled={isPending}
-                          placeholder="_ _"
-                          type="tel"
-                          pattern="\d\d"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <div className="self-end">/</div>
-                <FormField
-                  control={addForm.control}
-                  name="cardYear"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="font-normal text-xs text-gray-dark leading-none">
-                        &nbsp;
-                      </FormLabel>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          // disabled={isPending}
-                          placeholder="_ _"
-                          type="tel"
-                          pattern="\d\d"
-                        />
+                        <div className="relative">
+                          <Input
+                            {...field}
+                            // disabled={isPending}
+                            placeholder="..."
+                            type={cvvVisible === true ? 'text' : 'password'}
+                          />
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            className="w-5 h-5 p-0 bg-transparent absolute top-0 right-4 translate-y-1/2"
+                            onClick={() => setCvvVisible(!cvvVisible)}
+                            title="Показати/Приховати CVV код"
+                          >
+                            {cvvVisible === true ? (
+                              <Icon
+                                iconName="EyeClosed"
+                                width={20}
+                                height={20}
+                                className="fill-main-dark"
+                              />
+                            ) : (
+                              <Icon
+                                iconName="EyeOpen"
+                                width={20}
+                                height={20}
+                                className="fill-main-dark"
+                              />
+                            )}
+                          </Button>
+                        </div>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
               </div>
-              <FormField
-                control={addForm.control}
-                name="cardCvv"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="font-normal text-xs text-gray-dark leading-none">
-                      CVV код:
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        // disabled={isPending}
-                        placeholder="..."
-                        type="text"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
             </div>
+
+            <FormField
+              control={addForm.control}
+              name="saveCard"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0 p-4">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormLabel>Зберегти картку</FormLabel>
+                  </div>
+                </FormItem>
+              )}
+            />
           </div>
         </form>
       </Form>
+
       <ModalFooter
         className={cn(
           'flex flex-col gap-3 py-4 shadow-[0_-6px_20px_0_rgba(89,125,137,0.08)]',

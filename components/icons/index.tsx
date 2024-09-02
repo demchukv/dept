@@ -18,6 +18,8 @@ import Dashboard from '@/components/icons/dashboard';
 import Doc from '@/components/icons/doc';
 import Document from '@/components/icons/document';
 import Electronics from '@/components/icons/electronics';
+import EyeClosed from '@/components/icons/eye-closed';
+import EyeOpen from '@/components/icons/eye-open';
 import Globe from '@/components/icons/globe';
 import GooglePay from '@/components/icons/google-pay';
 import Help from '@/components/icons/help';
@@ -58,6 +60,8 @@ export const Icons = {
   Doc,
   Document,
   Electronics,
+  EyeClosed,
+  EyeOpen,
   Globe,
   GooglePay,
   Help,
