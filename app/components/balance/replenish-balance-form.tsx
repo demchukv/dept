@@ -44,11 +44,6 @@ const ReplenishBalansSchema = z.object({
       required_error: 'Вкажіть картку з якої відбуватиметься оплата',
     })
     .gte(1, 'Вкажіть картку з якої відбуватиметься оплата'),
-  ownerName: z.string().min(2, 'Вкажіть ім’я власника'),
-  cardNumber: z.string().regex(/^\d{16}$/, 'Номер картки повинен мати 16 цифр'),
-  cardCvv: z.string().regex(/^\d{3,4}$/, 'CVV повинен мати 3 або 4 цифри'),
-  cardMonth: z.string().regex(/^\d{1,2}$/, 'Місяць повинен мати 2 цифри'),
-  cardYear: z.string().regex(/^\d{4}$/, 'Рік повинен мати 4 цифри'),
 });
 
 const cards = [
@@ -76,17 +71,13 @@ export const ReplenishBalanseForm = ({
   onClose,
 }: ReplenishBalanseFormProps) => {
   const [isPendig, startTransition] = useTransition();
+  const [currentForm, setCurrentForm] = React.useState(0);
 
   const form = useForm<z.infer<typeof ReplenishBalansSchema>>({
     resolver: zodResolver(ReplenishBalansSchema),
     defaultValues: {
       amount: 500,
       card: selectedCard?.id || 0,
-      ownerName: '',
-      cardNumber: '',
-      cardMonth: '',
-      cardYear: '',
-      cardCvv: '',
     },
   });
   function onSubmit(data: z.infer<typeof ReplenishBalansSchema>) {
@@ -113,7 +104,7 @@ export const ReplenishBalanseForm = ({
       </ModalHeader>
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(onSubmit)}
+          // onSubmit={form.handleSubmit(onSubmit)}
           className="min-h-full flex flex-col gap-6 justify-between"
         >
           <div className="min-h-full flex flex-col gap-6 w-full self-stretch">
@@ -143,6 +134,7 @@ export const ReplenishBalanseForm = ({
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
               name="card"
@@ -171,86 +163,96 @@ export const ReplenishBalanseForm = ({
                       Pay
                     </Button>
                   </div>
-                  <div className="mb-6">
+                  <div>
                     <Button type="button" className="w-full">
                       Згенерувати рахунок на оплату
                     </Button>
                   </div>
 
-                  <Tabs
-                    defaultValue="cardList"
-                    className="w-full grid md:grid-rows-[minmax(0,72px)_auto] lg:grid-rows-[minmax(0,52px)_auto]"
-                  >
-                    <TabsList className="justify-center">
-                      <TabsTrigger value="cardList">Обрати картку</TabsTrigger>
-                      <TabsTrigger value="cardAdd">
-                        Ввести дані картки
-                      </TabsTrigger>
-                    </TabsList>
-                    <TabsContent value="cardList" className="h-full">
-                      <FormControl>
-                        <RadioGroup
-                          onValueChange={field.onChange}
-                          defaultValue={String(field.value)}
-                          className="flex flex-col"
-                        >
-                          {cards.map((item) => (
-                            <React.Fragment key={item.id}>
-                              <FormItem className="flex items-center gap-x-2 gap-y-3">
-                                <FormControl>
-                                  <RadioGroupItem value={String(item.id)} />
-                                </FormControl>
-                                <FormLabel className="w-full bg-white flex justify-between items-center border border-gray-light rounded p-3 shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)]">
-                                  <div className="flex flex-col gap-1">
-                                    <p
-                                      className={cn(
-                                        'font-medium text-xs leading-[1.33]',
-                                        item.status === 'Основна'
-                                          ? 'text-green-additional-color'
-                                          : 'text-blue-additional-color',
-                                      )}
-                                    >
-                                      {item.status}
-                                    </p>
-                                    <p className="font-semibold text-base leading-normal text-main-dark">
-                                      {item.name}
-                                    </p>
-                                    <p className="font-medium text-sm leading-[1.14] text-main-dark">
-                                      {item.valute} {item.number}
-                                    </p>
+                  <div className="flex gap-4 items-center justify-center mt-6">
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      onClick={() => setCurrentForm(0)}
+                      className={cn(
+                        'font-semibold text-sm leading-main-lh text-main-dark',
+                        currentForm === 0 && 'text-main-color',
+                      )}
+                    >
+                      Обрати картку
+                    </Button>
+                    |
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      onClick={() => setCurrentForm(1)}
+                      className={cn(
+                        'font-semibold text-sm leading-main-lh text-main-dark',
+                        currentForm === 1 && 'text-main-color',
+                      )}
+                    >
+                      Ввести дані картки
+                    </Button>
+                  </div>
+                  <div className={cn('hidden', currentForm === 0 && 'block')}>
+                    <FormControl>
+                      <RadioGroup
+                        onValueChange={field.onChange}
+                        defaultValue={String(field.value)}
+                        className="flex flex-col"
+                      >
+                        {cards.map((item) => (
+                          <React.Fragment key={item.id}>
+                            <FormItem className="flex items-center gap-x-2 gap-y-3">
+                              <FormControl>
+                                <RadioGroupItem value={String(item.id)} />
+                              </FormControl>
+                              <FormLabel className="w-full bg-white flex justify-between items-center border border-gray-light rounded p-3 shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)]">
+                                <div className="flex flex-col gap-1">
+                                  <p
+                                    className={cn(
+                                      'font-medium text-xs leading-[1.33]',
+                                      item.status === 'Основна'
+                                        ? 'text-green-additional-color'
+                                        : 'text-blue-additional-color',
+                                    )}
+                                  >
+                                    {item.status}
+                                  </p>
+                                  <p className="font-semibold text-base leading-normal text-main-dark">
+                                    {item.name}
+                                  </p>
+                                  <p className="font-medium text-sm leading-[1.14] text-main-dark">
+                                    {item.valute} {item.number}
+                                  </p>
+                                </div>
+                                <div className="grid place-items-end">
+                                  <div className="bg-bg-color rounded w-10 h-[26px] flex items-center">
+                                    {item.type === 'Visa' && (
+                                      <Image
+                                        src="/img/visa.png"
+                                        alt="Visa card"
+                                        width={36}
+                                        height={11}
+                                      />
+                                    )}
+                                    {item.type === 'MC' && (
+                                      <Image
+                                        src="/img/mc.png"
+                                        alt="MasterCard"
+                                        width={32}
+                                        height={20}
+                                      />
+                                    )}
                                   </div>
-                                  <div className="grid place-items-end">
-                                    <div className="bg-bg-color rounded w-10 h-[26px] flex items-center">
-                                      {item.type === 'Visa' && (
-                                        <Image
-                                          src="/img/visa.png"
-                                          alt="Visa card"
-                                          width={36}
-                                          height={11}
-                                        />
-                                      )}
-                                      {item.type === 'MC' && (
-                                        <Image
-                                          src="/img/mc.png"
-                                          alt="MasterCard"
-                                          width={32}
-                                          height={20}
-                                        />
-                                      )}
-                                    </div>
-                                  </div>
-                                </FormLabel>
-                              </FormItem>
-                            </React.Fragment>
-                          ))}
-                        </RadioGroup>
-                      </FormControl>
-                    </TabsContent>
-                    <TabsContent value="cardAdd" className="h-full">
-                      {/* <AddCardForm form={form} /> */}
-                    </TabsContent>
-                  </Tabs>
-
+                                </div>
+                              </FormLabel>
+                            </FormItem>
+                          </React.Fragment>
+                        ))}
+                      </RadioGroup>
+                    </FormControl>
+                  </div>
                   <FormMessage />
                 </FormItem>
               )}
@@ -258,11 +260,16 @@ export const ReplenishBalanseForm = ({
           </div>
         </form>
       </Form>
+
+      <div className={cn('hidden', currentForm === 1 && 'block')}>
+        <AddCardForm amount={form.getValues().amount} />
+      </div>
+
       <ModalFooter className="flex flex-col gap-3 py-4 shadow-[0_-6px_20px_0_rgba(89,125,137,0.08)]">
         <Button
           type="button"
           className="w-full"
-          onClick={form.handleSubmit(onSubmit)}
+          onClick={() => onSubmit(form.getValues())}
         >
           Поповнити баланс
         </Button>
