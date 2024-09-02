@@ -125,7 +125,7 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
                 </FormItem>
               )}
             />
-            <div className="grid grid-cols-[1fr_1fr] grid_rows-[auto_auto] gap-x-8">
+            <div className="grid grid-cols-[1fr_1fr] grid_rows-[auto_auto_auto] gap-x-8">
               <div className="pb-2">
                 <FormLabel
                   htmlFor="cardMonth"
@@ -158,7 +158,6 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
                             pattern="\d\d"
                           />
                         </FormControl>
-                        <FormMessage />
                       </FormItem>
                     )}
                   />
@@ -185,6 +184,7 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
                   />
                 </div>
               </div>
+
               <div>
                 <FormField
                   control={addForm.control}
@@ -235,7 +235,7 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
               control={addForm.control}
               name="saveCard"
               render={({ field }) => (
-                <FormItem className="flex flex-row items-start space-x-3 space-y-0 p-4">
+                <FormItem className="flex flex-row items-center space-x-3 space-y-0 p-4">
                   <FormControl>
                     <Checkbox
                       checked={field.value}
@@ -243,7 +243,9 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
                     />
                   </FormControl>
                   <div className="space-y-1 leading-none">
-                    <FormLabel>Зберегти картку</FormLabel>
+                    <FormLabel className="font-normal text-sm text-main-dark">
+                      Зберегти картку
+                    </FormLabel>
                   </div>
                 </FormItem>
               )}
