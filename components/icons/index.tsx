@@ -1,5 +1,6 @@
 import Academy from '@/components/icons/academy';
 import ActionMenu from '@/components/icons/action-menu';
+import ApplePay from '@/components/icons/apple-pay';
 import ArrowDown from '@/components/icons/arrow-down';
 import Bag from '@/components/icons/bag';
 import Balans from '@/components/icons/balans';
@@ -17,14 +18,16 @@ import Dashboard from '@/components/icons/dashboard';
 import Doc from '@/components/icons/doc';
 import Document from '@/components/icons/document';
 import Electronics from '@/components/icons/electronics';
+import Globe from '@/components/icons/globe';
+import GooglePay from '@/components/icons/google-pay';
 import Help from '@/components/icons/help';
 import Home from '@/components/icons/home';
-import Globe from '@/components/icons/globe';
 import Logout from '@/components/icons/logout';
 import Mail from '@/components/icons/mail';
 import Menu from '@/components/icons/menu';
 import Plus from '@/components/icons/plus';
 import Product from '@/components/icons/product';
+import RadioChecked from '@/components/icons/radio-checked';
 import Repair from '@/components/icons/repair';
 import RoundedRrrowRigth from '@/components/icons/rounded-arrow-rigth';
 import Settings from '@/components/icons/settings';
@@ -37,6 +40,7 @@ import HistoryList from '@/components/icons/history-list';
 export const Icons = {
   Academy,
   ActionMenu,
+  ApplePay,
   ArrowDown,
   Bag,
   Balans,
@@ -54,15 +58,17 @@ export const Icons = {
   Doc,
   Document,
   Electronics,
+  Globe,
+  GooglePay,
   Help,
   HistoryList,
   Home,
-  Globe,
   Logout,
   Mail,
   Menu,
   Plus,
   Product,
+  RadioChecked,
   Repair,
   RoundedRrrowRigth,
   Settings,
