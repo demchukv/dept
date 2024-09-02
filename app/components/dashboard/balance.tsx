@@ -3,8 +3,15 @@ import { Card, CardHeader, CardSeparator } from '@/app/components/card/card';
 import { Icon } from '@/components/utils/icon';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import dynamic from 'next/dynamic';
 
-import { ReplenishBalanse } from '@/app/components/balance/replenish-balance';
+// import { ReplenishBalanse } from '@/app/components/balance/replenish-balance';
+
+const ReplenishBalanse = dynamic(() =>
+  import('@/app/components/balance/replenish-balance').then(
+    (mod) => mod.ReplenishBalanse,
+  ),
+);
 
 interface BalanceProps {
   balance: {
