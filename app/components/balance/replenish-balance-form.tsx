@@ -7,7 +7,6 @@ import {
   ModalHeader,
   ModalTitle,
 } from '@/app/components/common/modal';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
   Form,
   FormControl,
@@ -16,6 +15,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import { AddCardForm } from '@/app/components/balance/add-card-form';
 import { z } from 'zod';
 import { toast } from '@/components/ui/use-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -32,15 +32,17 @@ interface ReplenishBalanseFormProps {
   onClose: (state: boolean, e: React.MouseEvent | undefined) => void;
 }
 
-const ReplenishBalansSchema = z.object({
+export const ReplenishBalansSchema = z.object({
   amount: z.coerce
     .number({
       invalid_type_error: 'Вкажіть коректну суму поповнення',
     })
     .gte(10, { message: 'Вкажіть коректну суму поповнення' }),
-  card: z.coerce.number({
-    required_error: 'Вкажіть rкартку з якої відбуватиметься оплата',
-  }),
+  card: z.coerce
+    .number({
+      required_error: 'Вкажіть картку з якої відбуватиметься оплата',
+    })
+    .gte(1, 'Вкажіть картку з якої відбуватиметься оплата'),
 });
 
 const cards = [
@@ -62,16 +64,19 @@ const cards = [
   },
 ];
 
+const selectedCard = cards.find((card) => card.status === 'Основна');
+
 export const ReplenishBalanseForm = ({
   onClose,
 }: ReplenishBalanseFormProps) => {
   const [isPendig, startTransition] = useTransition();
+  const [currentForm, setCurrentForm] = React.useState(0);
 
   const form = useForm<z.infer<typeof ReplenishBalansSchema>>({
     resolver: zodResolver(ReplenishBalansSchema),
     defaultValues: {
-      amount: 0,
-      card: 0,
+      amount: 500,
+      card: selectedCard?.id || 0,
     },
   });
   function onSubmit(data: z.infer<typeof ReplenishBalansSchema>) {
@@ -88,84 +93,108 @@ export const ReplenishBalanseForm = ({
       });
     });
   }
-  return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="min-h-full flex flex-col gap-6 justify-between"
-      >
-        <ModalHeader>
-          <ModalTitle className="font-semibold text-base leading-normal text-main-dark text-center mt-5">
-            Поповнити баланс
-          </ModalTitle>
-          <ModalDescription className="hidden"></ModalDescription>
-        </ModalHeader>
-        <div className="min-h-full flex flex-col gap-6 w-full self-stretch">
-          <FormField
-            control={form.control}
-            name="amount"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="font-semibold text-sb text-gray-dark leading-main-lh">
-                  Сума поповнення
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    {...field}
-                    // disabled={isPending}
-                    placeholder=""
-                    type="text"
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="card"
-            render={({ field }) => (
-              <FormItem className="space-y-3">
-                <FormLabel className="font-semibold text-sb text-gray-dark leading-main-lh">
-                  Спосіб поповнення
-                </FormLabel>
-                <div className="flex gap-3 mb-3 justify-between">
-                  <Button variant="secondary" className="w-full ">
-                    <Icon
-                      iconName="ApplePay"
-                      width={24}
-                      height={24}
-                      className="fill-white"
-                    />{' '}
-                    Pay
-                  </Button>
-                  <Button variant="secondary" className="w-full">
-                    <Icon
-                      iconName="GooglePay"
-                      width={24}
-                      height={24}
-                      className="fill-white"
-                    />{' '}
-                    Pay
-                  </Button>
-                </div>
-                <div className="mb-6">
-                  <Button type="button" className="w-full">
-                    Згенерувати рахунок на оплату
-                  </Button>
-                </div>
 
-                <Tabs
-                  defaultValue="cardList"
-                  className="w-full grid md:grid-rows-[minmax(0,72px)_auto] lg:grid-rows-[minmax(0,52px)_auto]"
-                >
-                  <TabsList className="justify-center">
-                    <TabsTrigger value="cardList">Обрати картку</TabsTrigger>
-                    <TabsTrigger value="cardAdd">
+  return (
+    <>
+      <ModalHeader>
+        <ModalTitle className="font-semibold text-base leading-normal text-main-dark text-center">
+          Поповнити баланс
+        </ModalTitle>
+        <ModalDescription className="hidden"></ModalDescription>
+      </ModalHeader>
+      <Form {...form}>
+        <form
+          // onSubmit={form.handleSubmit(onSubmit)}
+          className="min-h-full flex flex-col gap-6 justify-between"
+        >
+          <div className="min-h-full flex flex-col gap-6 w-full self-stretch">
+            <FormField
+              control={form.control}
+              name="amount"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="font-semibold text-sb text-gray-dark leading-main-lh">
+                    Сума поповнення
+                  </FormLabel>
+                  <FormControl>
+                    <div className="relative w-full">
+                      <Input
+                        {...field}
+                        // disabled={isPending}
+                        placeholder=""
+                        type="text"
+                        className="pr-12"
+                      />
+                      <div className="absolute top-1/2 right-4 -translate-y-1/2 text-main-dark text-sm font-medium leading-[1.57]">
+                        грн
+                      </div>
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="card"
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel className="font-semibold text-sb text-gray-dark leading-main-lh">
+                    Спосіб поповнення
+                  </FormLabel>
+                  <div className="flex gap-3 mb-3 justify-between">
+                    <Button variant="secondary" className="w-full ">
+                      <Icon
+                        iconName="ApplePay"
+                        width={24}
+                        height={24}
+                        className="fill-white"
+                      />{' '}
+                      Pay
+                    </Button>
+                    <Button variant="secondary" className="w-full">
+                      <Icon
+                        iconName="GooglePay"
+                        width={24}
+                        height={24}
+                        className="fill-white"
+                      />{' '}
+                      Pay
+                    </Button>
+                  </div>
+                  <div>
+                    <Button type="button" className="w-full">
+                      Згенерувати рахунок на оплату
+                    </Button>
+                  </div>
+
+                  <div className="flex gap-4 items-center justify-center mt-6">
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      onClick={() => setCurrentForm(0)}
+                      className={cn(
+                        'font-semibold text-sm leading-main-lh text-main-dark',
+                        currentForm === 0 && 'text-main-color',
+                      )}
+                    >
+                      Обрати картку
+                    </Button>
+                    |
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      onClick={() => setCurrentForm(1)}
+                      className={cn(
+                        'font-semibold text-sm leading-main-lh text-main-dark',
+                        currentForm === 1 && 'text-main-color',
+                      )}
+                    >
                       Ввести дані картки
-                    </TabsTrigger>
-                  </TabsList>
-                  <TabsContent value="cardList" className="h-full">
+                    </Button>
+                  </div>
+                  <div className={cn('hidden', currentForm === 0 && 'block')}>
                     <FormControl>
                       <RadioGroup
                         onValueChange={field.onChange}
@@ -223,31 +252,41 @@ export const ReplenishBalanseForm = ({
                         ))}
                       </RadioGroup>
                     </FormControl>
-                  </TabsContent>
-                  <TabsContent value="cardAdd" className="h-full">
-                    <p>Tab 2 - Form to add card</p>
-                  </TabsContent>
-                </Tabs>
+                  </div>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+        </form>
+      </Form>
 
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-        <ModalFooter className="flex flex-col gap-3 py-4 shadow-[0_-6px_20px_0_rgba(89,125,137,0.08)]">
-          <Button type="submit" className="w-full">
-            Поповнити баланс
-          </Button>
-          <Button
-            type="button"
-            variant="outline"
-            onClick={() => onClose(false, undefined)}
-            className="w-full"
-          >
-            Відмінити
-          </Button>
-        </ModalFooter>
-      </form>
-    </Form>
+      <div className={cn('hidden', currentForm === 1 && 'block')}>
+        <AddCardForm form={form} onClose={() => onClose(false, undefined)} />
+      </div>
+
+      <ModalFooter
+        className={cn(
+          'hidden flex-col gap-3 py-4 shadow-[0_-6px_20px_0_rgba(89,125,137,0.08)]',
+          currentForm === 0 && 'flex',
+        )}
+      >
+        <Button
+          type="button"
+          onClick={form.handleSubmit(onSubmit)}
+          className="w-full"
+        >
+          Поповнити баланс
+        </Button>
+        <Button
+          type="button"
+          variant="outline"
+          onClick={() => onClose(false, undefined)}
+          className="w-full"
+        >
+          Відмінити
+        </Button>
+      </ModalFooter>
+    </>
   );
 };

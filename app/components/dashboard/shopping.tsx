@@ -133,7 +133,7 @@ export const Shopping = ({ bag }: ShoppingProps) => {
       </table>
       <Separator className="md:hidden mb-4 mt-2.5 border-gray-light lg:hidden" />
       <Link
-        href="/bag"
+        href="/shopping"
         className="block text-center lg:text-right text-main-color hover:text-main-dark pt-3 lg:pt-0 font-semibold text-sm leading-main-lh"
       >
         Показати всі

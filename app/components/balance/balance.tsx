@@ -3,8 +3,14 @@ import React from 'react';
 import { Card } from '@/app/components/card/card';
 import { Icon } from '@/components/utils/icon';
 import { Button } from '@/components/ui/button';
-import { ReplenishBalanse } from '@/app/components/balance/replenish-balance';
+import dynamic from 'next/dynamic';
+// import { ReplenishBalanse } from '@/app/components/balance/replenish-balance';
 
+const ReplenishBalanse = dynamic(() =>
+  import('@/app/components/balance/replenish-balance').then(
+    (mod) => mod.ReplenishBalanse,
+  ),
+);
 interface BalanceProps {
   balance: {
     balance: number;
