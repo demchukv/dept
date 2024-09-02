@@ -33,11 +33,13 @@ interface ReplenishBalanseFormProps {
 }
 
 const ReplenishBalansSchema = z.object({
-  amount: z.coerce.number({
-    invalid_type_error: 'Вкажіть коректну суму поповнення',
-  }),
+  amount: z.coerce
+    .number({
+      invalid_type_error: 'Вкажіть коректну суму поповнення',
+    })
+    .gte(10, { message: 'Вкажіть коректну суму поповнення' }),
   card: z.coerce.number({
-    required_error: 'Вкажіть rкартку з якої відбуватимеься оплата',
+    required_error: 'Вкажіть rкартку з якої відбуватиметься оплата',
   }),
 });
 

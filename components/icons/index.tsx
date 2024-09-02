@@ -27,6 +27,7 @@ import Mail from '@/components/icons/mail';
 import Menu from '@/components/icons/menu';
 import Plus from '@/components/icons/plus';
 import Product from '@/components/icons/product';
+import RadioChecked from '@/components/icons/radio-checked';
 import Repair from '@/components/icons/repair';
 import RoundedRrrowRigth from '@/components/icons/rounded-arrow-rigth';
 import Settings from '@/components/icons/settings';
@@ -67,6 +68,7 @@ export const Icons = {
   Menu,
   Plus,
   Product,
+  RadioChecked,
   Repair,
   RoundedRrrowRigth,
   Settings,
