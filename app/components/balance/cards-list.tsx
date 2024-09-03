@@ -70,7 +70,13 @@ export const CardsList = ({ className }: CardsListProps) => {
             <div className="grid grid-cols-[80%_20%] lg:grid-cols-[70%_20%_10%] gap-y-4 items-center">
               {cards.map((item) => (
                 <React.Fragment key={item.id}>
-                  <div className="flex flex-col gap-1">
+                  <div
+                    className="flex flex-col gap-1 cursor-pointer"
+                    onClick={() => {
+                      setCardId(item.id);
+                      setOpenEdit(true);
+                    }}
+                  >
                     <p
                       className={cn(
                         'font-medium text-xs leading-[1.33]',
@@ -146,11 +152,13 @@ export const CardsList = ({ className }: CardsListProps) => {
           </AccordionContent>
         </AccordionItem>
       </Accordion>
+
       <Modal open={open} onOpenChange={() => onClose(false, undefined)}>
         <ModalContent className="grid grid-cols-1 gap-6">
           <AddCardForm onClose={onClose} />
         </ModalContent>
       </Modal>
+
       <Modal open={openEdit} onOpenChange={() => onCloseEdit(false, undefined)}>
         <ModalContent className="grid grid-cols-1 gap-6">
           <EditCardForm onClose={onCloseEdit} cardId={cardId} />
