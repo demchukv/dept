@@ -9,7 +9,12 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { ModalFooter } from '@/app/components/common/modal';
+import {
+  ModalDescription,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+} from '@/app/components/common/modal';
 
 import { z } from 'zod';
 import { toast } from '@/components/ui/use-toast';
@@ -63,27 +68,23 @@ const AddCardSchema = z
   })
   .refine(
     (data) => {
-      console.log(Number('20' + data.cardYear));
       const currentDate = new Date();
       const currentMonth = currentDate.getMonth() + 1;
       const currentYear = currentDate.getFullYear();
-      console.log(currentYear, currentMonth);
-      console.log(Number(data.cardMonth));
 
-      if (Number('20' + data.cardYear) < currentYear) {
-        return true;
-      } else if (
-        Number('20' + data.cardYear) === currentYear &&
-        Number(data.cardMonth) < currentMonth
+      if (
+        Number('20' + data.cardYear) < currentYear ||
+        (Number('20' + data.cardYear) === currentYear &&
+          Number(data.cardMonth) < currentMonth)
       ) {
-        return true;
-      } else {
         return false;
+      } else {
+        return true;
       }
     },
     {
       message: 'Картка прострочена. Використайте іншу картку.',
-      path: ['cardMonth', 'cardYear'],
+      path: ['cardMonth'],
     },
   );
 
@@ -93,7 +94,7 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
   const addForm = useForm<z.infer<typeof AddCardSchema>>({
     resolver: zodResolver(AddCardSchema),
     defaultValues: {
-      amount: form?.getValues().amount,
+      amount: form?.getValues().amount || 500,
       ownerName: '',
       cardNumber: '',
       cardMonth: '',
@@ -120,6 +121,14 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
 
   return (
     <>
+      {!form && (
+        <ModalHeader>
+          <ModalTitle className="font-semibold text-base leading-normal text-main-dark text-center">
+            Додати картку
+          </ModalTitle>
+          <ModalDescription className="hidden"></ModalDescription>
+        </ModalHeader>
+      )}
       <Form {...addForm}>
         <form
           onSubmit={addForm.handleSubmit(onSubmit)}
@@ -276,44 +285,45 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
               </div>
               <div>
                 {addForm.formState.errors?.cardMonth && (
-                  <p className="text-[0.8rem] text-warning font-medium">
+                  <p className="text-[0.8rem] text-warning font-medium mt-1">
                     {addForm.formState.errors?.cardMonth.message}
                   </p>
                 )}
                 {addForm.formState.errors?.cardYear && (
-                  <p className="text-[0.8rem] text-warning font-medium">
+                  <p className="text-[0.8rem] text-warning font-medium mt-1">
                     {addForm.formState.errors?.cardYear.message}
                   </p>
                 )}
               </div>
               <div>
                 {addForm.formState.errors?.cardCvv && (
-                  <p className="text-[0.8rem] text-warning font-medium">
+                  <p className="text-[0.8rem] text-warning font-medium mt-1">
                     {addForm.formState.errors?.cardCvv.message}
                   </p>
                 )}
               </div>
             </div>
-
-            <FormField
-              control={addForm.control}
-              name="saveCard"
-              render={({ field }) => (
-                <FormItem className="flex flex-row items-center space-x-3 space-y-0 py-4">
-                  <FormControl>
-                    <Checkbox
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
-                  </FormControl>
-                  <div className="space-y-1 leading-none">
-                    <FormLabel className="font-normal text-sm text-main-dark">
-                      Зберегти картку
-                    </FormLabel>
-                  </div>
-                </FormItem>
-              )}
-            />
+            {form && (
+              <FormField
+                control={addForm.control}
+                name="saveCard"
+                render={({ field }) => (
+                  <FormItem className="flex flex-row items-center space-x-3 space-y-0 py-4">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                    <div className="space-y-1 leading-none">
+                      <FormLabel className="font-normal text-sm text-main-dark">
+                        Зберегти картку
+                      </FormLabel>
+                    </div>
+                  </FormItem>
+                )}
+              />
+            )}
           </div>
         </form>
       </Form>
@@ -328,7 +338,7 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
           onClick={addForm.handleSubmit(onSubmit)}
           className="w-full"
         >
-          Поповнити баланс
+          {!form ? 'Додати картку' : 'Поповнити баланс'}
         </Button>
         <Button
           type="button"
