@@ -13,17 +13,25 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Modal, ModalContent } from '@/app/components/common/modal';
 import { AddCardForm } from '@/app/components/balance/add-card-form';
+import { EditCardForm } from '@/app/components/balance/edit-card-form';
 
 interface CardsListProps {
   className?: string;
 }
 export const CardsList = ({ className }: CardsListProps) => {
   const [open, setOpen] = React.useState(false);
+  const [openEdit, setOpenEdit] = React.useState(false);
+  const [cardId, setCardId] = React.useState(0);
 
   const onClose = (state: boolean, e: React.MouseEvent | undefined) => {
     if (e) e.preventDefault();
     setOpen(state);
   };
+  const onCloseEdit = (state: boolean, e: React.MouseEvent | undefined) => {
+    if (e) e.preventDefault();
+    setOpenEdit(state);
+  };
+
   const cards = [
     {
       id: 1,
@@ -101,12 +109,21 @@ export const CardsList = ({ className }: CardsListProps) => {
                     </div>
                   </div>
                   <div className="hidden lg:grid place-items-end ">
-                    <Icon
-                      iconName="ActionMenu"
-                      width={24}
-                      height={24}
-                      className="w-6 h-6"
-                    />
+                    <Button
+                      variant="ghost"
+                      className="w-6 h-6 bg-transparent"
+                      onClick={() => {
+                        setCardId(item.id);
+                        setOpenEdit(true);
+                      }}
+                    >
+                      <Icon
+                        iconName="ActionMenu"
+                        width={24}
+                        height={24}
+                        className="w-6 h-6"
+                      />
+                    </Button>
                   </div>
                 </React.Fragment>
               ))}
@@ -132,6 +149,11 @@ export const CardsList = ({ className }: CardsListProps) => {
       <Modal open={open} onOpenChange={() => onClose(false, undefined)}>
         <ModalContent className="grid grid-cols-1 gap-6">
           <AddCardForm onClose={onClose} />
+        </ModalContent>
+      </Modal>
+      <Modal open={openEdit} onOpenChange={() => onCloseEdit(false, undefined)}>
+        <ModalContent className="grid grid-cols-1 gap-6">
+          <EditCardForm onClose={onCloseEdit} cardId={cardId} />
         </ModalContent>
       </Modal>
     </Card>

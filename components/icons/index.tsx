@@ -15,6 +15,7 @@ import Check from '@/components/icons/check';
 import Close from '@/components/icons/close';
 import DangerTriangle from '@/components/icons/danger-triangle';
 import Dashboard from '@/components/icons/dashboard';
+import deleteCircle from '@/components/icons/delete-crcle';
 import Doc from '@/components/icons/doc';
 import Document from '@/components/icons/document';
 import Electronics from '@/components/icons/electronics';
@@ -58,6 +59,7 @@ export const Icons = {
   Close,
   DangerTriangle,
   Dashboard,
+  deleteCircle,
   Doc,
   Document,
   Electronics,
