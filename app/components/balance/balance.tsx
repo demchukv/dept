@@ -3,8 +3,9 @@ import React from 'react';
 import { Card } from '@/app/components/card/card';
 import { Icon } from '@/components/utils/icon';
 import { Button } from '@/components/ui/button';
+import { Modal, ModalContent } from '@/app/components/common/modal';
 import dynamic from 'next/dynamic';
-
+import { RefundStepOneForm } from '@/app/components/balance/refund-step-one-form';
 const ReplenishBalance = dynamic(() =>
   import('@/app/components/balance/replenish-balance').then(
     (mod) => mod.ReplenishBalance,
@@ -20,10 +21,15 @@ interface BalanceProps {
 }
 export const Balance = ({ balance, className }: BalanceProps) => {
   const [open, setOpen] = React.useState(false);
+  const [openRefund, setOpenRefund] = React.useState(false);
 
   const onClose = (state: boolean, e: React.MouseEvent | undefined) => {
     if (e) e.preventDefault();
     setOpen(state);
+  };
+  const onCloseRefund = (state: boolean, e: React.MouseEvent | undefined) => {
+    if (e) e.preventDefault();
+    setOpenRefund(state);
   };
 
   return (
@@ -67,9 +73,18 @@ export const Balance = ({ balance, className }: BalanceProps) => {
           variant={'ghost'}
           title="Повернення коштів"
           className="font-semibold text-main-color  text-sm leading-main-lh"
+          onClick={() => setOpenRefund(true)}
         >
           Повернення коштів
         </Button>
+        <Modal
+          open={openRefund}
+          onOpenChange={() => onCloseRefund(false, undefined)}
+        >
+          <ModalContent className="grid grid-cols-1 gap-6">
+            <RefundStepOneForm onClose={onCloseRefund} />
+          </ModalContent>
+        </Modal>
       </div>
     </Card>
   );
