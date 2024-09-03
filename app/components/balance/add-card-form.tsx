@@ -156,7 +156,6 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
   ];
 
   const setDescription = (status: string) => {
-    console.log(status);
     const card = cardsStatus.find((item) => item.code === status);
     if (card) {
       setDesc(card.desc);
