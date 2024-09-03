@@ -95,6 +95,7 @@ const AddCardSchema = z
 
 export const EditCardForm = ({ onClose, cardId }: EditCardFormProps) => {
   const [desc, setDesc] = useState('');
+  const [ccVisible, setCcVisible] = useState(false);
 
   const cards = [
     {
@@ -120,7 +121,7 @@ export const EditCardForm = ({ onClose, cardId }: EditCardFormProps) => {
   ];
 
   const card = cards.find((item) => item.id === cardId);
-  console.log(card);
+
   const addForm = useForm<z.infer<typeof AddCardSchema>>({
     mode: 'onChange',
     criteriaMode: 'all',
@@ -262,20 +263,46 @@ export const EditCardForm = ({ onClose, cardId }: EditCardFormProps) => {
                     Номер картки:
                   </FormLabel>
                   <FormControl>
-                    <Input
-                      {...field}
-                      // disabled={isPending}
-                      id="cardNumber"
-                      placeholder=""
-                      type="tel"
-                      inputMode="numeric"
-                      pattern="[0-9\s]{13,19}"
-                      autoComplete="cc-number"
-                      maxLength={19}
-                      onKeyUp={() =>
-                        addForm.setValue('cardNumber', cc_format(field.value))
-                      }
-                    />
+                    <div className="relative">
+                      <Input
+                        {...field}
+                        // disabled={isPending}
+                        id="cardNumber"
+                        placeholder=""
+                        type={ccVisible === true ? 'tel' : 'password'}
+                        inputMode="numeric"
+                        pattern="[0-9\s]{13,19}"
+                        autoComplete="cc-number"
+                        maxLength={19}
+                        onKeyUp={() =>
+                          addForm.setValue('cardNumber', cc_format(field.value))
+                        }
+                      />
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        className="w-5 h-5 p-0 bg-transparent absolute top-0 right-4 translate-y-1/2"
+                        onClick={() => setCcVisible(!ccVisible)}
+                        title="Показати/Приховати CVV код"
+                      >
+                        {ccVisible === true && (
+                          <Icon
+                            iconName="EyeOpen"
+                            width={20}
+                            height={20}
+                            className="fill-main-dark"
+                          />
+                        )}
+                        {ccVisible === false && (
+                          <Icon
+                            iconName="EyeClosed"
+                            width={20}
+                            height={20}
+                            className="fill-main-dark"
+                          />
+                        )}
+                      </Button>
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
