@@ -28,7 +28,7 @@ import { Icon } from '@/components/utils/icon';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 
-interface ReplenishBalanseFormProps {
+interface ReplenishBalanceFormProps {
   onClose: (state: boolean, e: React.MouseEvent | undefined) => void;
 }
 
@@ -45,6 +45,7 @@ export const ReplenishBalansSchema = z.object({
     .gte(1, 'Вкажіть картку з якої відбуватиметься оплата'),
 });
 
+//TODO: get data from API
 const cards = [
   {
     id: 1,
@@ -66,9 +67,9 @@ const cards = [
 
 const selectedCard = cards.find((card) => card.status === 'Основна');
 
-export const ReplenishBalanseForm = ({
+export const ReplenishBalanceForm = ({
   onClose,
-}: ReplenishBalanseFormProps) => {
+}: ReplenishBalanceFormProps) => {
   const [isPendig, startTransition] = useTransition();
   const [currentForm, setCurrentForm] = React.useState(0);
 

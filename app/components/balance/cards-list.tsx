@@ -11,11 +11,19 @@ import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import React from 'react';
 import { Button } from '@/components/ui/button';
+import { Modal, ModalContent } from '@/app/components/common/modal';
+import { AddCardForm } from '@/app/components/balance/add-card-form';
 
 interface CardsListProps {
   className?: string;
 }
 export const CardsList = ({ className }: CardsListProps) => {
+  const [open, setOpen] = React.useState(false);
+
+  const onClose = (state: boolean, e: React.MouseEvent | undefined) => {
+    if (e) e.preventDefault();
+    setOpen(state);
+  };
   const cards = [
     {
       id: 1,
@@ -106,6 +114,9 @@ export const CardsList = ({ className }: CardsListProps) => {
             <Button
               variant="ghost"
               className="font-semibold text-sm leading-main-lh text-main-color hover:text-main-dark gap-1 mt-6"
+              onClick={() => {
+                setOpen(true);
+              }}
             >
               Додати картку{' '}
               <Icon
@@ -118,6 +129,11 @@ export const CardsList = ({ className }: CardsListProps) => {
           </AccordionContent>
         </AccordionItem>
       </Accordion>
+      <Modal open={open} onOpenChange={() => onClose(false, undefined)}>
+        <ModalContent className="grid grid-cols-1 gap-6">
+          <AddCardForm onClose={onClose} />
+        </ModalContent>
+      </Modal>
     </Card>
   );
 };

@@ -2,18 +2,18 @@
 
 import React from 'react';
 import { Modal, ModalContent } from '@/app/components/common/modal';
-import { ReplenishBalanseForm } from '@/app/components/balance/replenish-balance-form';
+import { ReplenishBalanceForm } from '@/app/components/balance/replenish-balance-form';
 
-interface ListOfDocsProps {
+interface ReplenishBalanceProps {
   open: boolean;
   onClose: (state: boolean, e: React.MouseEvent | undefined) => void;
 }
 
-export const ReplenishBalanse = ({ open, onClose }: ListOfDocsProps) => {
+export const ReplenishBalance = ({ open, onClose }: ReplenishBalanceProps) => {
   return (
     <Modal open={open} onOpenChange={() => onClose(false, undefined)}>
       <ModalContent className="grid grid-cols-1 gap-6">
-        <ReplenishBalanseForm onClose={onClose} />
+        <ReplenishBalanceForm onClose={onClose} />
       </ModalContent>
     </Modal>
   );

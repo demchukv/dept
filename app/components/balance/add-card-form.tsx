@@ -9,7 +9,12 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { ModalFooter } from '@/app/components/common/modal';
+import {
+  ModalDescription,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+} from '@/app/components/common/modal';
 
 import { z } from 'zod';
 import { toast } from '@/components/ui/use-toast';
@@ -22,6 +27,13 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Icon } from '@/components/utils/icon';
 import { cn } from '@/lib/utils';
 import { ReplenishBalansSchema } from '@/app/components/balance/replenish-balance-form';
+
+import {
+  cc_format_number,
+  cc_format,
+  cc_validate,
+  cc_type,
+} from '@/lib/credit-card';
 
 interface AddCardFormProps {
   onClose: (state: boolean, e: React.MouseEvent | undefined) => void;
@@ -36,9 +48,16 @@ const AddCardSchema = z
       })
       .gte(10, { message: 'Вкажіть коректну суму поповнення' }),
     ownerName: z.string().min(2, 'Вкажіть ім’я власника'),
-    cardNumber: z
-      .string()
-      .regex(/^\d{16}$/, 'Номер картки повинен мати 16 цифр'),
+    cardNumber: z.string().refine(
+      (value) => {
+        console.log(cc_type(value));
+        return cc_validate(value);
+      },
+      {
+        message: 'Введіть коректний номер карти',
+      },
+    ),
+    // .regex(/^\d{16}$/, 'Номер картки повинен мати 16 цифр'),
     cardCvv: z.string().regex(/^\d{3,4}$/, 'CVV повинен мати 3 або 4 цифри'),
     cardMonth: z.string().refine(
       (value) => {
@@ -63,27 +82,23 @@ const AddCardSchema = z
   })
   .refine(
     (data) => {
-      console.log(Number('20' + data.cardYear));
       const currentDate = new Date();
       const currentMonth = currentDate.getMonth() + 1;
       const currentYear = currentDate.getFullYear();
-      console.log(currentYear, currentMonth);
-      console.log(Number(data.cardMonth));
 
-      if (Number('20' + data.cardYear) < currentYear) {
-        return true;
-      } else if (
-        Number('20' + data.cardYear) === currentYear &&
-        Number(data.cardMonth) < currentMonth
+      if (
+        Number('20' + data.cardYear) < currentYear ||
+        (Number('20' + data.cardYear) === currentYear &&
+          Number(data.cardMonth) < currentMonth)
       ) {
-        return true;
-      } else {
         return false;
+      } else {
+        return true;
       }
     },
     {
       message: 'Картка прострочена. Використайте іншу картку.',
-      path: ['cardMonth', 'cardYear'],
+      path: ['cardMonth'],
     },
   );
 
@@ -93,7 +108,7 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
   const addForm = useForm<z.infer<typeof AddCardSchema>>({
     resolver: zodResolver(AddCardSchema),
     defaultValues: {
-      amount: form?.getValues().amount,
+      amount: form?.getValues().amount || 500,
       ownerName: '',
       cardNumber: '',
       cardMonth: '',
@@ -107,6 +122,7 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
       //TODO: make API request and setData
       // const newData = getJson('/data/call-summary.json');
       data.amount = form?.getValues().amount || 0;
+      data.cardNumber = cc_format_number(data.cardNumber);
       toast({
         title: 'Ви відправили наступні значення:',
         description: (
@@ -120,6 +136,14 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
 
   return (
     <>
+      {!form && (
+        <ModalHeader>
+          <ModalTitle className="font-semibold text-base leading-normal text-main-dark text-center">
+            Додати картку
+          </ModalTitle>
+          <ModalDescription className="hidden"></ModalDescription>
+        </ModalHeader>
+      )}
       <Form {...addForm}>
         <form
           onSubmit={addForm.handleSubmit(onSubmit)}
@@ -158,12 +182,17 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
                     <Input
                       {...field}
                       // disabled={isPending}
+                      id="cardNumber"
                       placeholder=""
                       type="tel"
                       inputMode="numeric"
-                      pattern="[0-9\s ]{13,19}"
+                      pattern="[0-9\s]{13,19}"
                       autoComplete="cc-number"
                       maxLength={19}
+                      onKeyUp={() =>
+                        addForm.setValue('cardNumber', cc_format(field.value))
+                      }
+                      // onKeyUp={() => cc_format('cardNumber', 'cardType')}
                     />
                   </FormControl>
                   <FormMessage />
@@ -253,14 +282,14 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
                           >
                             {cvvVisible === true ? (
                               <Icon
-                                iconName="EyeClosed"
+                                iconName="EyeOpen"
                                 width={20}
                                 height={20}
                                 className="fill-main-dark"
                               />
                             ) : (
                               <Icon
-                                iconName="EyeOpen"
+                                iconName="EyeClosed"
                                 width={20}
                                 height={20}
                                 className="fill-main-dark"
@@ -276,44 +305,45 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
               </div>
               <div>
                 {addForm.formState.errors?.cardMonth && (
-                  <p className="text-[0.8rem] text-warning font-medium">
+                  <p className="text-[0.8rem] text-warning font-medium mt-1">
                     {addForm.formState.errors?.cardMonth.message}
                   </p>
                 )}
                 {addForm.formState.errors?.cardYear && (
-                  <p className="text-[0.8rem] text-warning font-medium">
+                  <p className="text-[0.8rem] text-warning font-medium mt-1">
                     {addForm.formState.errors?.cardYear.message}
                   </p>
                 )}
               </div>
               <div>
                 {addForm.formState.errors?.cardCvv && (
-                  <p className="text-[0.8rem] text-warning font-medium">
+                  <p className="text-[0.8rem] text-warning font-medium mt-1">
                     {addForm.formState.errors?.cardCvv.message}
                   </p>
                 )}
               </div>
             </div>
-
-            <FormField
-              control={addForm.control}
-              name="saveCard"
-              render={({ field }) => (
-                <FormItem className="flex flex-row items-center space-x-3 space-y-0 py-4">
-                  <FormControl>
-                    <Checkbox
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
-                  </FormControl>
-                  <div className="space-y-1 leading-none">
-                    <FormLabel className="font-normal text-sm text-main-dark">
-                      Зберегти картку
-                    </FormLabel>
-                  </div>
-                </FormItem>
-              )}
-            />
+            {form && (
+              <FormField
+                control={addForm.control}
+                name="saveCard"
+                render={({ field }) => (
+                  <FormItem className="flex flex-row items-center space-x-3 space-y-0 py-4">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                    <div className="space-y-1 leading-none">
+                      <FormLabel className="font-normal text-sm text-main-dark">
+                        Зберегти картку
+                      </FormLabel>
+                    </div>
+                  </FormItem>
+                )}
+              />
+            )}
           </div>
         </form>
       </Form>
@@ -328,7 +358,7 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
           onClick={addForm.handleSubmit(onSubmit)}
           className="w-full"
         >
-          Поповнити баланс
+          {!form ? 'Додати картку' : 'Поповнити баланс'}
         </Button>
         <Button
           type="button"
