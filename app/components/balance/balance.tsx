@@ -4,7 +4,6 @@ import { Card } from '@/app/components/card/card';
 import { Icon } from '@/components/utils/icon';
 import { Button } from '@/components/ui/button';
 import dynamic from 'next/dynamic';
-// import { ReplenishBalanse } from '@/app/components/balance/replenish-balance';
 
 const ReplenishBalance = dynamic(() =>
   import('@/app/components/balance/replenish-balance').then(
