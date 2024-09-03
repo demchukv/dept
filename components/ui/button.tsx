@@ -11,7 +11,8 @@ const buttonVariants = cva(
       variant: {
         default:
           'bg-main-color text-white rounded-[4px] pt-3 pb-[13px] px-5 font-bold text-sm border border-main-color hover:shadow-md disabled:border-gray-medium disabled:text-gray-medium disabled:bg-white',
-        destructive: 'bg-red-500 text-slate-50 shadow-sm hover:bg-red-500/90',
+        destructive:
+          'bg-white text-warning hover:shadow-md rounded-[4px] pt-3 pb-[13px] px-5 font-bold text-sm gap-1',
         outline:
           'bg-white border border-main-color rounded-[4px] pt-3 pb-[13px] px-5 text-main-color font-bold text-sm hover:shadow-md disabled:border-gray-medium disabled:text-gray-medium',
         secondary:
