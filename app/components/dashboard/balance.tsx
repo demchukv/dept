@@ -7,9 +7,9 @@ import dynamic from 'next/dynamic';
 
 // import { ReplenishBalanse } from '@/app/components/balance/replenish-balance';
 
-const ReplenishBalanse = dynamic(() =>
+const ReplenishBalance = dynamic(() =>
   import('@/app/components/balance/replenish-balance').then(
-    (mod) => mod.ReplenishBalanse,
+    (mod) => mod.ReplenishBalance,
   ),
 );
 
@@ -73,7 +73,7 @@ export const Balance = ({ balance, className }: BalanceProps) => {
       <Button className="w-full" onClick={() => setOpen(true)}>
         Поповнити баланс
       </Button>
-      <ReplenishBalanse open={open} onClose={onClose} />
+      <ReplenishBalance open={open} onClose={onClose} />
     </Card>
   );
 };
