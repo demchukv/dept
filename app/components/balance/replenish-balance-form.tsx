@@ -274,22 +274,17 @@ export const ReplenishBalanceForm = ({
 
       <ModalFooter
         className={cn(
-          'hidden flex-col gap-3 py-4 shadow-[0_-6px_20px_0_rgba(89,125,137,0.08)]',
+          'hidden flex-col md:flex-row-reverse md:justify-start gap-3 md:gap-4 py-4 shadow-[0_-6px_20px_0_rgba(89,125,137,0.08)]',
           currentForm === 0 && 'flex',
         )}
       >
-        <Button
-          type="button"
-          onClick={form.handleSubmit(onSubmit)}
-          className="w-full"
-        >
+        <Button type="button" onClick={form.handleSubmit(onSubmit)}>
           Поповнити баланс
         </Button>
         <Button
           type="button"
           variant="outline"
           onClick={() => onClose(false, undefined)}
-          className="w-full"
         >
           Відмінити
         </Button>
