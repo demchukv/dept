@@ -432,29 +432,25 @@ export const EditCardForm = ({ onClose, cardId }: EditCardFormProps) => {
 
       <ModalFooter
         className={cn(
-          'flex flex-col gap-3 py-4 shadow-[0_-6px_20px_0_rgba(89,125,137,0.08)]',
+          'flex flex-col md:flex-row-reverse md:justify-between gap-3 md:gap-4 py-4 shadow-[0_-6px_20px_0_rgba(89,125,137,0.08)]',
         )}
       >
-        <Button
-          type="button"
-          onClick={addForm.handleSubmit(onSubmit)}
-          className="w-full"
-        >
-          Зберегти
-        </Button>
-        <Button
-          type="button"
-          variant="outline"
-          onClick={() => onClose(false, undefined)}
-          className="w-full"
-        >
-          Відмінити
-        </Button>
+        <div className="flex flex-col gap-3 md:flex-row md:gap-4">
+          <Button type="button" onClick={addForm.handleSubmit(onSubmit)}>
+            Зберегти
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => onClose(false, undefined)}
+          >
+            Відмінити
+          </Button>
+        </div>
         <Button
           type="button"
           variant="destructive"
           onClick={() => onDeleteCard(card.id)}
-          className="w-full"
         >
           <Icon
             iconName="deleteCircle"
