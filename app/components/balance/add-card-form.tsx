@@ -135,9 +135,14 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
   }
 
   return (
-    <>
+    <div
+      className={cn(
+        'flex-grow flex flex-col justify-between',
+        !form && 'h-full mt-8',
+      )}
+    >
       {!form && (
-        <ModalHeader>
+        <ModalHeader className="mb-6">
           <ModalTitle className="font-semibold text-base leading-normal text-main-dark text-center">
             Додати картку
           </ModalTitle>
@@ -147,9 +152,9 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
       <Form {...addForm}>
         <form
           onSubmit={addForm.handleSubmit(onSubmit)}
-          className="min-h-full flex flex-col gap-6 justify-between"
+          className="flex-grow flex flex-col gap-6 justify-between"
         >
-          <div className="min-h-full flex flex-col gap-3 w-full self-stretch">
+          <div className="flex flex-col gap-3 w-full self-stretch">
             <FormField
               control={addForm.control}
               name="ownerName"
@@ -369,6 +374,6 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
           Відмінити
         </Button>
       </ModalFooter>
-    </>
+    </div>
   );
 };
