@@ -94,13 +94,12 @@ const AddCardSchema = z
           Number(data.cardMonth) < currentMonth)
       ) {
         return false;
-      } else {
-        return true;
       }
+      return true;
     },
     {
       message: 'Картка прострочена. Використайте іншу картку.',
-      path: ['cardMonth'],
+      path: ['cardYear'],
     },
   );
 
@@ -109,6 +108,8 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
   const [desc, setDesc] = useState('');
 
   const addForm = useForm<z.infer<typeof AddCardSchema>>({
+    mode: 'onChange',
+    criteriaMode: 'all',
     resolver: zodResolver(AddCardSchema),
     defaultValues: {
       amount: form?.getValues().amount || 500,
