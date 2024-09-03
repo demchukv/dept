@@ -282,14 +282,14 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
                           >
                             {cvvVisible === true ? (
                               <Icon
-                                iconName="EyeClosed"
+                                iconName="EyeOpen"
                                 width={20}
                                 height={20}
                                 className="fill-main-dark"
                               />
                             ) : (
                               <Icon
-                                iconName="EyeOpen"
+                                iconName="EyeClosed"
                                 width={20}
                                 height={20}
                                 className="fill-main-dark"

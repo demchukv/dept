@@ -6,9 +6,9 @@ import { Button } from '@/components/ui/button';
 import dynamic from 'next/dynamic';
 // import { ReplenishBalanse } from '@/app/components/balance/replenish-balance';
 
-const ReplenishBalanse = dynamic(() =>
+const ReplenishBalance = dynamic(() =>
   import('@/app/components/balance/replenish-balance').then(
-    (mod) => mod.ReplenishBalanse,
+    (mod) => mod.ReplenishBalance,
   ),
 );
 interface BalanceProps {
@@ -63,7 +63,7 @@ export const Balance = ({ balance, className }: BalanceProps) => {
         <Button className="w-full md:w-auto" onClick={() => setOpen(true)}>
           Поповнити баланс
         </Button>
-        <ReplenishBalanse open={open} onClose={onClose} />
+        <ReplenishBalance open={open} onClose={onClose} />
         <Button
           variant={'ghost'}
           title="Повернення коштів"
