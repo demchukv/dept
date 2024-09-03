@@ -1,5 +1,5 @@
 'use client';
-import React, { startTransition, useState } from 'react';
+import React, { startTransition, useEffect, useState } from 'react';
 
 import {
   Form,
@@ -34,6 +34,7 @@ import {
   cc_validate,
   cc_type,
 } from '@/lib/credit-card';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
 interface AddCardFormProps {
   onClose: (state: boolean, e: React.MouseEvent | undefined) => void;
@@ -59,6 +60,7 @@ const AddCardSchema = z
     ),
     // .regex(/^\d{16}$/, 'Номер картки повинен мати 16 цифр'),
     cardCvv: z.string().regex(/^\d{3,4}$/, 'CVV повинен мати 3 або 4 цифри'),
+    status: z.string().optional(),
     cardMonth: z.string().refine(
       (value) => {
         return Number(value) >= 1 && Number(value) <= 12;
@@ -104,6 +106,7 @@ const AddCardSchema = z
 
 export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
   const [cvvVisible, setCvvVisible] = useState(false);
+  const [desc, setDesc] = useState('');
 
   const addForm = useForm<z.infer<typeof AddCardSchema>>({
     resolver: zodResolver(AddCardSchema),
@@ -115,6 +118,7 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
       cardYear: '',
       cardCvv: '',
       saveCard: false,
+      status: 'main',
     },
   });
   function onSubmit(data: z.infer<typeof AddCardSchema>) {
@@ -133,6 +137,37 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
       });
     });
   }
+  const cardsStatus = [
+    {
+      code: 'main',
+      status: 'Основна',
+      desc: 'З основної картки ми будемо списувати вартість всіх послуг автоматично по мірі виставлення рахунків.',
+    },
+    {
+      code: 'reserve',
+      status: 'Резервна',
+      desc: 'З резервної картки кошти за послуги списуються, в тому разі, коли списання з основної картки завершиться невдачею.',
+    },
+    {
+      code: 'unused',
+      status: 'Не використовувати',
+      desc: 'З такої картки кошти списуватись не будуть. Вона не відображатиметься серед варіантів способу поповнення балансу, поки Ви не позначите її основною або резервною в майбутньому.',
+    },
+  ];
+
+  const setDescription = (status: string) => {
+    console.log(status);
+    const card = cardsStatus.find((item) => item.code === status);
+    if (card) {
+      setDesc(card.desc);
+    } else {
+      setDesc('');
+    }
+  };
+  useEffect(() => {
+    setDescription(addForm.getValues().status as string);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div
@@ -144,7 +179,7 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
       {!form && (
         <ModalHeader className="mb-6">
           <ModalTitle className="font-semibold text-base leading-normal text-main-dark text-center">
-            Додати картку
+            Нова картка
           </ModalTitle>
           <ModalDescription className="hidden"></ModalDescription>
         </ModalHeader>
@@ -154,7 +189,7 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
           onSubmit={addForm.handleSubmit(onSubmit)}
           className="flex-grow flex flex-col gap-6 justify-between"
         >
-          <div className="flex flex-col gap-3 w-full self-stretch">
+          <div className="flex flex-col gap-3 w-full">
             <FormField
               control={addForm.control}
               name="ownerName"
@@ -197,7 +232,6 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
                       onKeyUp={() =>
                         addForm.setValue('cardNumber', cc_format(field.value))
                       }
-                      // onKeyUp={() => cc_format('cardNumber', 'cardType')}
                     />
                   </FormControl>
                   <FormMessage />
@@ -257,7 +291,6 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
                             pattern="\d\d"
                           />
                         </FormControl>
-                        {/* <FormMessage /> */}
                       </FormItem>
                     )}
                   />
@@ -304,7 +337,6 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
                           </Button>
                         </div>
                       </FormControl>
-                      {/* <FormMessage /> */}
                     </FormItem>
                   )}
                 />
@@ -349,6 +381,59 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
                   </FormItem>
                 )}
               />
+            )}
+            {!form && (
+              <>
+                <FormField
+                  control={addForm.control}
+                  name="status"
+                  render={({ field }) => (
+                    <FormItem className="space-y-4 mt-1">
+                      <FormLabel>
+                        Оберіть статус, для зручності у подальшому керуванні
+                        картками:
+                      </FormLabel>
+                      <FormControl>
+                        <RadioGroup
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                          className="flex flex-col"
+                        >
+                          {cardsStatus.map((item) => (
+                            <React.Fragment key={item.code}>
+                              <FormItem className="flex items-center gap-x-1 gap-y-2">
+                                <FormControl>
+                                  <RadioGroupItem
+                                    value={item.code}
+                                    onClick={(value) =>
+                                      setDescription(value.currentTarget.value)
+                                    }
+                                  />
+                                </FormControl>
+                                <FormLabel className="w-full bg-transparent flex justify-between items-center border-0">
+                                  <p className="font-normal text-sm leading-main-lh text-main-dark">
+                                    {item.status}
+                                  </p>
+                                  <div className="grid place-items-end"></div>
+                                </FormLabel>
+                              </FormItem>
+                            </React.Fragment>
+                          ))}
+                        </RadioGroup>
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+                <div className="flex items-start gap-2 font-normal text-xs text-gray-dark leading-[1.33] mt-3">
+                  <Icon
+                    iconName="Info"
+                    width={20}
+                    height={20}
+                    className="fill-gray-dark flex-shrink-0"
+                  />
+                  <p>{desc}</p>
+                </div>
+              </>
             )}
           </div>
         </form>
