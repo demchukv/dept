@@ -74,6 +74,7 @@ export const ReplenishBalanceForm = ({
   const [currentForm, setCurrentForm] = React.useState(0);
 
   const form = useForm<z.infer<typeof ReplenishBalansSchema>>({
+    mode: 'onChange',
     resolver: zodResolver(ReplenishBalansSchema),
     defaultValues: {
       amount: 500,
