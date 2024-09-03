@@ -28,7 +28,12 @@ import { Icon } from '@/components/utils/icon';
 import { cn } from '@/lib/utils';
 import { ReplenishBalansSchema } from '@/app/components/balance/replenish-balance-form';
 
-import { cc_format, cc_validate, cc_type } from '@/lib/credit-card';
+import {
+  cc_format_number,
+  cc_format,
+  cc_validate,
+  cc_type,
+} from '@/lib/credit-card';
 
 interface AddCardFormProps {
   onClose: (state: boolean, e: React.MouseEvent | undefined) => void;
@@ -117,6 +122,7 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
       //TODO: make API request and setData
       // const newData = getJson('/data/call-summary.json');
       data.amount = form?.getValues().amount || 0;
+      data.cardNumber = cc_format_number(data.cardNumber);
       toast({
         title: 'Ви відправили наступні значення:',
         description: (
@@ -170,7 +176,7 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="font-normal text-xs text-gray-dark leading-none">
-                    Номер картки: <span id="cardType"></span>
+                    Номер картки:
                   </FormLabel>
                   <FormControl>
                     <Input
