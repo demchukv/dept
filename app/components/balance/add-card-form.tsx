@@ -28,6 +28,8 @@ import { Icon } from '@/components/utils/icon';
 import { cn } from '@/lib/utils';
 import { ReplenishBalansSchema } from '@/app/components/balance/replenish-balance-form';
 
+import { cc_format, cc_validate, cc_type } from '@/lib/credit-card';
+
 interface AddCardFormProps {
   onClose: (state: boolean, e: React.MouseEvent | undefined) => void;
   form?: UseFormReturn<z.infer<typeof ReplenishBalansSchema>>;
@@ -41,9 +43,16 @@ const AddCardSchema = z
       })
       .gte(10, { message: 'Вкажіть коректну суму поповнення' }),
     ownerName: z.string().min(2, 'Вкажіть ім’я власника'),
-    cardNumber: z
-      .string()
-      .regex(/^\d{16}$/, 'Номер картки повинен мати 16 цифр'),
+    cardNumber: z.string().refine(
+      (value) => {
+        console.log(cc_type(value));
+        return cc_validate(value);
+      },
+      {
+        message: 'Введіть коректний номер карти',
+      },
+    ),
+    // .regex(/^\d{16}$/, 'Номер картки повинен мати 16 цифр'),
     cardCvv: z.string().regex(/^\d{3,4}$/, 'CVV повинен мати 3 або 4 цифри'),
     cardMonth: z.string().refine(
       (value) => {
@@ -161,18 +170,23 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="font-normal text-xs text-gray-dark leading-none">
-                    Номер картки:
+                    Номер картки: <span id="cardType"></span>
                   </FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       // disabled={isPending}
+                      id="cardNumber"
                       placeholder=""
                       type="tel"
                       inputMode="numeric"
-                      pattern="[0-9\s ]{13,19}"
+                      pattern="[0-9\s]{13,19}"
                       autoComplete="cc-number"
                       maxLength={19}
+                      onKeyUp={() =>
+                        addForm.setValue('cardNumber', cc_format(field.value))
+                      }
+                      // onKeyUp={() => cc_format('cardNumber', 'cardType')}
                     />
                   </FormControl>
                   <FormMessage />
