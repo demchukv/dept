@@ -285,14 +285,15 @@ export const AddCardForm = ({ onClose, form }: AddCardFormProps) => {
                             onClick={() => setCvvVisible(!cvvVisible)}
                             title="Показати/Приховати CVV код"
                           >
-                            {cvvVisible === true ? (
+                            {cvvVisible === true && (
                               <Icon
                                 iconName="EyeOpen"
                                 width={20}
                                 height={20}
                                 className="fill-main-dark"
                               />
-                            ) : (
+                            )}
+                            {cvvVisible === false && (
                               <Icon
                                 iconName="EyeClosed"
                                 width={20}
