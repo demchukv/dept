@@ -19,7 +19,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useTransition } from 'react';
 //TODO: API
-import { getJson } from '@/data/get-json';
 
 import { DatePicker } from '@/app/components/common/date-picker';
 import { parseISO, formatISO, compareAsc } from 'date-fns';

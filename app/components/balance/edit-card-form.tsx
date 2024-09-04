@@ -453,7 +453,7 @@ export const EditCardForm = ({ onClose, cardId }: EditCardFormProps) => {
           onClick={() => onDeleteCard(card.id)}
         >
           <Icon
-            iconName="deleteCircle"
+            iconName="DeleteCircle"
             width={20}
             height={20}
             className="fill-warning"
