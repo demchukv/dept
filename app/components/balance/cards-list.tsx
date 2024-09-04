@@ -14,6 +14,7 @@ import { Button } from '@/components/ui/button';
 import { Modal, ModalContent } from '@/app/components/common/modal';
 import { AddCardForm } from '@/app/components/balance/add-card-form';
 import { EditCardForm } from '@/app/components/balance/edit-card-form';
+import { CcInfo } from '@/app/components/balance/cc-info';
 
 interface CardsListProps {
   className?: string;
@@ -70,7 +71,15 @@ export const CardsList = ({ className }: CardsListProps) => {
             <div className="grid grid-cols-[80%_20%] lg:grid-cols-[70%_20%_10%] gap-y-4 items-center">
               {cards.map((item) => (
                 <React.Fragment key={item.id}>
-                  <div
+                  <CcInfo
+                    item={item}
+                    onClick={() => {
+                      setCardId(item.id);
+                      setOpenEdit(true);
+                    }}
+                    className="cursor-pointer"
+                  />
+                  {/* <div
                     className="flex flex-col gap-1 cursor-pointer"
                     onClick={() => {
                       setCardId(item.id);
@@ -113,7 +122,7 @@ export const CardsList = ({ className }: CardsListProps) => {
                         />
                       )}
                     </div>
-                  </div>
+                  </div> */}
                   <div className="hidden lg:grid place-items-end ">
                     <Button
                       variant="ghost"

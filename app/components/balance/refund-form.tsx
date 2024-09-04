@@ -1,6 +1,5 @@
 'use client';
 import React, { startTransition, useState } from 'react';
-import Image from 'next/image';
 import {
   Form,
   FormControl,
@@ -24,6 +23,7 @@ import { useForm } from 'react-hook-form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { CcInfo } from '@/app/components/balance/cc-info';
 
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Icon } from '@/components/utils/icon';
@@ -72,10 +72,8 @@ const RefundFormSchema = z.object({
     })
     .gte(10, { message: 'Вкажіть коректну суму повернення' }),
   refundAdditional: z.string().optional(),
-  refundReason: z.string({
-    required_error: 'Вкажіть причину повернення',
-  }),
-  refundPIB: z.string().min(2, 'Вкажіть ваше прізвище, ім&apos;я, по-батькові'),
+  refundReason: z.string().min(1, 'Вкажіть причину повернення'),
+  refundPIB: z.string().min(2, "Вкажіть ваше прізвище, ім'я, по-батькові"),
   refundDB: z.date({
     required_error: 'Вкажіть коректну дату народження',
   }),
@@ -215,6 +213,7 @@ export const RefundForm = ({ onClose }: EditCardFormProps) => {
                         ))}
                       </RadioGroup>
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -550,44 +549,7 @@ export const RefundForm = ({ onClose }: EditCardFormProps) => {
                                     <RadioGroupItem value={String(item.id)} />
                                   </FormControl>
                                   <FormLabel className="w-full bg-white flex justify-between items-center border border-gray-light rounded p-3 shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)]">
-                                    <div className="flex flex-col gap-1">
-                                      <p
-                                        className={cn(
-                                          'font-medium text-xs leading-[1.33]',
-                                          item.status === 'Основна'
-                                            ? 'text-green-additional-color'
-                                            : 'text-blue-additional-color',
-                                        )}
-                                      >
-                                        {item.status}
-                                      </p>
-                                      <p className="font-semibold text-base leading-normal text-main-dark">
-                                        {item.name}
-                                      </p>
-                                      <p className="font-medium text-sm leading-[1.14] text-main-dark">
-                                        {item.valute} {item.number}
-                                      </p>
-                                    </div>
-                                    <div className="grid place-items-end">
-                                      <div className="bg-bg-color rounded w-10 h-[26px] flex items-center">
-                                        {item.type === 'Visa' && (
-                                          <Image
-                                            src="/img/visa.png"
-                                            alt="Visa card"
-                                            width={36}
-                                            height={11}
-                                          />
-                                        )}
-                                        {item.type === 'MC' && (
-                                          <Image
-                                            src="/img/mc.png"
-                                            alt="MasterCard"
-                                            width={32}
-                                            height={20}
-                                          />
-                                        )}
-                                      </div>
-                                    </div>
+                                    <CcInfo item={item} />
                                   </FormLabel>
                                 </FormItem>
                               </React.Fragment>
