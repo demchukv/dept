@@ -6,7 +6,7 @@ interface IconProps {
   className?: string;
   style?: React.CSSProperties;
 }
-const deleteCircle = ({ width, height, className, style }: IconProps) => {
+const DeleteCircle = ({ width, height, className, style }: IconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -27,4 +27,4 @@ const deleteCircle = ({ width, height, className, style }: IconProps) => {
   );
 };
 
-export default deleteCircle;
+export default DeleteCircle;
