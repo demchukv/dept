@@ -40,6 +40,7 @@ interface RefundFormStepOneProps {
   addForm: UseFormReturn<z.infer<typeof RefundFormSchema>>;
   onClose: (state: boolean, e: React.MouseEvent | undefined) => void;
   setStep: (step: number) => void;
+  onSubmit: (data: z.infer<typeof RefundFormSchema>) => void;
   setRefundDoc: (doc: number) => void;
   refundDoc: number;
 }
@@ -47,6 +48,7 @@ export const RefundFormStepOne = ({
   addForm,
   onClose,
   setStep,
+  onSubmit,
   setRefundDoc,
   refundDoc,
 }: RefundFormStepOneProps) => {

@@ -111,6 +111,7 @@ export const RefundForm = ({ onClose }: EditCardFormProps) => {
             addForm={addForm}
             onClose={onClose}
             setStep={setStep}
+            onSubmit={onSubmit}
             setRefundDoc={setRefundDoc}
             refundDoc={refundDoc}
           />
