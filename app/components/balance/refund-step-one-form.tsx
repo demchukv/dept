@@ -29,6 +29,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Icon } from '@/components/utils/icon';
 import { DatePicker } from '@/app/components/common/date-picker';
 import { parseISO, formatISO, compareAsc } from 'date-fns';
+import Link from 'next/link';
 
 const refundReasonList = [
   { key: 1, val: 'Немає потреби використання коштів з балансу' },
@@ -45,25 +46,35 @@ interface EditCardFormProps {
   onClose: (state: boolean, e: React.MouseEvent | undefined) => void;
 }
 
-const AddCardSchema = z.object({
+const RefundFormSchema = z.object({
   refundAmount: z.coerce
     .number({
       invalid_type_error: 'Вкажіть коректну суму повернення',
     })
     .gte(10, { message: 'Вкажіть коректну суму повернення' }),
   refundAdditional: z.string().optional(),
-  refundReason: z.string(),
+  refundReason: z.string({
+    required_error: 'Вкажіть причину повернення',
+  }),
   refundPIB: z.string().min(2, 'Вкажіть ваше прізвище, ім&apos;я, по-батькові'),
   refundDB: z.date({
     required_error: 'Вкажіть коректну дату народження',
   }),
+  refundIDNumber: z.string({
+    required_error: 'Вкажіть коректний номер паспорту',
+  }),
+  refundIDWho: z.string({
+    required_error: 'Вкажіть орган, що видав документ',
+  }),
 });
 export const RefundStepOneForm = ({ onClose }: EditCardFormProps) => {
   const [currentForm, setCurrentForm] = React.useState(0);
-  const addForm = useForm<z.infer<typeof AddCardSchema>>({
+  const [step, setStep] = React.useState(1);
+
+  const addForm = useForm<z.infer<typeof RefundFormSchema>>({
     mode: 'onChange',
     criteriaMode: 'all',
-    resolver: zodResolver(AddCardSchema),
+    resolver: zodResolver(RefundFormSchema),
     defaultValues: {
       refundAmount: 0,
       refundReason: '',
@@ -72,15 +83,21 @@ export const RefundStepOneForm = ({ onClose }: EditCardFormProps) => {
       refundDB: new Date(),
     },
   });
-  function onSubmit(data: z.infer<typeof AddCardSchema>) {
+  function onSubmit(data: z.infer<typeof RefundFormSchema>) {
     startTransition(() => {
       //TODO: make API request and setData
       // const newData = getJson('/data/call-summary.json');
+      const values = {
+        ...data,
+        refundDB: formatISO(data.refundDB),
+      };
       toast({
         title: 'Ви відправили наступні значення:',
         description: (
           <pre className="mt-2 w-full rounded-md bg-slate-950 p-4">
-            <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+            <code className="text-white">
+              {JSON.stringify(values, null, 2)}
+            </code>
           </pre>
         ),
       });
@@ -182,7 +199,7 @@ export const RefundStepOneForm = ({ onClose }: EditCardFormProps) => {
               <Button
                 type="button"
                 variant="secondary"
-                className="gap-2 w-full"
+                className="gap-2 w-full mb-2"
               >
                 Авторизуватись через
                 <Icon iconName="Diia" width={24} height={24} />
@@ -199,7 +216,7 @@ export const RefundStepOneForm = ({ onClose }: EditCardFormProps) => {
                 >
                   ID картка
                 </Button>
-                |
+                <div className="border-r border-gray-light h-[40px] w-[1px]"></div>
                 <Button
                   type="button"
                   variant="ghost"
@@ -241,25 +258,93 @@ export const RefundStepOneForm = ({ onClose }: EditCardFormProps) => {
                   control={addForm.control}
                   name="refundDB"
                   render={({ field }) => (
-                    <FormItem className="flex flex-col">
-                      <FormLabel>Дата народження:</FormLabel>
+                    <FormItem className="flex flex-col mb-4">
+                      <FormLabel className="font-normal text-xs text-gray-dark leading-none">
+                        Дата народження:
+                      </FormLabel>
                       <FormControl>
                         <DatePicker
+                          // captionLayout="dropdown-buttons"
+                          // fromYear={1900}
+                          // toYear={new Date().getFullYear()}
                           selected={field.value}
                           onSelect={(value: Date) => {
                             field.onChange(value);
-                            onSubmit(addForm.getValues());
                           }}
+                          disabled={(date) => date > new Date()}
                         />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
+                <div className="w-full flex gap-4">
+                  <div className="w-full">
+                    <FormField
+                      control={addForm.control}
+                      name="refundIDNumber"
+                      render={({ field }) => (
+                        <FormItem className="mb-4 w-full">
+                          <FormLabel className="font-normal text-xs text-gray-dark leading-none">
+                            Номер документа:
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              // disabled={isPending}
+                              placeholder=""
+                              type="text"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <div className="w-full">
+                    <FormField
+                      control={addForm.control}
+                      name="refundIDWho"
+                      render={({ field }) => (
+                        <FormItem className="mb-4 w-full">
+                          <FormLabel className="font-normal text-xs text-gray-dark leading-none">
+                            Орган, що видав:
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              // disabled={isPending}
+                              placeholder=""
+                              type="text"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                </div>
               </div>
             )}
 
             {currentForm === 1 && <div>form2</div>}
+
+            <div className="flex items-start gap-2 font-normal text-xs text-gray-dark leading-[1.33] mt-3">
+              <Icon
+                iconName="Info"
+                width={20}
+                height={20}
+                className="fill-gray-dark flex-shrink-0"
+              />
+              <p>
+                Сформований документ необхідно роздрукувати, підписати та
+                направити до{' '}
+                <Link href="#" className="text-main-color font-semibold">
+                  Служби турботи про клієнтів
+                </Link>{' '}
+                разом із поверненим товаром.
+              </p>
+            </div>
           </div>
         </form>
       </Form>

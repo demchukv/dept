@@ -12,13 +12,24 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { SelectSingleEventHandler } from 'react-day-picker';
+import { CaptionLayout, SelectSingleEventHandler } from 'react-day-picker';
 
 interface DatePickerProps {
   selected: Date;
   onSelect: (date: Date) => void;
+  disabled?: (date: Date) => boolean;
+  captionLayout?: string | undefined;
+  fromYear?: number;
+  toYear?: number;
 }
-export function DatePicker({ selected, onSelect }: DatePickerProps) {
+export function DatePicker({
+  selected,
+  onSelect,
+  disabled,
+  captionLayout = '',
+  fromYear = 1900,
+  toYear = new Date().getFullYear(),
+}: DatePickerProps) {
   const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
 
   const handleOnSelect: SelectSingleEventHandler = (date) => {
@@ -54,15 +65,19 @@ export function DatePicker({ selected, onSelect }: DatePickerProps) {
         align="start"
       >
         <Calendar
-          // captionLayout="dropdown-buttons"
-          // fromYear={2020}
-          // toYear={2024}
+          captionLayout={
+            captionLayout ? (captionLayout as CaptionLayout) : undefined
+          }
+          fromYear={fromYear ? 2020 : undefined}
+          toYear={toYear ? 2024 : undefined}
           mode="single"
           selected={selected}
           onSelect={handleOnSelect}
           initialFocus
-          disabled={(date) =>
-            date > new Date() || date < new Date('2024-01-01')
+          disabled={
+            disabled
+              ? disabled
+              : (date) => date > new Date() || date < new Date('2024-01-01')
           }
         />
       </PopoverContent>
