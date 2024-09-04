@@ -5,7 +5,7 @@ import { Icon } from '@/components/utils/icon';
 import { Button } from '@/components/ui/button';
 import { Modal, ModalContent } from '@/app/components/common/modal';
 import dynamic from 'next/dynamic';
-import { RefundStepOneForm } from '@/app/components/balance/refund-step-one-form';
+import { RefundForm } from '@/app/components/balance/refund-form';
 const ReplenishBalance = dynamic(() =>
   import('@/app/components/balance/replenish-balance').then(
     (mod) => mod.ReplenishBalance,
@@ -82,7 +82,7 @@ export const Balance = ({ balance, className }: BalanceProps) => {
           onOpenChange={() => onCloseRefund(false, undefined)}
         >
           <ModalContent className="grid grid-cols-1 gap-6">
-            <RefundStepOneForm onClose={onCloseRefund} />
+            <RefundForm onClose={onCloseRefund} />
           </ModalContent>
         </Modal>
       </div>

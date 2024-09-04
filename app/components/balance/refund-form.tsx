@@ -1,5 +1,5 @@
 'use client';
-import React, { startTransition, useEffect, useState } from 'react';
+import React, { startTransition, useState } from 'react';
 import Image from 'next/image';
 import {
   Form,
@@ -28,7 +28,7 @@ import { cn } from '@/lib/utils';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Icon } from '@/components/utils/icon';
 import { DatePicker } from '@/app/components/common/date-picker';
-import { parseISO, formatISO } from 'date-fns';
+import { formatISO } from 'date-fns';
 import Link from 'next/link';
 
 const refundReasonList = [
@@ -95,7 +95,7 @@ const RefundFormSchema = z.object({
   refundIBANRNOKPP: z.string().optional(),
   refundIBANNumber: z.string().optional(),
 });
-export const RefundStepOneForm = ({ onClose }: EditCardFormProps) => {
+export const RefundForm = ({ onClose }: EditCardFormProps) => {
   const [currentForm, setCurrentForm] = React.useState(0);
   const [refundForm, setRefundForm] = React.useState(0);
   const [step, setStep] = React.useState(1);
@@ -457,7 +457,7 @@ export const RefundStepOneForm = ({ onClose }: EditCardFormProps) => {
 
             <ModalFooter
               className={cn(
-                'flex flex-col md:flex-row-reverse md:justify-start gap-3 md:gap-4 py-4 shadow-[0_-6px_20px_0_rgba(89,125,137,0.08)]',
+                'flex flex-col md:flex-row-reverse md:justify-start lg:justify-center gap-3 md:gap-4 py-4 shadow-[0_-6px_20px_0_rgba(89,125,137,0.08)]',
               )}
             >
               {/* <Button type="button" onClick={addForm.handleSubmit(onSubmit)}> */}
@@ -650,46 +650,48 @@ export const RefundStepOneForm = ({ onClose }: EditCardFormProps) => {
               )}
               {refundForm == 2 && (
                 <div className="mb-4">
-                  <FormField
-                    control={addForm.control}
-                    name="refundIBANOwner"
-                    render={({ field }) => (
-                      <FormItem className="mb-4 w-full">
-                        <FormLabel className="font-normal text-xs text-gray-dark leading-none">
-                          ПІБ отримувача:
-                        </FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            // disabled={isPending}
-                            placeholder=""
-                            type="text"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={addForm.control}
-                    name="refundIBANRNOKPP"
-                    render={({ field }) => (
-                      <FormItem className="mb-4 w-full">
-                        <FormLabel className="font-normal text-xs text-gray-dark leading-none">
-                          РНОКПП:
-                        </FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            // disabled={isPending}
-                            placeholder=""
-                            type="text"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                  <div className="flex flex-col md:flex-row gap-4">
+                    <FormField
+                      control={addForm.control}
+                      name="refundIBANOwner"
+                      render={({ field }) => (
+                        <FormItem className="mb-4 w-full">
+                          <FormLabel className="font-normal text-xs text-gray-dark leading-none">
+                            ПІБ отримувача:
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              // disabled={isPending}
+                              placeholder=""
+                              type="text"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={addForm.control}
+                      name="refundIBANRNOKPP"
+                      render={({ field }) => (
+                        <FormItem className="mb-4 w-full md:w-[70%]">
+                          <FormLabel className="font-normal text-xs text-gray-dark leading-none">
+                            РНОКПП:
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              // disabled={isPending}
+                              placeholder=""
+                              type="text"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
                   <FormField
                     control={addForm.control}
                     name="refundIBANNumber"
@@ -719,22 +721,28 @@ export const RefundStepOneForm = ({ onClose }: EditCardFormProps) => {
             </div>
             <ModalFooter
               className={cn(
-                'flex flex-col md:flex-row-reverse md:justify-start gap-3 md:gap-4 py-4 shadow-[0_-6px_20px_0_rgba(89,125,137,0.08)]',
+                'flex flex-col md:flex-row-reverse md:justify-start lg:justify-center gap-3 md:gap-4 py-4 shadow-[0_-6px_20px_0_rgba(89,125,137,0.08)]',
               )}
             >
-              <Button type="button" onClick={addForm.handleSubmit(onSubmit)}>
+              <Button
+                type="button"
+                size="md"
+                onClick={addForm.handleSubmit(onSubmit)}
+              >
                 Згенерувати заяву на повернення
               </Button>
               <Button
                 type="button"
+                size="md"
                 variant="outline"
                 onClick={() => setStep(1)}
               >
                 Попередній крок
               </Button>
               <Button
-                className="border-0"
+                className=""
                 type="button"
+                size="md"
                 variant="outline"
                 onClick={() => onClose(false, undefined)}
               >
