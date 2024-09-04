@@ -88,7 +88,12 @@ const RefundFormSchema = z.object({
   refundPassSerial: z.string().optional(),
   refundPassDate: z.string().optional(),
   refundPassWho: z.string().optional(),
-  refundCard: z.coerce.number().optional(),
+  refundCard: z.string().optional(),
+  refundCardOwner: z.string().optional(),
+  refundCardNumber: z.string().optional(),
+  refundIBANOwner: z.string().optional(),
+  refundIBANRNOKPP: z.string().optional(),
+  refundIBANNumber: z.string().optional(),
 });
 export const RefundStepOneForm = ({ onClose }: EditCardFormProps) => {
   const [currentForm, setCurrentForm] = React.useState(0);
@@ -108,7 +113,12 @@ export const RefundStepOneForm = ({ onClose }: EditCardFormProps) => {
       refundPassSerial: '',
       refundPassDate: '',
       refundPassWho: '',
-      refundCard: 0,
+      refundCard: '',
+      refundCardOwner: '',
+      refundCardNumber: '',
+      refundIBANOwner: '',
+      refundIBANRNOKPP: '',
+      refundIBANNumber: '',
     },
   });
   function onSubmit(data: z.infer<typeof RefundFormSchema>) {
@@ -590,8 +600,122 @@ export const RefundStepOneForm = ({ onClose }: EditCardFormProps) => {
                   />
                 </div>
               )}
-              {refundForm == 1 && <div className="mb-4">Other card</div>}
-              {refundForm == 2 && <div className="mb-4">IBAN</div>}
+              {refundForm == 1 && (
+                <div className="mb-4">
+                  <FormField
+                    control={addForm.control}
+                    name="refundCardOwner"
+                    render={({ field }) => (
+                      <FormItem className="mb-4 w-full">
+                        <FormLabel className="font-normal text-xs text-gray-dark leading-none">
+                          Ім’я власника латиницею:
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            // disabled={isPending}
+                            placeholder=""
+                            type="text"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={addForm.control}
+                    name="refundCardNumber"
+                    render={({ field }) => (
+                      <FormItem className="mb-4 w-full">
+                        <FormLabel className="font-normal text-xs text-gray-dark leading-none">
+                          Номер картки:
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            // disabled={isPending}
+                            placeholder=""
+                            type="text"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Info>
+                    Для зарахування повернення коштів власником карти має бути
+                    особа, документи якої зазначені на попередньому кроці.
+                  </Info>
+                </div>
+              )}
+              {refundForm == 2 && (
+                <div className="mb-4">
+                  <FormField
+                    control={addForm.control}
+                    name="refundIBANOwner"
+                    render={({ field }) => (
+                      <FormItem className="mb-4 w-full">
+                        <FormLabel className="font-normal text-xs text-gray-dark leading-none">
+                          ПІБ отримувача:
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            // disabled={isPending}
+                            placeholder=""
+                            type="text"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={addForm.control}
+                    name="refundIBANRNOKPP"
+                    render={({ field }) => (
+                      <FormItem className="mb-4 w-full">
+                        <FormLabel className="font-normal text-xs text-gray-dark leading-none">
+                          РНОКПП:
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            // disabled={isPending}
+                            placeholder=""
+                            type="text"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={addForm.control}
+                    name="refundIBANNumber"
+                    render={({ field }) => (
+                      <FormItem className="mb-4 w-full">
+                        <FormLabel className="font-normal text-xs text-gray-dark leading-none">
+                          Рахунок IBAN:
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            // disabled={isPending}
+                            placeholder=""
+                            type="text"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Info>
+                    Для зарахування повернення коштів рахунок має бути відкритий
+                    на особу, документи якої зазначені на попередньому кроці
+                  </Info>
+                </div>
+              )}
             </div>
             <ModalFooter
               className={cn(
