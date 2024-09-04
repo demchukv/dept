@@ -25,7 +25,6 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Icon } from '@/components/utils/icon';
-import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { CcInfo } from '@/app/components/balance/cc-info';
 

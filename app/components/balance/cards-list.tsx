@@ -79,50 +79,7 @@ export const CardsList = ({ className }: CardsListProps) => {
                     }}
                     className="cursor-pointer"
                   />
-                  {/* <div
-                    className="flex flex-col gap-1 cursor-pointer"
-                    onClick={() => {
-                      setCardId(item.id);
-                      setOpenEdit(true);
-                    }}
-                  >
-                    <p
-                      className={cn(
-                        'font-medium text-xs leading-[1.33]',
-                        item.status === 'Основна'
-                          ? 'text-green-additional-color'
-                          : 'text-blue-additional-color',
-                      )}
-                    >
-                      {item.status}
-                    </p>
-                    <p className="font-semibold text-base leading-normal text-main-dark">
-                      {item.name}
-                    </p>
-                    <p className="font-medium text-sm leading-[1.14] text-main-dark">
-                      {item.valute} {item.number}
-                    </p>
-                  </div>
-                  <div className="grid place-items-end">
-                    <div className="bg-bg-color rounded w-10 h-[26px] flex items-center">
-                      {item.type === 'Visa' && (
-                        <Image
-                          src="/img/visa.png"
-                          alt="Visa card"
-                          width={36}
-                          height={11}
-                        />
-                      )}
-                      {item.type === 'MC' && (
-                        <Image
-                          src="/img/mc.png"
-                          alt="MasterCard"
-                          width={32}
-                          height={20}
-                        />
-                      )}
-                    </div>
-                  </div> */}
+
                   <div className="hidden lg:grid place-items-end ">
                     <Button
                       variant="ghost"
