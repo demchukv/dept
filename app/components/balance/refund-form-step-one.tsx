@@ -21,7 +21,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { UseFormReturn } from 'react-hook-form';
 import { Icon } from '@/components/utils/icon';
 import { DatePicker } from '../common/date-picker';
-import { RefundFormSchema } from '@/app/components/balance/refund-form';
+import { RefundFormSchema } from '@/shemas/refund';
 import { z } from 'zod';
 
 const refundReasonList = [
@@ -40,6 +40,7 @@ interface RefundFormStepOneProps {
   addForm: UseFormReturn<z.infer<typeof RefundFormSchema>>;
   onClose: (state: boolean, e: React.MouseEvent | undefined) => void;
   setStep: (step: number) => void;
+  onSubmit: (data: z.infer<typeof RefundFormSchema>) => void;
   setRefundDoc: (doc: number) => void;
   refundDoc: number;
 }
@@ -47,6 +48,7 @@ export const RefundFormStepOne = ({
   addForm,
   onClose,
   setStep,
+  onSubmit,
   setRefundDoc,
   refundDoc,
 }: RefundFormStepOneProps) => {
@@ -64,6 +66,19 @@ export const RefundFormStepOne = ({
       </ModalHeader>
 
       <div className="flex-grow flex flex-col w-full">
+        <FormField
+          control={addForm.control}
+          name="refundDoc"
+          render={({ field }) => (
+            <FormItem className="mb-4">
+              <FormControl>
+                <Input {...field} type="hidden" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         <FormField
           control={addForm.control}
           name="refundAmount"
@@ -162,6 +177,7 @@ export const RefundFormStepOne = ({
               onClick={() => {
                 setCurrentForm(0);
                 setRefundDoc(0);
+                addForm.setValue('refundDoc', 0);
               }}
             >
               ID картка
@@ -177,6 +193,7 @@ export const RefundFormStepOne = ({
               onClick={() => {
                 setCurrentForm(1);
                 setRefundDoc(1);
+                addForm.setValue('refundDoc', 1);
               }}
             >
               Паспорт
@@ -306,7 +323,7 @@ export const RefundFormStepOne = ({
               <div className="w-full">
                 <FormField
                   control={addForm.control}
-                  name="refundPassDate"
+                  name="refundPassNo"
                   render={({ field }) => (
                     <FormItem className="mb-4 w-full">
                       <FormLabel className="font-normal text-xs text-gray-dark leading-none">
@@ -364,7 +381,11 @@ export const RefundFormStepOne = ({
           'flex flex-col md:flex-row-reverse md:justify-start lg:justify-center gap-3 md:gap-4 py-4 shadow-[0_-6px_20px_0_rgba(89,125,137,0.08)]',
         )}
       >
-        <Button type="button" onClick={() => setStep(2)}>
+        <Button
+          type="button"
+          onClick={addForm.handleSubmit(onSubmit)}
+          //    onClick={() => setStep(2)}
+        >
           Продовжити
         </Button>
         <Button
