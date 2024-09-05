@@ -10,46 +10,12 @@ import { formatISO } from 'date-fns';
 import { cc_validate } from '@/lib/credit-card';
 import { RefundFormStepOne } from './refund-form-step-one';
 import { RefundFormStepTwo } from './refund-form-step-two';
+import { RefundFormSchema } from '@/shemas/refund';
 
 interface EditCardFormProps {
   onClose: (state: boolean, e: React.MouseEvent | undefined) => void;
 }
 
-export const RefundFormSchema = z.object({
-  refundAmount: z.coerce
-    .number({
-      invalid_type_error: 'Вкажіть коректну суму повернення',
-    })
-    .gte(10, { message: 'Вкажіть коректну суму повернення' }),
-  refundAdditional: z.string().optional(),
-  refundReason: z.string().min(1, 'Вкажіть причину повернення'),
-  refundPIB: z.string().min(2, "Вкажіть ваше прізвище, ім'я, по-батькові"),
-  refundDB: z.date({
-    required_error: 'Вкажіть коректну дату народження',
-  }),
-  refundIDNumber: z.string({
-    required_error: 'Вкажіть коректний номер паспорту',
-  }),
-  refundIDWho: z.string({
-    required_error: 'Вкажіть орган, що видав документ',
-  }),
-  refundPassSerial: z.string().optional(),
-  refundPassDate: z.string().optional(),
-  refundPassWho: z.string().optional(),
-  refundCard: z.string().optional(),
-  refundCardOwner: z.string().optional(),
-  refundCardNumber: z.string().refine(
-    (value) => {
-      return cc_validate(value);
-    },
-    {
-      message: 'Введіть коректний номер карти',
-    },
-  ),
-  refundIBANOwner: z.string().optional(),
-  refundIBANRNOKPP: z.string().optional(),
-  refundIBANNumber: z.string().optional(),
-});
 export const RefundForm = ({ onClose }: EditCardFormProps) => {
   const [step, setStep] = React.useState(1);
   const [refundDoc, setRefundDoc] = React.useState(0);
@@ -57,7 +23,6 @@ export const RefundForm = ({ onClose }: EditCardFormProps) => {
 
   const addForm = useForm<z.infer<typeof RefundFormSchema>>({
     mode: 'onChange',
-    criteriaMode: 'all',
     resolver: zodResolver(RefundFormSchema),
     defaultValues: {
       refundAmount: 0,
@@ -66,7 +31,7 @@ export const RefundForm = ({ onClose }: EditCardFormProps) => {
       refundPIB: '',
       refundDB: new Date(),
       refundPassSerial: '',
-      refundPassDate: '',
+      refundPassNo: '',
       refundPassWho: '',
       refundCard: '',
       refundCardOwner: '',
@@ -74,9 +39,15 @@ export const RefundForm = ({ onClose }: EditCardFormProps) => {
       refundIBANOwner: '',
       refundIBANRNOKPP: '',
       refundIBANNumber: '',
+      refundDoc: refundDoc,
+      refundPayTo: refundPayTo,
     },
   });
   function onSubmit(data: z.infer<typeof RefundFormSchema>) {
+    if (step === 1) {
+      setStep(2);
+      return;
+    }
     startTransition(() => {
       //TODO: make API request and setData
       // const newData = getJson('/data/call-summary.json');

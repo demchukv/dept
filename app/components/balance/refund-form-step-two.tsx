@@ -1,5 +1,5 @@
 import { UseFormReturn } from 'react-hook-form';
-import { RefundFormSchema } from './refund-form';
+import { RefundFormSchema } from '@/shemas/refund';
 import { z } from 'zod';
 import {
   ModalDescription,
@@ -50,7 +50,7 @@ interface RefundFormStepOneProps {
   setStep: (step: number) => void;
   onSubmit: (data: z.infer<typeof RefundFormSchema>) => void;
   setRefundPayTo: (pay: number) => void;
-    refundPayTo: number;
+  refundPayTo: number;
 }
 
 export const RefundFormStepTwo = ({
@@ -58,8 +58,8 @@ export const RefundFormStepTwo = ({
   onClose,
   setStep,
   onSubmit,
-    setRefundPayTo,
-    refundPayTo
+  setRefundPayTo,
+  refundPayTo,
 }: RefundFormStepOneProps) => {
   const [refundForm, setRefundForm] = React.useState(refundPayTo);
   return (
@@ -73,6 +73,19 @@ export const RefundFormStepTwo = ({
         <ModalDescription className="hidden"></ModalDescription>
       </ModalHeader>
       <div className="flex-grow flex flex-col w-full">
+        <FormField
+          control={addForm.control}
+          name="refundPayTo"
+          render={({ field }) => (
+            <FormItem className="mb-4">
+              <FormControl>
+                <Input {...field} type="hidden" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         <div className="mb-4 font-semibold text-sm text-main-dark leading-main-lh">
           Реквізити на які буде повернення коштів
         </div>
@@ -83,6 +96,7 @@ export const RefundFormStepTwo = ({
             onClick={() => {
               setRefundForm(0);
               setRefundPayTo(0);
+              addForm.setValue('refundPayTo', 0);
             }}
             className={cn(
               'font-semibold text-sm leading-main-lh',
@@ -98,6 +112,7 @@ export const RefundFormStepTwo = ({
             onClick={() => {
               setRefundForm(1);
               setRefundPayTo(1);
+              addForm.setValue('refundPayTo', 1);
             }}
             className={cn(
               'font-semibold text-sm leading-main-lh',
@@ -113,6 +128,7 @@ export const RefundFormStepTwo = ({
             onClick={() => {
               setRefundForm(2);
               setRefundPayTo(2);
+              addForm.setValue('refundPayTo', 2);
             }}
             className={cn(
               'font-semibold text-sm leading-main-lh',
@@ -199,7 +215,7 @@ export const RefundFormStepTwo = ({
                       onKeyUp={() =>
                         addForm.setValue(
                           'refundCardNumber',
-                          cc_format(field.value),
+                          cc_format(field.value as string),
                         )
                       }
                     />
