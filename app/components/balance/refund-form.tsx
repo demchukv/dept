@@ -7,7 +7,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
 import { formatISO } from 'date-fns';
-import { cc_validate } from '@/lib/credit-card';
 import { RefundFormStepOne } from './refund-form-step-one';
 import { RefundFormStepTwo } from './refund-form-step-two';
 import { RefundFormSchema } from '@/shemas/refund';
@@ -54,8 +53,6 @@ export const RefundForm = ({ onClose }: EditCardFormProps) => {
       const values = {
         ...data,
         refundDB: formatISO(data.refundDB),
-        refundDoc: refundDoc,
-        refundPayTo: refundPayTo,
       };
       toast({
         title: 'Ви відправили наступні значення:',

@@ -22,14 +22,6 @@ export const RefundFormSchema = z
     refundCard: z.string().optional(),
     refundCardOwner: z.string().optional(),
     refundCardNumber: z.string().optional(),
-    // refundCardNumber: z.string().refine(
-    //   (value) => {
-    //     return cc_validate(value);
-    //   },
-    //   {
-    //     message: 'Введіть коректний номер карти',
-    //   },
-    // ),
     refundIBANOwner: z.string().optional(),
     refundIBANRNOKPP: z.string().optional(),
     refundIBANNumber: z.string().optional(),
