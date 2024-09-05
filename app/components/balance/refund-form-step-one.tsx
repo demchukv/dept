@@ -70,7 +70,7 @@ export const RefundFormStepOne = ({
           control={addForm.control}
           name="refundDoc"
           render={({ field }) => (
-            <FormItem className="mb-4">
+            <FormItem>
               <FormControl>
                 <Input {...field} type="hidden" />
               </FormControl>

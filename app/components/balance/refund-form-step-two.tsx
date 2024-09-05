@@ -77,7 +77,7 @@ export const RefundFormStepTwo = ({
           control={addForm.control}
           name="refundPayTo"
           render={({ field }) => (
-            <FormItem className="mb-4">
+            <FormItem>
               <FormControl>
                 <Input {...field} type="hidden" />
               </FormControl>

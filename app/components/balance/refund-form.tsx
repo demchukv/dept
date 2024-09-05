@@ -1,6 +1,12 @@
 'use client';
 import React, { startTransition } from 'react';
-import { Form } from '@/components/ui/form';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from '@/components/ui/form';
 import { z } from 'zod';
 import { toast } from '@/components/ui/use-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -10,6 +16,7 @@ import { formatISO } from 'date-fns';
 import { RefundFormStepOne } from './refund-form-step-one';
 import { RefundFormStepTwo } from './refund-form-step-two';
 import { RefundFormSchema } from '@/shemas/refund';
+import { Input } from '@/components/ui/input';
 
 interface EditCardFormProps {
   onClose: (state: boolean, e: React.MouseEvent | undefined) => void;
@@ -38,13 +45,16 @@ export const RefundForm = ({ onClose }: EditCardFormProps) => {
       refundIBANOwner: '',
       refundIBANRNOKPP: '',
       refundIBANNumber: '',
+      refundStep: step,
       refundDoc: refundDoc,
       refundPayTo: refundPayTo,
     },
   });
+
   function onSubmit(data: z.infer<typeof RefundFormSchema>) {
     if (step === 1) {
       setStep(2);
+      addForm.setValue('refundStep', 2);
       return;
     }
     startTransition(() => {
@@ -73,6 +83,19 @@ export const RefundForm = ({ onClose }: EditCardFormProps) => {
         onSubmit={addForm.handleSubmit(onSubmit)}
         className="flex-grow h-full"
       >
+        <FormField
+          control={addForm.control}
+          name="refundStep"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Input {...field} type="hidden" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         {/* Refund Form - Step 1 */}
         {step == 1 && (
           <RefundFormStepOne
