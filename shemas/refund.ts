@@ -25,6 +25,7 @@ export const RefundFormSchema = z
     refundIBANOwner: z.string().optional(),
     refundIBANRNOKPP: z.string().optional(),
     refundIBANNumber: z.string().optional(),
+    refundStep: z.number().optional(),
     refundDoc: z.number().optional(),
     refundPayTo: z.number().optional(),
   })
@@ -108,6 +109,7 @@ export const RefundFormSchema = z
     (data) => {
       if (
         data.refundPayTo === 0 &&
+        data.refundStep === 2 &&
         (data.refundCard === undefined || data.refundCard === '')
       ) {
         return false;
@@ -123,6 +125,7 @@ export const RefundFormSchema = z
     (data) => {
       if (
         data.refundPayTo === 1 &&
+        data.refundStep === 2 &&
         (data.refundCardOwner === undefined || data.refundCardOwner.length < 2)
       ) {
         return false;
@@ -138,6 +141,7 @@ export const RefundFormSchema = z
     (data) => {
       if (
         data.refundPayTo === 1 &&
+        data.refundStep === 2 &&
         (data.refundCardNumber === undefined ||
           cc_validate(data.refundCardNumber) === false)
       ) {
@@ -154,6 +158,7 @@ export const RefundFormSchema = z
     (data) => {
       if (
         data.refundPayTo === 2 &&
+        data.refundStep === 2 &&
         (data.refundIBANOwner === undefined || data.refundIBANOwner.length < 2)
       ) {
         return false;
@@ -169,6 +174,7 @@ export const RefundFormSchema = z
     (data) => {
       if (
         data.refundPayTo === 2 &&
+        data.refundStep === 2 &&
         (data.refundIBANRNOKPP === undefined ||
           data.refundIBANRNOKPP.length < 2)
       ) {
@@ -185,6 +191,7 @@ export const RefundFormSchema = z
     (data) => {
       if (
         data.refundPayTo === 2 &&
+        data.refundStep === 2 &&
         (data.refundIBANNumber === undefined ||
           data.refundIBANNumber.length < 10)
       ) {
@@ -196,9 +203,4 @@ export const RefundFormSchema = z
       message: 'Вкажіть рахунок IBAN',
       path: ['refundIBANNumber'],
     },
-  )
-  .refine((data) => {
-    console.log('refundDoc', data.refundDoc);
-    console.log('refundPayTo', data.refundPayTo);
-    return true;
-  });
+  );
