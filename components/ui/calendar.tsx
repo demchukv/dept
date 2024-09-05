@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@radix-ui/react-icons';
-import { DayPicker } from 'react-day-picker';
+import { DayPicker, DropdownProps, useDayPicker } from 'react-day-picker';
 
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/ui/button';
@@ -10,6 +10,8 @@ import { useTranslation } from 'react-i18next';
 import { i18nConfig, LOCALES } from '@/i18nConfig';
 
 import * as dateFnsLocales from 'date-fns/locale';
+import { format, setMonth } from 'date-fns';
+import { Select, SelectContent, SelectItem, SelectTrigger } from './select';
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
@@ -82,6 +84,39 @@ function Calendar({
       components={{
         IconLeft: ({ ...props }) => <ChevronLeftIcon className="h-4 w-4" />,
         IconRight: ({ ...props }) => <ChevronRightIcon className="h-4 w-4" />,
+        Dropdown: (props: DropdownProps) => {
+          const { fromDate, fromMonth, fromYear, toDate, toMonth, toYear } =
+            useDayPicker();
+          if (props.name === 'months') {
+            const selectItems = Array.from({ length: 12 }, (_, i) => {
+              return {
+                value: i.toString(),
+                label: format(setMonth(new Date(), i), 'LLLL', {
+                  locale: currentLocale,
+                }),
+              };
+            });
+            return (
+              <Select>
+                <SelectTrigger>months</SelectTrigger>
+                <SelectContent>
+                  {selectItems.map((item) => (
+                    <SelectItem key={item.value} value={item.value}>
+                      {item.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            );
+          } else if (props.name === 'years') {
+            const earliestYear =
+              fromYear || fromMonth?.getFullYear() || fromDate?.getFullYear();
+            const latestYear =
+              toYear || toMonth?.getFullYear() || toDate?.getFullYear();
+            return <div>years</div>;
+          }
+          return null;
+        },
       }}
       {...props}
     />
