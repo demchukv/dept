@@ -36,6 +36,8 @@ export const RefundForm = ({ onClose }: EditCardFormProps) => {
       refundAdditional: '',
       refundPIB: '',
       refundDB: new Date(),
+      refundIDNumber: '',
+      refundIDWho: '',
       refundPassSerial: '',
       refundPassNo: '',
       refundPassWho: '',
@@ -60,10 +62,49 @@ export const RefundForm = ({ onClose }: EditCardFormProps) => {
     startTransition(() => {
       //TODO: make API request and setData
       // const newData = getJson('/data/call-summary.json');
-      const values = {
-        ...data,
+      let values = {
+        refundAmount: data.refundAmount,
+        refundReason: data.refundReason,
+        refundAdditional: data.refundAdditional,
+        refundPIB: data.refundPIB,
         refundDB: formatISO(data.refundDB),
       };
+      if (refundDoc === 0) {
+        const rf = {
+          refundIDNumber: data.refundIDNumber,
+          refundIDWho: data.refundIDWho,
+        };
+        values = { ...values, ...rf };
+      }
+      if (refundDoc === 1) {
+        const rf = {
+          refundPassSerial: data.refundPassSerial,
+          refundPassNo: data.refundPassNo,
+          refundPassWho: data.refundPassWho,
+        };
+        values = { ...values, ...rf };
+      }
+      if (refundPayTo === 0) {
+        const rp = {
+          refundCard: data.refundCard,
+        };
+        values = { ...values, ...rp };
+      }
+      if (refundPayTo === 1) {
+        const rp = {
+          refundCardOwner: data.refundCardOwner,
+          refundCardNumber: data.refundCardNumber,
+        };
+        values = { ...values, ...rp };
+      }
+      if (refundPayTo === 2) {
+        const rp = {
+          refundIBANOwner: data.refundIBANOwner,
+          refundIBANRNOKPP: data.refundIBANRNOKPP,
+          refundIBANNumber: data.refundIBANNumber,
+        };
+        values = { ...values, ...rp };
+      }
       toast({
         title: 'Ви відправили наступні значення:',
         description: (
