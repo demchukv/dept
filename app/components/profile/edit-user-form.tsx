@@ -46,30 +46,32 @@ const userEditShema = z.object({
     email: z.string().min(1, 'Вкажіть вашу електронну адресу'),
     phone: z.string().min(1, 'Вкажіть ваш номер телефону'),
   }),
-  billing: z
-    .array(
-      z.object({
-        addr: z.string().min(1, 'Вкажіть адресу доставки'),
-        id: z.number(),
-      }),
-    )
-    .optional(),
-  delivery: z
-    .array(
-      z.object({
-        addr: z.string().min(1, 'Вкажіть адресу доставки'),
-        id: z.number(),
-      }),
-    )
-    .optional(),
-  recipients: z
-    .array(
-      z.object({
-        id: z.number(),
-        name: z.string().min(1, "Вкажіть ваше прізвище, ім'я, по-батькові"),
-      }),
-    )
-    .optional(),
+  addrData: z.object({
+    billing: z
+      .array(
+        z.object({
+          addr: z.string().min(1, 'Вкажіть адресу доставки'),
+          id: z.number(),
+        }),
+      )
+      .optional(),
+    delivery: z
+      .array(
+        z.object({
+          addr: z.string().min(1, 'Вкажіть адресу доставки'),
+          id: z.number(),
+        }),
+      )
+      .optional(),
+    recipients: z
+      .array(
+        z.object({
+          id: z.number(),
+          name: z.string().min(1, "Вкажіть ваше прізвище, ім'я, по-батькові"),
+        }),
+      )
+      .optional(),
+  }),
 });
 
 function onSubmit(data: z.infer<typeof userEditShema>) {
@@ -88,10 +90,6 @@ function onSubmit(data: z.infer<typeof userEditShema>) {
 }
 
 export const EditUserForm = ({ userData, addrData }: EditUserFormProps) => {
-  const billing = addrData.billing;
-  const delivery = addrData.delivery;
-  const recipients = addrData.recipients;
-
   const form = useForm<z.infer<typeof userEditShema>>({
     resolver: zodResolver(userEditShema),
     defaultValues: {
@@ -100,21 +98,30 @@ export const EditUserForm = ({ userData, addrData }: EditUserFormProps) => {
         email: userData.email,
         phone: userData.phone,
       },
-      billing: [
-        {
-          addr: '',
-          id: 0,
-        },
-      ],
+      addrData: {
+        billing: [
+          {
+            addr: '',
+            id: 0,
+          },
+        ],
+      },
     },
   });
 
-  const { fields, append, prepend, remove, swap, move, insert } = useFieldArray(
-    {
-      control: form.control,
-      name: 'billing',
-    },
-  );
+  const {
+    fields: fieldsBilling,
+    append: appendBilling,
+    prepend: prependBilling,
+    remove: removeBilling,
+    swap: swapBilling,
+    move: moveBilling,
+    insert: insertBilling,
+  } = useFieldArray({
+    control: form.control,
+    name: 'addrData.billing',
+    keyName: 'idKey',
+  });
 
   return (
     <Form {...form}>
@@ -190,12 +197,12 @@ export const EditUserForm = ({ userData, addrData }: EditUserFormProps) => {
             <p className="font-semibold text-base leading-normal text-main-dark mb-4">
               Білінг адреси:
             </p>
-            {billing.map((item, i) => (
+            {addrData.billing.map((item, i) => (
               <div key={item.id}>
                 <div className="mb-5">
                   <FormField
                     control={form.control}
-                    name={`billing.${i}.addr`}
+                    name={`addrData.billing.${i}.addr`}
                     render={({ field }) => (
                       <FormItem className="space-y-1">
                         <FormControl>
@@ -207,14 +214,14 @@ export const EditUserForm = ({ userData, addrData }: EditUserFormProps) => {
                               className="fill-main-dark w-6 h-6 flex-shrink-0"
                             />
                             <Input
-                              {...field}
+                              {...fieldsBilling}
                               placeholder=""
                               type="text"
                               value={item.addr}
                             />
                             <Input
                               type="hidden"
-                              {...field}
+                              {...fieldsBilling}
                               placeholder=""
                               value={item.id}
                             />
@@ -237,7 +244,11 @@ export const EditUserForm = ({ userData, addrData }: EditUserFormProps) => {
               type="button"
               variant="ghost"
               className="text-main-color font-semibold text-sm leading-main-lh"
-              onClick={() => append([{ addr: '', id: 0 }])}
+              onClick={() => {
+                console.log('try append field');
+                console.log(fieldsBilling);
+                appendBilling({ addr: '', id: 0 });
+              }}
             >
               Додати білінг адресу{' '}
               <Icon width={20} height={20} iconName="Plus" />
