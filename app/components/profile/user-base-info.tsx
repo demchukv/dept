@@ -3,8 +3,16 @@ import { KeyValText } from '@/app/components/common/key-val-text';
 import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/utils/icon';
 import { UploadAvatar } from '@/app/components/profile/upload-avatar';
+import { Modal, ModalContent } from '@/app/components/common/modal';
+import { useState } from 'react';
+import { DeleteUserAccount } from '@/app/components/profile/delete-user-account';
 
 export const UserBaseInfo = () => {
+  const [open, setOpen] = useState(false);
+  const onClose = (state: boolean, e: React.MouseEvent | undefined) => {
+    if (e) e.preventDefault();
+    setOpen(state);
+  };
   const data = {
     id: 12345678,
     name: 'Шевченко Василь Петрович',
@@ -12,6 +20,7 @@ export const UserBaseInfo = () => {
     phone: '+38 (068) 765-43-21',
     avatar: 'avatar.png',
   };
+  const amount = 250;
   const dataKeyClass =
     'font-normal text-sm leading-main-lh text-gray-dark pr-2';
   const dataValClass = 'font-medium text-sm leading-main-lh text-main-dark';
@@ -53,16 +62,30 @@ export const UserBaseInfo = () => {
           val={String(data.id)}
         />
       </div>
-      <Button variant="secondary" className="mb-4">
+      <Button type="button" variant="secondary" className="mb-4">
         Підтвердити дані через
         <Icon width={28} height={28} iconName="Diia" className="w-7 h-7 ml-2" />
       </Button>
-      <Button variant="outline" className="mb-4">
+      <Button type="button" variant="outline" className="mb-4">
         Змінити пароль
       </Button>
-      <Button variant="destructive" className="font-semibold">
+      <Button
+        type="button"
+        variant="destructive"
+        className="font-semibold"
+        onClick={() => setOpen(true)}
+      >
         Видалити профіль
       </Button>
+
+      <Modal open={open} onOpenChange={() => onClose(false, undefined)}>
+        <ModalContent className="grid grid-cols-1 gap-6">
+          <DeleteUserAccount
+            onClose={() => onClose(false, undefined)}
+            amount={amount}
+          />
+        </ModalContent>
+      </Modal>
     </div>
   );
 };

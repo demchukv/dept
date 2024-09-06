@@ -21,13 +21,14 @@ export const UploadAvatar = ({ sign = 'Upload a file' }: UploadAvatarProps) => {
     //   body: formData,
     // });
     // const result = await response.json();
-    console.log(formData.getAll('file'));
+    const sendData = formData.getAll('file');
+    console.log(sendData);
     toast({
       title: 'Ви відправили наступні значення:',
       description: (
         <pre className="mt-2 w-full rounded-md bg-slate-950 p-4">
           <code className="text-white">
-            {JSON.stringify(formData.getAll('file'))}
+            {JSON.stringify(sendData, null, 2)}
           </code>
         </pre>
       ),
