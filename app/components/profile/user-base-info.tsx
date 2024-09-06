@@ -52,12 +52,6 @@ export const UserBaseInfo = () => {
               {data.name}
             </span>
             <UploadAvatar sign="Додати фото профілю" />
-            {/* <Button
-              variant="ghost"
-              className="p-0 justify-start font-medium text-sm leading-main-lh text-main-color"
-            >
-              Додати фото профілю
-            </Button> */}
           </div>
         </div>
         <KeyValText className="mb-4" k="E-mail:" val={data.email} />
