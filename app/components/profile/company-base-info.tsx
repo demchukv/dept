@@ -1,8 +1,16 @@
+import { Modal, ModalContent } from '@/app/components/common/modal';
 import { KeyValText } from '@/app/components/common/key-val-text';
 import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/utils/icon';
+import { ChangeUserPassword } from '@/app/components/profile/change-user-password';
+import { useState } from 'react';
 
 export const CompanyBaseInfo = () => {
+  const [openPass, setOpenPass] = useState(false);
+  const onClosePass = (state: boolean, e: React.MouseEvent | undefined) => {
+    if (e) e.preventDefault();
+    setOpenPass(state);
+  };
   const data = {
     id: 12232678,
     name: 'ТОВ Агропромбуд',
@@ -48,12 +56,22 @@ export const CompanyBaseInfo = () => {
       <Button variant="default" className="mb-4">
         Редагувати дані
       </Button>
-      <Button variant="outline" className="mb-4">
+      <Button
+        variant="outline"
+        className="mb-4"
+        onClick={() => setOpenPass(true)}
+      >
         Змінити пароль
       </Button>
       <Button variant="destructive" className="font-semibold">
         Покинути компанію
       </Button>
+
+      <Modal open={openPass} onOpenChange={() => onClosePass(false, undefined)}>
+        <ModalContent className="grid grid-cols-1 gap-6">
+          <ChangeUserPassword onClose={() => onClosePass(false, undefined)} />
+        </ModalContent>
+      </Modal>
     </div>
   );
 };

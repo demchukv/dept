@@ -6,12 +6,18 @@ import { UploadAvatar } from '@/app/components/profile/upload-avatar';
 import { Modal, ModalContent } from '@/app/components/common/modal';
 import { useState } from 'react';
 import { DeleteUserAccount } from '@/app/components/profile/delete-user-account';
+import { ChangeUserPassword } from '@/app/components/profile/change-user-password';
 
 export const UserBaseInfo = () => {
   const [open, setOpen] = useState(false);
+  const [openPass, setOpenPass] = useState(false);
   const onClose = (state: boolean, e: React.MouseEvent | undefined) => {
     if (e) e.preventDefault();
     setOpen(state);
+  };
+  const onClosePass = (state: boolean, e: React.MouseEvent | undefined) => {
+    if (e) e.preventDefault();
+    setOpenPass(state);
   };
   const data = {
     id: 12345678,
@@ -66,7 +72,12 @@ export const UserBaseInfo = () => {
         Підтвердити дані через
         <Icon width={28} height={28} iconName="Diia" className="w-7 h-7 ml-2" />
       </Button>
-      <Button type="button" variant="outline" className="mb-4">
+      <Button
+        type="button"
+        variant="outline"
+        className="mb-4"
+        onClick={() => setOpenPass(true)}
+      >
         Змінити пароль
       </Button>
       <Button
@@ -84,6 +95,12 @@ export const UserBaseInfo = () => {
             onClose={() => onClose(false, undefined)}
             amount={amount}
           />
+        </ModalContent>
+      </Modal>
+
+      <Modal open={openPass} onOpenChange={() => onClosePass(false, undefined)}>
+        <ModalContent className="grid grid-cols-1 gap-6">
+          <ChangeUserPassword onClose={() => onClosePass(false, undefined)} />
         </ModalContent>
       </Modal>
     </div>
