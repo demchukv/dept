@@ -20,6 +20,7 @@ import DeleteCircle from '@/components/icons/delete-circle';
 import Diia from '@/components/icons/diia';
 import Doc from '@/components/icons/doc';
 import Document from '@/components/icons/document';
+import DragAndDrop from '@/components/icons/drag-and-drop';
 import Electronics from '@/components/icons/electronics';
 import EyeClosed from '@/components/icons/eye-closed';
 import Info from '@/components/icons/info';
@@ -66,6 +67,7 @@ export const Icons = {
   Diia,
   Doc,
   Document,
+  DragAndDrop,
   Electronics,
   Info,
   EyeClosed,

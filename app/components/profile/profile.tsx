@@ -11,6 +11,43 @@ import { AlertSettings } from '@/app/components/profile/alert-settings';
 
 export const Profile = () => {
   const currentAccount = useAppSelector(selectCurrentAccount);
+
+  const userData = {
+    id: 12345678,
+    name: 'Шевченко Василь Петрович',
+    email: 'mail_address@gmail.com',
+    phone: '+38 (068) 765-43-21',
+    avatar: 'avatar.png',
+  };
+  const addrData = {
+    billing: [
+      {
+        id: 1,
+        addr: 'Ukraine, reg. Kyivska, district Kyiv, 03061, Halana Yaroslava str, 10 - 57',
+      },
+    ],
+    delivery: [
+      {
+        id: 1,
+        addr: 'Ukraine, reg. Kyivska, district Kyiv, 03061, Halana Yaroslava str, 10 - 57',
+      },
+      {
+        id: 2,
+        addr: 'Ukraine, reg. Rivnenska, district Rivne, 28075, Shevchenko str. 112 - 92',
+      },
+    ],
+    recipients: [
+      {
+        id: 1,
+        name: 'Олещенко Олег Олексійович',
+      },
+      {
+        id: 2,
+        name: 'Коломієць Наталя Дмитрівна',
+      },
+    ],
+  };
+
   return (
     <>
       <h1 className="font-bold text-2xl leading-none text-main-dark mb-4 lg:mb-8">
@@ -22,14 +59,14 @@ export const Profile = () => {
         <div className="flex flex-col gap-4 md:flex-row md-gap-6 items-start">
           <Card className="md:w-2/3">
             {currentAccount?.account === 'user' ? (
-              <UserBaseInfo />
+              <UserBaseInfo userData={userData} addrData={addrData} />
             ) : (
               <CompanyBaseInfo />
             )}
           </Card>
           <Card className="flex-grow">
             {currentAccount?.account === 'user' ? (
-              <UserFullInfo />
+              <UserFullInfo addrData={addrData} userData={userData} />
             ) : (
               <CompanyFullInfo />
             )}

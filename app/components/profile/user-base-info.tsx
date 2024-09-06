@@ -8,7 +8,29 @@ import { useState } from 'react';
 import { DeleteUserAccount } from '@/app/components/profile/delete-user-account';
 import { ChangeUserPassword } from '@/app/components/profile/change-user-password';
 
-export const UserBaseInfo = () => {
+interface UserBaseInfoProps {
+  userData: {
+    name: string;
+    email: string;
+    phone: string;
+    id: number;
+  };
+  addrData: {
+    billing: {
+      addr: string;
+      id: number;
+    }[];
+    delivery: {
+      addr: string;
+      id: number;
+    }[];
+    recipients: {
+      name: string;
+      id: number;
+    }[];
+  };
+}
+export const UserBaseInfo = ({ userData, addrData }: UserBaseInfoProps) => {
   const [open, setOpen] = useState(false);
   const [openPass, setOpenPass] = useState(false);
   const onClose = (state: boolean, e: React.MouseEvent | undefined) => {
@@ -19,13 +41,7 @@ export const UserBaseInfo = () => {
     if (e) e.preventDefault();
     setOpenPass(state);
   };
-  const data = {
-    id: 12345678,
-    name: 'Шевченко Василь Петрович',
-    email: 'mail_address@gmail.com',
-    phone: '+38 (068) 765-43-21',
-    avatar: 'avatar.png',
-  };
+
   const amount = 250;
   const dataKeyClass =
     'font-normal text-sm leading-main-lh text-gray-dark pr-2';
@@ -49,20 +65,20 @@ export const UserBaseInfo = () => {
           </div>
           <div className="flex flex-col gap-1">
             <span className="font-semibold text-base leading-normal text-main-dark">
-              {data.name}
+              {userData.name}
             </span>
             <UploadAvatar sign="Додати фото профілю" />
           </div>
         </div>
-        <KeyValText className="mb-4" k="E-mail:" val={data.email} />
-        <KeyValText className="mb-4" k="Телефон:" val={data.phone} />
+        <KeyValText className="mb-4" k="E-mail:" val={userData.email} />
+        <KeyValText className="mb-4" k="Телефон:" val={userData.phone} />
         <KeyValText
           className="mb-8"
           k="ID користувача:"
-          val={String(data.id)}
+          val={String(userData.id)}
         />
       </div>
-      <Button type="button" variant="secondary" className="mb-4">
+      <Button type="button" variant="secondary" className="mb-4 rounded-[24px]">
         Підтвердити дані через
         <Icon width={28} height={28} iconName="Diia" className="w-7 h-7 ml-2" />
       </Button>
