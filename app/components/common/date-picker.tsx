@@ -27,7 +27,7 @@ export function DatePicker({
   onSelect,
   disabled,
   captionLayout = '',
-  fromYear = 1900,
+  fromYear = 1950,
   toYear = new Date().getFullYear(),
 }: DatePickerProps) {
   const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
@@ -68,8 +68,8 @@ export function DatePicker({
           captionLayout={
             captionLayout ? (captionLayout as CaptionLayout) : undefined
           }
-          fromYear={fromYear ? 2020 : undefined}
-          toYear={toYear ? 2024 : undefined}
+          fromYear={fromYear ? fromYear : undefined}
+          toYear={toYear ? toYear : undefined}
           mode="single"
           selected={selected}
           onSelect={handleOnSelect}

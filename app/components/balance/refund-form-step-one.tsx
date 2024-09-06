@@ -232,9 +232,9 @@ export const RefundFormStepOne = ({
               </FormLabel>
               <FormControl>
                 <DatePicker
-                  // captionLayout="dropdown-buttons"
-                  // fromYear={1900}
-                  // toYear={new Date().getFullYear()}
+                  captionLayout="dropdown-buttons"
+                  fromYear={1950}
+                  toYear={new Date().getFullYear()}
                   selected={field.value}
                   onSelect={(value: Date) => {
                     field.onChange(value);

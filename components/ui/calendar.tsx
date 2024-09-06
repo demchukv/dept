@@ -2,7 +2,12 @@
 
 import * as React from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@radix-ui/react-icons';
-import { DayPicker } from 'react-day-picker';
+import {
+  DayPicker,
+  DropdownProps,
+  useDayPicker,
+  useNavigation,
+} from 'react-day-picker';
 
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/ui/button';
@@ -10,6 +15,14 @@ import { useTranslation } from 'react-i18next';
 import { i18nConfig, LOCALES } from '@/i18nConfig';
 
 import * as dateFnsLocales from 'date-fns/locale';
+import { format, setMonth } from 'date-fns';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from './select';
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
@@ -77,11 +90,97 @@ function Calendar({
         day_range_middle:
           'aria-selected:bg-bg-color aria-selected:text-accent-foreground',
         day_hidden: 'invisible',
+        caption_dropdowns: 'flex gap-1',
         ...classNames,
       }}
       components={{
         IconLeft: ({ ...props }) => <ChevronLeftIcon className="h-4 w-4" />,
         IconRight: ({ ...props }) => <ChevronRightIcon className="h-4 w-4" />,
+        Dropdown: (props: DropdownProps) => {
+          const {
+            fromDate,
+            fromMonth,
+            fromYear,
+            toDate,
+            toMonth,
+            toYear,
+            selected,
+          } = useDayPicker();
+          const { goToMonth, currentMonth } = useNavigation();
+          let current = currentMonth;
+          if (selected instanceof Date) {
+            current = selected;
+          }
+          if (props.name === 'months') {
+            const selectItems = Array.from({ length: 12 }, (_, i) => {
+              return {
+                value: i.toString(),
+                label: format(setMonth(new Date(), i), 'MMM', {
+                  locale: currentLocale,
+                }),
+              };
+            });
+            return (
+              <Select
+                onValueChange={(newValue) => {
+                  const newDate = new Date(currentMonth);
+                  newDate.setMonth(parseInt(newValue));
+                  goToMonth(newDate);
+                }}
+                // value={current.getMonth().toString()}
+              >
+                <SelectTrigger>
+                  {format(currentMonth, 'MMM', { locale: currentLocale })}
+                  {/* <SelectValue placeholder="" /> */}
+                </SelectTrigger>
+                <SelectContent>
+                  {selectItems.map((item) => (
+                    <SelectItem key={item.value} value={item.value}>
+                      {item.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            );
+          } else if (props.name === 'years') {
+            const earliestYear =
+              fromYear || fromMonth?.getFullYear() || fromDate?.getFullYear();
+            const latestYear =
+              toYear || toMonth?.getFullYear() || toDate?.getFullYear();
+            let selectItems: { label: string; value: string }[] = [];
+            if (earliestYear && latestYear) {
+              const yearsLength = latestYear - earliestYear + 1;
+              selectItems = Array.from({ length: yearsLength }, (_, i) => ({
+                label: (earliestYear + i).toString(),
+                value: (earliestYear + i).toString(),
+              }));
+            }
+            return (
+              <Select
+                onValueChange={(newValue) => {
+                  const newDate = new Date(currentMonth);
+                  newDate.setFullYear(parseInt(newValue));
+                  goToMonth(newDate);
+                }}
+                value={props?.value?.toString()}
+                // value={current.getFullYear().toString()}
+              >
+                <SelectTrigger>
+                  {currentMonth.getFullYear()}
+                  {/* <SelectValue placeholder="" /> */}
+                </SelectTrigger>
+                <SelectContent>
+                  {selectItems.map((item) => (
+                    <SelectItem key={item.value} value={item.value}>
+                      {item.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            );
+          }
+          return null;
+        },
       }}
       {...props}
     />
