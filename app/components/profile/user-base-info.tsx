@@ -1,7 +1,8 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { KeyValText } from '@/app/components/common/key-val-text';
 import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/utils/icon';
-import Link from 'next/link';
+import { UploadAvatar } from '@/app/components/profile/upload-avatar';
 
 export const UserBaseInfo = () => {
   const data = {
@@ -11,7 +12,8 @@ export const UserBaseInfo = () => {
     phone: '+38 (068) 765-43-21',
     avatar: 'avatar.png',
   };
-  const dataKeyClass = 'font-normal text-sm leading-main-lh text-gray-dark';
+  const dataKeyClass =
+    'font-normal text-sm leading-main-lh text-gray-dark pr-2';
   const dataValClass = 'font-medium text-sm leading-main-lh text-main-dark';
   return (
     <div className="flex flex-col">
@@ -34,34 +36,33 @@ export const UserBaseInfo = () => {
             <span className="font-semibold text-base leading-normal text-main-dark">
               {data.name}
             </span>
-            <Button
+            <UploadAvatar sign="Додати фото профілю" />
+            {/* <Button
               variant="ghost"
               className="p-0 justify-start font-medium text-sm leading-main-lh text-main-color"
             >
               Додати фото профілю
-            </Button>
+            </Button> */}
           </div>
         </div>
-        <div className="mb-4">
-          <span className={dataKeyClass}>E-mail:</span>
-          <span className={dataValClass}>{data.email}</span>
-        </div>
-        <div className="mb-4">
-          <span className={dataKeyClass}>Телефон:</span>
-          <span className={dataValClass}>{data.phone}</span>
-        </div>
-        <div className="mb-8">
-          <span className={dataKeyClass}>ID користувача:</span>
-          <span className={dataValClass}>{data.id}</span>
-        </div>
+        <KeyValText className="mb-4" k="E-mail:" val={data.email} />
+        <KeyValText className="mb-4" k="Телефон:" val={data.phone} />
+        <KeyValText
+          className="mb-8"
+          k="ID користувача:"
+          val={String(data.id)}
+        />
       </div>
       <Button variant="secondary" className="mb-4">
-        Змінити дані
+        Підтвердити дані через
+        <Icon width={28} height={28} iconName="Diia" className="w-7 h-7 ml-2" />
       </Button>
       <Button variant="outline" className="mb-4">
         Змінити пароль
       </Button>
-      <Button variant="destructive">Видалити профіль</Button>
+      <Button variant="destructive" className="font-semibold">
+        Видалити профіль
+      </Button>
     </div>
   );
 };
