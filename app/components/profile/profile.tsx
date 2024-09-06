@@ -19,7 +19,7 @@ export const Profile = () => {
           : 'Мої дані. Акаунт компанії'}
       </h1>
       <div className="flex flex-col gap-4">
-        <div className="flex flex-col gap-4 md:flex-row md-gap-6">
+        <div className="flex flex-col gap-4 md:flex-row md-gap-6 items-start">
           <Card className="md:w-2/3">
             {currentAccount?.account === 'user' ? (
               <UserBaseInfo />
