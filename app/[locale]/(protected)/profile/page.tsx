@@ -2,6 +2,7 @@ import React from 'react';
 
 import initTranslations from '@/app/i18n';
 import TranslationsProvider from '@/components/translations-provider';
+import { Profile } from '@/app/components/profile/profile';
 
 const i18nNamespaces = ['profile'];
 
@@ -17,7 +18,7 @@ const ProfilePage = async ({
       locale={locale}
       resources={resources}
     >
-      <div>Profile Page</div>
+      <Profile />
     </TranslationsProvider>
   );
 };
