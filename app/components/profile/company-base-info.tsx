@@ -3,23 +3,38 @@ import { KeyValText } from '@/app/components/common/key-val-text';
 import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/utils/icon';
 import { ChangeUserPassword } from '@/app/components/profile/change-user-password';
+import { LeaveCompany } from '@/app/components/profile/leave-company';
 import { useState } from 'react';
+import { ListCompanyDocs } from '@/app/components/profile/list-company-docs';
 
-export const CompanyBaseInfo = () => {
+interface CompanyBaseInfoProps {
+  companyData: any;
+  addrData: any;
+  view: 'data' | 'edit';
+  setView: (view: 'data' | 'edit') => void;
+}
+export const CompanyBaseInfo = ({
+  companyData,
+  addrData,
+  view,
+  setView,
+}: CompanyBaseInfoProps) => {
+  const [open, setOpen] = useState(false);
   const [openPass, setOpenPass] = useState(false);
+  const [openDocs, setOpenDocs] = useState(false);
+  const onClose = (state: boolean, e: React.MouseEvent | undefined) => {
+    if (e) e.preventDefault();
+    setOpen(state);
+  };
   const onClosePass = (state: boolean, e: React.MouseEvent | undefined) => {
     if (e) e.preventDefault();
     setOpenPass(state);
   };
-  const data = {
-    id: 12232678,
-    name: 'ТОВ Агропромбуд',
-    email: 'mail_address@gmail.com',
-    phone: '+38(097) 321-65-87',
-    edrpou: '3508934009',
-    contract: '8490475',
-    avatar: 'avatar.png',
+  const onCloseDocs = (state: boolean, e: React.MouseEvent | undefined) => {
+    if (e) e.preventDefault();
+    setOpenDocs(state);
   };
+
   const dataKeyClass =
     'font-normal text-sm leading-main-lh text-gray-dark pr-2';
   const dataValClass = 'font-medium text-sm leading-main-lh text-main-dark';
@@ -31,18 +46,22 @@ export const CompanyBaseInfo = () => {
             <Icon width={24} height={24} iconName="Case" />
           </div>
           <div className="font-semibold text-base leading-normal text-main-dark">
-            {data.name}
+            {companyData.name}
           </div>
         </div>
-        <KeyValText className="mb-4" k="E-mail:" val={data.email} />
-        <KeyValText className="mb-4" k="Телефон:" val={data.phone} />
-        <KeyValText className="mb-4" k="ЄДРПОУ:" val={data.edrpou} />
+        <KeyValText className="mb-4" k="E-mail:" val={companyData.email} />
+        <KeyValText className="mb-4" k="Телефон:" val={companyData.phone} />
+        <KeyValText className="mb-4" k="ЄДРПОУ:" val={companyData.edrpou} />
         <KeyValText
           className="mb-8"
           k="Номер договору:"
-          val={String(data.contract)}
+          val={String(companyData.contract)}
           icon={
-            <Button variant="ghost" className="w-6 h-6">
+            <Button
+              variant="ghost"
+              className="w-6 h-6"
+              onClick={() => setOpenDocs(true)}
+            >
               <Icon
                 width={24}
                 height={24}
@@ -53,7 +72,11 @@ export const CompanyBaseInfo = () => {
           }
         />
       </div>
-      <Button variant="default" className="mb-4">
+      <Button
+        variant="default"
+        className="mb-4"
+        onClick={() => setView('edit')}
+      >
         Редагувати дані
       </Button>
       <Button
@@ -63,13 +86,35 @@ export const CompanyBaseInfo = () => {
       >
         Змінити пароль
       </Button>
-      <Button variant="destructive" className="font-semibold">
+      <Button
+        variant="destructive"
+        className="font-semibold"
+        onClick={() => setOpen(true)}
+      >
         Покинути компанію
       </Button>
+
+      <Modal open={open} onOpenChange={() => onClose(false, undefined)}>
+        <ModalContent className="grid grid-cols-1 gap-6">
+          <LeaveCompany
+            onClose={() => onClose(false, undefined)}
+            data={companyData}
+          />
+        </ModalContent>
+      </Modal>
 
       <Modal open={openPass} onOpenChange={() => onClosePass(false, undefined)}>
         <ModalContent className="grid grid-cols-1 gap-6">
           <ChangeUserPassword onClose={() => onClosePass(false, undefined)} />
+        </ModalContent>
+      </Modal>
+
+      <Modal open={openDocs} onOpenChange={() => onCloseDocs(false, undefined)}>
+        <ModalContent className="grid grid-cols-1 gap-6">
+          <ListCompanyDocs
+            onClose={() => onCloseDocs(false, undefined)}
+            companyData={companyData}
+          />
         </ModalContent>
       </Modal>
     </div>
