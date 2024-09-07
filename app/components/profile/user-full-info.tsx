@@ -83,7 +83,11 @@ export const UserFullInfo = ({ addrData, userData }: UserFullInfoProps) => {
         </>
       )}
       {view === 'edit' && (
-        <EditUserForm userData={userData} addrData={addrData} />
+        <EditUserForm
+          userData={userData}
+          addrData={addrData}
+          setView={setView}
+        />
       )}
     </>
   );
