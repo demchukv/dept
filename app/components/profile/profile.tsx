@@ -19,6 +19,15 @@ export const Profile = () => {
     phone: '+38 (068) 765-43-21',
     avatar: 'avatar.png',
   };
+  const companyData = {
+    id: 12232678,
+    name: 'ТОВ Агропромбуд',
+    email: 'mail_address@gmail.com',
+    phone: '+38(097) 321-65-87',
+    edrpou: '3508934009',
+    contract: '8490475',
+    avatar: 'avatar.png',
+  };
   const addrData = {
     billing: [
       {
@@ -154,14 +163,14 @@ export const Profile = () => {
             {currentAccount?.account === 'user' ? (
               <UserBaseInfo userData={userData} addrData={addrData} />
             ) : (
-              <CompanyBaseInfo />
+              <CompanyBaseInfo companyData={companyData} addrData={addrData} />
             )}
           </Card>
           <Card className="flex-grow">
             {currentAccount?.account === 'user' ? (
               <UserFullInfo addrData={addrData} userData={userData} />
             ) : (
-              <CompanyFullInfo />
+              <CompanyFullInfo companyData={companyData} addrData={addrData} />
             )}
           </Card>
         </div>
