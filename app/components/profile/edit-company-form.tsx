@@ -266,7 +266,7 @@ export const EditCompanyForm = ({
             </FormItem>
           )}
         />
-        <div className="flex gap-4 w-full justify-between">
+        <div className="flex flex-col sm:flex-row gap-4 w-full justify-between">
           <FormField
             control={form.control}
             name="companyData.edrpou"
