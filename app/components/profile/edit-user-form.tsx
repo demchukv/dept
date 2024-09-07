@@ -16,6 +16,7 @@ import { KeyValText } from '../common/key-val-text';
 import { Icon } from '@/components/utils/icon';
 import { Button } from '@/components/ui/button';
 import React from 'react';
+import { CardHeader } from '../card/card';
 
 interface EditUserFormProps {
   addrData: {
@@ -52,7 +53,7 @@ const userEditShema = z.object({
     billing: z
       .array(
         z.object({
-          addr: z.string().min(1, 'Вкажіть адресу доставки'),
+          addr: z.string().min(1, 'Вкажіть білінг адресу'),
           id: z.number().optional(),
         }),
       )
@@ -98,6 +99,7 @@ export const EditUserForm = ({
 }: EditUserFormProps) => {
   const form = useForm<z.infer<typeof userEditShema>>({
     resolver: zodResolver(userEditShema),
+    mode: 'onChange',
     defaultValues: {
       userData: {
         name: userData.name,
@@ -140,6 +142,9 @@ export const EditUserForm = ({
   });
   return (
     <Form {...form}>
+      <CardHeader className="border-b border-gray-light pb-4 mb-4">
+        Редагувати персональні дані
+      </CardHeader>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
         <FormField
           control={form.control}
@@ -213,7 +218,7 @@ export const EditUserForm = ({
               Білінг адреси:
             </p>
             {fieldsBilling.map((field, i) => (
-              <div key={field.id} className="mb-5">
+              <div key={`b-${i}`} className="mb-5">
                 <FormField
                   control={form.control}
                   name={`addrData.billing.${i}.addr`}
@@ -283,7 +288,7 @@ export const EditUserForm = ({
                 Адреси доставки:
               </p>
               {fieldsDelivery.map((field, i) => (
-                <div key={field.id} className="mb-5">
+                <div key={`d-${i}`} className="mb-5">
                   <FormField
                     control={form.control}
                     name={`addrData.delivery.${i}.addr`}
@@ -354,7 +359,7 @@ export const EditUserForm = ({
                 Отримувачі замовлення:
               </p>
               {fieldsRecipients.map((field, i) => (
-                <div key={field.id} className="mb-5">
+                <div key={`r-${i}`} className="mb-5">
                   <FormField
                     control={form.control}
                     name={`addrData.recipients.${i}.name`}

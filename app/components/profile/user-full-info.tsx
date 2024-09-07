@@ -31,17 +31,17 @@ export const UserFullInfo = ({ addrData, userData }: UserFullInfoProps) => {
 
   return (
     <>
-      <CardHeader className="border-b border-gray-light pb-4 mb-4">
-        Інформація про користувача
-        <Button
-          type="button"
-          onClick={() => setView(view === 'data' ? 'edit' : 'data')}
-        >
-          Редагувати дані
-        </Button>
-      </CardHeader>
       {view === 'data' && (
         <>
+          <CardHeader className="border-b border-gray-light pb-4 mb-4">
+            Інформація про користувача
+            <Button
+              type="button"
+              onClick={() => setView(view === 'data' ? 'edit' : 'data')}
+            >
+              Редагувати дані
+            </Button>
+          </CardHeader>
           <p className="font-medium text-sm leading-main-lh text-main-dark mb-3">
             Білінг адреси:
           </p>
