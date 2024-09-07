@@ -1,6 +1,7 @@
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -16,6 +17,14 @@ import { Icon } from '@/components/utils/icon';
 import { Button } from '@/components/ui/button';
 import React from 'react';
 import { CardHeader } from '../card/card';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select-form';
+import Link from 'next/link';
 
 interface EditCompanyFormProps {
   addrData: {
@@ -169,6 +178,15 @@ export const EditCompanyForm = ({
     keyName: 'rKey',
   });
 
+  const formList = {
+    tov: 'Товариство з обмеженою відповідальністю',
+    fop: 'ФОП',
+  };
+  const docList = {
+    statut: 'Статут',
+    other: 'Щось інше',
+  };
+
   return (
     <Form {...form}>
       <CardHeader className="border-b border-gray-light pb-4 mb-4">
@@ -244,7 +262,7 @@ export const EditCompanyForm = ({
         <p className="font-semibold text-base leading-normal text-main-dark mb-4">
           Реквізити
         </p>
-        <FormField
+        {/* <FormField
           control={form.control}
           name="companyData.form"
           render={({ field }) => (
@@ -265,8 +283,33 @@ export const EditCompanyForm = ({
               <FormMessage />
             </FormItem>
           )}
+        /> */}
+        <FormField
+          control={form.control}
+          name="companyData.form"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Форма реєстрації компанії</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a form" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {Object.entries(formList).map(([key, value]) => (
+                    <SelectItem key={key} value={key}>
+                      {value}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
+              <FormMessage />
+            </FormItem>
+          )}
         />
-        <div className="flex gap-4 w-full justify-between">
+        <div className="flex flex-col sm:flex-row gap-4 w-full justify-between">
           <FormField
             control={form.control}
             name="companyData.edrpou"
@@ -378,7 +421,7 @@ export const EditCompanyForm = ({
             </FormItem>
           )}
         />
-        <FormField
+        {/* <FormField
           control={form.control}
           name="companyData.doc"
           render={({ field }) => (
@@ -396,6 +439,31 @@ export const EditCompanyForm = ({
                   />
                 </div>
               </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        /> */}
+        <FormField
+          control={form.control}
+          name="companyData.doc"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Документ за підставі якого діє</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a documents" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {Object.entries(docList).map(([key, value]) => (
+                    <SelectItem key={key} value={key}>
+                      {value}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
               <FormMessage />
             </FormItem>
           )}

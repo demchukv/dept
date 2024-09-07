@@ -22,3 +22,11 @@ export type billsType = {
   amount: number;
   file?: string;
 };
+
+export type companyDocType = {
+  number: string;
+  id: number;
+  name: string;
+  date: string;
+  file: string;
+};
