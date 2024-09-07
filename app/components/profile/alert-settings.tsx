@@ -10,16 +10,10 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import React, { startTransition } from 'react';
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { toast } from '@/components/ui/use-toast';
+import Link from 'next/link';
 
 interface AlertSettingsProps {
   alertsData: any;
@@ -153,7 +147,18 @@ export const AlertSettings = ({
               colSpan={5}
               className="rounded-bl-[6px] rounded-br-[6px] bg-white border-b-0 text-right"
             >
-              <Button type="button">Підключити Telegram</Button>
+              <Button type="button" asChild>
+                <Link
+                  href={
+                    process.env.NEXT_PUBLIC_TG_BOT
+                      ? process.env.NEXT_PUBLIC_TG_BOT
+                      : '#'
+                  }
+                  target="_blank"
+                >
+                  Підключити Telegram
+                </Link>
+              </Button>
             </TableCell>
           </TableRow>
         </TableFooter>
