@@ -10,10 +10,14 @@ import { ListCompanyDocs } from '@/app/components/profile/list-company-docs';
 interface CompanyBaseInfoProps {
   companyData: any;
   addrData: any;
+  view: 'data' | 'edit';
+  setView: (view: 'data' | 'edit') => void;
 }
 export const CompanyBaseInfo = ({
   companyData,
   addrData,
+  view,
+  setView,
 }: CompanyBaseInfoProps) => {
   const [open, setOpen] = useState(false);
   const [openPass, setOpenPass] = useState(false);
@@ -68,7 +72,11 @@ export const CompanyBaseInfo = ({
           }
         />
       </div>
-      <Button variant="default" className="mb-4">
+      <Button
+        variant="default"
+        className="mb-4"
+        onClick={() => setView('edit')}
+      >
         Редагувати дані
       </Button>
       <Button

@@ -8,8 +8,10 @@ import { CompanyBaseInfo } from '@/app/components/profile/company-base-info';
 import { UserFullInfo } from '@/app/components/profile/user-full-info';
 import { CompanyFullInfo } from '@/app/components/profile/company-full-info';
 import { AlertSettings } from '@/app/components/profile/alert-settings';
+import { useState } from 'react';
 
 export const Profile = () => {
+  const [view, setView] = useState<'edit' | 'data'>('data');
   const currentAccount = useAppSelector(selectCurrentAccount);
 
   const userData = {
@@ -26,7 +28,13 @@ export const Profile = () => {
     phone: '+38(097) 321-65-87',
     edrpou: '3508934009',
     contract: '8490475',
-    avatar: 'avatar.png',
+    form: 'ТОВ',
+    ipn: '1256938426',
+    bank: 'АТ комерційний банк “Приватбанк”',
+    iban: 'UA173000010000032003102901026',
+    pib: 'Шевченко Василь Петрович',
+    doc: 'Статут',
+    addr: 'Україна, Київська область, м. Київ, 03061, вул. Галана Ярослава 10 - 57',
   };
   const addrData = {
     billing: [
@@ -163,14 +171,24 @@ export const Profile = () => {
             {currentAccount?.account === 'user' ? (
               <UserBaseInfo userData={userData} addrData={addrData} />
             ) : (
-              <CompanyBaseInfo companyData={companyData} addrData={addrData} />
+              <CompanyBaseInfo
+                companyData={companyData}
+                addrData={addrData}
+                view={view}
+                setView={setView}
+              />
             )}
           </Card>
           <Card className="flex-grow">
             {currentAccount?.account === 'user' ? (
               <UserFullInfo addrData={addrData} userData={userData} />
             ) : (
-              <CompanyFullInfo companyData={companyData} addrData={addrData} />
+              <CompanyFullInfo
+                companyData={companyData}
+                addrData={addrData}
+                view={view}
+                setView={setView}
+              />
             )}
           </Card>
         </div>
