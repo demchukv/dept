@@ -178,6 +178,15 @@ export const EditCompanyForm = ({
     keyName: 'rKey',
   });
 
+  const formList = {
+    tov: 'Товариство з обмеженою відповідальністю',
+    fop: 'ФОП',
+  };
+  const docList = {
+    statut: 'Статут',
+    other: 'Щось інше',
+  };
+
   return (
     <Form {...form}>
       <CardHeader className="border-b border-gray-light pb-4 mb-4">
@@ -253,7 +262,7 @@ export const EditCompanyForm = ({
         <p className="font-semibold text-base leading-normal text-main-dark mb-4">
           Реквізити
         </p>
-        <FormField
+        {/* <FormField
           control={form.control}
           name="companyData.form"
           render={({ field }) => (
@@ -274,7 +283,7 @@ export const EditCompanyForm = ({
               <FormMessage />
             </FormItem>
           )}
-        />
+        /> */}
         <FormField
           control={form.control}
           name="companyData.form"
@@ -284,19 +293,18 @@ export const EditCompanyForm = ({
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder="Select a verified email to display" />
+                    <SelectValue placeholder="Select a form" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="m@example.com">m@example.com</SelectItem>
-                  <SelectItem value="m@google.com">m@google.com</SelectItem>
-                  <SelectItem value="m@support.com">m@support.com</SelectItem>
+                  {Object.entries(formList).map(([key, value]) => (
+                    <SelectItem key={key} value={key}>
+                      {value}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
-              <FormDescription>
-                You can manage email addresses in your{' '}
-                <Link href="/examples/forms">email settings</Link>.
-              </FormDescription>
+
               <FormMessage />
             </FormItem>
           )}
@@ -413,7 +421,7 @@ export const EditCompanyForm = ({
             </FormItem>
           )}
         />
-        <FormField
+        {/* <FormField
           control={form.control}
           name="companyData.doc"
           render={({ field }) => (
@@ -431,6 +439,31 @@ export const EditCompanyForm = ({
                   />
                 </div>
               </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        /> */}
+        <FormField
+          control={form.control}
+          name="companyData.doc"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Документ за підставі якого діє</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a documents" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {Object.entries(docList).map(([key, value]) => (
+                    <SelectItem key={key} value={key}>
+                      {value}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
               <FormMessage />
             </FormItem>
           )}
