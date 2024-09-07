@@ -37,6 +37,7 @@ import Product from '@/components/icons/product';
 import RadioChecked from '@/components/icons/radio-checked';
 import Repair from '@/components/icons/repair';
 import RoundedRrrowRigth from '@/components/icons/rounded-arrow-rigth';
+import SettingAlert from '@/components/icons/setting-alert';
 import Settings from '@/components/icons/settings';
 import Task from '@/components/icons/task';
 import Trash from '@/components/icons/trash';
@@ -85,6 +86,7 @@ export const Icons = {
   RadioChecked,
   Repair,
   RoundedRrrowRigth,
+  SettingAlert,
   Settings,
   Task,
   Trash,

@@ -47,6 +47,99 @@ export const Profile = () => {
       },
     ],
   };
+  const alertsData = {
+    billing: [
+      {
+        id: 1,
+        name: 'Виставлення рахунків',
+        push: true,
+        email: true,
+        telegram: true,
+      },
+      {
+        id: 2,
+        name: 'Поповнення',
+        push: true,
+        email: false,
+        telegram: false,
+      },
+      {
+        id: 3,
+        name: 'Списання',
+        push: true,
+        email: true,
+        telegram: true,
+      },
+      {
+        id: 4,
+        name: 'Попередження низького балансу',
+        push: true,
+        email: true,
+        telegram: false,
+      },
+      {
+        id: 5,
+        name: 'Дії зі способами оплати',
+        push: false,
+        email: false,
+        telegram: false,
+      },
+    ],
+    orders: [
+      {
+        id: 1,
+        name: 'Зміна статусу замовлення',
+        push: true,
+        email: true,
+        telegram: false,
+      },
+    ],
+    tasks: [
+      {
+        id: 1,
+        name: 'Нова заявка від колег',
+        push: true,
+        email: true,
+        telegram: false,
+      },
+      {
+        id: 2,
+        name: 'Зміна статусу заявки',
+        push: true,
+        email: true,
+        telegram: false,
+      },
+      {
+        id: 3,
+        name: 'Протермінування завдань',
+        push: true,
+        email: true,
+        telegram: false,
+      },
+    ],
+    products: [
+      {
+        id: 1,
+        name: 'Закінчується місце на диску',
+        push: true,
+        email: true,
+        telegram: false,
+      },
+      {
+        id: 2,
+        name: 'Замовлення нових послуг',
+        push: true,
+        email: true,
+        telegram: false,
+      },
+    ],
+  };
+  const alertsGroup = [
+    { key: 'billing', head: 'Білінг' },
+    { key: 'orders', head: 'Замовлення інтернет магазину' },
+    { key: 'tasks', head: 'Задачі / заявки / тікети' },
+    { key: 'products', head: 'Мої продукти' },
+  ];
 
   return (
     <>
@@ -73,7 +166,7 @@ export const Profile = () => {
           </Card>
         </div>
         <div>
-          <AlertSettings />
+          <AlertSettings alertsData={alertsData} alertsGroup={alertsGroup} />
         </div>
       </div>
     </>
