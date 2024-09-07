@@ -2,6 +2,7 @@ import Academy from '@/components/icons/academy';
 import ActionMenu from '@/components/icons/action-menu';
 import ApplePay from '@/components/icons/apple-pay';
 import ArrowDown from '@/components/icons/arrow-down';
+import AvatarUser from '@/components/icons/avatar-user';
 import Bag from '@/components/icons/bag';
 import Balans from '@/components/icons/balans';
 import Bell from '@/components/icons/bell';
@@ -19,6 +20,7 @@ import DeleteCircle from '@/components/icons/delete-circle';
 import Diia from '@/components/icons/diia';
 import Doc from '@/components/icons/doc';
 import Document from '@/components/icons/document';
+import DragAndDrop from '@/components/icons/drag-and-drop';
 import Electronics from '@/components/icons/electronics';
 import EyeClosed from '@/components/icons/eye-closed';
 import Info from '@/components/icons/info';
@@ -35,6 +37,7 @@ import Product from '@/components/icons/product';
 import RadioChecked from '@/components/icons/radio-checked';
 import Repair from '@/components/icons/repair';
 import RoundedRrrowRigth from '@/components/icons/rounded-arrow-rigth';
+import SettingAlert from '@/components/icons/setting-alert';
 import Settings from '@/components/icons/settings';
 import Task from '@/components/icons/task';
 import Trash from '@/components/icons/trash';
@@ -47,6 +50,7 @@ export const Icons = {
   ActionMenu,
   ApplePay,
   ArrowDown,
+  AvatarUser,
   Bag,
   Balans,
   Bell,
@@ -64,6 +68,7 @@ export const Icons = {
   Diia,
   Doc,
   Document,
+  DragAndDrop,
   Electronics,
   Info,
   EyeClosed,
@@ -81,6 +86,7 @@ export const Icons = {
   RadioChecked,
   Repair,
   RoundedRrrowRigth,
+  SettingAlert,
   Settings,
   Task,
   Trash,

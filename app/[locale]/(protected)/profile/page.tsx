@@ -1,7 +1,14 @@
-import React from 'react';
+import { Metadata } from 'next';
 
 import initTranslations from '@/app/i18n';
 import TranslationsProvider from '@/components/translations-provider';
+import { Profile } from '@/app/components/profile/profile';
+
+export const metadata: Metadata = {
+  title: 'Dept | Аккаунт',
+  description:
+    'Dept - Персональна інформація про аккаунт, зміна налаштувань, видалення аккаунта',
+};
 
 const i18nNamespaces = ['profile'];
 
@@ -17,7 +24,7 @@ const ProfilePage = async ({
       locale={locale}
       resources={resources}
     >
-      <div>Profile Page</div>
+      <Profile />
     </TranslationsProvider>
   );
 };
