@@ -1,6 +1,7 @@
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -16,6 +17,14 @@ import { Icon } from '@/components/utils/icon';
 import { Button } from '@/components/ui/button';
 import React from 'react';
 import { CardHeader } from '../card/card';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select-form';
+import Link from 'next/link';
 
 interface EditCompanyFormProps {
   addrData: {
@@ -262,6 +271,32 @@ export const EditCompanyForm = ({
                   />
                 </div>
               </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="companyData.form"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Форма реєстрації компанії</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a verified email to display" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="m@example.com">m@example.com</SelectItem>
+                  <SelectItem value="m@google.com">m@google.com</SelectItem>
+                  <SelectItem value="m@support.com">m@support.com</SelectItem>
+                </SelectContent>
+              </Select>
+              <FormDescription>
+                You can manage email addresses in your{' '}
+                <Link href="/examples/forms">email settings</Link>.
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
