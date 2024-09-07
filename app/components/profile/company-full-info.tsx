@@ -130,7 +130,7 @@ export const CompanyFullInfo = ({
       )}
       {view === 'edit' && (
         <EditCompanyForm
-          userData={companyData}
+          companyData={companyData}
           addrData={addrData}
           view={view}
           setView={setView}

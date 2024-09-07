@@ -17,7 +17,7 @@ import { Button } from '@/components/ui/button';
 import React from 'react';
 import { CardHeader } from '../card/card';
 
-interface EditUserFormProps {
+interface EditCompanyFormProps {
   addrData: {
     billing: {
       addr: string;
@@ -32,21 +32,39 @@ interface EditUserFormProps {
       id: number | undefined;
     }[];
   };
-  userData: {
+  companyData: {
+    id: number;
     name: string;
     email: string;
     phone: string;
-    id: number;
+    edrpou: string;
+    contract: string;
+    form: string;
+    ipn: string;
+    bank: string;
+    iban: string;
+    pib: string;
+    doc: string;
+    addr: string;
   };
   view: 'data' | 'edit';
   setView: (view: 'data' | 'edit') => void;
 }
 
-const userEditShema = z.object({
-  userData: z.object({
+const companyEditShema = z.object({
+  companyData: z.object({
     name: z.string().min(1, "Вкажіть ваше прізвище, ім'я, по-батькові"),
     email: z.string().min(1, 'Вкажіть вашу електронну адресу'),
     phone: z.string().min(1, 'Вкажіть ваш номер телефону'),
+    edrpou: z.string().min(1, 'Вкажіть ваше ЄДРПОУ'),
+    contract: z.string().min(1, 'Вкажіть ваш контракт'),
+    form: z.string().min(1, 'Вкажіть форму реєстрації компанії'),
+    ipn: z.string().min(1, 'Вкажіть ваш ІПН'),
+    bank: z.string().min(1, 'Вкажіть ваш банк'),
+    iban: z.string().min(1, 'Вкажіть ваш IBAN'),
+    pib: z.string().min(1, 'Вкажіть ПІБ керівника компанії'),
+    doc: z.string().min(1, 'Вкажіть ваш документ'),
+    addr: z.string().min(1, 'Вкажіть вашу адресу'),
   }),
 
   addrData: z.object({
@@ -77,7 +95,7 @@ const userEditShema = z.object({
   }),
 });
 
-function onSubmit(data: z.infer<typeof userEditShema>) {
+function onSubmit(data: z.infer<typeof companyEditShema>) {
   startTransition(() => {
     //TODO: make API request and setData
     // const newData = getJson('/data/call-summary.json');
@@ -93,19 +111,28 @@ function onSubmit(data: z.infer<typeof userEditShema>) {
 }
 
 export const EditCompanyForm = ({
-  userData,
+  companyData,
   addrData,
   view,
   setView,
-}: EditUserFormProps) => {
-  const form = useForm<z.infer<typeof userEditShema>>({
-    resolver: zodResolver(userEditShema),
+}: EditCompanyFormProps) => {
+  const form = useForm<z.infer<typeof companyEditShema>>({
+    resolver: zodResolver(companyEditShema),
     mode: 'onChange',
     defaultValues: {
-      userData: {
-        name: userData.name,
-        email: userData.email,
-        phone: userData.phone,
+      companyData: {
+        name: companyData.name,
+        email: companyData.email,
+        phone: companyData.phone,
+        edrpou: companyData.edrpou,
+        contract: companyData.contract,
+        form: companyData.form,
+        ipn: companyData.ipn,
+        bank: companyData.bank,
+        iban: companyData.iban,
+        pib: companyData.pib,
+        doc: companyData.doc,
+        addr: companyData.addr,
       },
       addrData: addrData,
     },
@@ -141,19 +168,20 @@ export const EditCompanyForm = ({
     name: 'addrData.recipients',
     keyName: 'rKey',
   });
+
   return (
     <Form {...form}>
       <CardHeader className="border-b border-gray-light pb-4 mb-4">
-        Редагувати персональні дані
+        Редагувати дані компанії
       </CardHeader>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
         <FormField
           control={form.control}
-          name="userData.name"
+          name="companyData.name"
           render={({ field }) => (
             <FormItem className="space-y-1">
               <FormLabel className="font-normal text-xs text-gray-dark leading-none">
-                ПІБ
+                Назва компанії
               </FormLabel>
               <FormControl>
                 <div className="relative w-full">
@@ -171,7 +199,7 @@ export const EditCompanyForm = ({
         />
         <FormField
           control={form.control}
-          name="userData.phone"
+          name="companyData.phone"
           render={({ field }) => (
             <FormItem className="space-y-1">
               <FormLabel className="font-normal text-xs text-gray-dark leading-none">
@@ -193,11 +221,192 @@ export const EditCompanyForm = ({
         />
         <FormField
           control={form.control}
-          name="userData.email"
+          name="companyData.email"
           render={({ field }) => (
             <FormItem className="space-y-1">
               <FormLabel className="font-normal text-xs text-gray-dark leading-none">
                 Електронна пошта
+              </FormLabel>
+              <FormControl>
+                <div className="relative w-full">
+                  <Input
+                    {...field}
+                    // disabled={isPending}
+                    placeholder=""
+                    type="text"
+                  />
+                </div>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <p className="font-semibold text-base leading-normal text-main-dark mb-4">
+          Реквізити
+        </p>
+        <FormField
+          control={form.control}
+          name="companyData.form"
+          render={({ field }) => (
+            <FormItem className="space-y-1">
+              <FormLabel className="font-normal text-xs text-gray-dark leading-none">
+                Форма реєстрації компанії
+              </FormLabel>
+              <FormControl>
+                <div className="relative w-full">
+                  <Input
+                    {...field}
+                    // disabled={isPending}
+                    placeholder=""
+                    type="text"
+                  />
+                </div>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <div className="flex gap-4 w-full justify-between">
+          <FormField
+            control={form.control}
+            name="companyData.edrpou"
+            render={({ field }) => (
+              <FormItem className="space-y-1 w-full">
+                <FormLabel className="font-normal text-xs text-gray-dark leading-none">
+                  ЄДРПОУ
+                </FormLabel>
+                <FormControl>
+                  <div className="relative w-full">
+                    <Input
+                      {...field}
+                      // disabled={isPending}
+                      placeholder=""
+                      type="text"
+                    />
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="companyData.ipn"
+            render={({ field }) => (
+              <FormItem className="space-y-1 w-full">
+                <FormLabel className="font-normal text-xs text-gray-dark leading-none">
+                  ІПН
+                </FormLabel>
+                <FormControl>
+                  <div className="relative w-full">
+                    <Input
+                      {...field}
+                      // disabled={isPending}
+                      placeholder=""
+                      type="text"
+                    />
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <FormField
+          control={form.control}
+          name="companyData.bank"
+          render={({ field }) => (
+            <FormItem className="space-y-1">
+              <FormLabel className="font-normal text-xs text-gray-dark leading-none">
+                Банк
+              </FormLabel>
+              <FormControl>
+                <div className="relative w-full">
+                  <Input
+                    {...field}
+                    // disabled={isPending}
+                    placeholder=""
+                    type="text"
+                  />
+                </div>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="companyData.iban"
+          render={({ field }) => (
+            <FormItem className="space-y-1">
+              <FormLabel className="font-normal text-xs text-gray-dark leading-none">
+                Рахунок IBAN
+              </FormLabel>
+              <FormControl>
+                <div className="relative w-full">
+                  <Input
+                    {...field}
+                    // disabled={isPending}
+                    placeholder=""
+                    type="text"
+                  />
+                </div>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="companyData.pib"
+          render={({ field }) => (
+            <FormItem className="space-y-1">
+              <FormLabel className="font-normal text-xs text-gray-dark leading-none">
+                ПІБ керівника або посадової особи:
+              </FormLabel>
+              <FormControl>
+                <div className="relative w-full">
+                  <Input
+                    {...field}
+                    // disabled={isPending}
+                    placeholder=""
+                    type="text"
+                  />
+                </div>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="companyData.doc"
+          render={({ field }) => (
+            <FormItem className="space-y-1">
+              <FormLabel className="font-normal text-xs text-gray-dark leading-none">
+                Документ за підставі якого діє
+              </FormLabel>
+              <FormControl>
+                <div className="relative w-full">
+                  <Input
+                    {...field}
+                    // disabled={isPending}
+                    placeholder=""
+                    type="text"
+                  />
+                </div>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="companyData.addr"
+          render={({ field }) => (
+            <FormItem className="space-y-1">
+              <FormLabel className="font-normal text-xs text-gray-dark leading-none">
+                Юридична адреса:
               </FormLabel>
               <FormControl>
                 <div className="relative w-full">
