@@ -70,7 +70,7 @@ export const AlertSettings = ({
 
         {alertsGroup.map((group: any, ind: number) => (
           <React.Fragment key={`gr-${ind}`}>
-            <div className="col-span-3 sm:col-span-5 font-semibold text-base text-main-color leading-normal pt-4 pb-2 px-4 sm:px-8 border-b border-gray-light">
+            <div className="col-span-3 sm:col-span-5 font-semibold text-base text-main-color leading-normal pt-4 pb-2 sm:pb-3 sm:pt-3 px-4 sm:px-8 border-b border-gray-light">
               {group.head}
             </div>
             {data[group.key].map((item: any, i: number) => (
@@ -79,7 +79,7 @@ export const AlertSettings = ({
                 <div className="col-span-3 sm:col-span-1 px-4 sm:px-8 py-4 font-normal text-sm leading-main-lh text-main-dark bg-white sm:border-b sm:border-gray-light flex items-center">
                   {item.name}
                 </div>
-                <div className="bg-white border-b border-gray-light px-4 sm:px-8 pb-4 sm:pt-4 flex gap-2 items-center">
+                <div className="bg-white border-b border-gray-light px-4 sm:px-8 pb-4 sm:pt-4 flex gap-2 items-center sm:justify-center">
                   <Checkbox
                     id={'push_' + item.id}
                     checked={item.push}
@@ -102,7 +102,7 @@ export const AlertSettings = ({
                     Push
                   </Label>
                 </div>
-                <div className="bg-white border-b border-gray-light px-4 sm:px-8 pb-4 sm:pt-4 flex gap-2 items-center">
+                <div className="bg-white border-b border-gray-light px-4 sm:px-8 pb-4 sm:pt-4 flex gap-2 items-center sm:justify-center">
                   <Checkbox
                     id={'email_' + item.id}
                     checked={item.email}
@@ -125,7 +125,7 @@ export const AlertSettings = ({
                     Email
                   </Label>
                 </div>
-                <div className="bg-white border-b border-gray-light px-4 sm:px-8 pb-4 sm:pt-4 flex gap-2 items-center">
+                <div className="bg-white border-b border-gray-light px-4 sm:px-8 pb-4 sm:pt-4 flex gap-2 items-center sm:justify-center">
                   <Checkbox
                     id={'telegram_' + item.id}
                     checked={item.telegram}
@@ -152,7 +152,7 @@ export const AlertSettings = ({
             ))}
           </React.Fragment>
         ))}
-        <div className="col-span-3 sm:col-span-5 py-4 px-4 sm:px-8 bg-white flex justify-center">
+        <div className="col-span-3 sm:col-span-5 py-4 px-4 sm:px-8 bg-white flex justify-center md:justify-end">
           <Button type="button" asChild>
             <Link
               href={
