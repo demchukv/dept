@@ -14,6 +14,7 @@ import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { toast } from '@/components/ui/use-toast';
 import Link from 'next/link';
+import { Label } from '@/components/ui/label';
 
 interface AlertSettingsProps {
   alertsData: any;
@@ -49,7 +50,114 @@ export const AlertSettings = ({
         <Icon iconName="SettingAlert" width={24} height={24} />
         Налаштування сповіщень
       </h2>
-      <Table className="rounded-[6xp] shadow-[0_4px_15px_0_rgba(0,0,0,0.05)] overflow-hidden border-grey-light">
+
+      <div className="grid grid-cols-3 rounded-[6px] shadow-[0_4px_15px_0_rgba(0,0,0,0.05)] sm:grid-cols-5 mb-6 overflow-hidden">
+        <div className="hidden sm:block px-4 py-4">Розділ</div>
+        <div className="hidden sm:block px-4 py-4">Сповіщення</div>
+        <div className="hidden sm:block px-4 py-4">Push</div>
+        <div className="hidden sm:block px-4 py-4">Email</div>
+        <div className="hidden sm:block px-4 py-4">Telegram</div>
+        {alertsGroup.map((group: any, ind: number) => (
+          <React.Fragment key={`gr-${ind}`}>
+            <div className="col-span-3 sm:col-span-5 font-semibold text-base text-main-color leading-normal py-2 px-4 border-b border-gray-light">
+              {group.head}
+            </div>
+            {data[group.key].map((item: any, i: number) => (
+              <React.Fragment key={`r-${i}`}>
+                <div className="hidden sm:block bg-white border-b border-gray-light px-4 pb-4"></div>
+                <div className="col-span-3 sm:col-span-1 px-4 py-4 font-normal text-sm leading-main-lh text-main-dark bg-white sm:border-b sm:border-gray-light">
+                  {item.name}
+                </div>
+                <div className="bg-white border-b border-gray-light px-4 pb-4 sm:pt-4 flex gap-2 items-center">
+                  <Checkbox
+                    id={'push_' + item.id}
+                    checked={item.push}
+                    onCheckedChange={() => {
+                      item.push = !item.push;
+                      saveData({
+                        ...data,
+                        [group.key]: [
+                          ...data[group.key].slice(0, i),
+                          item,
+                          ...data[group.key].slice(i + 1),
+                        ],
+                      });
+                    }}
+                  />
+                  <Label
+                    htmlFor={'push_' + item.id}
+                    className="sm:hidden font-normal text-sm text-gray-dark leading-main-lh"
+                  >
+                    Push
+                  </Label>
+                </div>
+                <div className="bg-white border-b border-gray-light px-4 pb-4 sm:pt-4 flex gap-2 items-center">
+                  <Checkbox
+                    id={'email_' + item.id}
+                    checked={item.email}
+                    onCheckedChange={() => {
+                      item.email = !item.email;
+                      saveData({
+                        ...data,
+                        [group.key]: [
+                          ...data[group.key].slice(0, i),
+                          item,
+                          ...data[group.key].slice(i + 1),
+                        ],
+                      });
+                    }}
+                  />
+                  <Label
+                    htmlFor={'email_' + item.id}
+                    className="sm:hidden font-normal text-sm text-gray-dark leading-main-lh"
+                  >
+                    Email
+                  </Label>
+                </div>
+                <div className="bg-white border-b border-gray-light px-4 pb-4 sm:pt-4 flex gap-2 items-center">
+                  <Checkbox
+                    id={'telegram_' + item.id}
+                    checked={item.telegram}
+                    onCheckedChange={() => {
+                      item.telegram = !item.telegram;
+                      saveData({
+                        ...data,
+                        [group.key]: [
+                          ...data[group.key].slice(0, i),
+                          item,
+                          ...data[group.key].slice(i + 1),
+                        ],
+                      });
+                    }}
+                  />
+                  <Label
+                    htmlFor={'telegram_' + item.id}
+                    className="sm:hidden font-normal text-sm text-gray-dark leading-main-lh"
+                  >
+                    Telegram
+                  </Label>
+                </div>
+              </React.Fragment>
+            ))}
+          </React.Fragment>
+        ))}
+        <div className="col-span-3 sm:col-span-5 py-4 px-4 bg-white flex justify-center">
+          <Button type="button" asChild>
+            <Link
+              href={
+                process.env.NEXT_PUBLIC_TG_BOT
+                  ? process.env.NEXT_PUBLIC_TG_BOT
+                  : '#'
+              }
+              target="_blank"
+            >
+              Підключити Telegram
+            </Link>
+          </Button>
+        </div>
+      </div>
+
+      {/* <Table className="rounded-[6xp] shadow-[0_4px_15px_0_rgba(0,0,0,0.05)] overflow-hidden border-grey-light bg-tra">
         <TableHeader>
           <TableRow className="border-grey-light">
             <TableHead className="bg-white border-grey-light pl-8 rounded-tl-[6px]">
@@ -162,7 +270,7 @@ export const AlertSettings = ({
             </TableCell>
           </TableRow>
         </TableFooter>
-      </Table>
+      </Table> */}
     </div>
   );
 };
