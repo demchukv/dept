@@ -9,7 +9,7 @@ export const Info = ({ children }: { children: React.ReactNode }) => {
         height={20}
         className="fill-gray-dark flex-shrink-0"
       />
-      <p>{children}</p>
+      <div>{children}</div>
     </div>
   );
 };

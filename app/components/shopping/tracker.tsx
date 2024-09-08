@@ -64,7 +64,7 @@ export const Tracker = ({ state, data }: TrackerProps) => {
         </AccordionTrigger>
         <AccordionContent>
           <Separator className="mb-4" />
-          <div className="grid grid-cols-1 gap-0.5 sm:grid-cols-[24px_auto_24px_auto_24px_auto_24px]">
+          <div className="grid grid-cols-1 gap-0.5 sm:grid-cols-[24px_auto_24px_auto_24px_auto_24px] sm:pb-4">
             {data.map((item, ind) => (
               <React.Fragment key={item.id}>
                 {ind > 0 && <TrackerLine state={state} id={item.id} />}
