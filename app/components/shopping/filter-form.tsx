@@ -48,41 +48,44 @@ export const FilterForm = () => {
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="mb-6 flex flex-col gap-3 sm:flex-row items-center lg:items-end"
-      >
-        <FormField
-          control={form.control}
-          name="text"
-          render={({ field }) => (
-            <FormItem className="w-full min-w-72 md:w-auto">
-              <FormLabel className="hidden lg:flex font-normal text-xs text-gray-dark leading-none">
-                Пошук
-              </FormLabel>
-              <FormControl>
-                <div className="relative w-full">
-                  <Input
-                    {...field}
-                    // disabled={isPending}
-                    placeholder="Введіть дані для пошуку"
-                    type="text"
-                  />
-                  <Icon
-                    className="absolute right-4 top-1/2 -translate-y-1/2 fill-main-dark"
-                    iconName="Search"
-                    width={20}
-                    height={20}
-                  />
-                </div>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit" className="w-full md:w-auto">
-          Знайти покупку
-        </Button>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <FormLabel
+          htmlFor="text"
+          className="hidden lg:flex font-normal text-xs text-gray-dark leading-none mb-2"
+        >
+          Пошук
+        </FormLabel>
+
+        <div className="mb-6 flex flex-col gap-3 sm:flex-row items-start">
+          <FormField
+            control={form.control}
+            name="text"
+            render={({ field }) => (
+              <FormItem className="w-full min-w-72 md:w-auto">
+                <FormControl>
+                  <div className="relative w-full">
+                    <Input
+                      {...field}
+                      // disabled={isPending}
+                      placeholder="Введіть дані для пошуку"
+                      type="text"
+                    />
+                    <Icon
+                      className="absolute right-4 top-1/2 -translate-y-1/2 fill-main-dark"
+                      iconName="Search"
+                      width={20}
+                      height={20}
+                    />
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button type="submit" className="w-full md:w-auto py-3 border-0">
+            Знайти покупку
+          </Button>
+        </div>
       </form>
     </Form>
   );
