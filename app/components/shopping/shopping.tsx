@@ -10,7 +10,9 @@ const orders = [
         id: 1,
         name: 'SSD-накопичувач Samsung Portable SSD T7 500GB USB 3.2 Type-C (MU-PC500R/WW) Red',
         price: 500,
-        count: 1,
+        quantity: 1,
+        photo:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/e5/51/1650778.jpeg',
       },
     ],
     payStatus: 'Сплачено',
@@ -50,13 +52,17 @@ const orders = [
         id: 1,
         name: 'SSD-накопичувач Samsung Portable SSD T7 500GB USB 3.2 Type-C (MU-PC500R/WW) Red',
         price: 500,
-        count: 1,
+        quantity: 1,
+        photo:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/e5/51/1650778.jpeg',
       },
       {
         id: 2,
         name: 'Телевізор',
         price: 5000,
-        count: 1,
+        quantity: 1,
+        photo:
+          'https://satelit.ua/sites/default/files/styles/webp/public/IMAGE_FOLDER/454d1892c5007352b2c94336408b9d4b-removebg-preview.png.webp?itok=2tfX_jYV',
       },
     ],
     payStatus: 'Сплачено',

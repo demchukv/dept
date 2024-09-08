@@ -4,6 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import { OrderProduct } from '@/app/components/shopping/order-product';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 
@@ -50,6 +51,13 @@ export const OrderItem = ({ order }: OrderItemProps) => {
         </div>
       </AccordionTrigger>
       <AccordionContent>
+        <Separator className="mb-4" />
+        <p className="text-main-dark font-semibold text-sm leading-main-lh mb-4">
+          Товари в замовленні
+        </p>
+        {order.products.map((product: any) => (
+          <OrderProduct key={product.id} product={product} />
+        ))}
         <Separator className="mb-4" />
         <Tracker state={currentStatus.id} data={order.status} />
       </AccordionContent>
