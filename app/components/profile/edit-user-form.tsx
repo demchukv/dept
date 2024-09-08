@@ -12,7 +12,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { startTransition } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { KeyValText } from '../common/key-val-text';
 import { Icon } from '@/components/utils/icon';
 import { Button } from '@/components/ui/button';
 import React from 'react';
