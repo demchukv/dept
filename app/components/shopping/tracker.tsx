@@ -1,5 +1,12 @@
 import { cn } from '@/lib/utils';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
 import React from 'react';
+import { Separator } from '@/components/ui/separator';
 
 const stateList: stateType[] = [
   {
@@ -31,21 +38,48 @@ interface TrackerProps {
 }
 export const Tracker = ({ state, data }: TrackerProps) => {
   return (
-    <div>
-      <div className="grid grid-cols-1 gap-0.5 sm:grid-cols-[24px_auto_24px_auto_24px_auto_24px]">
-        {data.map((item, ind) => (
-          <React.Fragment key={item.id}>
-            {ind > 0 && <TrackerLine state={state} id={item.id} />}
-            <TrackerPoint
-              name={item.name}
-              state={state}
-              id={item.id}
-              date={item.date}
-            />
-          </React.Fragment>
-        ))}
-      </div>
-    </div>
+    <Accordion
+      type="single"
+      collapsible
+      className="w-full flex flex-col gap-4 border-none"
+    >
+      <AccordionItem value="tracker">
+        <AccordionTrigger className="gap-3 items-start">
+          <div className="flex flex-row gap-2 flex-grow items-center justify-start">
+            <p className="font-normal text-sm text-gray-dark leading-main-lh">
+              Статус:
+            </p>
+            <p
+              className={cn(
+                'font-semibold text-base leading-normal',
+                state === 1 && 'text-attention',
+                state === 2 && 'text-blue-additional-color',
+                state === 3 && 'text-orange-additional-color',
+                state === 4 && 'text-green-additional-color',
+              )}
+            >
+              {stateList[state - 1].name}
+            </p>
+          </div>
+        </AccordionTrigger>
+        <AccordionContent>
+          <Separator className="mb-4" />
+          <div className="grid grid-cols-1 gap-0.5 sm:grid-cols-[24px_auto_24px_auto_24px_auto_24px]">
+            {data.map((item, ind) => (
+              <React.Fragment key={item.id}>
+                {ind > 0 && <TrackerLine state={state} id={item.id} />}
+                <TrackerPoint
+                  name={item.name}
+                  state={state}
+                  id={item.id}
+                  date={item.date}
+                />
+              </React.Fragment>
+            ))}
+          </div>
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
   );
 };
 
