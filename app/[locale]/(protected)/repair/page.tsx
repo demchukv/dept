@@ -1,9 +1,15 @@
 import React from 'react';
+import { Metadata } from 'next';
 
 import initTranslations from '@/app/i18n';
 import TranslationsProvider from '@/components/translations-provider';
 
 const i18nNamespaces = ['repair'];
+
+export const metadata: Metadata = {
+  title: 'Dept | Ремонт техніки',
+  description: 'Dept - Список заявок на ремонт техніки',
+};
 
 const RepairPage = async ({
   params: { locale },
