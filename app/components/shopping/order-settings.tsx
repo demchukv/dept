@@ -1,3 +1,4 @@
+'use client';
 import {
   ModalDescription,
   ModalFooter,
@@ -14,7 +15,6 @@ import { useForm } from 'react-hook-form';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -23,9 +23,10 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { startTransition } from 'react';
 import { Checkbox } from '@/components/ui/checkbox';
+import { ProductCard } from '@/app/components/shopping/product-card';
 
 const orderSettingShema = z.object({
-  text: z.string().min(1, 'Вкажіть текст повідослення'),
+  text: z.string().min(1, 'Вкажіть текст повідомлення'),
   products: z.array(z.string()).refine((value) => value.some((item) => item), {
     message: 'Виберіть хоча би один товар, що потрребує налаштування',
   }),
@@ -64,10 +65,12 @@ export const OrderSettings = ({ order, onClose }: OrderSettingsProps) => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-col h-full"
       >
-        <ModalHeader className="mt-6 flex-shrink-0 self-start mb-6">
+        <ModalHeader className="mt-6 flex-shrink-0  mb-6">
           <ModalTitle className="font-semibold text-base leading-normal text-main-dark text-center ">
             Налаштування до товарів із замовлення{' '}
-            <span className="text-main-color">№{order.number}</span>
+            <span className="text-main-color whitespace-nowrap">
+              №{order.number}
+            </span>
           </ModalTitle>
           <ModalDescription className="hidden"></ModalDescription>
         </ModalHeader>
@@ -75,40 +78,49 @@ export const OrderSettings = ({ order, onClose }: OrderSettingsProps) => {
           <p className="font-semibold">
             Товари, до яких надаються послуги з налаштування
           </p>
-
-          {order.products.map((item: any) => (
-            <FormField
-              key={item.id}
-              control={form.control}
-              name="products"
-              render={({ field }) => {
-                return (
-                  <FormItem
+          <FormField
+            control={form.control}
+            name="products"
+            render={() => (
+              <FormItem>
+                {order.products.map((item: any) => (
+                  <FormField
                     key={item.id}
-                    className="flex flex-row items-start space-x-3 space-y-0"
-                  >
-                    <FormControl>
-                      <Checkbox
-                        checked={field.value?.includes(item.id)}
-                        onCheckedChange={(checked) => {
-                          return checked
-                            ? field.onChange([...field.value, item.id])
-                            : field.onChange(
-                                field.value?.filter(
-                                  (value) => value !== item.id,
-                                ),
-                              );
-                        }}
-                      />
-                    </FormControl>
-                    <FormLabel className="text-sm font-normal">
-                      {item.name}
-                    </FormLabel>
-                  </FormItem>
-                );
-              }}
-            />
-          ))}
+                    control={form.control}
+                    name="products"
+                    render={({ field }) => {
+                      const val = 'val_' + item.id;
+                      return (
+                        <FormItem
+                          key={item.id}
+                          className="flex flex-row items-center space-x-3 space-y-0"
+                        >
+                          <FormControl>
+                            <Checkbox
+                              checked={field.value?.includes(val)}
+                              onCheckedChange={(checked) => {
+                                return checked
+                                  ? field.onChange([...field.value, val])
+                                  : field.onChange(
+                                      field.value?.filter(
+                                        (value) => value !== val,
+                                      ),
+                                    );
+                              }}
+                            />
+                          </FormControl>
+                          <FormLabel className="w-full">
+                            <ProductCard item={item} />
+                          </FormLabel>
+                        </FormItem>
+                      );
+                    }}
+                  />
+                ))}
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
           <FormField
             control={form.control}
