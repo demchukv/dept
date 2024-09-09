@@ -13,6 +13,10 @@ import Call from '@/components/icons/call';
 import CardsList from '@/components/icons/cards-list';
 import Case from '@/components/icons/case';
 import Check from '@/components/icons/check';
+import ClockInWork from '@/components/icons/clock-in-work';
+import ClockPause from '@/components/icons/clock-pause';
+import ClockReady from '@/components/icons/clock-ready';
+import ClockWait from '@/components/icons/clock-wait';
 import Close from '@/components/icons/close';
 import Copy from '@/components/icons/copy';
 import DangerTriangle from '@/components/icons/danger-triangle';
@@ -64,6 +68,10 @@ export const Icons = {
   CardsList,
   Case,
   Check,
+  ClockInWork,
+  ClockPause,
+  ClockReady,
+  ClockWait,
   Close,
   Copy,
   DangerTriangle,
