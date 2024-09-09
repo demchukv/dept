@@ -47,6 +47,49 @@ const orders = [
   },
   {
     id: 2,
+    number: '45 715 821',
+    products: [
+      {
+        id: 1,
+        name: 'SSD-накопичувач Samsung Portable SSD T7 500GB USB 3.2 Type-C (MU-PC500R/WW) Red',
+        price: 500,
+        quantity: 1,
+        photo:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/e5/51/1650778.jpeg',
+      },
+    ],
+    payStatus: 'Сплачено',
+    services: 0,
+    delivery: 0,
+    total: 500,
+    client: {
+      id: 1,
+      name: 'Зайцев Олександр Сергійович',
+    },
+    status: [
+      { id: 1, date: '01.09.2024', name: 'Обробляється' },
+      {
+        id: 2,
+        date: '03.09.2024',
+        name: 'Відправлено',
+      },
+      {
+        id: 3,
+        date: '05.09.2024',
+        name: 'Очікує отримувача',
+      },
+      {
+        id: 4,
+        date: '06.09.2024',
+        name: 'Виконано',
+      },
+    ],
+    deliveryType: 'Самовивіз з відділення Укрпошти',
+    address: 'Ямпіль, вул. Миру 157',
+    fio: 'Шевченко Олег Олегович',
+  },
+  {
+    id: 3,
     number: '45 715 811',
     products: [
       {
