@@ -17,15 +17,21 @@ import { Info } from '../common/info';
 import { Modal, ModalContent } from '@/app/components/common/modal';
 import { useState } from 'react';
 import { OrderSettings } from '@/app/components/shopping/order-settings';
+import { ReturnProduct } from '@/app/components/shopping/return-product';
 
 interface OrderItemProps {
   order: any;
 }
 export const OrderItem = ({ order }: OrderItemProps) => {
   const [open, setOpen] = useState(false);
+  const [openRet, setOpenRet] = useState(false);
   const onClose = (state: boolean, e: React.MouseEvent | undefined) => {
     if (e) e.preventDefault();
     setOpen(state);
+  };
+  const onCloseRet = (state: boolean, e: React.MouseEvent | undefined) => {
+    if (e) e.preventDefault();
+    setOpenRet(state);
   };
 
   const accItemClass =
@@ -248,6 +254,7 @@ export const OrderItem = ({ order }: OrderItemProps) => {
                           type="button"
                           variant="destructive"
                           className=""
+                          onClick={() => setOpenRet(true)}
                         >
                           Повернути товар
                         </Button>
@@ -286,10 +293,12 @@ export const OrderItem = ({ order }: OrderItemProps) => {
       <Modal open={open} onOpenChange={() => onClose(false, undefined)}>
         <ModalContent className="grid grid-cols-1 gap-6">
           <OrderSettings order={order} onClose={onClose} />
-          {/* <DeleteUserAccount
-            onClose={() => onClose(false, undefined)}
-            amount={amount}
-          /> */}
+        </ModalContent>
+      </Modal>
+
+      <Modal open={openRet} onOpenChange={() => onCloseRet(false, undefined)}>
+        <ModalContent className="grid grid-cols-1 gap-6">
+          <ReturnProduct order={order} onClose={onCloseRet} />
         </ModalContent>
       </Modal>
     </>
