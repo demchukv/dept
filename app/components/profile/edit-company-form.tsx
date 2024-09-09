@@ -1,7 +1,6 @@
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -24,7 +23,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select-form';
-import Link from 'next/link';
 
 interface EditCompanyFormProps {
   addrData: {

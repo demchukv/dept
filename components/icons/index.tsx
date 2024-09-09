@@ -14,6 +14,7 @@ import CardsList from '@/components/icons/cards-list';
 import Case from '@/components/icons/case';
 import Check from '@/components/icons/check';
 import Close from '@/components/icons/close';
+import Copy from '@/components/icons/copy';
 import DangerTriangle from '@/components/icons/danger-triangle';
 import Dashboard from '@/components/icons/dashboard';
 import DeleteCircle from '@/components/icons/delete-circle';
@@ -64,6 +65,7 @@ export const Icons = {
   Case,
   Check,
   Close,
+  Copy,
   DangerTriangle,
   Dashboard,
   DeleteCircle,
