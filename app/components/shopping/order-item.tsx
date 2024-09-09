@@ -14,10 +14,11 @@ import { Icon } from '@/components/utils/icon';
 import { KeyValText } from '../common/key-val-text';
 import { differenceInCalendarDays, addDays, format } from 'date-fns';
 import { Info } from '../common/info';
-import { Modal, ModalContent } from '@/app/components/common/modal';
+import { Modal, ModalContent } from '@/app/components/common/modal-new';
 import { useState } from 'react';
 import { OrderSettings } from '@/app/components/shopping/order-settings';
 import { ReturnProduct } from '@/app/components/shopping/return-product';
+import { OrderGaranty } from '@/app/components/shopping/order-garanty';
 
 interface OrderItemProps {
   order: any;
@@ -25,6 +26,7 @@ interface OrderItemProps {
 export const OrderItem = ({ order }: OrderItemProps) => {
   const [open, setOpen] = useState(false);
   const [openRet, setOpenRet] = useState(false);
+  const [openGaranty, setOpenGaranty] = useState(false);
   const onClose = (state: boolean, e: React.MouseEvent | undefined) => {
     if (e) e.preventDefault();
     setOpen(state);
@@ -32,6 +34,10 @@ export const OrderItem = ({ order }: OrderItemProps) => {
   const onCloseRet = (state: boolean, e: React.MouseEvent | undefined) => {
     if (e) e.preventDefault();
     setOpenRet(state);
+  };
+  const onCloseGaranty = (state: boolean, e: React.MouseEvent | undefined) => {
+    if (e) e.preventDefault();
+    setOpenGaranty(state);
   };
 
   const accItemClass =
@@ -247,6 +253,7 @@ export const OrderItem = ({ order }: OrderItemProps) => {
                           type="button"
                           variant="outline"
                           className="border-transparent"
+                          onClick={() => setOpenGaranty(true)}
                         >
                           Гарантійне звернення
                         </Button>
@@ -299,6 +306,15 @@ export const OrderItem = ({ order }: OrderItemProps) => {
       <Modal open={openRet} onOpenChange={() => onCloseRet(false, undefined)}>
         <ModalContent className="grid grid-cols-1 gap-6">
           <ReturnProduct order={order} onClose={onCloseRet} />
+        </ModalContent>
+      </Modal>
+
+      <Modal
+        open={openGaranty}
+        onOpenChange={() => onCloseGaranty(false, undefined)}
+      >
+        <ModalContent className="grid grid-cols-1 gap-6">
+          <OrderGaranty order={order} onClose={onCloseGaranty} />
         </ModalContent>
       </Modal>
     </>

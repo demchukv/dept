@@ -4,7 +4,8 @@ import {
   ModalFooter,
   ModalHeader,
   ModalTitle,
-} from '@/app/components/common/modal';
+  ModalInner,
+} from '@/app/components/common/modal-new';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/components/ui/use-toast';
 import Link from 'next/link';
@@ -63,9 +64,9 @@ export const OrderSettings = ({ order, onClose }: OrderSettingsProps) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col h-full"
+        className="flex flex-col h-full gap-0"
       >
-        <ModalHeader className="mt-6 flex-shrink-0  mb-6">
+        <ModalHeader className="flex-shrink-0">
           <ModalTitle className="font-semibold text-base leading-normal text-main-dark text-center ">
             Налаштування до товарів із замовлення{' '}
             <span className="text-main-color whitespace-nowrap">
@@ -74,7 +75,7 @@ export const OrderSettings = ({ order, onClose }: OrderSettingsProps) => {
           </ModalTitle>
           <ModalDescription className="hidden"></ModalDescription>
         </ModalHeader>
-        <div className="font-normal text-sm text-main-dark leading-main-lh space-y-4 self-start flex-grow">
+        <ModalInner className="font-normal text-sm text-main-dark leading-main-lh space-y-4 self-start flex-grow">
           <p className="font-semibold">
             Товари, до яких надаються послуги з налаштування
           </p>
@@ -148,7 +149,7 @@ export const OrderSettings = ({ order, onClose }: OrderSettingsProps) => {
             </Link>
             , де можна буде її переглядати та відслідковувати її прогрес.
           </Info>
-        </div>
+        </ModalInner>
         <ModalFooter className="flex-col sm:flex-row justify-center gap-4 py-4 flex-shrink-0 self-end w-full">
           <Button type="submit" variant="default">
             Оформити заявку

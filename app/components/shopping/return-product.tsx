@@ -4,7 +4,8 @@ import {
   ModalFooter,
   ModalHeader,
   ModalTitle,
-} from '@/app/components/common/modal';
+  ModalInner,
+} from '@/app/components/common/modal-new';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/components/ui/use-toast';
 import Link from 'next/link';
@@ -215,7 +216,7 @@ export const ReturnProduct = ({ order, onClose }: OrderSettingsProps) => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-col h-full"
       >
-        <ModalHeader className="mt-6 flex-shrink-0  mb-6">
+        <ModalHeader className="flex-shrink-0">
           <ModalTitle className="font-semibold text-base leading-normal text-main-dark text-center ">
             Повернення товару із замовлення{' '}
             <span className="text-main-color whitespace-nowrap">
@@ -224,7 +225,7 @@ export const ReturnProduct = ({ order, onClose }: OrderSettingsProps) => {
           </ModalTitle>
           <ModalDescription className="hidden"></ModalDescription>
         </ModalHeader>
-        <div className="font-normal text-sm text-main-dark leading-main-lh space-y-4 self-start flex-grow">
+        <ModalInner className="font-normal text-sm text-main-dark leading-main-lh space-y-4 self-start flex-grow">
           <p className="font-semibold">Товари, що підлягають поверненню</p>
           <FormField
             control={form.control}
@@ -557,7 +558,7 @@ export const ReturnProduct = ({ order, onClose }: OrderSettingsProps) => {
             </Link>{' '}
             разом із поверненим товаром.
           </Info>
-        </div>
+        </ModalInner>
         <ModalFooter className="flex-col sm:flex-row justify-center gap-4 py-4 flex-shrink-0 self-end w-full">
           <Button type="submit" variant="default">
             Згенерувати заяву на повернення

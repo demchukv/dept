@@ -33,6 +33,7 @@
     "@vercel/speed-insights": "^1.0.12",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "copy-to-clipboard": "^3.3.3",
     "date-fns": "^3.6.0",
     "i18next": "^23.14.0",
     "i18next-resources-to-backend": "^1.2.1",
