@@ -2,8 +2,12 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 interface OrderProductProps {
   product: any;
+  garanty?: boolean;
 }
-export const OrderProduct = ({ product }: OrderProductProps) => {
+export const OrderProduct = ({
+  product,
+  garanty = true,
+}: OrderProductProps) => {
   const total = Number(product.price) * Number(product.quantity);
   return (
     <div className="shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)] border border-gray-light rounded-[4px] bg-white p-3 mb-4">
@@ -26,13 +30,15 @@ export const OrderProduct = ({ product }: OrderProductProps) => {
           {total.toFixed(2)} грн
         </div>
       </div>
-      <Button
-        type="button"
-        variant="ghost"
-        className="font-semibold text-sm leading-main-lh text-main-color"
-      >
-        Гарантійний талон
-      </Button>
+      {garanty && (
+        <Button
+          type="button"
+          variant="ghost"
+          className="font-semibold text-sm leading-main-lh text-main-color"
+        >
+          Гарантійний талон
+        </Button>
+      )}
     </div>
   );
 };
