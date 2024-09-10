@@ -6,7 +6,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from '@/components/ui/select-tab';
 import { Popover } from '@radix-ui/react-popover';
 import { PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Button } from '@/components/ui/button';
@@ -15,7 +15,13 @@ import { cn } from '@/lib/utils';
 import { CalendarIcon } from '@radix-ui/react-icons';
 import { Calendar } from '@/components/ui/calendar';
 
-export const Filter = ({ column }: { column: Column<any, unknown> }) => {
+export const Filter = ({
+  column,
+  icon,
+}: {
+  column: Column<any, unknown>;
+  icon?: string;
+}) => {
   const columnFilterValue = column.getFilterValue();
   const { filterVariant } = column.columnDef.meta ?? {};
   const { selectValues } = column.columnDef.meta ?? {};
@@ -51,10 +57,10 @@ export const Filter = ({ column }: { column: Column<any, unknown> }) => {
         defaultValue={columnFilterValue?.toString()}
       >
         <SelectTrigger className="w-[120px]">
-          <SelectValue placeholder="Select..." />
+          <SelectValue placeholder="Дані пошуку" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value=" ">All</SelectItem>
+          <SelectItem value=" ">Всі статуси</SelectItem>
           {selectValues?.map((val: { label: string; value: string }) => (
             <SelectItem key={val.value} value={val.value}>
               {val.label}
@@ -91,11 +97,12 @@ export const Filter = ({ column }: { column: Column<any, unknown> }) => {
     </>
   ) : (
     <DebouncedInput
-      className="w-36 border  rounded"
+      className="w-36 border rounded py-[7px]"
       onChange={(value) => column.setFilterValue(value)}
       placeholder={`Search...`}
       type="text"
       value={(columnFilterValue ?? '') as string}
+      icon={icon}
     />
   );
 };
