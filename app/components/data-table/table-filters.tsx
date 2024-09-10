@@ -91,7 +91,7 @@ export const Filter = ({ column }: { column: Column<any, unknown> }) => {
     </>
   ) : (
     <DebouncedInput
-      className="w-36 border  rounded"
+      className="w-36 border rounded py-[7px]"
       onChange={(value) => column.setFilterValue(value)}
       placeholder={`Search...`}
       type="text"

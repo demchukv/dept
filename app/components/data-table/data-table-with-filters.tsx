@@ -71,7 +71,7 @@ export type PaginationInitialTableState = {
   pagination?: Partial<PaginationState>;
 };
 
-export function DataTable<TData extends { subRows: any }, TValue>({
+export function DataTable<TData, TValue>({
   columns,
   data,
   rowCount,
@@ -105,7 +105,7 @@ export function DataTable<TData extends { subRows: any }, TValue>({
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
     onExpandedChange: setExpanded,
-    getSubRows: (row) => row.subRows,
+    // getSubRows: (row) => row.subRows,
     getExpandedRowModel: getExpandedRowModel(),
     filterFns: {},
     state: {
@@ -143,10 +143,22 @@ export function DataTable<TData extends { subRows: any }, TValue>({
   return (
     <>
       <div className="flex gap-6 mb-9">
+        {responsible?.column.getCanFilter() ? (
+          <div className="flex flex-col gap-2">
+            <span className="text-xs leading-none">Відповідальний</span>
+            <Filter column={responsible.column} />
+          </div>
+        ) : null}
         {status?.column.getCanFilter() ? (
           <div className="flex flex-col gap-2">
             <span className="text-xs leading-none">Статус</span>
             <Filter column={status.column} />
+          </div>
+        ) : null}
+        {author?.column.getCanFilter() ? (
+          <div className="flex flex-col gap-2">
+            <span className="text-xs leading-none">Автор</span>
+            <Filter column={author.column} />
           </div>
         ) : null}
       </div>
