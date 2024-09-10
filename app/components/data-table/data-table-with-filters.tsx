@@ -140,6 +140,9 @@ export function DataTable<TData, TValue>({
   const status = table.getHeaderGroups()[0].headers.find((header) => {
     return header.id === 'status';
   });
+  const title = table.getHeaderGroups()[0].headers.find((header) => {
+    return header.id === 'title';
+  });
   return (
     <>
       <div className="flex gap-6 mb-9">
@@ -161,6 +164,18 @@ export function DataTable<TData, TValue>({
             <Filter column={author.column} />
           </div>
         ) : null}
+        {title?.column.getCanFilter() ? (
+          <div className="flex flex-col gap-2">
+            <span className="text-xs leading-none">Пошук</span>
+            <Filter column={title.column} icon="Search" />
+          </div>
+        ) : null}
+        <div className="flex flex-col gap-2 items-end">
+          <span className="text-xs leading-none">&nbsp;</span>
+          <Button type="button" variant="default" className=" py-[8px]">
+            Додати заявку
+          </Button>
+        </div>
       </div>
       <div className="rounded-[6px] shadow-[0_4px_15px_0_rgba(0,0,0,0.05)] bg-white overflow-hidden">
         <>

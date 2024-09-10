@@ -15,7 +15,13 @@ import { cn } from '@/lib/utils';
 import { CalendarIcon } from '@radix-ui/react-icons';
 import { Calendar } from '@/components/ui/calendar';
 
-export const Filter = ({ column }: { column: Column<any, unknown> }) => {
+export const Filter = ({
+  column,
+  icon,
+}: {
+  column: Column<any, unknown>;
+  icon?: string;
+}) => {
   const columnFilterValue = column.getFilterValue();
   const { filterVariant } = column.columnDef.meta ?? {};
   const { selectValues } = column.columnDef.meta ?? {};
@@ -96,6 +102,7 @@ export const Filter = ({ column }: { column: Column<any, unknown> }) => {
       placeholder={`Search...`}
       type="text"
       value={(columnFilterValue ?? '') as string}
+      icon={icon}
     />
   );
 };
