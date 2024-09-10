@@ -6,7 +6,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from '@/components/ui/select-tab';
 import { Popover } from '@radix-ui/react-popover';
 import { PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Button } from '@/components/ui/button';
@@ -51,10 +51,10 @@ export const Filter = ({ column }: { column: Column<any, unknown> }) => {
         defaultValue={columnFilterValue?.toString()}
       >
         <SelectTrigger className="w-[120px]">
-          <SelectValue placeholder="Select..." />
+          <SelectValue placeholder="Дані пошуку" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value=" ">All</SelectItem>
+          <SelectItem value=" ">Всі статуси</SelectItem>
           {selectValues?.map((val: { label: string; value: string }) => (
             <SelectItem key={val.value} value={val.value}>
               {val.label}
