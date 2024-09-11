@@ -40,9 +40,9 @@ export const DebouncedInput = ({
         />
         <Icon
           iconName={icon}
-          width={24}
-          height={24}
-          className="absolute right-3 top-1/2 -translate-y-1/2 fill-main-dark"
+          width={20}
+          height={20}
+          className="absolute right-3 top-1/2 -translate-y-1/2 fill-main-dark w-5 h-5"
         />
       </div>
     );

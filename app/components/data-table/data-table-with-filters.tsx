@@ -3,8 +3,10 @@
 import * as React from 'react';
 import { useEffect } from 'react';
 import {
+  Column,
   ColumnDef,
   SortingState,
+  RowData,
   flexRender,
   getCoreRowModel,
   useReactTable,
@@ -13,6 +15,9 @@ import {
   VisibilityState,
   ColumnFiltersState,
   getFilteredRowModel,
+  getFacetedMinMaxValues,
+  getFacetedRowModel,
+  getFacetedUniqueValues,
   ExpandedState,
   getExpandedRowModel,
 } from '@tanstack/react-table';
@@ -34,14 +39,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 import { Filter } from '@/app/components/data-table/table-filters';
-import { ReloadIcon } from '@radix-ui/react-icons';
 import { TablePagination } from '@/app/components/data-table/table-pagination';
 
 interface DataTableProps<TData, TValue> {
@@ -105,6 +103,9 @@ export function DataTable<TData, TValue>({
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
     onExpandedChange: setExpanded,
+    getFacetedRowModel: getFacetedRowModel(),
+    getFacetedUniqueValues: getFacetedUniqueValues(),
+    getFacetedMinMaxValues: getFacetedMinMaxValues(),
     // getSubRows: (row) => row.subRows,
     getExpandedRowModel: getExpandedRowModel(),
     filterFns: {},
@@ -145,38 +146,46 @@ export function DataTable<TData, TValue>({
   });
   return (
     <>
-      <div className="flex gap-6 mb-9">
-        {responsible?.column.getCanFilter() ? (
-          <div className="flex flex-col gap-2">
-            <span className="text-xs leading-none">Відповідальний</span>
-            <Filter column={responsible.column} />
-          </div>
-        ) : null}
-        {status?.column.getCanFilter() ? (
-          <div className="flex flex-col gap-2">
-            <span className="text-xs leading-none">Статус</span>
-            <Filter column={status.column} />
-          </div>
-        ) : null}
-        {author?.column.getCanFilter() ? (
-          <div className="flex flex-col gap-2">
-            <span className="text-xs leading-none">Автор</span>
-            <Filter column={author.column} />
-          </div>
-        ) : null}
-        {title?.column.getCanFilter() ? (
-          <div className="flex flex-col gap-2">
-            <span className="text-xs leading-none">Пошук</span>
-            <Filter column={title.column} icon="Search" />
-          </div>
-        ) : null}
-        <div className="flex flex-col gap-2 items-end">
+      <div className="mb-6 sm:mb-9 flex flex-col-reverse sm:flex-row sm:gap-6">
+        <div className="flex flex-col gap-2 sm:flex-row sm:gap-6 sm:mb-9">
+          {responsible?.column.getCanFilter() ? (
+            <div className="flex flex-col gap-2">
+              <span className="text-xs leading-none">Відповідальний</span>
+              <Filter column={responsible.column} />
+            </div>
+          ) : null}
+          {status?.column.getCanFilter() ? (
+            <div className="flex flex-col gap-2">
+              <span className="text-xs leading-none">Статус</span>
+              <Filter column={status.column} />
+            </div>
+          ) : null}
+          {author?.column.getCanFilter() ? (
+            <div className="flex flex-col gap-2">
+              <span className="text-xs leading-none">Автор</span>
+              <Filter column={author.column} />
+            </div>
+          ) : null}
+          {title?.column.getCanFilter() ? (
+            <div className="flex flex-col gap-2">
+              <span className="text-xs leading-none">Пошук</span>
+              <Filter column={title.column} icon="Search" />
+            </div>
+          ) : null}
+        </div>
+
+        <div className="flex flex-col gap-2  items-end mb-6 sm:mb-0">
           <span className="text-xs leading-none">&nbsp;</span>
-          <Button type="button" variant="default" className=" py-[8px]">
+          <Button
+            type="button"
+            variant="default"
+            className="w-full sm:w-auto py-2.5 sm:py-[8px]"
+          >
             Додати заявку
           </Button>
         </div>
       </div>
+
       <div className="rounded-[6px] shadow-[0_4px_15px_0_rgba(0,0,0,0.05)] bg-white overflow-hidden">
         <>
           {/* <div className="flex items-center py-4">

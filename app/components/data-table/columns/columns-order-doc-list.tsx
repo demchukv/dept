@@ -7,7 +7,13 @@ import Link from 'next/link';
 
 declare module '@tanstack/react-table' {
   interface ColumnMeta<TData extends RowData, TValue> {
-    filterVariant?: 'text' | 'range' | 'select' | 'date';
+    filterVariant?:
+      | 'text'
+      | 'range'
+      | 'select'
+      | 'date'
+      | 'autocomplete'
+      | 'datalist';
     selectValues?: { label: string; value: string }[];
   }
 }
