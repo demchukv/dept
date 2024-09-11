@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect, useState, useTransition } from 'react';
-import { StatusLabel } from '@/app/components/task/status-label';
 import { taskType } from '@/types/task';
 
 import { ColumnFiltersState, SortingState } from '@tanstack/react-table';
@@ -9,7 +8,10 @@ import {
   DataTable,
   PaginationState,
 } from '@/app/components/data-table/data-table-with-filters';
-import { columns } from '@/app/components/data-table/columns/columns-task-list';
+import {
+  columns,
+  TaskRowData,
+} from '@/app/components/data-table/columns/columns-task-list';
 
 const dataTask: taskType[] = [
   {
@@ -25,6 +27,36 @@ const dataTask: taskType[] = [
     cost: 'В пакеті підтримки',
     source: 'Бітрікс24',
     author: 'Сергій Сергієнко',
+    subRows: [
+      {
+        id: 26,
+        title: 'Сходити в сусіднє село',
+        number: '№ 8889',
+        createdAt: '01.05.24',
+        deadline: '03.05.24',
+        status: 'ready',
+        responsible: 'Інтегратор',
+        sheduledTime: '05:00:00',
+        spentTime: '04:16:32',
+        cost: '2000',
+        source: 'Телеграм',
+        author: 'Ібрагім Ібрагімович',
+      },
+      {
+        id: 27,
+        title: 'І ще раз сходити в сусіднє село',
+        number: '№ 8889',
+        createdAt: '01.05.24',
+        deadline: '03.05.24',
+        status: 'ready',
+        responsible: 'Інтегратор',
+        sheduledTime: '05:00:00',
+        spentTime: '04:16:32',
+        cost: '2000',
+        source: 'Телеграм',
+        author: 'Ібрагім Ібрагімович',
+      },
+    ],
   },
   {
     id: 2,
@@ -53,6 +85,36 @@ const dataTask: taskType[] = [
     cost: '2000',
     source: 'Особистий кабінет',
     author: 'Ібрагім Ібрагімович',
+    subRows: [
+      {
+        id: 24,
+        title: 'Сходити в сусіднє село',
+        number: '№ 8889',
+        createdAt: '01.05.24',
+        deadline: '03.05.24',
+        status: 'ready',
+        responsible: 'Інтегратор',
+        sheduledTime: '05:00:00',
+        spentTime: '04:16:32',
+        cost: '2000',
+        source: 'Телеграм',
+        author: 'Ібрагім Ібрагімович',
+      },
+      {
+        id: 25,
+        title: 'І ще раз сходити в сусіднє село',
+        number: '№ 8889',
+        createdAt: '01.05.24',
+        deadline: '03.05.24',
+        status: 'ready',
+        responsible: 'Інтегратор',
+        sheduledTime: '05:00:00',
+        spentTime: '04:16:32',
+        cost: '2000',
+        source: 'Телеграм',
+        author: 'Ібрагім Ібрагімович',
+      },
+    ],
   },
   {
     id: 4,
@@ -197,7 +259,7 @@ export const Task = () => {
     newSorting: SortingState,
     columnFilters: ColumnFiltersState,
   ) => {
-    console.log(columnFilters);
+    // console.log(columnFilters);
     getData(newPagination, newSorting, columnFilters);
   };
 
@@ -213,7 +275,7 @@ export const Task = () => {
 
       <DataTable
         columns={columns}
-        data={data}
+        data={data as TaskRowData[]}
         rowCount={rowCount}
         pagination={initPagination}
         sorting={initSorting}

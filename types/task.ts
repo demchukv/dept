@@ -11,4 +11,5 @@ export type taskType = {
   cost: string | number;
   source: string;
   author: string;
+  subRows?: taskType[];
 };

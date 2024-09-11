@@ -2,7 +2,11 @@
 
 import { ColumnDef, RowData } from '@tanstack/react-table';
 import { taskType } from '@/types/task';
-import { statusList } from '@/app/components/task/status-label';
+import {
+  statusList,
+  StatusLabelText,
+} from '@/app/components/task/status-label';
+import { ActionsTaskMenu } from '@/app/components/task/actions-task-menu';
 
 declare module '@tanstack/react-table' {
   interface ColumnMeta<TData extends RowData, TValue> {
@@ -22,15 +26,65 @@ let statusSelect: { label: string; value: string }[] = [];
 for (const status in statusList) {
   statusSelect.push({ label: statusList[status].name, value: status });
 }
+export type TaskRowData = {
+  subRows: any;
+};
 
-export const columns: ColumnDef<taskType>[] = [
+type TaskColumns = ColumnDef<TaskRowData, unknown>[];
+
+export const columns: TaskColumns = [
+  {
+    id: 'actions',
+    cell: ({ row }) => {
+      const task = row.original;
+      return <ActionsTaskMenu task={task} />;
+    },
+  },
   {
     accessorKey: 'title',
     header: () => 'Назва',
-    cell: ({ getValue }) => {
-      const title = getValue<string>();
-      return title;
+    cell: ({ row, getValue }) => {
+      if (row.getCanExpand() && !row.getIsExpanded()) {
+        row.toggleExpanded();
+      }
+      return (
+        <div
+          style={{
+            paddingLeft: `${row.depth * 2}rem`,
+          }}
+        >
+          {getValue<string>()}
+        </div>
+      );
+      // return (
+      //   <div
+      //     style={{
+      //       // Since rows are flattened by default,
+      //       // we can use the row.depth property
+      //       // and paddingLeft to visually indicate the depth
+      //       // of the row
+      //       paddingLeft: `${row.depth * 2}rem`,
+      //     }}
+      //   >
+      //     <div>
+      //       {row.getCanExpand() ? (
+      //         <button
+      //           {...{
+      //             onClick: row.getToggleExpandedHandler(),
+      //             style: { cursor: 'pointer' },
+      //           }}
+      //         >
+      //           {row.getIsExpanded() ? '👇' : '👉'}
+      //         </button>
+      //       ) : (
+      //         ' '
+      //       )}{' '}
+      //       {getValue<string>()}
+      //     </div>
+      //   </div>
+      // );
     },
+    footer: (props) => props.column.id,
   },
   {
     accessorKey: 'number',
@@ -64,7 +118,8 @@ export const columns: ColumnDef<taskType>[] = [
     header: 'Статус',
     cell: ({ getValue }) => {
       const status = getValue<string>();
-      return statusList[status].name;
+      // return statusList[status].name;
+      return <StatusLabelText status={status} />;
     },
     meta: {
       filterVariant: 'select',
@@ -117,7 +172,11 @@ export const columns: ColumnDef<taskType>[] = [
   {
     accessorKey: 'author',
     header: 'Автор',
-    cell: (info) => info.getValue<string>(),
+    // cell: (info) => info.getValue<string>(),
+    cell: ({ getValue }) => {
+      const author = getValue<string>();
+      return author;
+    },
     meta: {
       filterVariant: 'autocomplete',
       selectValues: statusSelect,

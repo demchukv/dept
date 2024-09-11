@@ -23,6 +23,20 @@ export const StatusLabel = ({ status, className }: StatusLabelProps) => {
   );
 };
 
+export const StatusLabelText = ({ status, className }: StatusLabelProps) => {
+  return (
+    <span
+      className={cn(
+        'font-semibold text-sm',
+        statusList[status].textColor,
+        className,
+      )}
+    >
+      {statusList[status].name}
+    </span>
+  );
+};
+
 export const statusList: Record<
   string,
   {
