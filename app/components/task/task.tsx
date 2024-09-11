@@ -157,6 +157,12 @@ export const Task = () => {
               if (filter.id === 'status') {
                 return item[filter.id] === filter.value;
               }
+              if (filter.id === 'author') {
+                return item[filter.id].includes(filter.value as string);
+              }
+              if (filter.id === 'responsible') {
+                return item[filter.id] === filter.value;
+              }
               return;
             });
           });
@@ -191,6 +197,7 @@ export const Task = () => {
     newSorting: SortingState,
     columnFilters: ColumnFiltersState,
   ) => {
+    console.log(columnFilters);
     getData(newPagination, newSorting, columnFilters);
   };
 

@@ -2,15 +2,18 @@
 
 import { ColumnDef, RowData } from '@tanstack/react-table';
 import { taskType } from '@/types/task';
-import { Icon } from '@/components/utils/icon';
-import Link from 'next/link';
-import { format } from 'date-fns';
-import { TooltipShow } from '@/app/components/common/tooltip-show';
 import { statusList } from '@/app/components/task/status-label';
 
 declare module '@tanstack/react-table' {
   interface ColumnMeta<TData extends RowData, TValue> {
-    filterVariant?: 'text' | 'range' | 'select' | 'date';
+    filterVariant?:
+      | 'text'
+      | 'range'
+      | 'select'
+      | 'date'
+      | 'autocomplete'
+      | 'datalist'
+      | undefined;
     selectValues?: { label: string; value: string }[];
   }
 }
@@ -71,9 +74,10 @@ export const columns: ColumnDef<taskType>[] = [
   {
     accessorKey: 'responsible',
     header: 'Відповідальний',
-    cell: ({ getValue }) => {
-      const responsible = getValue<string>();
-      return responsible;
+    cell: (info) => info.getValue<string>(),
+    meta: {
+      filterVariant: 'autocomplete',
+      selectValues: statusSelect,
     },
   },
   {
@@ -113,9 +117,10 @@ export const columns: ColumnDef<taskType>[] = [
   {
     accessorKey: 'author',
     header: 'Автор',
-    cell: ({ getValue }) => {
-      const author = getValue<number>();
-      return author;
+    cell: (info) => info.getValue<string>(),
+    meta: {
+      filterVariant: 'autocomplete',
+      selectValues: statusSelect,
     },
   },
 ];

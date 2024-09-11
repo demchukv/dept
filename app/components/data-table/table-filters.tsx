@@ -7,13 +7,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select-tab';
-import { Popover } from '@radix-ui/react-popover';
-import { PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Button } from '@/components/ui/button';
 import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
 import { CalendarIcon } from '@radix-ui/react-icons';
 import { Calendar } from '@/components/ui/calendar';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import { useState } from 'react';
+import React from 'react';
+import {
+  AutoComplete,
+  type Option,
+} from '@/app/components/common/autocomplete';
 
 export const Filter = ({
   column,
@@ -22,9 +31,37 @@ export const Filter = ({
   column: Column<any, unknown>;
   icon?: string;
 }) => {
+  const [isLoading, setLoading] = useState(false);
+  const [isDisabled, setDisbled] = useState(false);
+  const [valueAutoComplete, setValueAutoComplete] = useState<Option>();
+
   const columnFilterValue = column.getFilterValue();
   const { filterVariant } = column.columnDef.meta ?? {};
   const { selectValues } = column.columnDef.meta ?? {};
+
+  const sortedUniqueValues = React.useMemo(
+    () =>
+      filterVariant === 'datalist'
+        ? Array.from(column.getFacetedUniqueValues().keys())
+            .sort()
+            .slice(0, 5000)
+        : [],
+    [column.getFacetedUniqueValues(), filterVariant],
+  );
+
+  const sortedUniqueKeyValues = React.useMemo(() => {
+    if (filterVariant === 'autocomplete') {
+      const list = Array.from(column.getFacetedUniqueValues().keys())
+        .sort()
+        .slice(0, 5000);
+      return list.map((x) => ({ label: x, value: x }));
+    }
+  }, [column.getFacetedUniqueValues(), filterVariant]);
+
+  const handleChange = (value: Option) => {
+    column.setFilterValue(value.value.trim());
+    setValueAutoComplete(value);
+  };
 
   return filterVariant === 'range' ? (
     <div>
@@ -56,7 +93,7 @@ export const Filter = ({
         onValueChange={(e) => column.setFilterValue(e.trim())}
         defaultValue={columnFilterValue?.toString()}
       >
-        <SelectTrigger className="w-[120px]">
+        <SelectTrigger className="min-w-[130px] w-full py-[9px] border-gray-light">
           <SelectValue placeholder="Дані пошуку" />
         </SelectTrigger>
         <SelectContent>
@@ -95,14 +132,45 @@ export const Filter = ({
         </PopoverContent>
       </Popover>
     </>
-  ) : (
-    <DebouncedInput
-      className="w-36 border rounded py-[7px]"
-      onChange={(value) => column.setFilterValue(value)}
-      placeholder={`Search...`}
-      type="text"
-      value={(columnFilterValue ?? '') as string}
-      icon={icon}
+  ) : filterVariant === 'autocomplete' ? (
+    <AutoComplete
+      options={sortedUniqueKeyValues as Option[]}
+      emptyMessage="Нічого не знайдено"
+      placeholder="Дані пошуку"
+      isLoading={isLoading}
+      onValueChange={(val) => handleChange(val)}
+      value={valueAutoComplete}
+      disabled={isDisabled}
     />
+  ) : filterVariant === 'datalist' ? (
+    <>
+      {/* Autocomplete suggestions from faceted values feature */}
+      <datalist id={column.id + 'list'}>
+        {sortedUniqueValues.map((value: any) => (
+          <option value={value} key={value} />
+        ))}
+      </datalist>
+      <DebouncedInput
+        className="min-w-[130px] w-full border rounded py-[7px]"
+        onChange={(value) => column.setFilterValue(value)}
+        placeholder={`Search... (${column.getFacetedUniqueValues().size})`}
+        type="text"
+        value={(columnFilterValue ?? '') as string}
+        icon={icon}
+        list={column.id + 'list'}
+      />
+      <div className="h-1" />
+    </>
+  ) : (
+    <>
+      <DebouncedInput
+        className="min-w-[130px] w-full border rounded py-[8px]"
+        onChange={(value) => column.setFilterValue(value)}
+        placeholder={`Search...`}
+        type="text"
+        value={(columnFilterValue ?? '') as string}
+        icon={icon}
+      />
+    </>
   );
 };
