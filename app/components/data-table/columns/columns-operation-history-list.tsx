@@ -9,7 +9,14 @@ import { format } from 'date-fns';
 
 declare module '@tanstack/react-table' {
   interface ColumnMeta<TData extends RowData, TValue> {
-    filterVariant?: 'text' | 'range' | 'select' | 'date';
+    filterVariant?:
+      | 'text'
+      | 'range'
+      | 'select'
+      | 'date'
+      | 'autocomplete'
+      | 'datalist'
+      | undefined;
     selectValues?: { label: string; value: string }[];
   }
 }
