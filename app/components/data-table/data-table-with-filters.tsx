@@ -254,7 +254,7 @@ export function DataTable<TData, TValue>({
                       return (
                         <TableHead
                           key={header.id}
-                          className="font-normal text-sm leading-main-lh text-gray-dark bg-white px-1 py-[22px]"
+                          className="font-normal text-sm leading-main-lh text-gray-dark bg-white px-1 py-[22px] first:pl-8 last:pr-8"
                         >
                           {header.isPlaceholder
                             ? null
@@ -284,11 +284,12 @@ export function DataTable<TData, TValue>({
                         <TableRow
                           key={row.id}
                           data-state={row.getIsSelected() && 'selected'}
+                          className="odd:bg-bg-color"
                         >
                           {row.getVisibleCells().map((cell) => (
                             <TableCell
                               key={cell.id}
-                              className="px-1 py-[14px] font-medium text-sm leading-main-lh text-main-dark"
+                              className="px-1 py-[14px] font-medium text-sm leading-main-lh text-main-dark first:pl-8 last:pr-8"
                             >
                               {flexRender(
                                 cell.column.columnDef.cell,

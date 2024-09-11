@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect, useState, useTransition } from 'react';
-import { StatusLabel } from '@/app/components/task/status-label';
 import { taskType } from '@/types/task';
 
 import { ColumnFiltersState, SortingState } from '@tanstack/react-table';
@@ -197,7 +196,7 @@ export const Task = () => {
     newSorting: SortingState,
     columnFilters: ColumnFiltersState,
   ) => {
-    console.log(columnFilters);
+    // console.log(columnFilters);
     getData(newPagination, newSorting, columnFilters);
   };
 

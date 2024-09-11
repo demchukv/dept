@@ -2,7 +2,11 @@
 
 import { ColumnDef, RowData } from '@tanstack/react-table';
 import { taskType } from '@/types/task';
-import { statusList } from '@/app/components/task/status-label';
+import {
+  statusList,
+  StatusLabelText,
+} from '@/app/components/task/status-label';
+import { ActionsTaskMenu } from '@/app/components/task/actions-task-menu';
 
 declare module '@tanstack/react-table' {
   interface ColumnMeta<TData extends RowData, TValue> {
@@ -24,6 +28,13 @@ for (const status in statusList) {
 }
 
 export const columns: ColumnDef<taskType>[] = [
+  {
+    id: 'actions',
+    cell: ({ row }) => {
+      const task = row.original;
+      return <ActionsTaskMenu task={task} />;
+    },
+  },
   {
     accessorKey: 'title',
     header: () => 'Назва',
@@ -64,7 +75,8 @@ export const columns: ColumnDef<taskType>[] = [
     header: 'Статус',
     cell: ({ getValue }) => {
       const status = getValue<string>();
-      return statusList[status].name;
+      // return statusList[status].name;
+      return <StatusLabelText status={status} />;
     },
     meta: {
       filterVariant: 'select',
@@ -117,7 +129,11 @@ export const columns: ColumnDef<taskType>[] = [
   {
     accessorKey: 'author',
     header: 'Автор',
-    cell: (info) => info.getValue<string>(),
+    // cell: (info) => info.getValue<string>(),
+    cell: ({ getValue }) => {
+      const author = getValue<string>();
+      return author;
+    },
     meta: {
       filterVariant: 'autocomplete',
       selectValues: statusSelect,
