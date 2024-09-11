@@ -38,10 +38,34 @@ export const columns: ColumnDef<taskType>[] = [
   {
     accessorKey: 'title',
     header: () => 'Назва',
-    cell: ({ getValue }) => {
-      const title = getValue<string>();
-      return title;
-    },
+    cell: ({ row, getValue }) => (
+      <div
+        style={{
+          // Since rows are flattened by default,
+          // we can use the row.depth property
+          // and paddingLeft to visually indicate the depth
+          // of the row
+          paddingLeft: `${row.depth * 2}rem`,
+        }}
+      >
+        <div>
+          {row.getCanExpand() ? (
+            <button
+              {...{
+                onClick: row.getToggleExpandedHandler(),
+                style: { cursor: 'pointer' },
+              }}
+            >
+              {row.getIsExpanded() ? '👇' : '👉'}
+            </button>
+          ) : (
+            ' '
+          )}{' '}
+          {getValue<string>()}
+        </div>
+      </div>
+    ),
+    footer: (props) => props.column.id,
   },
   {
     accessorKey: 'number',

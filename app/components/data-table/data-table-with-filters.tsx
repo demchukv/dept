@@ -20,6 +20,7 @@ import {
   getFacetedUniqueValues,
   ExpandedState,
   getExpandedRowModel,
+  Row,
 } from '@tanstack/react-table';
 
 import {
@@ -41,6 +42,7 @@ import {
 
 import { Filter } from '@/app/components/data-table/table-filters';
 import { TablePagination } from '@/app/components/data-table/table-pagination';
+import { taskType } from '@/types/task';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -69,7 +71,7 @@ export type PaginationInitialTableState = {
   pagination?: Partial<PaginationState>;
 };
 
-export function DataTable<TData, TValue>({
+export function DataTable<TData extends { subRows: TData[] }, TValue>({
   columns,
   data,
   rowCount,
@@ -106,7 +108,7 @@ export function DataTable<TData, TValue>({
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
     getFacetedMinMaxValues: getFacetedMinMaxValues(),
-    // getSubRows: (row) => row.subRows,
+    getSubRows: (row) => row.subRows,
     getExpandedRowModel: getExpandedRowModel(),
     filterFns: {},
     state: {
@@ -132,6 +134,7 @@ export function DataTable<TData, TValue>({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pagination, sorting, columnFilters]);
   // console.log(table.getHeaderGroups()[0].headers);
+
   const responsible = table.getHeaderGroups()[0].headers.find((header) => {
     return header.id === 'responsible';
   });
@@ -289,7 +292,7 @@ export function DataTable<TData, TValue>({
                           {row.getVisibleCells().map((cell) => (
                             <TableCell
                               key={cell.id}
-                              className="px-1 py-[14px] font-medium text-sm leading-main-lh text-main-dark first:pl-8 last:pr-8"
+                              className="px-1 py-[14px] font-medium text-sm leading-main-lh text-main-dark first:pl-8  last:pr-8"
                             >
                               {flexRender(
                                 cell.column.columnDef.cell,
