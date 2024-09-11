@@ -8,7 +8,10 @@ import {
   DataTable,
   PaginationState,
 } from '@/app/components/data-table/data-table-with-filters';
-import { columns } from '@/app/components/data-table/columns/columns-task-list';
+import {
+  columns,
+  TaskRowData,
+} from '@/app/components/data-table/columns/columns-task-list';
 
 const dataTask: taskType[] = [
   {
@@ -272,7 +275,7 @@ export const Task = () => {
 
       <DataTable
         columns={columns}
-        data={data}
+        data={data as TaskRowData[]}
         rowCount={rowCount}
         pagination={initPagination}
         sorting={initSorting}

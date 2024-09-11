@@ -44,7 +44,7 @@ import { Filter } from '@/app/components/data-table/table-filters';
 import { TablePagination } from '@/app/components/data-table/table-pagination';
 import { taskType } from '@/types/task';
 
-interface DataTableProps<TData, TValue> {
+interface DataTableProps<TData extends { subRows: any }, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   rowCount: number;
@@ -71,7 +71,7 @@ export type PaginationInitialTableState = {
   pagination?: Partial<PaginationState>;
 };
 
-export function DataTable<TData extends { subRows: TData[] }, TValue>({
+export function DataTable<TData extends { subRows: any }, TValue>({
   columns,
   data,
   rowCount,

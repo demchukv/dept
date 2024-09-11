@@ -26,8 +26,13 @@ let statusSelect: { label: string; value: string }[] = [];
 for (const status in statusList) {
   statusSelect.push({ label: statusList[status].name, value: status });
 }
+export type TaskRowData = {
+  subRows: any;
+};
 
-export const columns: ColumnDef<taskType>[] = [
+type TaskColumns = ColumnDef<TaskRowData, unknown>[];
+
+export const columns: TaskColumns = [
   {
     id: 'actions',
     cell: ({ row }) => {
@@ -38,33 +43,47 @@ export const columns: ColumnDef<taskType>[] = [
   {
     accessorKey: 'title',
     header: () => 'Назва',
-    cell: ({ row, getValue }) => (
-      <div
-        style={{
-          // Since rows are flattened by default,
-          // we can use the row.depth property
-          // and paddingLeft to visually indicate the depth
-          // of the row
-          paddingLeft: `${row.depth * 2}rem`,
-        }}
-      >
-        <div>
-          {row.getCanExpand() ? (
-            <button
-              {...{
-                onClick: row.getToggleExpandedHandler(),
-                style: { cursor: 'pointer' },
-              }}
-            >
-              {row.getIsExpanded() ? '👇' : '👉'}
-            </button>
-          ) : (
-            ' '
-          )}{' '}
+    cell: ({ row, getValue }) => {
+      if (row.getCanExpand() && !row.getIsExpanded()) {
+        row.toggleExpanded();
+      }
+      return (
+        <div
+          style={{
+            paddingLeft: `${row.depth * 2}rem`,
+          }}
+        >
           {getValue<string>()}
         </div>
-      </div>
-    ),
+      );
+      // return (
+      //   <div
+      //     style={{
+      //       // Since rows are flattened by default,
+      //       // we can use the row.depth property
+      //       // and paddingLeft to visually indicate the depth
+      //       // of the row
+      //       paddingLeft: `${row.depth * 2}rem`,
+      //     }}
+      //   >
+      //     <div>
+      //       {row.getCanExpand() ? (
+      //         <button
+      //           {...{
+      //             onClick: row.getToggleExpandedHandler(),
+      //             style: { cursor: 'pointer' },
+      //           }}
+      //         >
+      //           {row.getIsExpanded() ? '👇' : '👉'}
+      //         </button>
+      //       ) : (
+      //         ' '
+      //       )}{' '}
+      //       {getValue<string>()}
+      //     </div>
+      //   </div>
+      // );
+    },
     footer: (props) => props.column.id,
   },
   {
