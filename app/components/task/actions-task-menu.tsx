@@ -35,7 +35,7 @@ export const ActionsTaskMenu = ({ task }: { task: any }) => {
             <Icon iconName="ActionMenu" width={24} height={24} />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="py-2 px-0">
+        <DropdownMenuContent align="start" className="py-2 px-0">
           <DropdownMenuLabel className="hidden">Actions</DropdownMenuLabel>
           <DropdownMenuItem
             onClick={() => openModal('edit')}
