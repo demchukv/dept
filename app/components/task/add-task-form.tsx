@@ -12,11 +12,16 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Textarea } from '@/components/ui/textarea';
 import { startTransition, useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Icon } from '@/components/utils/icon';
 import Link from 'next/link';
+
+import ReactQuill, { Quill } from 'react-quill';
+import dynamic from 'next/dynamic';
+import 'react-quill/dist/quill.snow.css';
+
+// const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
 const addTaskSchema = z.object({
   title: z.string().min(1, 'Вкажіть назву завдання'),
@@ -28,7 +33,7 @@ export const AddTaskForm = () => {
     mode: 'onChange',
     defaultValues: {
       title: '',
-      description: '',
+      description: 'saj fsadjfkjsdhfkjsdhfjksdhlfksj',
     },
   });
 
@@ -46,6 +51,35 @@ export const AddTaskForm = () => {
       });
     });
   }
+
+  const quillModules = {
+    toolbar: [
+      [{ header: [1, 2, 3, false] }],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      ['link', 'image'],
+      [{ align: [] }],
+      [{ color: [] }],
+      ['code-block'],
+      ['clean'],
+    ],
+  };
+
+  const quillFormats = [
+    'header',
+    'bold',
+    'italic',
+    'underline',
+    'strike',
+    'blockquote',
+    'list',
+    'bullet',
+    'link',
+    'image',
+    'align',
+    'color',
+    'code-block',
+  ];
 
   return (
     <Form {...form}>
@@ -84,13 +118,13 @@ export const AddTaskForm = () => {
           name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Введіть опис заявки</FormLabel>
+              <FormLabel className="hidden">Введіть опис заявки</FormLabel>
               <FormControl>
-                <Textarea
-                  id="description"
-                  placeholder="Введіть назву заявки/задачі"
+                <ReactQuill
+                  modules={quillModules}
+                  formats={quillFormats}
+                  className="w-full h-[70%] mt-10 bg-white"
                   {...field}
-                  className="resize-y"
                 />
               </FormControl>
 
