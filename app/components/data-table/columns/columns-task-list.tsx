@@ -7,6 +7,8 @@ import {
   StatusLabelText,
 } from '@/app/components/task/status-label';
 import { ActionsTaskMenu } from '@/app/components/task/actions-task-menu';
+import { cn } from '@/lib/utils';
+import { compareAsc } from 'date-fns';
 
 declare module '@tanstack/react-table' {
   interface ColumnMeta<TData extends RowData, TValue> {
@@ -33,13 +35,13 @@ export type TaskRowData = {
 type TaskColumns = ColumnDef<TaskRowData, unknown>[];
 
 export const columns: TaskColumns = [
-  {
-    id: 'actions',
-    cell: ({ row }) => {
-      const task = row.original;
-      return <ActionsTaskMenu task={task} />;
-    },
-  },
+  // {
+  //   id: 'actions',
+  //   cell: ({ row }) => {
+  //     const task = row.original;
+  //     return <ActionsTaskMenu task={task} />;
+  //   },
+  // },
   {
     accessorKey: 'title',
     header: () => 'Назва',
@@ -47,12 +49,21 @@ export const columns: TaskColumns = [
       if (row.getCanExpand() && !row.getIsExpanded()) {
         row.toggleExpanded();
       }
+      const task = row.original;
       return (
         <div
           style={{
-            paddingLeft: `${row.depth * 2}rem`,
+            marginLeft: `${row.depth * 1}rem`,
+            height: '46px',
           }}
+          className={cn(
+            'flex gap-2 items-center',
+            row.depth > 0 && 'border-l border-gray-light',
+          )}
         >
+          {/* {row.depth > 0 && <div className={cn('w-1 h-full rounded-full')} />} */}
+          <ActionsTaskMenu task={task} />
+
           {getValue<string>()}
         </div>
       );
@@ -110,7 +121,13 @@ export const columns: TaskColumns = [
     header: 'Дедлайн',
     cell: ({ getValue }) => {
       const deadline = getValue<string>();
-      return deadline;
+      const dmy = deadline.split('.').reverse().join('-');
+      const cres = compareAsc(dmy, new Date().toISOString());
+      if (cres === 1) {
+        return deadline;
+      } else {
+        return <span className="text-warning">{deadline}</span>;
+      }
     },
   },
   {

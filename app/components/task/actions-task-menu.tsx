@@ -32,7 +32,12 @@ export const ActionsTaskMenu = ({ task }: { task: any }) => {
             className="h-6 w-6 bg-transparent outline-none "
           >
             <span className="sr-only">Open menu</span>
-            <Icon iconName="ActionMenu" width={24} height={24} />
+            <Icon
+              iconName="ActionMenu"
+              width={20}
+              height={20}
+              className="w-5 h-5"
+            />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start" className="py-2 px-0">
