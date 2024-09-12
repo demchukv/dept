@@ -150,7 +150,7 @@ export function DataTable<TData extends { subRows: any }, TValue>({
   });
   return (
     <>
-      <div className="mb-6 sm:mb-9 flex flex-col-reverse sm:flex-row sm:gap-6">
+      <div className="mb-6 sm:mb-8 flex flex-col-reverse sm:flex-row sm:gap-6 sm:justify-between">
         <div className="flex flex-col gap-2 sm:flex-row sm:gap-6 sm:mb-9">
           {responsible?.column.getCanFilter() ? (
             <div className="flex flex-col gap-2">
