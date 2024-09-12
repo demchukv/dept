@@ -9,6 +9,7 @@ import Balans from '@/components/icons/balans';
 import Bell from '@/components/icons/bell';
 import BillCheck from '@/components/icons/bill-check';
 import BillList from '@/components/icons/bill-list';
+import Bolt from '@/components/icons/bolt';
 import Calendar from '@/components/icons/calendar';
 import Call from '@/components/icons/call';
 import CardsList from '@/components/icons/cards-list';
@@ -65,6 +66,7 @@ export const Icons = {
   Bell,
   BillCheck,
   BillList,
+  Bolt,
   Calendar,
   Call,
   CardsList,
