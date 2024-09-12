@@ -46,6 +46,7 @@ export const Filter = ({
             .sort()
             .slice(0, 5000)
         : [],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [column.getFacetedUniqueValues(), filterVariant],
   );
 
@@ -56,6 +57,7 @@ export const Filter = ({
         .slice(0, 5000);
       return list.map((x) => ({ label: x, value: x }));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [column.getFacetedUniqueValues(), filterVariant]);
 
   const handleChange = (value: Option) => {

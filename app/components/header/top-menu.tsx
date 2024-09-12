@@ -95,7 +95,12 @@ export const TopMenu = () => {
           </NavigationMenuItem>
 
           <NavigationMenuItem>
-            <Link href="#" className="group" legacyBehavior passHref>
+            <Link
+              href="/task/add-task"
+              className="group"
+              legacyBehavior
+              passHref
+            >
               <NavigationMenuLink className=" flex items-center gap-[2px] font-semibold text-sm text-main-color transition-colors">
                 <Icon
                   width={20}

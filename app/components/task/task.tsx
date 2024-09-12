@@ -18,8 +18,8 @@ const dataTask: taskType[] = [
     id: 1,
     title: 'Зробити щось неабияке',
     number: '№ 4165',
-    createdAt: '01.05.24',
-    deadline: '10.05.24',
+    createdAt: '01.05.2024',
+    deadline: '10.10.2024',
     status: 'wait',
     responsible: 'Розробник',
     sheduledTime: '01:00:00',
@@ -32,8 +32,8 @@ const dataTask: taskType[] = [
         id: 26,
         title: 'Сходити в сусіднє село',
         number: '№ 8889',
-        createdAt: '01.05.24',
-        deadline: '03.05.24',
+        createdAt: '01.05.2024',
+        deadline: '03.05.2024',
         status: 'ready',
         responsible: 'Інтегратор',
         sheduledTime: '05:00:00',
@@ -46,8 +46,8 @@ const dataTask: taskType[] = [
         id: 27,
         title: 'І ще раз сходити в сусіднє село',
         number: '№ 8889',
-        createdAt: '01.05.24',
-        deadline: '03.05.24',
+        createdAt: '01.05.2024',
+        deadline: '03.05.2024',
         status: 'ready',
         responsible: 'Інтегратор',
         sheduledTime: '05:00:00',
@@ -62,8 +62,8 @@ const dataTask: taskType[] = [
     id: 2,
     title: 'Вбити дракона',
     number: '№ 6545',
-    createdAt: '01.05.24',
-    deadline: '10.05.24',
+    createdAt: '01.05.2024',
+    deadline: '10.05.2024',
     status: 'pause',
     responsible: 'Інтегратор',
     sheduledTime: '05:00:00',
@@ -76,8 +76,8 @@ const dataTask: taskType[] = [
     id: 3,
     title: 'Знайти аліньку квточку',
     number: '№ 8888',
-    createdAt: '01.05.24',
-    deadline: '03.05.24',
+    createdAt: '01.05.2024',
+    deadline: '03.05.2024',
     status: 'inwork',
     responsible: 'Інтегратор',
     sheduledTime: '05:00:00',
@@ -90,8 +90,8 @@ const dataTask: taskType[] = [
         id: 24,
         title: 'Сходити в сусіднє село',
         number: '№ 8889',
-        createdAt: '01.05.24',
-        deadline: '03.05.24',
+        createdAt: '01.05.2024',
+        deadline: '03.05.2024',
         status: 'ready',
         responsible: 'Інтегратор',
         sheduledTime: '05:00:00',
@@ -104,8 +104,8 @@ const dataTask: taskType[] = [
         id: 25,
         title: 'І ще раз сходити в сусіднє село',
         number: '№ 8889',
-        createdAt: '01.05.24',
-        deadline: '03.05.24',
+        createdAt: '01.05.2024',
+        deadline: '03.05.2024',
         status: 'ready',
         responsible: 'Інтегратор',
         sheduledTime: '05:00:00',
@@ -120,8 +120,8 @@ const dataTask: taskType[] = [
     id: 4,
     title: 'Сходити в сусіднє село',
     number: '№ 8889',
-    createdAt: '01.05.24',
-    deadline: '03.05.24',
+    createdAt: '01.05.2024',
+    deadline: '03.05.2024',
     status: 'ready',
     responsible: 'Інтегратор',
     sheduledTime: '05:00:00',
@@ -134,8 +134,8 @@ const dataTask: taskType[] = [
     id: 1,
     title: 'Зробити щось неабияке',
     number: '№ 4165',
-    createdAt: '01.05.24',
-    deadline: '10.05.24',
+    createdAt: '01.05.2024',
+    deadline: '10.05.2024',
     status: 'wait',
     responsible: 'Розробник',
     sheduledTime: '01:00:00',
@@ -148,8 +148,8 @@ const dataTask: taskType[] = [
     id: 3,
     title: 'Знайти аліньку квточку',
     number: '№ 8888',
-    createdAt: '01.05.24',
-    deadline: '03.05.24',
+    createdAt: '01.05.2024',
+    deadline: '03.05.2024',
     status: 'inwork',
     responsible: 'Інтегратор',
     sheduledTime: '05:00:00',
@@ -162,8 +162,8 @@ const dataTask: taskType[] = [
     id: 4,
     title: 'Сходити в сусіднє село',
     number: '№ 8889',
-    createdAt: '01.05.24',
-    deadline: '03.05.24',
+    createdAt: '01.05.2024',
+    deadline: '03.05.2024',
     status: 'ready',
     responsible: 'Інтегратор',
     sheduledTime: '05:00:00',
@@ -176,8 +176,8 @@ const dataTask: taskType[] = [
     id: 2,
     title: 'Вбити дракона',
     number: '№ 6545',
-    createdAt: '01.05.24',
-    deadline: '10.05.24',
+    createdAt: '01.05.2024',
+    deadline: '10.05.2024',
     status: 'pause',
     responsible: 'Інтегратор',
     sheduledTime: '05:00:00',
@@ -238,7 +238,7 @@ export const Task = () => {
         );
         //sorting
         // setdata
-        setData(currentData || []);
+        setData(dataTask || []);
         setRowCount(dataTask.length || 0);
       }, 500);
 
@@ -270,7 +270,7 @@ export const Task = () => {
   return (
     <>
       <h1 className="font-bold text-2xl leading-none text-main-dark mb-4 lg:mb-8">
-        Заявки / Задачі
+        Мої заявки / задачі
       </h1>
 
       <DataTable

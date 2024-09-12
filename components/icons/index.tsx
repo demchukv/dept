@@ -1,6 +1,7 @@
 import Academy from '@/components/icons/academy';
 import ActionMenu from '@/components/icons/action-menu';
 import ApplePay from '@/components/icons/apple-pay';
+import ArrowBack from '@/components/icons/arrow-back';
 import ArrowDown from '@/components/icons/arrow-down';
 import AvatarUser from '@/components/icons/avatar-user';
 import Bag from '@/components/icons/bag';
@@ -56,6 +57,7 @@ export const Icons = {
   Academy,
   ActionMenu,
   ApplePay,
+  ArrowBack,
   ArrowDown,
   AvatarUser,
   Bag,

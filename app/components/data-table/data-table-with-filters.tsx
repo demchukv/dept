@@ -43,6 +43,7 @@ import {
 import { Filter } from '@/app/components/data-table/table-filters';
 import { TablePagination } from '@/app/components/data-table/table-pagination';
 import { taskType } from '@/types/task';
+import Link from 'next/link';
 
 interface DataTableProps<TData extends { subRows: any }, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -120,10 +121,10 @@ export function DataTable<TData extends { subRows: any }, TValue>({
     },
     pageCount: rowCount === 0 ? 0 : Math.ceil(rowCount / pagination.pageSize),
     rowCount: rowCount,
-    manualSorting: true,
     enableMultiSort: true,
-    manualPagination: true,
-    manualFiltering: true,
+    manualSorting: false,
+    manualPagination: false,
+    manualFiltering: false,
     autoResetPageIndex: false,
     debugTable: false,
     debugHeaders: false,
@@ -180,11 +181,12 @@ export function DataTable<TData extends { subRows: any }, TValue>({
         <div className="flex flex-col gap-2  items-end mb-6 sm:mb-0">
           <span className="text-xs leading-none">&nbsp;</span>
           <Button
+            asChild
             type="button"
             variant="default"
             className="w-full sm:w-auto py-2.5 sm:py-[8px]"
           >
-            Додати заявку
+            <Link href="/task/add-task">Додати заявку</Link>
           </Button>
         </div>
       </div>
@@ -257,7 +259,7 @@ export function DataTable<TData extends { subRows: any }, TValue>({
                       return (
                         <TableHead
                           key={header.id}
-                          className="font-normal text-sm leading-main-lh text-gray-dark bg-white px-1 py-[22px] first:pl-8 last:pr-8"
+                          className="font-normal text-sm leading-main-lh text-gray-dark bg-white px-1 py-[22px] first:pl-2 last:pr-2 sm:first:pl-8 sm:last:pr-8 first:border-r first:border-gray-light"
                         >
                           {header.isPlaceholder
                             ? null
@@ -292,7 +294,7 @@ export function DataTable<TData extends { subRows: any }, TValue>({
                           {row.getVisibleCells().map((cell) => (
                             <TableCell
                               key={cell.id}
-                              className="px-1 py-[14px] font-medium text-sm leading-main-lh text-main-dark first:pl-8  last:pr-8"
+                              className="px-1 py-[14px] first:py-0 font-medium text-sm leading-main-lh text-main-dark first:pl-2 last:pr-2 sm:first:pl-8 sm:last:pr-8 first:border-r first:border-gray-light"
                             >
                               {flexRender(
                                 cell.column.columnDef.cell,
