@@ -43,6 +43,7 @@ import {
 import { Filter } from '@/app/components/data-table/table-filters';
 import { TablePagination } from '@/app/components/data-table/table-pagination';
 import { taskType } from '@/types/task';
+import Link from 'next/link';
 
 interface DataTableProps<TData extends { subRows: any }, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -180,11 +181,12 @@ export function DataTable<TData extends { subRows: any }, TValue>({
         <div className="flex flex-col gap-2  items-end mb-6 sm:mb-0">
           <span className="text-xs leading-none">&nbsp;</span>
           <Button
+            asChild
             type="button"
             variant="default"
             className="w-full sm:w-auto py-2.5 sm:py-[8px]"
           >
-            Додати заявку
+            <Link href="/task/add-task">Додати заявку</Link>
           </Button>
         </div>
       </div>

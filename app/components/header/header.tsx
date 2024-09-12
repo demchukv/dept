@@ -12,6 +12,7 @@ import { TopMenu } from '@/app/components/header/top-menu';
 
 import { useSelector } from 'react-redux';
 import { selectCurrentAccount } from '@/store/account/accountSlice';
+import Link from 'next/link';
 // import accountData from '@/data/account.json';
 
 export const Header = () => {
@@ -37,8 +38,8 @@ export const Header = () => {
         </div>
         <div className="flex items-center flex-grow">
           <div className="flex flex-grow items-center justify-center sm:justify-end md:justify-start md:hidden">
-            <Button type="button" size="sm">
-              Нова заявка
+            <Button type="button" size="sm" asChild>
+              <Link href="/task/add-task">Нова заявка</Link>
             </Button>
           </div>
           <TopMenu />
