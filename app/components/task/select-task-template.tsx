@@ -15,6 +15,9 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import { UseFormReturn } from 'react-hook-form';
+import { addTaskSchema } from '@/app/components/task/add-task-form';
+import { z } from 'zod';
 
 const taskTemplateList = [
   { value: 'template1', label: 'Встановлення операційної системи' },
@@ -25,7 +28,7 @@ const taskTemplateList = [
 
 interface SelectTaskTemplateProps {
   onClose: (state: boolean, e: React.MouseEvent | undefined) => void;
-  form: any;
+  form: UseFormReturn<z.infer<typeof addTaskSchema>>;
 }
 export const SelectTaskTemplate = ({
   onClose,

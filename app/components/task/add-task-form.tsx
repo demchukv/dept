@@ -24,7 +24,7 @@ import { Editor } from '@/components/editor';
 import { Separator } from '@/components/ui/separator';
 import { SelectTaskTemplate } from '@/app/components/task/select-task-template';
 
-const addTaskSchema = z.object({
+export const addTaskSchema = z.object({
   title: z.string().min(1, 'Вкажіть назву завдання'),
   description: z.string().min(1, 'Вкажіть опис завдання'),
   deadline: z.date(),
@@ -33,6 +33,8 @@ const addTaskSchema = z.object({
 });
 
 export const AddTaskForm = () => {
+  const [multipleFiles, setMultipleFiles] = useState<string[]>([]);
+  const [files, setFiles] = useState({});
   const [open, setOpen] = useState(false);
   const onClose = (state: boolean, e: React.MouseEvent | undefined) => {
     if (e) e.preventDefault();
@@ -49,14 +51,37 @@ export const AddTaskForm = () => {
       taskTemplate: '',
     },
   });
-  const fileRef = form.register('file');
+  const fileRef = form.register('file', { required: false });
 
+  const changeMultipleFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (
+      e.target instanceof HTMLInputElement &&
+      Array.isArray(e.target?.files) &&
+      e.target?.files.length > 0
+    ) {
+      setFiles((prev) => ({
+        ...prev,
+        [e.target.files[0].name]: e.target.files[0],
+      }));
+
+      const fileArray = Array.from(e.target.files).map((file) =>
+        URL.createObjectURL(file),
+      );
+      setMultipleFiles((prevFiles) => [...prevFiles, ...fileArray]);
+    }
+  };
+  console.log(files);
   function onSubmit(data: z.infer<typeof addTaskSchema>) {
     startTransition(() => {
       //TODO: make API request and setData
       console.log(data);
-
-      const values = { ...data, deadline: formatISO(data.deadline) };
+      console.log(multipleFiles);
+      const values = {
+        ...data,
+        deadline: formatISO(data.deadline),
+        files: multipleFiles,
+        images: Object.values(files),
+      };
 
       toast({
         title: 'Ви відправили наступні значення:',
@@ -139,7 +164,12 @@ export const AddTaskForm = () => {
                             Додати
                             <span className="hidden sm:inline"> файл</span>
                             <FormControl className="sr-only">
-                              <Input type="file" {...fileRef} />
+                              <Input
+                                type="file"
+                                {...fileRef}
+                                multiple
+                                onChange={changeMultipleFiles}
+                              />
                             </FormControl>
                           </FormLabel>
                           <FormMessage />
