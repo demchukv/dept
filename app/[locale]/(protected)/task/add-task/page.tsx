@@ -26,7 +26,7 @@ const AddTaskPage = async ({
       resources={resources}
     >
       <div className="flex gap-3 items-center mb-6 sm:mb-4">
-        <Link href="/task">
+        <Link href="/task" className="hover:text-main-color">
           <Icon iconName="ArrowBack" width={24} height={24} />
         </Link>
         <h1 className="font-bold text-2xl leading-none text-main-dark ">
