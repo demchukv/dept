@@ -61,6 +61,11 @@ export const AddTaskForm = () => {
       delete newFiles[name];
       return newFiles;
     });
+    setMultipleFiles((prev) => {
+      const newFiles = [...prev];
+      newFiles.splice(prev.indexOf(name), 1);
+      return newFiles;
+    });
   };
   const changeMultipleFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.files);

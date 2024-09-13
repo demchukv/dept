@@ -41,7 +41,7 @@ export const Editor = ({ field }: EditorProps) => {
   const quillModules = {
     toolbar: [
       ['bold', 'italic', 'underline', 'strike', { font: [] }],
-      [{ list: 'bullet' }, { list: 'ordered' }],
+      [{ list: 'bullet' }, { list: 'ordered' }, { list: 'check' }],
       ['link', 'code-block', 'blockquote'],
       // [{ font: [] }],
       // [{ header: [1, 2, 3, false] }],
@@ -70,6 +70,10 @@ export const Editor = ({ field }: EditorProps) => {
     'blockquote',
     'list',
     'bullet',
+    'check',
+    'indent',
+    'code',
+    'ordered',
     'link',
     'image',
     'align',

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Metadata } from 'next';
 
+import { Repair } from '@/app/components/repair/repair';
+
 import initTranslations from '@/app/i18n';
 import TranslationsProvider from '@/components/translations-provider';
 
@@ -23,7 +25,7 @@ const RepairPage = async ({
       locale={locale}
       resources={resources}
     >
-      <div>Repair Page</div>
+      <Repair />
     </TranslationsProvider>
   );
 };

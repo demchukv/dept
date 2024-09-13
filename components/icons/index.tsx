@@ -61,6 +61,10 @@ import Route from '@/components/icons/route';
 import Search from '@/components/icons/search';
 import SettingAlert from '@/components/icons/setting-alert';
 import Settings from '@/components/icons/settings';
+import StatusCheck from '@/components/icons/status-check';
+import StatusReady from '@/components/icons/status-ready';
+import StatusRepair from '@/components/icons/status-repair';
+import StatusSend from '@/components/icons/status-send';
 import Task from '@/components/icons/task';
 import Trash from '@/components/icons/trash';
 import User from '@/components/icons/user';
@@ -132,6 +136,10 @@ export const Icons = {
   Search,
   SettingAlert,
   Settings,
+  StatusCheck,
+  StatusReady,
+  StatusRepair,
+  StatusSend,
   Task,
   Trash,
   User,
