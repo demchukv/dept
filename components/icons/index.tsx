@@ -3,6 +3,7 @@ import ActionMenu from '@/components/icons/action-menu';
 import ApplePay from '@/components/icons/apple-pay';
 import ArrowBack from '@/components/icons/arrow-back';
 import ArrowDown from '@/components/icons/arrow-down';
+import Attachment from '@/components/icons/attachment';
 import AvatarUser from '@/components/icons/avatar-user';
 import Bag from '@/components/icons/bag';
 import Balans from '@/components/icons/balans';
@@ -15,6 +16,7 @@ import Call from '@/components/icons/call';
 import CardsList from '@/components/icons/cards-list';
 import Case from '@/components/icons/case';
 import Check from '@/components/icons/check';
+import CheckList from '@/components/icons/check-list';
 import ClockInWork from '@/components/icons/clock-in-work';
 import ClockPause from '@/components/icons/clock-pause';
 import ClockReady from '@/components/icons/clock-ready';
@@ -38,6 +40,7 @@ import Help from '@/components/icons/help';
 import Home from '@/components/icons/home';
 import Logout from '@/components/icons/logout';
 import Mail from '@/components/icons/mail';
+import Mention from '@/components/icons/mention';
 import Menu from '@/components/icons/menu';
 import Plus from '@/components/icons/plus';
 import Product from '@/components/icons/product';
@@ -70,6 +73,7 @@ export const Icons = {
   ApplePay,
   ArrowBack,
   ArrowDown,
+  Attachment,
   AvatarUser,
   Bag,
   Balans,
@@ -82,6 +86,7 @@ export const Icons = {
   CardsList,
   Case,
   Check,
+  CheckList,
   ClockInWork,
   ClockPause,
   ClockReady,
@@ -106,6 +111,7 @@ export const Icons = {
   Home,
   Logout,
   Mail,
+  Mention,
   Menu,
   Plus,
   Product,

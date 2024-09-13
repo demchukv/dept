@@ -89,7 +89,7 @@ export const Editor = ({ field }: EditorProps) => {
             // modules={{ toolbar: '#toolbar' }}
             modules={quillModules}
             formats={quillFormats}
-            className="w-full h-[70%] mb-4"
+            className="w-full"
             {...field}
           />
         </>
