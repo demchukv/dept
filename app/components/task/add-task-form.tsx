@@ -12,17 +12,30 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Textarea } from '@/components/ui/textarea';
-import { startTransition, useState } from 'react';
+import { startTransition, useState, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Icon } from '@/components/utils/icon';
 import Link from 'next/link';
+
+import ReactQuill, { Quill } from 'react-quill-new';
+// import dynamic from 'next/dynamic';
+// import 'react-quill-new/dist/quill.snow.css';
+import '@/public/styles/quill.css';
+
+// const ReactQuill = dynamic(() => import('react-quill'), {
+//   ssr: false
+// });
+// const ReactQuill = dynamic(import('react-quill'), {
+//   ssr: false,
+//   loading: () => <p>Loading editor...</p>,
+// });
 
 const addTaskSchema = z.object({
   title: z.string().min(1, 'Вкажіть назву завдання'),
   description: z.string().min(1, 'Вкажіть опис завдання'),
 });
 export const AddTaskForm = () => {
+  const [isMounted, setIsMounted] = useState(false);
   const form = useForm<z.infer<typeof addTaskSchema>>({
     resolver: zodResolver(addTaskSchema),
     mode: 'onChange',
@@ -46,6 +59,43 @@ export const AddTaskForm = () => {
       });
     });
   }
+
+  const quillModules = {
+    toolbar: [
+      ['bold', 'italic', 'underline', 'strike'],
+      [{ font: [] }],
+      // [{ header: [1, 2, 3, false] }],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      [{ align: [] }],
+      ['link'],
+      // ['image'],
+      // [{ color: [] }],
+      ['code-block'],
+      ['blockquote'],
+      // ['clean'],
+    ],
+  };
+
+  const quillFormats = [
+    'bold',
+    'italic',
+    'underline',
+    'strike',
+    'font',
+    'header',
+    'blockquote',
+    'list',
+    'bullet',
+    'link',
+    'image',
+    'align',
+    'color',
+    'code-block',
+  ];
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   return (
     <Form {...form}>
@@ -84,14 +134,22 @@ export const AddTaskForm = () => {
           name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Введіть опис заявки</FormLabel>
+              <FormLabel className="hidden">Введіть опис заявки</FormLabel>
               <FormControl>
-                <Textarea
-                  id="description"
-                  placeholder="Введіть назву заявки/задачі"
-                  {...field}
-                  className="resize-y"
-                />
+                {isMounted ? (
+                  <>
+                    {/* <Toolbar /> */}
+                    <ReactQuill
+                      // modules={{ toolbar: '#toolbar' }}
+                      modules={quillModules}
+                      formats={quillFormats}
+                      className="w-full h-[70%]"
+                      {...field}
+                    />
+                  </>
+                ) : (
+                  <div>Editor loading...</div>
+                )}
               </FormControl>
 
               <FormMessage />
@@ -120,5 +178,25 @@ export const AddTaskForm = () => {
         </div>
       </form>
     </Form>
+  );
+};
+
+const Toolbar = () => {
+  return (
+    <div id="toolbar" className="border-0">
+      <Button
+        type="button"
+        variant="default"
+        className="ql-bold hover:text-main-color"
+      >
+        <Icon iconName="Academy" width={24} height={24} />
+      </Button>
+      <Button type="button" variant="ghost" className="ql-italic">
+        I
+      </Button>
+      <Button type="button" variant="ghost" className="ql-underline">
+        U
+      </Button>
+    </div>
   );
 };
