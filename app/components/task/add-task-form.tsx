@@ -34,7 +34,7 @@ export const addTaskSchema = z.object({
 
 export const AddTaskForm = () => {
   const [multipleFiles, setMultipleFiles] = useState<string[]>([]);
-  const [files, setFiles] = useState({});
+  const [files, setFiles] = useState<Record<string, File>>({});
   const [open, setOpen] = useState(false);
   const onClose = (state: boolean, e: React.MouseEvent | undefined) => {
     if (e) e.preventDefault();
@@ -55,14 +55,16 @@ export const AddTaskForm = () => {
 
   const changeMultipleFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (
+      e.target.files &&
       e.target instanceof HTMLInputElement &&
-      Array.isArray(e.target?.files) &&
-      e.target?.files.length > 0
+      e.target.files?.length > 0
     ) {
-      setFiles((prev) => ({
-        ...prev,
-        [e.target.files[0].name]: e.target.files[0],
-      }));
+      if (e.target.files[0]) {
+        setFiles((prev) => ({
+          ...prev,
+          [e.target.files[0].name]: e.target.files[0],
+        }));
+      }
 
       const fileArray = Array.from(e.target.files).map((file) =>
         URL.createObjectURL(file),
@@ -70,19 +72,19 @@ export const AddTaskForm = () => {
       setMultipleFiles((prevFiles) => [...prevFiles, ...fileArray]);
     }
   };
-  console.log(files);
+  // console.log(files);
   function onSubmit(data: z.infer<typeof addTaskSchema>) {
     startTransition(() => {
       //TODO: make API request and setData
-      console.log(data);
-      console.log(multipleFiles);
+
       const values = {
         ...data,
         deadline: formatISO(data.deadline),
         files: multipleFiles,
-        images: Object.values(files),
+        images: files ? Object.values(files) : [],
       };
 
+      console.log(values);
       toast({
         title: 'Ви відправили наступні значення:',
         description: (
