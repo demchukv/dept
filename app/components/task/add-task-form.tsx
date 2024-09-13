@@ -20,6 +20,7 @@ import { DatePicker } from '@/app/components/common/date-picker';
 import { formatISO } from 'date-fns';
 
 import { Editor } from '@/components/editor';
+import { Separator } from '@/components/ui/separator';
 
 const addTaskSchema = z.object({
   title: z.string().min(1, 'Вкажіть назву завдання'),
@@ -104,27 +105,40 @@ export const AddTaskForm = () => {
         <div className="flex flex-col sm:flex-row justify-between">
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-6">
-              <div className="flex gap-8 items-center">
-                <div className="flex gap-1 font-semibold text-sm text-main-dark">
+              <div className="flex gap-6 sm:gap-8 justify-between sm:justify-start items-center">
+                <Button
+                  type="button"
+                  variant="ghost"
+                  className="flex justify-start gap-1 font-semibold text-sm text-main-dark hover:text-main-color px-0 py-0"
+                >
                   <Icon iconName="Attachment" width={20} height={20} /> Додати
-                  файл
-                </div>
-                <div className="flex gap-1 font-semibold text-sm text-main-dark">
+                  <span className="hidden sm:inline"> файл</span>
+                </Button>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  className="flex justify-start gap-1 font-semibold text-sm text-main-dark hover:text-main-color px-0 py-0"
+                >
                   <Icon iconName="Mention" width={20} height={20} /> Відмітити
-                  колегу
-                </div>
-                <div className="flex gap-1 font-semibold text-sm text-main-dark">
-                  <Icon iconName="CheckList" width={20} height={20} /> Додати
-                  чек лист
-                </div>
+                  <span className="hidden sm:inline"> колегу</span>
+                </Button>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  className="flex justify-start gap-1 font-semibold text-sm text-main-dark hover:text-main-color px-0 py-0"
+                >
+                  <Icon iconName="CheckList" width={20} height={20} />{' '}
+                  <span className="hidden sm:inline">Додати чек лист</span>
+                  <span className="inline sm:hidden">Чек лист</span>
+                </Button>
               </div>
               <div>
                 <FormField
                   control={form.control}
                   name="deadline"
                   render={({ field }) => (
-                    <FormItem className="flex gap-8 items-center">
-                      <FormLabel className="font-semibold text-base text-main-dark leading-normal whitespace-nowrap">
+                    <FormItem className="flex flex-col sm:flex-row sm:gap-8 sm:items-center">
+                      <FormLabel className="font-normal sm:font-semibold text-xs sm:text-base text-gray-dark sm:text-main-dark leading-none sm:leading-normal whitespace-nowrap text-left">
                         Крайній термін:
                       </FormLabel>
                       <FormControl>
@@ -142,7 +156,7 @@ export const AddTaskForm = () => {
                 />
               </div>
             </div>
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-2 sm:gap-6">
               <p className="font-semibold text-base text-main-dark leading-normal whitespace-nowrap">
                 Пов&#39;язані товари
               </p>
@@ -150,13 +164,14 @@ export const AddTaskForm = () => {
               <Button
                 variant="ghost"
                 type="button"
-                className="items-center text-main-color justify-start"
+                className="flex-row-reverse sm:flex-row items-center text-main-color justify-end sm:justify-start"
               >
                 <Icon iconName="Plus" width={20} height={20} />
                 додати пов&#39;язаний товар
               </Button>
             </div>
           </div>
+          <Separator className="my-4 sm:hidden" />
           <div className="flex flex-col">
             <Button variant="default" type="submit">
               Зберегти
