@@ -19,10 +19,12 @@ import Link from 'next/link';
 import { DatePicker } from '@/app/components/common/date-picker';
 import { formatISO } from 'date-fns';
 import { Modal, ModalContent } from '@/app/components/common/modal-new';
+import Image from 'next/image';
 
 import { Editor } from '@/components/editor';
 import { Separator } from '@/components/ui/separator';
 import { SelectTaskTemplate } from '@/app/components/task/select-task-template';
+import React from 'react';
 
 export const addTaskSchema = z.object({
   title: z.string().min(1, 'Вкажіть назву завдання'),
@@ -53,6 +55,13 @@ export const AddTaskForm = () => {
   });
   const fileRef = form.register('file', { required: false });
 
+  const deleteFile = (name: string) => {
+    setFiles((prev) => {
+      const newFiles = { ...prev };
+      delete newFiles[name];
+      return newFiles;
+    });
+  };
   const changeMultipleFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.files);
     if (
@@ -64,15 +73,11 @@ export const AddTaskForm = () => {
       setFiles((prev) => ({
         ...prev,
         [currentFile.name]: currentFile,
-      }))
-      // setFiles((prev) => ({
-      //   ...prev,
-      //   [e.target.files[0].name]: e.target.files[0],
-      // }));
-      // const fileArray = Array.from(e.target.files).map((file) =>
-      //   URL.createObjectURL(file),
-      // );
-      // setMultipleFiles((prevFiles) => [...prevFiles, ...fileArray]);
+      }));
+      const fileArray = Array.from(e.target.files).map((file) =>
+        URL.createObjectURL(file),
+      );
+      setMultipleFiles((prevFiles) => [...prevFiles, ...fileArray]);
     }
   };
   // console.log(files);
@@ -83,7 +88,7 @@ export const AddTaskForm = () => {
       const values = {
         ...data,
         deadline: formatISO(data.deadline),
-        // files: multipleFiles,
+        blob: multipleFiles,
         file: files ? Object.values(files) : [],
       };
 
@@ -153,19 +158,38 @@ export const AddTaskForm = () => {
           <div className="flex flex-col sm:flex-row justify-between">
             <div className="flex flex-col gap-8">
               <div className="flex flex-col gap-6">
-              <>
+                <>
                   {files && Object.keys(files).length > 0 && (
-                    <div className="flex flex-col gap-1">
+                    <div className="grid grid-cols-[42px_auto_20px] gap-2 font-semibold text-sm leading-main-lh">
                       {Object.keys(files).map((file) => (
-                        <div
-                          key={file}
-                          className="flex gap-2">
-                            {file}
+                        <React.Fragment key={file}>
+                          <div className="w-[42px] h-[42px] overflow-hidden rounded border border-main-color">
+                            {files[file].type.includes('image') && (
+                              <Image
+                                src={URL.createObjectURL(files[file])}
+                                alt={file}
+                                width={42}
+                                height={42}
+                                className="object-contain aspect-auto"
+                              />
+                            )}
                           </div>
+                          <span className="self-center">{file}</span>
+                          <Button
+                            variant="ghost"
+                            type="button"
+                            onClick={() => {
+                              deleteFile(file);
+                            }}
+                            className="text-warning w-5 h-5 self-center"
+                          >
+                            <Icon iconName="Trash" width={20} height={20} />
+                          </Button>
+                        </React.Fragment>
                       ))}
                     </div>
                   )}
-                  </>
+                </>
                 <div className="flex gap-6 sm:gap-8 justify-between sm:justify-start items-center">
                   <FormField
                     control={form.control}
