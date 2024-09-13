@@ -41,6 +41,16 @@ import Mail from '@/components/icons/mail';
 import Menu from '@/components/icons/menu';
 import Plus from '@/components/icons/plus';
 import Product from '@/components/icons/product';
+import QlBold from '@/components/icons/ql-bold';
+import QlItalic from '@/components/icons/ql-italic';
+import QlUnderline from '@/components/icons/ql-underline';
+import QlStrike from '@/components/icons/ql-strike';
+import QlLink from '@/components/icons/ql-link';
+import QlListBullet from '@/components/icons/ql-list-bullet';
+import QlListOrdered from '@/components/icons/ql-list-ordered';
+import QlBlockquote from '@/components/icons/ql-blockquote';
+import QlCodeBlock from '@/components/icons/ql-code-block';
+import QlSpacing from '@/components/icons/ql-spacing';
 import RadioChecked from '@/components/icons/radio-checked';
 import Repair from '@/components/icons/repair';
 import RoundedRrrowRigth from '@/components/icons/rounded-arrow-rigth';
@@ -99,6 +109,16 @@ export const Icons = {
   Menu,
   Plus,
   Product,
+  QlBold,
+  QlItalic,
+  QlUnderline,
+  QlStrike,
+  QlLink,
+  QlListBullet,
+  QlListOrdered,
+  QlBlockquote,
+  QlCodeBlock,
+  QlSpacing,
   RadioChecked,
   Repair,
   Route,
