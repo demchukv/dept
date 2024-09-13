@@ -12,7 +12,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { startTransition, useState } from 'react';
+import { startTransition, useState, useRef } from 'react';
 import { Input } from '@/components/ui/input';
 import { Icon } from '@/components/utils/icon';
 import Link from 'next/link';
@@ -26,8 +26,11 @@ const addTaskSchema = z.object({
   title: z.string().min(1, 'Вкажіть назву завдання'),
   description: z.string().min(1, 'Вкажіть опис завдання'),
   deadline: z.date(),
+  file: z.any(),
 });
+
 export const AddTaskForm = () => {
+  const fileInput = useRef<HTMLInputElement>(null);
   const form = useForm<z.infer<typeof addTaskSchema>>({
     resolver: zodResolver(addTaskSchema),
     mode: 'onChange',
@@ -36,18 +39,32 @@ export const AddTaskForm = () => {
       description: '',
       deadline: new Date(),
     },
+    // file: null,
   });
 
   function onSubmit(data: z.infer<typeof addTaskSchema>) {
     startTransition(() => {
       //TODO: make API request and setData
-      const values = { ...data, deadline: formatISO(data.deadline) };
+      console.log(data);
+      const formData = new FormData();
+      formData.append('file', data.file);
+      data = { ...data, file: data.file.name };
+      formData.append('values', JSON.stringify(data));
+
+      // formData.append('file', fileInput?.current?.files?.[0]!);
+
+      // const values = { ...data, deadline: formatISO(data.deadline) };
+      // formData.append('deadline', formatISO(data.deadline));
+
+      // const sendData = formData.getAll();
+      console.log(formData);
+
       toast({
         title: 'Ви відправили наступні значення:',
         description: (
           <pre className="mt-2 w-full rounded-md bg-slate-950 p-4">
             <code className="text-white">
-              {JSON.stringify(values, null, 2)}
+              {JSON.stringify(formData, null, 2)}
             </code>
           </pre>
         ),
@@ -106,14 +123,34 @@ export const AddTaskForm = () => {
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-6">
               <div className="flex gap-6 sm:gap-8 justify-between sm:justify-start items-center">
-                <Button
-                  type="button"
-                  variant="ghost"
-                  className="flex justify-start gap-1 font-semibold text-sm text-main-dark hover:text-main-color px-0 py-0"
-                >
+                <label className="flex justify-start gap-1 font-semibold text-sm text-main-dark hover:text-main-color px-0 py-0 cursor-pointer">
                   <Icon iconName="Attachment" width={20} height={20} /> Додати
                   <span className="hidden sm:inline"> файл</span>
-                </Button>
+                  <FormField
+                    control={form.control}
+                    name="file"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Input
+                            id="file"
+                            name="file"
+                            type="file"
+                            className="sr-only"
+                          />
+                        </FormControl>
+
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  {/* <input
+                    type="file"
+                    name="file"
+                    ref={fileInput}
+                    className="sr-only"
+                  /> */}
+                </label>
                 <Button
                   type="button"
                   variant="ghost"
