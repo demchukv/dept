@@ -34,7 +34,7 @@ export const addTaskSchema = z.object({
 
 export const AddTaskForm = () => {
   const [multipleFiles, setMultipleFiles] = useState<string[]>([]);
-  const [files, setFiles] = useState<Record<string, File>>({});
+  const [files, setFiles] = useState<Record<string, File>>();
   const [open, setOpen] = useState(false);
   const onClose = (state: boolean, e: React.MouseEvent | undefined) => {
     if (e) e.preventDefault();
@@ -54,22 +54,25 @@ export const AddTaskForm = () => {
   const fileRef = form.register('file', { required: false });
 
   const changeMultipleFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.files);
     if (
-      e.target.files &&
+      e.target.files !== null &&
       e.target instanceof HTMLInputElement &&
       e.target.files?.length > 0
     ) {
-      if (e.target.files[0]) {
-        setFiles((prev) => ({
-          ...prev,
-          [e.target.files[0].name]: e.target.files[0],
-        }));
-      }
-
-      const fileArray = Array.from(e.target.files).map((file) =>
-        URL.createObjectURL(file),
-      );
-      setMultipleFiles((prevFiles) => [...prevFiles, ...fileArray]);
+      const currentFile = e.target.files[0];
+      setFiles((prev) => ({
+        ...prev,
+        [currentFile.name]: currentFile,
+      }))
+      // setFiles((prev) => ({
+      //   ...prev,
+      //   [e.target.files[0].name]: e.target.files[0],
+      // }));
+      // const fileArray = Array.from(e.target.files).map((file) =>
+      //   URL.createObjectURL(file),
+      // );
+      // setMultipleFiles((prevFiles) => [...prevFiles, ...fileArray]);
     }
   };
   // console.log(files);
@@ -80,8 +83,8 @@ export const AddTaskForm = () => {
       const values = {
         ...data,
         deadline: formatISO(data.deadline),
-        files: multipleFiles,
-        images: files ? Object.values(files) : [],
+        // files: multipleFiles,
+        file: files ? Object.values(files) : [],
       };
 
       console.log(values);
@@ -150,6 +153,19 @@ export const AddTaskForm = () => {
           <div className="flex flex-col sm:flex-row justify-between">
             <div className="flex flex-col gap-8">
               <div className="flex flex-col gap-6">
+              <>
+                  {files && Object.keys(files).length > 0 && (
+                    <div className="flex flex-col gap-1">
+                      {Object.keys(files).map((file) => (
+                        <div
+                          key={file}
+                          className="flex gap-2">
+                            {file}
+                          </div>
+                      ))}
+                    </div>
+                  )}
+                  </>
                 <div className="flex gap-6 sm:gap-8 justify-between sm:justify-start items-center">
                   <FormField
                     control={form.control}
