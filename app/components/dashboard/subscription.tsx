@@ -1,5 +1,5 @@
 import React from 'react';
-import { subscriptionType } from '@/types/account';
+import { subscriptionType } from '@/types/subscription';
 import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
 import { Separator } from '@/components/ui/separator';
