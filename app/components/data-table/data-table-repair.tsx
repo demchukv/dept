@@ -145,7 +145,7 @@ export function DataTable<TData, TValue>({
       <div className="flex flex-col justify-between gap-2 sm:flex-row sm:gap-6 sm:mb-9">
         {createdAt?.column.getCanFilter() ? (
           <div className="w-full flex flex-col gap-2">
-            <span className="text-xs leading-none">Відповідальний</span>
+            <span className="text-xs leading-none">Дата створення</span>
             <Filter column={createdAt.column} />
           </div>
         ) : null}
@@ -158,7 +158,7 @@ export function DataTable<TData, TValue>({
         ) : null}
         {client?.column.getCanFilter() ? (
           <div className="w-full flex flex-col gap-2">
-            <span className="text-xs leading-none">Автор</span>
+            <span className="text-xs leading-none">Клієнт</span>
             <Filter column={client.column} />
           </div>
         ) : null}
