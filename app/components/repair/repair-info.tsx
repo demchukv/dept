@@ -21,7 +21,7 @@ import { RepairInfoPhoto } from './repair-info-photo';
 import { RepairInfoComplect } from './repair-info-complect';
 import { RepairInfoParts } from './repair-info-parts';
 import { RepairInfoWork } from './repair-info-work';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ReplenishBalance } from '@/app/components/balance/replenish-balance';
 import copy from 'copy-to-clipboard';
 
@@ -128,37 +128,37 @@ const dataRepair: repairType[] = [
           'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/f6/2b/3586029.png',
       },
       {
-        id: 1,
+        id: 2,
         imgSrc:
           'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/f4/7c/3586030.jpeg',
       },
       {
-        id: 1,
+        id: 3,
         imgSrc:
           'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/8d/ad/3586032.jpeg',
       },
       {
-        id: 1,
+        id: 4,
         imgSrc:
           'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/c8/d8/3586031.jpeg',
       },
       {
-        id: 1,
+        id: 5,
         imgSrc:
           'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/b2/b7/1279725.png',
       },
       {
-        id: 1,
+        id: 6,
         imgSrc:
           'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/95/21/1279728.png',
       },
       {
-        id: 1,
+        id: 7,
         imgSrc:
           'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/f6/2b/3586029.png',
       },
       {
-        id: 1,
+        id: 8,
         imgSrc:
           'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/95/21/1279728.png',
       },
@@ -261,37 +261,37 @@ const dataRepair: repairType[] = [
           'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/f6/2b/3586029.png',
       },
       {
-        id: 1,
+        id: 2,
         imgSrc:
           'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/f4/7c/3586030.jpeg',
       },
       {
-        id: 1,
+        id: 3,
         imgSrc:
           'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/8d/ad/3586032.jpeg',
       },
       {
-        id: 1,
+        id: 4,
         imgSrc:
           'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/c8/d8/3586031.jpeg',
       },
       {
-        id: 1,
+        id: 5,
         imgSrc:
           'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/b2/b7/1279725.png',
       },
       {
-        id: 1,
+        id: 6,
         imgSrc:
           'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/95/21/1279728.png',
       },
       {
-        id: 1,
+        id: 7,
         imgSrc:
           'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/f6/2b/3586029.png',
       },
       {
-        id: 1,
+        id: 8,
         imgSrc:
           'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/95/21/1279728.png',
       },
@@ -302,6 +302,8 @@ const dataRepair: repairType[] = [
 export const RepairInfo = () => {
   const { id } = useParams();
   const [open, setOpen] = useState(false);
+  const [accOne, setAccOne] = useState<string>();
+  const [accTwo, setAccTwo] = useState<string>();
 
   const onClose = (state: boolean, e: React.MouseEvent | undefined) => {
     if (e) e.preventDefault();
@@ -323,6 +325,21 @@ export const RepairInfo = () => {
         Не оплачено
       </span>
     );
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 834) {
+        setAccOne('item-1');
+        setAccTwo('item-2');
+      } else {
+        setAccOne(undefined);
+        setAccTwo(undefined);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    handleResize();
+    return () => window.removeEventListener('resize', handleResize);
+  }, [accOne, accTwo]);
 
   return (
     <>
@@ -484,7 +501,9 @@ export const RepairInfo = () => {
                   type="single"
                   collapsible
                   className="w-full flex flex-col gap-4 border-none "
-                  defaultValue="item-1"
+                  defaultValue={window.screen.width >= 834 ? 'item-1' : ''}
+                  value={accOne}
+                  onValueChange={(value) => setAccOne(value)}
                 >
                   <AccordionItem value="item-1" className="w-full">
                     <AccordionTrigger className="sm:hidden">
@@ -508,7 +527,9 @@ export const RepairInfo = () => {
                   type="single"
                   collapsible
                   className="w-full flex flex-col gap-4 border-none"
-                  defaultValue="item-2"
+                  defaultValue={window.screen.width >= 834 ? 'item-2' : ''}
+                  value={accTwo}
+                  onValueChange={(value) => setAccTwo(value)}
                 >
                   <AccordionItem value="item-2" className="w-full">
                     <AccordionTrigger className="sm:hidden">
