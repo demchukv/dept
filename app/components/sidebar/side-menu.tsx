@@ -139,7 +139,11 @@ export const SideMenu = ({ closeSidebar }: MenuItemProps) => {
       </Link>
       <Link
         href="/repair"
-        className={cn(linkClass, path === '/repair' && 'text-main-color')}
+        className={cn(
+          linkClass,
+          (path === '/repair' || path.includes('/repair/')) &&
+            'text-main-color',
+        )}
         locale={lang}
         scroll={false}
         onClick={() => closeSidebar && closeSidebar()}

@@ -2,6 +2,7 @@ import { repairType } from '@/types/repair';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import Image from 'next/image';
 import { Icon } from '@/components/utils/icon';
+import { ImageZoom } from '@/app/components/common/image-zoom';
 
 interface RepairInfoPartsProps {
   data: repairType;
@@ -21,12 +22,19 @@ export const RepairInfoParts = ({ data }: RepairInfoPartsProps) => {
               >
                 <div className="w-16 h-16 object-contain">
                   {item.imgSrc && (
-                    <Image
+                    <>
+                      {/* <Image
                       src={item.imgSrc}
                       alt="image"
                       width={64}
                       height={64}
-                    />
+                      /> */}
+                      <ImageZoom
+                        src={item.imgSrc}
+                        alt={data.device}
+                        className="w-64 h-64"
+                      />
+                    </>
                   )}
                   {!item.imgSrc && (
                     <Icon

@@ -409,7 +409,7 @@ export const RepairInfo = () => {
                 </Button>
               </div>
 
-              <div className="w-full flex flex-col">
+              <div className="max-w-full flex flex-col">
                 <Separator className="my-4 sm:hidden" />
 
                 <Accordion
@@ -422,11 +422,11 @@ export const RepairInfo = () => {
                     <AccordionTrigger className="sm:hidden">
                       Інформація про пристрій
                     </AccordionTrigger>
-                    <AccordionContent className="sm:flex sm:gap-8 sm:justify-between">
-                      <div className="sm:w-[calc(50%-20px)] pb-4 sm:pb-0">
+                    <AccordionContent className="max-w-full sm:flex sm:gap-8 sm:justify-between relative">
+                      <div className="w-full sm:w-[calc(50%-20px)] pb-4 sm:pb-0">
                         <RepairInfoPhoto data={data} />
                       </div>
-                      <div className="sm:w-[calc(50%-20px)] pb-4 sm:pb-0">
+                      <div className="w-full sm:w-[calc(50%-20px)] pb-4 sm:pb-0">
                         <RepairInfoComplect data={data} />
                       </div>
                     </AccordionContent>
@@ -446,10 +446,10 @@ export const RepairInfo = () => {
                       Деталі по ремонту
                     </AccordionTrigger>
                     <AccordionContent className="sm:flex sm:gap-8 sm:justify-between">
-                      <div className="sm:w-[calc(50%-20px)] pb-4 sm:pb-0">
+                      <div className="w-full sm:w-[calc(50%-20px)] pb-4 sm:pb-0">
                         <RepairInfoParts data={data} />
                       </div>
-                      <div className="sm:w-[calc(50%-20px)] pb-4 sm:pb-0">
+                      <div className="w-full sm:w-[calc(50%-20px)] pb-4 sm:pb-0">
                         <RepairInfoWork data={data} />
                       </div>
                     </AccordionContent>
