@@ -79,6 +79,8 @@ const dataRepair: repairType[] = [
         price: '1000',
         quantity: 1,
         date: '10.05.2024',
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/72/89/1349935.jpeg',
       },
       {
         id: 2,
@@ -86,6 +88,8 @@ const dataRepair: repairType[] = [
         price: '500',
         quantity: 1,
         date: '10.05.2024',
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/fa/08/1349936.jpeg',
       },
       {
         id: 3,
@@ -93,6 +97,8 @@ const dataRepair: repairType[] = [
         price: '1000',
         quantity: 1,
         date: '10.05.2024',
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/72/89/1349935.jpeg',
       },
       {
         id: 4,
@@ -100,6 +106,8 @@ const dataRepair: repairType[] = [
         price: '500',
         quantity: 1,
         date: '10.05.2024',
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/fa/08/1349936.jpeg',
       },
     ],
   },
@@ -158,6 +166,8 @@ const dataRepair: repairType[] = [
         price: '1000',
         quantity: 1,
         date: '10.05.2024',
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/72/89/1349935.jpeg',
       },
       {
         id: 2,
@@ -165,6 +175,8 @@ const dataRepair: repairType[] = [
         price: '500',
         quantity: 1,
         date: '10.05.2024',
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/fa/08/1349936.jpeg',
       },
       {
         id: 3,
@@ -172,6 +184,8 @@ const dataRepair: repairType[] = [
         price: '1000',
         quantity: 1,
         date: '10.05.2024',
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/72/89/1349935.jpeg',
       },
       {
         id: 4,
@@ -179,6 +193,8 @@ const dataRepair: repairType[] = [
         price: '500',
         quantity: 1,
         date: '10.05.2024',
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/fa/08/1349936.jpeg',
       },
     ],
   },

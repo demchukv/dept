@@ -40,4 +40,5 @@ type repairParts = {
   price: string | number;
   quantity: number;
   date: string;
+  imgSrc?: string;
 };
