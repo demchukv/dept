@@ -15,4 +15,6 @@ export type repairType = {
     | 'ready';
   client: string;
   cost: string | number;
+  payment: string;
+  subRows?: repairType[];
 };

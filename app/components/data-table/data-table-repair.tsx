@@ -133,58 +133,58 @@ export function DataTable<TData extends { subRows: any }, TValue>({
   }, [pagination, sorting, columnFilters]);
   // console.log(table.getHeaderGroups()[0].headers);
 
-  const responsible = table.getHeaderGroups()[0].headers.find((header) => {
-    return header.id === 'responsible';
-  });
-  const author = table.getHeaderGroups()[0].headers.find((header) => {
-    return header.id === 'author';
+  const createdAt = table.getHeaderGroups()[0].headers.find((header) => {
+    return header.id === 'createdAt';
   });
   const status = table.getHeaderGroups()[0].headers.find((header) => {
     return header.id === 'status';
   });
-  const title = table.getHeaderGroups()[0].headers.find((header) => {
-    return header.id === 'title';
+  const client = table.getHeaderGroups()[0].headers.find((header) => {
+    return header.id === 'client';
+  });
+  const action = table.getHeaderGroups()[0].headers.find((header) => {
+    return header.id === 'action';
   });
   return (
     <>
+      <div className="flex items-center justify-end mb-6 sm:mb-8">
+        <span className="text-xs leading-none">&nbsp;</span>
+        <Button
+          asChild
+          type="button"
+          variant="default"
+          className="w-full sm:w-auto py-2.5 sm:py-[8px]"
+        >
+          <Link href="/repair/new">Додати заявку</Link>
+        </Button>
+      </div>
       <div className="mb-6 sm:mb-8 flex flex-col-reverse sm:flex-row sm:gap-6 sm:justify-between">
         <div className="flex flex-col gap-2 sm:flex-row sm:gap-6 sm:mb-9">
-          {responsible?.column.getCanFilter() ? (
+          {createdAt?.column.getCanFilter() ? (
             <div className="flex flex-col gap-2">
               <span className="text-xs leading-none">Відповідальний</span>
-              <Filter column={responsible.column} />
+              <Filter column={createdAt.column} />
             </div>
           ) : null}
+
           {status?.column.getCanFilter() ? (
             <div className="flex flex-col gap-2">
               <span className="text-xs leading-none">Статус</span>
               <Filter column={status.column} />
             </div>
           ) : null}
-          {author?.column.getCanFilter() ? (
+          {client?.column.getCanFilter() ? (
             <div className="flex flex-col gap-2">
               <span className="text-xs leading-none">Автор</span>
-              <Filter column={author.column} />
+              <Filter column={client.column} />
             </div>
           ) : null}
-          {title?.column.getCanFilter() ? (
+          {action?.column.getCanFilter() ? (
             <div className="flex flex-col gap-2">
               <span className="text-xs leading-none">Пошук</span>
-              <Filter column={title.column} icon="Search" />
+              <Filter column={action.column} icon="Search" />
             </div>
           ) : null}
-        </div>
-
-        <div className="flex flex-col gap-2  items-end mb-6 sm:mb-0">
-          <span className="text-xs leading-none">&nbsp;</span>
-          <Button
-            asChild
-            type="button"
-            variant="default"
-            className="w-full sm:w-auto py-2.5 sm:py-[8px]"
-          >
-            <Link href="/task/add-task">Додати заявку</Link>
-          </Button>
         </div>
       </div>
 

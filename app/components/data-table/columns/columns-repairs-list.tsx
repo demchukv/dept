@@ -32,25 +32,15 @@ export type RepairRowData = {
   subRows: any;
 };
 
-type TaskColumns = ColumnDef<RepairRowData, unknown>[];
+type RepairColumns = ColumnDef<RepairRowData, unknown>[];
 
-export const columns: TaskColumns = [
-  // {
-  //   id: 'actions',
-  //   cell: ({ row }) => {
-  //     const task = row.original;
-  //     return <ActionsTaskMenu task={task} />;
-  //   },
-  // },
+export const columns: RepairColumns = [
   {
     accessorKey: 'number',
     header: 'Номер',
     cell: ({ getValue }) => {
       const number = getValue<string>();
       return number;
-    },
-    meta: {
-      filterVariant: 'text',
     },
   },
   {
@@ -70,14 +60,24 @@ export const columns: TaskColumns = [
       const createdAt = getValue<string>();
       return createdAt;
     },
+    meta: {
+      filterVariant: 'date',
+    },
   },
-
+  {
+    accessorKey: 'action',
+    header: () => 'Дія',
+    cell: ({ getValue }) => {
+      const action = getValue<string>();
+      return action;
+    },
+    footer: (props) => props.column.id,
+  },
   {
     accessorKey: 'status',
     header: 'Статус',
     cell: ({ getValue }) => {
       const status = getValue<string>();
-      //   return repairStatusList[status].name;
       return <RepairStatusLabelText status={status} />;
     },
     meta: {
@@ -86,8 +86,17 @@ export const columns: TaskColumns = [
     },
   },
   {
+    accessorKey: 'client',
+    header: 'Клієнт/Співробітник',
+    cell: (info) => info.getValue<string>(),
+    meta: {
+      filterVariant: 'autocomplete',
+      selectValues: statusSelect,
+    },
+  },
+  {
     accessorKey: 'deadline',
-    header: 'Дедлайн',
+    header: 'Плановий термін',
     cell: ({ getValue }) => {
       const deadline = getValue<string>();
       const dmy = deadline.split('.').reverse().join('-');
@@ -100,31 +109,6 @@ export const columns: TaskColumns = [
     },
   },
   {
-    accessorKey: 'responsible',
-    header: 'Відповідальний',
-    cell: (info) => info.getValue<string>(),
-    meta: {
-      filterVariant: 'autocomplete',
-      selectValues: statusSelect,
-    },
-  },
-  {
-    accessorKey: 'sheduledTime',
-    header: 'Плановий час',
-    cell: ({ getValue }) => {
-      const sheduledTime = getValue<string>();
-      return sheduledTime;
-    },
-  },
-  {
-    accessorKey: 'spentTime',
-    header: 'Затрачений час',
-    cell: ({ getValue }) => {
-      const spentTime = getValue<string>();
-      return spentTime;
-    },
-  },
-  {
     accessorKey: 'cost',
     header: 'Вартість, грн',
     cell: ({ getValue }) => {
@@ -132,27 +116,12 @@ export const columns: TaskColumns = [
       return cost;
     },
   },
-
   {
-    accessorKey: 'source',
-    header: 'Джерело',
+    accessorKey: 'payment',
+    header: 'Оплата',
     cell: ({ getValue }) => {
-      const source = getValue<number>();
-      return source;
-    },
-  },
-
-  {
-    accessorKey: 'author',
-    header: 'Автор',
-    // cell: (info) => info.getValue<string>(),
-    cell: ({ getValue }) => {
-      const author = getValue<string>();
-      return author;
-    },
-    meta: {
-      filterVariant: 'autocomplete',
-      selectValues: statusSelect,
+      const cost = getValue<string>();
+      return cost;
     },
   },
 ];

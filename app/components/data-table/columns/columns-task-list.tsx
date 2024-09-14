@@ -1,7 +1,6 @@
 'use client';
 
 import { ColumnDef, RowData } from '@tanstack/react-table';
-import { taskType } from '@/types/task';
 import {
   statusList,
   StatusLabelText,
@@ -24,7 +23,7 @@ declare module '@tanstack/react-table' {
   }
 }
 
-let statusSelect: { label: string; value: string }[] = [];
+const statusSelect: { label: string; value: string }[] = [];
 for (const status in statusList) {
   statusSelect.push({ label: statusList[status].name, value: status });
 }
@@ -35,13 +34,6 @@ export type TaskRowData = {
 type TaskColumns = ColumnDef<TaskRowData, unknown>[];
 
 export const columns: TaskColumns = [
-  // {
-  //   id: 'actions',
-  //   cell: ({ row }) => {
-  //     const task = row.original;
-  //     return <ActionsTaskMenu task={task} />;
-  //   },
-  // },
   {
     accessorKey: 'title',
     header: () => 'Назва',
@@ -61,39 +53,11 @@ export const columns: TaskColumns = [
             row.depth > 0 && 'border-l border-gray-light',
           )}
         >
-          {/* {row.depth > 0 && <div className={cn('w-1 h-full rounded-full')} />} */}
           <ActionsTaskMenu task={task} />
 
           {getValue<string>()}
         </div>
       );
-      // return (
-      //   <div
-      //     style={{
-      //       // Since rows are flattened by default,
-      //       // we can use the row.depth property
-      //       // and paddingLeft to visually indicate the depth
-      //       // of the row
-      //       paddingLeft: `${row.depth * 2}rem`,
-      //     }}
-      //   >
-      //     <div>
-      //       {row.getCanExpand() ? (
-      //         <button
-      //           {...{
-      //             onClick: row.getToggleExpandedHandler(),
-      //             style: { cursor: 'pointer' },
-      //           }}
-      //         >
-      //           {row.getIsExpanded() ? '👇' : '👉'}
-      //         </button>
-      //       ) : (
-      //         ' '
-      //       )}{' '}
-      //       {getValue<string>()}
-      //     </div>
-      //   </div>
-      // );
     },
     footer: (props) => props.column.id,
   },
@@ -135,7 +99,6 @@ export const columns: TaskColumns = [
     header: 'Статус',
     cell: ({ getValue }) => {
       const status = getValue<string>();
-      // return statusList[status].name;
       return <StatusLabelText status={status} />;
     },
     meta: {

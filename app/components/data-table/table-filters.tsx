@@ -23,6 +23,7 @@ import {
   AutoComplete,
   type Option,
 } from '@/app/components/common/autocomplete';
+import { Icon } from '@/components/utils/icon';
 
 export const Filter = ({
   column,
@@ -113,15 +114,23 @@ export const Filter = ({
       <Popover>
         <PopoverTrigger asChild>
           <Button
-            variant={'outline'}
-            className={cn(' justify-start text-left font-normal')}
+            variant="ghost"
+            className={cn(
+              ' justify-between gap-2 text-left font-normal py-2 px-4 border border-gray-light',
+            )}
           >
-            <CalendarIcon className="mr-2 h-4 w-4" />
             {columnFilterValue ? (
               format(columnFilterValue as Date, 'dd.MM.yyyy')
             ) : (
-              <span>Pick a date</span>
+              <span>Оберіть дату</span>
             )}
+            <Icon
+              iconName="Calendar"
+              width={20}
+              height={20}
+              className="h-5 w-5"
+            />
+            {/* <CalendarIcon className="mr-2 h-4 w-4" /> */}
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0" align="start">

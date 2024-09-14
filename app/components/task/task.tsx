@@ -267,6 +267,7 @@ export const Task = () => {
     getData(initPagination, initSorting, initFiltering);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <>
       <h1 className="font-bold text-2xl leading-none text-main-dark mb-4 lg:mb-8">
