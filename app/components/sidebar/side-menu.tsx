@@ -27,7 +27,13 @@ export const SideMenu = ({ closeSidebar }: MenuItemProps) => {
   const router = useRouter();
 
   const subStates = {
-    product: false,
+    product:
+      path === '/subscription' ||
+      path === '/server' ||
+      path === '/domain' ||
+      path === '/certificate'
+        ? true
+        : false,
     call: false,
     mail: false,
     setting: false,
@@ -185,7 +191,10 @@ export const SideMenu = ({ closeSidebar }: MenuItemProps) => {
         >
           <Link
             href="/subscription"
-            className={subLinkClass}
+            className={cn(
+              subLinkClass,
+              path === '/subscription' && 'text-main-color',
+            )}
             locale={lang}
             scroll={false}
             onClick={() => closeSidebar && closeSidebar()}
@@ -194,7 +203,10 @@ export const SideMenu = ({ closeSidebar }: MenuItemProps) => {
           </Link>
           <Link
             href="/server"
-            className={subLinkClass}
+            className={cn(
+              subLinkClass,
+              path === '/server' && 'text-main-color',
+            )}
             locale={lang}
             scroll={false}
             onClick={() => closeSidebar && closeSidebar()}
@@ -203,7 +215,10 @@ export const SideMenu = ({ closeSidebar }: MenuItemProps) => {
           </Link>
           <Link
             href="/domain"
-            className={subLinkClass}
+            className={cn(
+              subLinkClass,
+              path === '/domain' && 'text-main-color',
+            )}
             locale={lang}
             scroll={false}
             onClick={() => closeSidebar && closeSidebar()}
@@ -212,7 +227,10 @@ export const SideMenu = ({ closeSidebar }: MenuItemProps) => {
           </Link>
           <Link
             href="/certificate"
-            className={subLinkClass}
+            className={cn(
+              subLinkClass,
+              path === '/certificate' && 'text-main-color',
+            )}
             locale={lang}
             scroll={false}
             onClick={() => closeSidebar && closeSidebar()}
