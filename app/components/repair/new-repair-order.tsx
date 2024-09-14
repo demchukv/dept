@@ -26,10 +26,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Textarea } from '@/components/ui/textarea';
 import { startTransition, useState } from 'react';
-import { Checkbox } from '@/components/ui/checkbox';
-import { ProductCard } from '@/app/components/shopping/product-card';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import React from 'react';
 import Link from 'next/link';
@@ -50,11 +47,6 @@ const deliveryList = [
   },
 ];
 
-const addrTypeList = [
-  { key: 1, val: 'Обрати адресу доставки' },
-  { key: 2, val: 'Ввести нову адресу відправки' },
-];
-
 const addressList = [
   { key: 1, val: 'Збережена адреса відправки 1' },
   { key: 2, val: 'Збережена адреса відправки 2' },
@@ -62,13 +54,13 @@ const addressList = [
 
 const orderSettingShema = z.object({
   text: z.string().min(1, 'Вкажіть текст повідомлення'),
-  products: z.array(z.string()).refine((value) => value.some((item) => item), {
-    message: 'Виберіть хоча би один товар, що повертаєте по гарантії',
-  }),
   delivery: z.string().min(1, 'Вкажіть причину повернення'),
   pib: z.string().min(3, 'Вкажіть ПІБ відправника'),
   phone: z.string().min(7, 'Вкажіть номер телефону відправника'),
   addrType: z.string().min(1, 'Вкажіть причину повернення'),
+  questType: z.string().min(1, 'Вкажіть причину повернення'),
+  iknow: z.string().optional(),
+  idontknow: z.string().optional(),
   newAddr: z.string().optional(),
   savedAddr: z.string().optional(),
 });
@@ -82,12 +74,14 @@ export const NewRepairOrder = ({ onClose }: NewRepairOrderProps) => {
     resolver: zodResolver(orderSettingShema),
     mode: 'onChange',
     defaultValues: {
-      products: [],
       text: '',
       delivery: '',
       pib: '',
       phone: '',
       addrType: '',
+      questType: '',
+      iknow: '',
+      idontknow: '',
       newAddr: '',
       savedAddr: '',
     },
@@ -156,83 +150,66 @@ export const NewRepairOrder = ({ onClose }: NewRepairOrderProps) => {
 
             <FormField
               control={form.control}
-              name="addrType"
+              name="questType"
               render={({ field }) => (
-                <FormItem className="space-y-4 mt-1 mb-4">
+                <FormItem className="space-y-0 mt-1 mb-4">
                   <FormControl>
                     <RadioGroup
                       onValueChange={field.onChange}
                       defaultValue={field.value as any}
-                      className="flex flex-col gap-5"
+                      className="flex flex-col gap-1"
                     >
-                      {addrTypeList.map((item) => (
-                        <React.Fragment key={item.key}>
-                          <FormItem className="flex items-center gap-x-2 space-y-0">
+                      <FormItem className="flex items-center gap-x-2 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="one" />
+                        </FormControl>
+                        <FormLabel className="font-normal text-sm text-main-dark leading-main-lh">
+                          я знаю, що треба робити
+                        </FormLabel>
+                      </FormItem>
+                      <FormField
+                        control={form.control}
+                        name="iknow"
+                        render={({ field }) => (
+                          <FormItem className="w-full mb-4">
                             <FormControl>
-                              <RadioGroupItem value={String(item.key)} />
+                              <Input
+                                {...field}
+                                // disabled={isPending}
+                                placeholder="напишіть, що треба зробити"
+                                type="text"
+                              />
                             </FormControl>
-                            <FormLabel className="w-full bg-transparent flex flex-col justify-start items-start border-0">
-                              {item.key === 1 && (
-                                <FormField
-                                  control={form.control}
-                                  name="savedAddr"
-                                  render={({ field }) => (
-                                    <FormItem>
-                                      <FormLabel className="font-normal text-xs text-gray-dark leading-none">
-                                        {item.val}
-                                      </FormLabel>
-                                      <Select
-                                        onValueChange={field.onChange}
-                                        defaultValue={field.value}
-                                      >
-                                        <FormControl>
-                                          <SelectTrigger>
-                                            <SelectValue placeholder="Оберіть адресу відправки" />
-                                          </SelectTrigger>
-                                        </FormControl>
-                                        <SelectContent>
-                                          {addressList.map((i) => (
-                                            <SelectItem
-                                              key={i.key}
-                                              value={String(i.key)}
-                                            >
-                                              {i.val}
-                                            </SelectItem>
-                                          ))}
-                                        </SelectContent>
-                                      </Select>
-
-                                      <FormMessage />
-                                    </FormItem>
-                                  )}
-                                />
-                              )}
-                              {item.key === 2 && (
-                                <FormField
-                                  control={form.control}
-                                  name="newAddr"
-                                  render={({ field }) => (
-                                    <FormItem className="mb-4 w-full">
-                                      <FormLabel className="font-normal text-xs text-gray-dark leading-none">
-                                        {item.val}
-                                      </FormLabel>
-                                      <FormControl>
-                                        <Input
-                                          {...field}
-                                          // disabled={isPending}
-                                          placeholder="Нова адреса"
-                                          type="text"
-                                        />
-                                      </FormControl>
-                                      <FormMessage />
-                                    </FormItem>
-                                  )}
-                                />
-                              )}
-                            </FormLabel>
+                            <FormMessage />
                           </FormItem>
-                        </React.Fragment>
-                      ))}
+                        )}
+                      />
+
+                      <FormItem className="flex items-center gap-x-2 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="two" />
+                        </FormControl>
+                        <FormLabel className="font-normal text-sm text-main-dark leading-main-lh">
+                          я не впевнений (-а), потрібна діагностка
+                        </FormLabel>
+                      </FormItem>
+                      <FormField
+                        control={form.control}
+                        name="idontknow"
+                        render={({ field }) => (
+                          <FormItem className="w-full mb-4">
+                            <FormControl>
+                              <Input
+                                {...field}
+                                // disabled={isPending}
+                                placeholder="опишіть проблему"
+                                type="text"
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
                     </RadioGroup>
                   </FormControl>
                   <FormMessage />
@@ -244,13 +221,13 @@ export const NewRepairOrder = ({ onClose }: NewRepairOrderProps) => {
 
         {step === 2 && (
           <ModalInner className="w-full font-normal text-sm text-main-dark leading-main-lh space-y-4 self-start flex-grow">
-            <div className="flex items-center justify-between text-base font-medium leading-normal mb-6">
+            <div className="flex sm:gap-1 sm:flex-col items-center justify-between sm:justify-center text-base font-medium leading-normal mb-6">
               <div className="text-main-color">КРОК 2/3</div>
               <div className="text-main-dark">Формування ТТН</div>
             </div>
             <p>
-              Оберіть кур’єрську службу і ми допоможемо вам сформувати ТТН для
-              відправки:
+              Оберіть зручну кур’єрську службу і ми допоможемо вам сформувати
+              ТТН для відправки:
             </p>
             <FormField
               control={form.control}
@@ -333,76 +310,69 @@ export const NewRepairOrder = ({ onClose }: NewRepairOrderProps) => {
                     <RadioGroup
                       onValueChange={field.onChange}
                       defaultValue={field.value as any}
-                      className="flex flex-col gap-5"
+                      className="flex flex-col"
                     >
-                      {addrTypeList.map((item) => (
-                        <React.Fragment key={item.key}>
-                          <FormItem className="flex items-center gap-x-2 space-y-0">
-                            <FormControl>
-                              <RadioGroupItem value={String(item.key)} />
-                            </FormControl>
-                            <FormLabel className="w-full bg-transparent flex flex-col justify-start items-start border-0">
-                              {item.key === 1 && (
-                                <FormField
-                                  control={form.control}
-                                  name="savedAddr"
-                                  render={({ field }) => (
-                                    <FormItem>
-                                      <FormLabel className="font-normal text-xs text-gray-dark leading-none">
-                                        {item.val}
-                                      </FormLabel>
-                                      <Select
-                                        onValueChange={field.onChange}
-                                        defaultValue={field.value}
-                                      >
-                                        <FormControl>
-                                          <SelectTrigger>
-                                            <SelectValue placeholder="Оберіть адресу відправки" />
-                                          </SelectTrigger>
-                                        </FormControl>
-                                        <SelectContent>
-                                          {addressList.map((i) => (
-                                            <SelectItem
-                                              key={i.key}
-                                              value={String(i.key)}
-                                            >
-                                              {i.val}
-                                            </SelectItem>
-                                          ))}
-                                        </SelectContent>
-                                      </Select>
+                      <FormItem className="flex items-center gap-x-2 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="saved" />
+                        </FormControl>
+                        <FormLabel className="font-normal text-sm text-main-dark leading-main-lh">
+                          Обрати адресу доставки
+                        </FormLabel>
+                      </FormItem>
+                      <FormField
+                        control={form.control}
+                        name="savedAddr"
+                        render={({ field }) => (
+                          <FormItem className=" mb-3">
+                            <Select
+                              onValueChange={field.onChange}
+                              defaultValue={field.value}
+                            >
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Оберіть адресу відправки" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                {addressList.map((i) => (
+                                  <SelectItem key={i.key} value={String(i.key)}>
+                                    {i.val}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
 
-                                      <FormMessage />
-                                    </FormItem>
-                                  )}
-                                />
-                              )}
-                              {item.key === 2 && (
-                                <FormField
-                                  control={form.control}
-                                  name="newAddr"
-                                  render={({ field }) => (
-                                    <FormItem className="mb-4 w-full">
-                                      <FormLabel className="font-normal text-xs text-gray-dark leading-none">
-                                        {item.val}
-                                      </FormLabel>
-                                      <FormControl>
-                                        <Input
-                                          {...field}
-                                          // disabled={isPending}
-                                          placeholder="Нова адреса"
-                                          type="text"
-                                        />
-                                      </FormControl>
-                                      <FormMessage />
-                                    </FormItem>
-                                  )}
-                                />
-                              )}
-                            </FormLabel>
+                            <FormMessage />
                           </FormItem>
-                        </React.Fragment>
-                      ))}
+                        )}
+                      />
+
+                      <FormItem className="flex items-center gap-x-2 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="new" />
+                        </FormControl>
+                        <FormLabel className="font-normal text-sm text-main-dark leading-main-lh">
+                          Ввести нову адресу відправки
+                        </FormLabel>
+                      </FormItem>
+                      <FormField
+                        control={form.control}
+                        name="newAddr"
+                        render={({ field }) => (
+                          <FormItem className="mb-4 w-full">
+                            <FormControl>
+                              <Input
+                                {...field}
+                                // disabled={isPending}
+                                placeholder="Нова адреса"
+                                type="text"
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
                     </RadioGroup>
                   </FormControl>
                   <FormMessage />
@@ -414,7 +384,7 @@ export const NewRepairOrder = ({ onClose }: NewRepairOrderProps) => {
 
         {step === 3 && (
           <ModalInner className="w-full font-normal text-sm text-main-dark leading-main-lh space-y-4 self-start flex-grow">
-            <div className="flex items-center justify-between text-base font-medium leading-normal mb-6">
+            <div className="flex sm:gap-1 sm:flex-col items-center justify-between sm:justify-center text-base font-medium leading-normal mb-6">
               <div className="text-main-color">КРОК 3/3</div>
               <div className="text-main-dark">Відправлення на ремонт</div>
             </div>
@@ -459,11 +429,7 @@ export const NewRepairOrder = ({ onClose }: NewRepairOrderProps) => {
             </Button>
           )}
           {step === 2 && (
-            <Button
-              type="submit"
-              variant="default"
-              // onClick={() => changeStep('next')}
-            >
+            <Button type="submit" variant="default">
               Перейти до кроку 3
             </Button>
           )}

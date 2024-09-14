@@ -116,7 +116,7 @@ export const Filter = ({
           <Button
             variant="ghost"
             className={cn(
-              ' justify-between gap-2 text-left font-normal py-2 px-4 border border-gray-light',
+              'min-w-[130px] w-full justify-between gap-2 text-left font-normal py-2 px-4 border border-gray-light',
             )}
           >
             {columnFilterValue ? (

@@ -147,35 +147,35 @@ export function DataTable<TData extends { subRows: any }, TValue>({
   });
   return (
     <>
-      <div className="mb-6 sm:mb-8 flex flex-col-reverse sm:flex-row sm:gap-6 sm:justify-between">
-        <div className="flex flex-col gap-2 sm:flex-row sm:gap-6 sm:mb-9">
-          {createdAt?.column.getCanFilter() ? (
-            <div className="flex flex-col gap-2">
-              <span className="text-xs leading-none">Відповідальний</span>
-              <Filter column={createdAt.column} />
-            </div>
-          ) : null}
+      {/* <div className="mb-6 sm:mb-8 flex flex-col-reverse sm:flex-row sm:gap-6 sm:justify-between"> */}
+      <div className="flex flex-col justify-between gap-2 sm:flex-row sm:gap-6 sm:mb-9">
+        {createdAt?.column.getCanFilter() ? (
+          <div className="w-full flex flex-col gap-2">
+            <span className="text-xs leading-none">Відповідальний</span>
+            <Filter column={createdAt.column} />
+          </div>
+        ) : null}
 
-          {status?.column.getCanFilter() ? (
-            <div className="flex flex-col gap-2">
-              <span className="text-xs leading-none">Статус</span>
-              <Filter column={status.column} />
-            </div>
-          ) : null}
-          {client?.column.getCanFilter() ? (
-            <div className="flex flex-col gap-2">
-              <span className="text-xs leading-none">Автор</span>
-              <Filter column={client.column} />
-            </div>
-          ) : null}
-          {action?.column.getCanFilter() ? (
-            <div className="flex flex-col gap-2">
-              <span className="text-xs leading-none">Пошук</span>
-              <Filter column={action.column} icon="Search" />
-            </div>
-          ) : null}
-        </div>
+        {status?.column.getCanFilter() ? (
+          <div className="w-full flex flex-col gap-2">
+            <span className="text-xs leading-none">Статус</span>
+            <Filter column={status.column} />
+          </div>
+        ) : null}
+        {client?.column.getCanFilter() ? (
+          <div className="w-full flex flex-col gap-2">
+            <span className="text-xs leading-none">Автор</span>
+            <Filter column={client.column} />
+          </div>
+        ) : null}
+        {action?.column.getCanFilter() ? (
+          <div className="w-full flex flex-col gap-2">
+            <span className="text-xs leading-none">Пошук</span>
+            <Filter column={action.column} icon="Search" />
+          </div>
+        ) : null}
       </div>
+      {/* </div> */}
 
       <div className="rounded-[6px] shadow-[0_4px_15px_0_rgba(0,0,0,0.05)] bg-white overflow-hidden">
         <>
