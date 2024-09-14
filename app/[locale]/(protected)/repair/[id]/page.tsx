@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 
-import { RepairEdit } from '@/app/components/repair/repair-edit';
+import { RepairInfo } from '@/app/components/repair/repair-info';
 
 import initTranslations from '@/app/i18n';
 import TranslationsProvider from '@/components/translations-provider';
@@ -25,7 +25,7 @@ const RepairPage = async ({
       locale={locale}
       resources={resources}
     >
-      <RepairEdit />
+      <RepairInfo />
     </TranslationsProvider>
   );
 };

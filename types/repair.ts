@@ -16,4 +16,8 @@ export type repairType = {
   client: string;
   cost: string | number;
   payment: string;
+  serial?: string;
+  inTTN?: string;
+  costParts?: string | number;
+  costWork?: string | number;
 };
