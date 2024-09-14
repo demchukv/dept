@@ -147,17 +147,6 @@ export function DataTable<TData extends { subRows: any }, TValue>({
   });
   return (
     <>
-      <div className="flex items-center justify-end mb-6 sm:mb-8">
-        <span className="text-xs leading-none">&nbsp;</span>
-        <Button
-          asChild
-          type="button"
-          variant="default"
-          className="w-full sm:w-auto py-2.5 sm:py-[8px]"
-        >
-          <Link href="/repair/new">Додати заявку</Link>
-        </Button>
-      </div>
       <div className="mb-6 sm:mb-8 flex flex-col-reverse sm:flex-row sm:gap-6 sm:justify-between">
         <div className="flex flex-col gap-2 sm:flex-row sm:gap-6 sm:mb-9">
           {createdAt?.column.getCanFilter() ? (

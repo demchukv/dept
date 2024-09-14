@@ -12,6 +12,9 @@ import {
   columns,
   RepairRowData,
 } from '@/app/components/data-table/columns/columns-repairs-list';
+import { Button } from '@/components/ui/button';
+import { Modal, ModalContent } from '@/app/components/common/modal-new';
+import { NewRepairOrder } from "@/app/components/repair/new-repair-order"
 
 const dataRepair: repairType[] = [
   {
@@ -43,6 +46,12 @@ export const Repair = () => {
   const [isPending, startTransition] = useTransition();
   const [data, setData] = useState<repairType[]>([]);
   const [rowCount, setRowCount] = useState(0);
+
+  const [open, setOpen] = useState(false);
+  const onClose = (state: boolean, e: React.MouseEvent | undefined) => {
+    if (e) e.preventDefault();
+    setOpen(state);
+  };
 
   const initPagination = {
     pageIndex: 0,
@@ -122,7 +131,17 @@ export const Repair = () => {
       <h1 className="font-bold text-2xl leading-none text-main-dark mb-4 lg:mb-8">
         Ремонт техніки
       </h1>
-
+      <div className="flex items-center justify-end mb-6 sm:mb-8">
+        <span className="text-xs leading-none">&nbsp;</span>
+        <Button
+          type="button"
+          variant="default"
+          className="w-full sm:w-auto py-2.5 sm:py-[8px]"
+          onClick={() => setOpen(true)}
+        >
+          Додати заявку
+        </Button>
+      </div>
       <DataTable
         columns={columns}
         data={data as RepairRowData[]}
@@ -132,6 +151,11 @@ export const Repair = () => {
         handlePaginationChange={handlePaginationChange}
         isPending={isPending}
       />
+      <Modal open={open} onOpenChange={() => onClose(false, undefined)}>
+        <ModalContent className="grid grid-cols-1 gap-6">
+          <NewRepairOrder onClose={onClose} />
+        </ModalContent>
+      </Modal>
     </>
   );
 };
