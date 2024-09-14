@@ -17,8 +17,6 @@ import {
   getFacetedRowModel,
   getFacetedUniqueValues,
   ExpandedState,
-  getExpandedRowModel,
-  Row,
 } from '@tanstack/react-table';
 
 import {
@@ -29,7 +27,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table-with-filters';
-import { Button } from '@/components/ui/button';
 import {
   Select,
   SelectContent,
@@ -40,9 +37,8 @@ import {
 
 import { Filter } from '@/app/components/data-table/table-filters';
 import { TablePagination } from '@/app/components/data-table/table-pagination';
-import Link from 'next/link';
 
-interface DataTableProps<TData extends { subRows: any }, TValue> {
+interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   rowCount: number;
@@ -69,7 +65,7 @@ export type PaginationInitialTableState = {
   pagination?: Partial<PaginationState>;
 };
 
-export function DataTable<TData extends { subRows: any }, TValue>({
+export function DataTable<TData, TValue>({
   columns,
   data,
   rowCount,
@@ -106,8 +102,6 @@ export function DataTable<TData extends { subRows: any }, TValue>({
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
     getFacetedMinMaxValues: getFacetedMinMaxValues(),
-    getSubRows: (row) => row.subRows,
-    getExpandedRowModel: getExpandedRowModel(),
     filterFns: {},
     state: {
       sorting,

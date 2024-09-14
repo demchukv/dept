@@ -6,9 +6,8 @@ import {
   repairStatusList,
   RepairStatusLabelText,
 } from '@/app/components/repair/repair-status-label';
-import { ActionsTaskMenu } from '@/app/components/task/actions-task-menu';
-import { cn } from '@/lib/utils';
 import { compareAsc } from 'date-fns';
+import Link from 'next/link';
 
 declare module '@tanstack/react-table' {
   interface ColumnMeta<TData extends RowData, TValue> {
@@ -28,19 +27,14 @@ let statusSelect: { label: string; value: string }[] = [];
 for (const status in repairStatusList) {
   statusSelect.push({ label: repairStatusList[status].name, value: status });
 }
-export type RepairRowData = {
-  subRows: any;
-};
 
-type RepairColumns = ColumnDef<RepairRowData, unknown>[];
-
-export const columns: RepairColumns = [
+export const columns: ColumnDef<repairType>[] = [
   {
     accessorKey: 'number',
     header: 'Номер',
-    cell: ({ getValue }) => {
+    cell: ({ getValue, row }) => {
       const number = getValue<string>();
-      return number;
+      return <Link href={`/repair/${row.original.id}`}>{number}</Link>;
     },
   },
   {

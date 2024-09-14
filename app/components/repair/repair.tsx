@@ -8,13 +8,10 @@ import {
   DataTable,
   PaginationState,
 } from '@/app/components/data-table/data-table-repair';
-import {
-  columns,
-  RepairRowData,
-} from '@/app/components/data-table/columns/columns-repairs-list';
+import { columns } from '@/app/components/data-table/columns/columns-repairs-list';
 import { Button } from '@/components/ui/button';
 import { Modal, ModalContent } from '@/app/components/common/modal-new';
-import { NewRepairOrder } from "@/app/components/repair/new-repair-order"
+import { NewRepairOrder } from '@/app/components/repair/new-repair-order';
 
 const dataRepair: repairType[] = [
   {
@@ -144,7 +141,7 @@ export const Repair = () => {
       </div>
       <DataTable
         columns={columns}
-        data={data as RepairRowData[]}
+        data={data}
         rowCount={rowCount}
         pagination={initPagination}
         sorting={initSorting}

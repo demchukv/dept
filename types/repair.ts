@@ -16,5 +16,4 @@ export type repairType = {
   client: string;
   cost: string | number;
   payment: string;
-  subRows?: repairType[];
 };
