@@ -23,6 +23,7 @@ import { RepairInfoParts } from './repair-info-parts';
 import { RepairInfoWork } from './repair-info-work';
 import { useState } from 'react';
 import { ReplenishBalance } from '@/app/components/balance/replenish-balance';
+import copy from 'copy-to-clipboard';
 
 const dataRepair: repairType[] = [
   {
@@ -436,19 +437,44 @@ export const RepairInfo = () => {
                   {data.status === 'ready' && data.outTTN && (
                     <KeyValText
                       k="Зворотня ТТН:"
-                      val={data.outTTN}
+                      val={data.outTTN ? data.outTTN : ''}
+                      icon={
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          className="w-6 h-6 bg-transparent text-main-color"
+                          title="Копіювати ТТН"
+                          onClick={() => copy(data.outTTN as string)}
+                        >
+                          <Icon iconName="Copy" width={24} height={24} />
+                        </Button>
+                      }
                       className="justify-between"
                     />
                   )}
                 </div>
-                <Button
-                  type="button"
-                  className="w-full sm:w-auto"
-                  onClick={() => setOpen(true)}
-                >
-                  Оплатити
-                </Button>
-                <ReplenishBalance open={open} onClose={onClose} />
+                {data.payment === 'Сплачено' && (
+                  <Button
+                    type="button"
+                    disabled
+                    className="w-full sm:w-auto"
+                    onClick={() => setOpen(true)}
+                  >
+                    Ремонт сплачено
+                  </Button>
+                )}
+                {data.payment !== 'Сплачено' && (
+                  <>
+                    <Button
+                      type="button"
+                      className="w-full sm:w-auto"
+                      onClick={() => setOpen(true)}
+                    >
+                      Оплатити
+                    </Button>
+                    <ReplenishBalance open={open} onClose={onClose} />
+                  </>
+                )}
               </div>
 
               <div className="max-w-full flex flex-col">
@@ -465,6 +491,7 @@ export const RepairInfo = () => {
                       Інформація про пристрій
                     </AccordionTrigger>
                     <AccordionContent className="max-w-full sm:flex sm:gap-8 sm:justify-between relative">
+                      <Separator className="my-4 sm:hidden" />
                       <div className="w-full sm:w-[calc(50%-20px)] pb-4 sm:pb-0">
                         <RepairInfoPhoto data={data} />
                       </div>
@@ -488,6 +515,7 @@ export const RepairInfo = () => {
                       Деталі по ремонту
                     </AccordionTrigger>
                     <AccordionContent className="sm:flex sm:gap-8 sm:justify-between">
+                      <Separator className="my-4 sm:hidden" />
                       <div className="w-full sm:w-[calc(50%-20px)] pb-4 sm:pb-0">
                         <RepairInfoParts data={data} />
                       </div>

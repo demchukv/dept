@@ -1,8 +1,8 @@
 import { repairType } from '@/types/repair';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
-import Image from 'next/image';
 import { Icon } from '@/components/utils/icon';
 import { ImageZoom } from '@/app/components/common/image-zoom';
+import { KeyValText } from '@/app/components/common/key-val-text';
 
 interface RepairInfoPartsProps {
   data: repairType;
@@ -10,6 +10,13 @@ interface RepairInfoPartsProps {
 export const RepairInfoParts = ({ data }: RepairInfoPartsProps) => {
   return (
     <>
+      {data.action && (
+        <KeyValText
+          k="Тип робіт:"
+          val={data.action}
+          className="sm:hidden mb-4"
+        />
+      )}
       <p className="font-semibold mb-4">Запчастини</p>
       {data?.partsList && Array.isArray(data.partsList) && (
         <ScrollArea className="w-full h-[200px]">

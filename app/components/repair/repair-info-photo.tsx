@@ -1,10 +1,11 @@
 import { repairType } from '@/types/repair';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
-import Image from 'next/image';
 import { Icon } from '@/components/utils/icon';
 import { Progress } from '@/components/ui/progress';
 import { useEffect, useState } from 'react';
 import { ImageZoom } from '@/app/components/common/image-zoom';
+import { KeyValText } from '@/app/components/common/key-val-text';
+import { Separator } from '@/components/ui/separator';
 
 interface RepairInfoPhotoProps {
   data: repairType;
@@ -20,6 +21,21 @@ export const RepairInfoPhoto = ({ data }: RepairInfoPhotoProps) => {
   }, [data.progress]);
   return (
     <>
+      {data.serial && (
+        <KeyValText
+          k="Серійний номер:"
+          val={data.serial}
+          className="sm:hidden mb-3"
+        />
+      )}
+      {data.device && (
+        <KeyValText
+          k="Пристрій:"
+          val={data.device}
+          className="sm:hidden mb-4"
+        />
+      )}
+
       <p className="font-semibold mb-4">Фотофіксація на момент отримання</p>
       {data?.photoList && Array.isArray(data.photoList) && (
         <ScrollArea className="min-w-full w-[200px] h-[94px] overflow-x-hidden pb-2 mb-1">
@@ -49,9 +65,16 @@ export const RepairInfoPhoto = ({ data }: RepairInfoPhotoProps) => {
           <ScrollBar orientation="horizontal" forceMount={true} />
         </ScrollArea>
       )}
-      <p className="font-semibold mb-4">Стан пристрою</p>
+      <p className="flex justify-between font-semibold mb-2 sm:mb-4 mt-2 sm:mt-0">
+        Стан пристрою{' '}
+        <span className="sm:hidden font-normal">{data?.progressTitle}</span>
+      </p>
       {data.progress && <Progress value={progress} className="w-full mb-2" />}
-      {data.progressTitle && <p>{data.progressTitle}</p>}
+      {data.progressTitle && (
+        <p className="hidden sm:block">{data.progressTitle}</p>
+      )}
+      {data.defect && <p className="sm:hidden">{data.defect}</p>}
+      <Separator className="mt-4 sm:hidden" />
     </>
   );
 };
