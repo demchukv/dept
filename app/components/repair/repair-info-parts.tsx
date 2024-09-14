@@ -1,6 +1,7 @@
 import { repairType } from '@/types/repair';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import Image from 'next/image';
+import { Icon } from '@/components/utils/icon';
 
 interface RepairInfoPartsProps {
   data: repairType;
@@ -25,6 +26,14 @@ export const RepairInfoParts = ({ data }: RepairInfoPartsProps) => {
                       alt="image"
                       width={64}
                       height={64}
+                    />
+                  )}
+                  {!item.imgSrc && (
+                    <Icon
+                      iconName="ImageDefault"
+                      width={56}
+                      height={56}
+                      className="fill-gray-medium"
                     />
                   )}
                 </div>

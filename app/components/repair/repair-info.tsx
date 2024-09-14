@@ -39,6 +39,8 @@ const dataRepair: repairType[] = [
     inTTN: '45 45645 45646 4564',
     costParts: '1500',
     costWork: '500',
+    progress: 50,
+    progressTitle: 'Задовільний',
     complect: ['Macbook Air 2017', 'Apple Magic Mouse 2', 'Зарядний пристрій'],
     defect:
       'Сколи, подряпини, вм’ятини на корпусі, можуть бути описані будь які дефекти, що ідентифікують пристрій',
@@ -92,6 +94,13 @@ const dataRepair: repairType[] = [
           'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/fa/08/1349936.jpeg',
       },
       {
+        id: 5,
+        title: 'Комплект гвитнів кришки',
+        price: '500',
+        quantity: 1,
+        date: '10.05.2024',
+      },
+      {
         id: 3,
         title: 'Модуль Wi-Fi для MacBook A1466',
         price: '1000',
@@ -108,6 +117,48 @@ const dataRepair: repairType[] = [
         date: '10.05.2024',
         imgSrc:
           'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/fa/08/1349936.jpeg',
+      },
+    ],
+    photoList: [
+      {
+        id: 1,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/f6/2b/3586029.png',
+      },
+      {
+        id: 1,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/f4/7c/3586030.jpeg',
+      },
+      {
+        id: 1,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/8d/ad/3586032.jpeg',
+      },
+      {
+        id: 1,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/c8/d8/3586031.jpeg',
+      },
+      {
+        id: 1,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/b2/b7/1279725.png',
+      },
+      {
+        id: 1,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/95/21/1279728.png',
+      },
+      {
+        id: 1,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/f6/2b/3586029.png',
+      },
+      {
+        id: 1,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/95/21/1279728.png',
       },
     ],
   },
@@ -126,6 +177,9 @@ const dataRepair: repairType[] = [
     inTTN: '45 45645 45646 4564',
     costParts: '1500',
     costWork: '500',
+    progress: 30,
+    progressTitle: 'Не задовільний',
+
     complect: ['Macbook Air 2017', 'Apple Magic Mouse 2', 'Зарядний пристрій'],
     defect:
       'Сколи, подряпини, вм’ятини на корпусі, можуть бути описані будь які дефекти, що ідентифікують пристрій',
@@ -195,6 +249,48 @@ const dataRepair: repairType[] = [
         date: '10.05.2024',
         imgSrc:
           'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/fa/08/1349936.jpeg',
+      },
+    ],
+    photoList: [
+      {
+        id: 1,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/f6/2b/3586029.png',
+      },
+      {
+        id: 1,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/f4/7c/3586030.jpeg',
+      },
+      {
+        id: 1,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/8d/ad/3586032.jpeg',
+      },
+      {
+        id: 1,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/c8/d8/3586031.jpeg',
+      },
+      {
+        id: 1,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/b2/b7/1279725.png',
+      },
+      {
+        id: 1,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/95/21/1279728.png',
+      },
+      {
+        id: 1,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/f6/2b/3586029.png',
+      },
+      {
+        id: 1,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/95/21/1279728.png',
       },
     ],
   },
@@ -327,10 +423,10 @@ export const RepairInfo = () => {
                       Інформація про пристрій
                     </AccordionTrigger>
                     <AccordionContent className="sm:flex sm:gap-8 sm:justify-between">
-                      <div className="sm:w-[calc(50%-20px)]">
-                        <RepairInfoPhoto />
+                      <div className="sm:w-[calc(50%-20px)] pb-4 sm:pb-0">
+                        <RepairInfoPhoto data={data} />
                       </div>
-                      <div className="sm:w-[calc(50%-20px)]">
+                      <div className="sm:w-[calc(50%-20px)] pb-4 sm:pb-0">
                         <RepairInfoComplect data={data} />
                       </div>
                     </AccordionContent>
@@ -350,10 +446,10 @@ export const RepairInfo = () => {
                       Деталі по ремонту
                     </AccordionTrigger>
                     <AccordionContent className="sm:flex sm:gap-8 sm:justify-between">
-                      <div className="sm:w-[calc(50%-20px)]">
+                      <div className="sm:w-[calc(50%-20px)] pb-4 sm:pb-0">
                         <RepairInfoParts data={data} />
                       </div>
-                      <div className="sm:w-[calc(50%-20px)]">
+                      <div className="sm:w-[calc(50%-20px)] pb-4 sm:pb-0">
                         <RepairInfoWork data={data} />
                       </div>
                     </AccordionContent>

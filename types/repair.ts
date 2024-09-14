@@ -24,6 +24,9 @@ export type repairType = {
   defect?: string;
   workList?: repairWork[];
   partsList?: repairParts[];
+  photoList?: repairPhoto[];
+  progress?: number;
+  progressTitle?: string;
 };
 
 type repairWork = {
@@ -41,4 +44,9 @@ type repairParts = {
   quantity: number;
   date: string;
   imgSrc?: string;
+};
+
+type repairPhoto = {
+  id: number;
+  imgSrc: string;
 };
