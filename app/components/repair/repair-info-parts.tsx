@@ -22,19 +22,11 @@ export const RepairInfoParts = ({ data }: RepairInfoPartsProps) => {
               >
                 <div className="w-16 h-16 object-contain">
                   {item.imgSrc && (
-                    <>
-                      {/* <Image
+                    <ImageZoom
                       src={item.imgSrc}
-                      alt="image"
-                      width={64}
-                      height={64}
-                      /> */}
-                      <ImageZoom
-                        src={item.imgSrc}
-                        alt={data.device}
-                        className="w-64 h-64"
-                      />
-                    </>
+                      alt={data.device}
+                      className="w-64 h-64 cursor-pointer"
+                    />
                   )}
                   {!item.imgSrc && (
                     <Icon

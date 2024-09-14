@@ -32,7 +32,7 @@ const dataRepair: repairType[] = [
     device: 'MacBook Ait 2022',
     createdAt: '01.05.2024',
     deadline: '10.10.2024',
-    status: 'send',
+    status: 'ready',
     action: 'Заміна модулю Wi-Fi',
     client: 'Галина Бухгалтерович',
     cost: '8000',

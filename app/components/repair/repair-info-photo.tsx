@@ -25,13 +25,13 @@ export const RepairInfoPhoto = ({ data }: RepairInfoPhotoProps) => {
         <ScrollArea className="min-w-full w-[200px] h-[94px] overflow-x-hidden pb-2 mb-1">
           <ul className="flex flex-row gap-4">
             {data.photoList?.map((item) => (
-              <li key={item.id} className="grid place-content-center">
-                <div className="w-20 h-20">
+              <li key={item.id} className="w-20 h-20 grid place-content-center">
+                <div className="w-14 h-14 object-contain">
                   {item.imgSrc && (
                     <ImageZoom
                       src={item.imgSrc}
                       alt={data.device}
-                      className="w-64 h-64 cursor-pointer"
+                      className="w-14 h-14 cursor-pointer"
                     />
                   )}
                   {!item.imgSrc && (
@@ -46,7 +46,7 @@ export const RepairInfoPhoto = ({ data }: RepairInfoPhotoProps) => {
               </li>
             ))}
           </ul>
-          <ScrollBar orientation="horizontal" data-state="visible" />
+          <ScrollBar orientation="horizontal" forceMount={true} />
         </ScrollArea>
       )}
       <p className="font-semibold mb-4">Стан пристрою</p>

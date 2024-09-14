@@ -18,6 +18,7 @@ export type repairType = {
   payment: string;
   serial?: string;
   inTTN?: string;
+  outTTN?: string;
   costParts?: string | number;
   costWork?: string | number;
   complect?: Array<string>;

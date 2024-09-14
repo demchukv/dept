@@ -13,7 +13,7 @@ const Table = React.forwardRef<
       className={cn('w-full caption-bottom text-sm', className)}
       {...props}
     />
-    <ScrollBar orientation="horizontal" />
+    <ScrollBar orientation="horizontal" forceMount={true} />
   </ScrollArea>
   //   </div>
 ));

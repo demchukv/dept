@@ -21,7 +21,8 @@ import { RepairInfoPhoto } from './repair-info-photo';
 import { RepairInfoComplect } from './repair-info-complect';
 import { RepairInfoParts } from './repair-info-parts';
 import { RepairInfoWork } from './repair-info-work';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { ReplenishBalance } from '@/app/components/balance/replenish-balance';
 
 const dataRepair: repairType[] = [
   {
@@ -168,13 +169,14 @@ const dataRepair: repairType[] = [
     device: 'MacBook Ait 2022',
     createdAt: '01.05.2024',
     deadline: '10.10.2024',
-    status: 'send',
+    status: 'ready',
     action: 'Заміна модулю Wi-Fi',
     client: 'Галина Бухгалтерович',
     cost: '8000',
     payment: 'Сплачено',
     serial: 'ARG0151051989460456',
     inTTN: '45 45645 45646 4564',
+    outTTN: '45 45645 45646 4564',
     costParts: '1500',
     costWork: '500',
     progress: 30,
@@ -298,10 +300,28 @@ const dataRepair: repairType[] = [
 
 export const RepairInfo = () => {
   const { id } = useParams();
+  const [open, setOpen] = useState(false);
 
+  const onClose = (state: boolean, e: React.MouseEvent | undefined) => {
+    if (e) e.preventDefault();
+    setOpen(state);
+  };
   const data: repairType | undefined = dataRepair.find(
     (item) => item.id === Number(id),
   );
+
+  const paymentText: React.ReactNode =
+    data?.payment === 'Сплачено' ? (
+      <>
+        <span className="text-green-additional-color font-semibold text-base">
+          Сплачено
+        </span>
+      </>
+    ) : (
+      <span className="text-orange-additional-color font-semibold text-base">
+        Не оплачено
+      </span>
+    );
 
   return (
     <>
@@ -372,7 +392,17 @@ export const RepairInfo = () => {
                   <RepairStatusLabel status={data.status} />
                   <KeyValText
                     k="Статус оплати:"
-                    val={data.payment}
+                    val={paymentText}
+                    icon={
+                      <Link href="#" download className="hover:text-main-color">
+                        <Icon
+                          iconName="Doc"
+                          width={20}
+                          height={20}
+                          className="w-5 h-5"
+                        />
+                      </Link>
+                    }
                     className="justify-between"
                   />
                   {data.inTTN && (
@@ -403,10 +433,22 @@ export const RepairInfo = () => {
                     }
                     className="justify-between"
                   />
+                  {data.status === 'ready' && data.outTTN && (
+                    <KeyValText
+                      k="Зворотня ТТН:"
+                      val={data.outTTN}
+                      className="justify-between"
+                    />
+                  )}
                 </div>
-                <Button type="button" className="w-full sm:w-auto">
+                <Button
+                  type="button"
+                  className="w-full sm:w-auto"
+                  onClick={() => setOpen(true)}
+                >
                   Оплатити
                 </Button>
+                <ReplenishBalance open={open} onClose={onClose} />
               </div>
 
               <div className="max-w-full flex flex-col">

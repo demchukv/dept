@@ -13,7 +13,7 @@ export const ImageZoom = ({
   if (!src) return null;
   return (
     <Dialog>
-      <DialogTrigger asChild>
+      <DialogTrigger asChild className="w-14 h-14 object-contain">
         <Image
           src={src}
           alt={alt || ''}
@@ -23,11 +23,11 @@ export const ImageZoom = ({
             width: '100%',
             height: 'auto',
           }}
-          width={64}
-          height={64}
+          width={56}
+          height={56}
         />
       </DialogTrigger>
-      <DialogContent className="w-full h-fit border-0 bg-transparent p-0 shadow-none">
+      <DialogContent className="w-full border-0 bg-transparent p-0 shadow-none">
         <div className="relative h-[100vh] w-full overflow-clip rounded-md bg-transparent">
           <Image
             src={src}
