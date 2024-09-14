@@ -22,4 +22,22 @@ export type repairType = {
   costWork?: string | number;
   complect?: Array<string>;
   defect?: string;
+  workList?: repairWork[];
+  partsList?: repairParts[];
+};
+
+type repairWork = {
+  id: number;
+  title: string;
+  price: string | number;
+  quantity: number;
+  date: string;
+};
+
+type repairParts = {
+  id: number;
+  title: string;
+  price: string | number;
+  quantity: number;
+  date: string;
 };

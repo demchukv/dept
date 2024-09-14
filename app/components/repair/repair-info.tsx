@@ -42,6 +42,66 @@ const dataRepair: repairType[] = [
     complect: ['Macbook Air 2017', 'Apple Magic Mouse 2', 'Зарядний пристрій'],
     defect:
       'Сколи, подряпини, вм’ятини на корпусі, можуть бути описані будь які дефекти, що ідентифікують пристрій',
+    workList: [
+      {
+        id: 1,
+        title: 'Діагностика несправності',
+        price: '500',
+        quantity: 1,
+        date: '10.05.2024',
+      },
+      {
+        id: 2,
+        title: 'Заміна модуля',
+        price: '1000',
+        quantity: 1,
+        date: '10.05.2024',
+      },
+      {
+        id: 3,
+        title: 'Чистка від пилу',
+        price: '200',
+        quantity: 1,
+        date: '10.05.2024',
+      },
+      {
+        id: 4,
+        title: 'Збірка',
+        price: '200',
+        quantity: 1,
+        date: '10.05.2024',
+      },
+    ],
+    partsList: [
+      {
+        id: 1,
+        title: 'Модуль Wi-Fi для MacBook A1466',
+        price: '1000',
+        quantity: 1,
+        date: '10.05.2024',
+      },
+      {
+        id: 2,
+        title: 'Комплект гвитнів кришки',
+        price: '500',
+        quantity: 1,
+        date: '10.05.2024',
+      },
+      {
+        id: 3,
+        title: 'Модуль Wi-Fi для MacBook A1466',
+        price: '1000',
+        quantity: 1,
+        date: '10.05.2024',
+      },
+      {
+        id: 4,
+        title: 'Комплект гвитнів кришки',
+        price: '500',
+        quantity: 1,
+        date: '10.05.2024',
+      },
+    ],
   },
   {
     id: 2,
@@ -61,6 +121,66 @@ const dataRepair: repairType[] = [
     complect: ['Macbook Air 2017', 'Apple Magic Mouse 2', 'Зарядний пристрій'],
     defect:
       'Сколи, подряпини, вм’ятини на корпусі, можуть бути описані будь які дефекти, що ідентифікують пристрій',
+    workList: [
+      {
+        id: 1,
+        title: 'Діагностика несправності',
+        price: '500',
+        quantity: 1,
+        date: '10.05.2024',
+      },
+      {
+        id: 2,
+        title: 'Заміна модуля',
+        price: '1000',
+        quantity: 1,
+        date: '10.05.2024',
+      },
+      {
+        id: 3,
+        title: 'Чистка від пилу',
+        price: '200',
+        quantity: 1,
+        date: '10.05.2024',
+      },
+      {
+        id: 4,
+        title: 'Збірка',
+        price: '200',
+        quantity: 1,
+        date: '10.05.2024',
+      },
+    ],
+    partsList: [
+      {
+        id: 1,
+        title: 'Модуль Wi-Fi для MacBook A1466',
+        price: '1000',
+        quantity: 1,
+        date: '10.05.2024',
+      },
+      {
+        id: 2,
+        title: 'Комплект гвитнів кришки',
+        price: '500',
+        quantity: 1,
+        date: '10.05.2024',
+      },
+      {
+        id: 3,
+        title: 'Модуль Wi-Fi для MacBook A1466',
+        price: '1000',
+        quantity: 1,
+        date: '10.05.2024',
+      },
+      {
+        id: 4,
+        title: 'Комплект гвитнів кришки',
+        price: '500',
+        quantity: 1,
+        date: '10.05.2024',
+      },
+    ],
   },
 ];
 
@@ -215,10 +335,10 @@ export const RepairInfo = () => {
                     </AccordionTrigger>
                     <AccordionContent className="sm:flex sm:gap-8 sm:justify-between">
                       <div className="sm:w-[calc(50%-20px)]">
-                        <RepairInfoParts />
+                        <RepairInfoParts data={data} />
                       </div>
                       <div className="sm:w-[calc(50%-20px)]">
-                        <RepairInfoWork />
+                        <RepairInfoWork data={data} />
                       </div>
                     </AccordionContent>
                   </AccordionItem>
