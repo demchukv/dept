@@ -17,6 +17,11 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import { RepairInfoPhoto } from './repair-info-photo';
+import { RepairInfoComplect } from './repair-info-complect';
+import { RepairInfoParts } from './repair-info-parts';
+import { RepairInfoWork } from './repair-info-work';
+import { useEffect, useState } from 'react';
 
 const dataRepair: repairType[] = [
   {
@@ -34,6 +39,9 @@ const dataRepair: repairType[] = [
     inTTN: '45 45645 45646 4564',
     costParts: '1500',
     costWork: '500',
+    complect: ['Macbook Air 2017', 'Apple Magic Mouse 2', 'Зарядний пристрій'],
+    defect:
+      'Сколи, подряпини, вм’ятини на корпусі, можуть бути описані будь які дефекти, що ідентифікують пристрій',
   },
   {
     id: 2,
@@ -50,15 +58,19 @@ const dataRepair: repairType[] = [
     inTTN: '45 45645 45646 4564',
     costParts: '1500',
     costWork: '500',
+    complect: ['Macbook Air 2017', 'Apple Magic Mouse 2', 'Зарядний пристрій'],
+    defect:
+      'Сколи, подряпини, вм’ятини на корпусі, можуть бути описані будь які дефекти, що ідентифікують пристрій',
   },
 ];
+
 export const RepairInfo = () => {
   const { id } = useParams();
+
   const data: repairType | undefined = dataRepair.find(
     (item) => item.id === Number(id),
   );
-  const accItemClass =
-    'w-full bg-white rounded-[6px] p-4 md:pb-7 lg:py-8 lg:px-7';
+
   return (
     <>
       {data && (
@@ -93,8 +105,8 @@ export const RepairInfo = () => {
 
             <Separator className="mt-4 sm:mt-5 mb-4 sm:mb-8" />
 
-            <div className="flex flex-col sm:flex-row-reverse sm:justify-between">
-              <div className="sm:flex sm:flex-col sm:justify-between">
+            <div className="flex flex-col sm:flex-row-reverse sm:justify-between sm:gap-8">
+              <div className="sm:flex sm:flex-col sm:justify-between sm:min-w-[300px]">
                 <div className="flex flex-col gap-3 mb-4">
                   {data.serial && (
                     <KeyValText
@@ -166,35 +178,53 @@ export const RepairInfo = () => {
               </div>
 
               <div className="w-full flex flex-col">
+                <Separator className="my-4 sm:hidden" />
+
                 <Accordion
                   type="single"
                   collapsible
-                  className="w-full flex flex-col gap-4 border-none"
+                  className="w-full flex flex-col gap-4 border-none "
                   defaultValue="item-1"
                 >
-                  <AccordionItem value="item-1" className={accItemClass}>
-                    <AccordionTrigger>Інформація про пристрій</AccordionTrigger>
-                    <AccordionContent>
-                      <div>Фотофіксація</div>
-                      <div>Комплектність</div>
+                  <AccordionItem value="item-1" className="w-full">
+                    <AccordionTrigger className="sm:hidden">
+                      Інформація про пристрій
+                    </AccordionTrigger>
+                    <AccordionContent className="sm:flex sm:gap-8 sm:justify-between">
+                      <div className="sm:w-[calc(50%-20px)]">
+                        <RepairInfoPhoto />
+                      </div>
+                      <div className="sm:w-[calc(50%-20px)]">
+                        <RepairInfoComplect data={data} />
+                      </div>
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
+
+                <Separator className="my-4 sm:my-6" />
 
                 <Accordion
                   type="single"
                   collapsible
                   className="w-full flex flex-col gap-4 border-none"
-                  defaultValue="item-1"
+                  defaultValue="item-2"
                 >
-                  <AccordionItem value="item-2" className={accItemClass}>
-                    <AccordionTrigger>Деталі по ремонту</AccordionTrigger>
-                    <AccordionContent>
-                      <div>Запчастини</div>
-                      <div>Роботи</div>
+                  <AccordionItem value="item-2" className="w-full">
+                    <AccordionTrigger className="sm:hidden">
+                      Деталі по ремонту
+                    </AccordionTrigger>
+                    <AccordionContent className="sm:flex sm:gap-8 sm:justify-between">
+                      <div className="sm:w-[calc(50%-20px)]">
+                        <RepairInfoParts />
+                      </div>
+                      <div className="sm:w-[calc(50%-20px)]">
+                        <RepairInfoWork />
+                      </div>
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
+
+                <Separator className="my-4 sm:hidden" />
               </div>
             </div>
           </Card>

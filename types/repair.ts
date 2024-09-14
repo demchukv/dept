@@ -20,4 +20,6 @@ export type repairType = {
   inTTN?: string;
   costParts?: string | number;
   costWork?: string | number;
+  complect?: Array<string>;
+  defect?: string;
 };
