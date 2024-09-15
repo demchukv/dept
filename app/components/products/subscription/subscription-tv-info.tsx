@@ -4,8 +4,6 @@ import React from 'react';
 import {
   Table,
   TableBody,
-  TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -21,8 +19,12 @@ export const SubscriptionTvInfo = ({ data }: SubscriptionTvInfoProps) => {
     <>
       <div className="mb-4 flex justify-between items-center">
         <p className="font-semibold">
-          Підключені пристрої: {data.devices ? data.devices?.length : '0'}/
-          {data.maxDevices ? data.maxDevices : '0'}
+          {data.state === 'active' && (
+            <>
+              Підключені пристрої: {data.devices ? data.devices?.length : '0'}/
+              {data.maxDevices ? data.maxDevices : '0'}
+            </>
+          )}
         </p>
         <p>
           <Link
@@ -33,11 +35,10 @@ export const SubscriptionTvInfo = ({ data }: SubscriptionTvInfoProps) => {
           </Link>
         </p>
       </div>
-      {(!data.devices || data.devices?.length === 0) && (
-        <p>У вас ще немає підключених пристроїв</p>
-      )}
+      {(!data.devices || data.devices?.length === 0) &&
+        data.state === 'active' && <p>У вас ще немає підключених пристроїв</p>}
       {data.devices && Array.isArray(data.devices) && (
-        <Table className="w-full">
+        <Table className="w-full border border-bg-color rounded-[6px]">
           <TableHeader>
             <TableRow>
               <TableHead className=" font-normal text-sm leading-main-lh rounded-tl">
@@ -54,15 +55,9 @@ export const SubscriptionTvInfo = ({ data }: SubscriptionTvInfoProps) => {
               <SubscriptionTvItem key={device.id} device={device} data={data} />
             ))}
           </TableBody>
-          <TableFooter>
-            <TableRow>
-              <TableCell colSpan={3}>
-                <SubscriptionTvContinue data={data} />
-              </TableCell>
-            </TableRow>
-          </TableFooter>
         </Table>
       )}
+      <SubscriptionTvContinue data={data} />
     </>
   );
 };

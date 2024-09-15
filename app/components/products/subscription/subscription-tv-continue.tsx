@@ -79,7 +79,10 @@ export const SubscriptionTvContinue = ({
   return (
     <>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="flex flex-col mt-4"
+        >
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center ">
             <div className="flex flex-col ">
               <FormField
@@ -112,24 +115,25 @@ export const SubscriptionTvContinue = ({
                   </FormItem>
                 )}
               />
-
-              <FormField
-                control={form.control}
-                name="auto"
-                render={({ field }) => (
-                  <FormItem className="flex flex-row gap-2 space-y-0 items-center justify-start mb-4">
-                    <FormControl>
-                      <Checkbox
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
-                    </FormControl>
-                    <FormLabel className="m-0">
-                      Автоматичне подовження
-                    </FormLabel>
-                  </FormItem>
-                )}
-              />
+              {data.state === 'active' && (
+                <FormField
+                  control={form.control}
+                  name="auto"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-row gap-2 space-y-0 items-center justify-start mb-4">
+                      <FormControl>
+                        <Checkbox
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />
+                      </FormControl>
+                      <FormLabel className="m-0">
+                        Автоматичне подовження
+                      </FormLabel>
+                    </FormItem>
+                  )}
+                />
+              )}
             </div>
 
             <KeyValText
@@ -156,27 +160,31 @@ export const SubscriptionTvContinue = ({
               </Button>
             </div>
           </div>
-          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
-            <KeyValText
-              k="Термін дії:"
-              val="з 01.01.2023 до 01.06.2024"
-              className="mb-4 sm:mb-0 justify-between hidden sm:flex"
-            />
-            <Button
-              type="button"
-              variant="destructive"
-              className="text-warning"
-              onClick={() => setOpen(true)}
-            >
-              <Icon
-                iconName="DeleteCircle"
-                width={20}
-                height={20}
-                className="w-5 h-5"
-              />
-              Скасувати послугу
-            </Button>
-          </div>
+          {data.state === 'active' && (
+            <>
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
+                <KeyValText
+                  k="Термін дії:"
+                  val="з 01.01.2023 до 01.06.2024"
+                  className="mb-4 sm:mb-0 justify-between hidden sm:flex"
+                />
+                <Button
+                  type="button"
+                  variant="destructive"
+                  className="text-warning"
+                  onClick={() => setOpen(true)}
+                >
+                  <Icon
+                    iconName="DeleteCircle"
+                    width={20}
+                    height={20}
+                    className="w-5 h-5"
+                  />
+                  Скасувати послугу
+                </Button>
+              </div>
+            </>
+          )}
         </form>
       </Form>
 

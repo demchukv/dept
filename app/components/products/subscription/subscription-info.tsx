@@ -46,10 +46,21 @@ export const SubscriptionInfo = ({ data }: SubscriptionInfoProps) => {
                     {Number(data.price).toFixed(0)} грн/міс
                   </div>
                   <div className="font-normal text-sm sm:text-base text-main-dark leading-main-lh text-right">
-                    <span className="hidden sm:inline">
-                      діє з {format(data.startFrom, 'yyyy-MM-dd')}
-                    </span>{' '}
-                    до {format(data.activeTo, 'yyyy-MM-dd')}
+                    {data.state === 'active' && (
+                      <>
+                        <span className="hidden sm:inline">
+                          діє з {format(data.startFrom, 'yyyy-MM-dd')}
+                        </span>{' '}
+                        до {format(data.activeTo, 'yyyy-MM-dd')}
+                      </>
+                    )}
+                    {data.state === 'inactive' && (
+                      <>
+                        <span className="hidden sm:inline">
+                          завершено дію {format(data.activeTo, 'yyyy-MM-dd')}
+                        </span>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
