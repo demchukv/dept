@@ -2,8 +2,86 @@ import { ServerType } from '@/types/server';
 import { ServerInfo } from '@/app/components/products/server/server-info';
 
 const data: ServerType[] = [
-  { id: 1, state: 'active', title: 'Віртуальний сервер V-500 ' },
-  { id: 2, state: 'inactive', title: 'Хостинг Н-250' },
+  {
+    id: 1,
+    type: 'virtual',
+    state: 'active',
+    title: 'Віртуальний сервер V-500 ',
+    virtual: {
+      name: 'Віртуальний сервер V-500 ',
+      provider: 'Virtuozzo',
+      ip: '237.84.2.178',
+      price: 1000,
+      activeTo: '2024-12-31',
+    },
+  },
+  {
+    id: 2,
+    type: 'hosting',
+    state: 'active',
+    title: 'Хостинг Н-250',
+    hosting: {
+      name: 'Хостинг Н-250',
+      price: 299,
+      activeTo: '2024-12-31',
+      sites: 2,
+      disk: 120,
+      databases: 2,
+    },
+  },
+  {
+    id: 3,
+    type: 'dedicated',
+    state: 'active',
+    title: 'Виділений сервер',
+    dedicated: {
+      name: 'Виділений сервер',
+      provider: 'Virtuozzo',
+      ip: '237.84.2.178',
+      price: 1000,
+      activeTo: '2024-12-31',
+    },
+  },
+  {
+    id: 4,
+    type: 'virtual',
+    state: 'inactive',
+    title: 'Віртуальний сервер V-500 ',
+    virtual: {
+      name: 'Віртуальний сервер V-500 ',
+      provider: 'Virtuozzo',
+      ip: '237.84.2.178',
+      price: 1000,
+      activeTo: '2024-12-31',
+    },
+  },
+  {
+    id: 5,
+    type: 'hosting',
+    state: 'inactive',
+    title: 'Хостинг Н-250',
+    hosting: {
+      name: 'Хостинг Н-250',
+      price: 350,
+      activeTo: '2024-12-31',
+      sites: 1,
+      disk: 189,
+      databases: 1,
+    },
+  },
+  {
+    id: 6,
+    type: 'dedicated',
+    state: 'inactive',
+    title: 'Виділений сервер',
+    dedicated: {
+      name: 'Виділений сервер',
+      provider: 'Virtuozzo',
+      ip: '237.84.2.178',
+      price: 1000,
+      activeTo: '2024-12-31',
+    },
+  },
 ];
 export const Server = () => {
   const activeSubs: ServerType[] = data.filter(

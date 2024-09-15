@@ -1,4 +1,7 @@
 import { ServerType } from '@/types/server';
+import { VirtualHeader } from '@/app/components/products/server/virtual/virtual-header';
+import { DedicatedHeader } from '@/app/components/products/server/dedicated/dedicated-header';
+import { HostingHeader } from '@/app/components/products/server/hosting/hosting-header';
 import {
   Accordion,
   AccordionContent,
@@ -23,10 +26,14 @@ export const ServerInfo = ({ data }: ServerInfoProps) => {
         >
           <AccordionItem value={`item-${data.id}`} className="p-0">
             <AccordionTrigger className="p-0 gap-1 sm:gap-9">
-              {data.title}
+              {data.type === 'virtual' && <VirtualHeader data={data} />}
+              {data.type === 'dedicated' && <DedicatedHeader data={data} />}
+              {data.type === 'hosting' && <HostingHeader data={data} />}
             </AccordionTrigger>
             <AccordionContent className="border-t mt-8 pt-8">
-              Content tabs
+              {data.type === 'virtual' && 'virtual'}
+              {data.type === 'dedicated' && 'dedicated'}
+              {data.type === 'hosting' && 'hosting'}
             </AccordionContent>
           </AccordionItem>
         </Accordion>
