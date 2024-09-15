@@ -10,6 +10,26 @@ const data: subscriptionType[] = [
     startFrom: '2023-06-01',
     activeTo: '2024-12-30',
     state: 'active',
+    devices: [
+      {
+        id: 1,
+        title: 'Samsung TV 55',
+        lastActivity: '24.05.2024 19:47:08',
+        instruction: 'https://example.com',
+      },
+      {
+        id: 2,
+        title: 'Iphone 15 Pro',
+        lastActivity: '24.05.2024 23:12:49',
+        instruction: 'https://example.com',
+      },
+      {
+        id: 3,
+        title: 'IPad Pro 12.9',
+        lastActivity: '23.05.2024 14:08:22',
+        instruction: 'https://example.com',
+      },
+    ],
   },
   {
     id: 2,
@@ -28,6 +48,15 @@ const data: subscriptionType[] = [
     startFrom: '2023-06-01',
     activeTo: '2025-05-01',
     state: 'active',
+    softs: [
+      {
+        id: 1,
+        title: 'Avast Antivirus',
+        softKey: 'LVFB-****-****-DFZZ',
+        fileSource: 'https://example.com',
+        instruction: 'https://example.com',
+      },
+    ],
   },
   {
     id: 4,

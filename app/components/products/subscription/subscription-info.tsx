@@ -8,6 +8,8 @@ import {
 import { Card } from '@/app/components/card/card';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
+import { SubscriptionTvInfo } from '@/app/components/products/subscription/subscription-tv-info';
+import { SubscriptionSoftInfo } from '@/app/components/products/subscription/subscription-soft-info';
 
 interface SubscriptionInfoProps {
   data: subscriptionType;
@@ -53,7 +55,8 @@ export const SubscriptionInfo = ({ data }: SubscriptionInfoProps) => {
               </div>
             </AccordionTrigger>
             <AccordionContent className="border-t mt-8 pt-8">
-              Detailed info about subscription
+              {data.type === 'tv' && <SubscriptionTvInfo data={data} />}
+              {data.type === 'soft' && <SubscriptionSoftInfo data={data} />}
             </AccordionContent>
           </AccordionItem>
         </Accordion>
