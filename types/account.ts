@@ -2,6 +2,7 @@ export type accoutTypeT = {
   id: number;
   account: 'company' | 'user';
   name: string;
+  balance: number;
 };
 
 export type userInfoType = {
@@ -10,6 +11,7 @@ export type userInfoType = {
   email: string;
   phone: string;
   edrpou: number;
+  balance: number;
 };
 
 export type callType = {

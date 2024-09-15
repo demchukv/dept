@@ -29,6 +29,8 @@ import { Modal, ModalContent } from '@/app/components/common/modal-new';
 import { UnsubscribeTv } from '@/app/components/products/subscription/unsubscribe-tv';
 import { Warning } from '@/app/components/common/warning';
 import { ReplenishBalance } from '../../balance/replenish-balance';
+import { useAppSelector } from '@/store/hooks';
+import { selectBalance, selectUser } from '@/store/account/accountSlice';
 
 export const ContinueSubscriptionSchema = z.object({
   subscritionId: z.number().min(1),
@@ -40,6 +42,10 @@ interface ServerBillingProps {
   data: ServerType;
 }
 export const ServerBilling = ({ data }: ServerBillingProps) => {
+  const currentBalance = useAppSelector(selectBalance);
+  const currentUser = useAppSelector(selectUser);
+  console.log('currentBalance: ', currentBalance);
+  console.log('currentUser: ', currentUser);
   const [open, setOpen] = useState(false);
   const onClose = (state: boolean, e: React.MouseEvent | undefined) => {
     if (e) e.preventDefault();

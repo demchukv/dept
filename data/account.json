@@ -1,17 +1,20 @@
 [
   {
     "id": 1,
-  "account": "company",
-  "name": "ТОВ Агропромбуд"
-},
+    "account": "company",
+    "name": "ТОВ Агропромбуд",
+    "balance": 500
+  },
   {
     "id": 2,
-  "account": "user",
-  "name": "Шевченко Василь Петрович"
-},
+    "account": "user",
+    "name": "Шевченко Василь Петрович",
+    "balance": 100
+  },
   {
     "id": 3,
-  "account": "company",
-  "name": "ФОП Шевченко Василь Петрович"
-}
+    "account": "company",
+    "name": "ФОП Шевченко Василь Петрович",
+    "balance": 100
+  }
 ]
