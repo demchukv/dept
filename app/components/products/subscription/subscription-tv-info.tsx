@@ -37,7 +37,7 @@ export const SubscriptionTvInfo = ({ data }: SubscriptionTvInfoProps) => {
         <p>У вас ще немає підключених пристроїв</p>
       )}
       {data.devices && Array.isArray(data.devices) && (
-        <Table className="w-full rounded-[6px]">
+        <Table className="w-full">
           <TableHeader>
             <TableRow>
               <TableHead className=" font-normal text-sm leading-main-lh rounded-tl">

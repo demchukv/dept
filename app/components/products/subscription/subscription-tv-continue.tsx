@@ -80,82 +80,103 @@ export const SubscriptionTvContinue = ({
     <>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col">
-          <FormField
-            control={form.control}
-            name="term"
-            render={({ field }) => (
-              <FormItem className="flex gap-2 items-center justify-between space-y-0 mb-2">
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormLabel className="whitespace-nowrap">
-                    Подовжити на
-                  </FormLabel>
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Оберіть термін продовження підписки" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {termList.map((i) => (
-                      <SelectItem key={i.key} value={String(i.key)}>
-                        {i.val}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center ">
+            <div className="flex flex-col ">
+              <FormField
+                control={form.control}
+                name="term"
+                render={({ field }) => (
+                  <FormItem className="flex gap-2 items-center justify-between space-y-0 mb-2">
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormLabel className="whitespace-nowrap">
+                        Подовжити на
+                      </FormLabel>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Оберіть термін продовження підписки" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {termList.map((i) => (
+                          <SelectItem key={i.key} value={String(i.key)}>
+                            {i.val}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
 
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-          <FormField
-            control={form.control}
-            name="auto"
-            render={({ field }) => (
-              <FormItem className="flex flex-row gap-2 space-y-0 items-center justify-start mb-4">
-                <FormControl>
-                  <Checkbox
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
-                </FormControl>
-                <FormLabel className="m-0">Автоматичне подовження</FormLabel>
-              </FormItem>
-            )}
-          />
-          <KeyValText
-            k="Термін дії:"
-            val="з 01.01.2023 до 01.06.2024"
-            className="mb-4 justify-between"
-          />
-          <KeyValText
-            k={
-              <span className="text-base font-semibold">Сума до списання:</span>
-            }
-            val={<span className="text-base font-semibold">299.00 грн</span>}
-            className="mb-3 justify-between"
-          />
+              <FormField
+                control={form.control}
+                name="auto"
+                render={({ field }) => (
+                  <FormItem className="flex flex-row gap-2 space-y-0 items-center justify-start mb-4">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                    <FormLabel className="m-0">
+                      Автоматичне подовження
+                    </FormLabel>
+                  </FormItem>
+                )}
+              />
+            </div>
 
-          <Button type="submit" variant="default" className="mb-4">
-            Продовжити зараз
-          </Button>
-          <Button
-            type="button"
-            variant="destructive"
-            className="text-warning"
-            onClick={() => setOpen(true)}
-          >
-            <Icon
-              iconName="DeleteCircle"
-              width={20}
-              height={20}
-              className="w-5 h-5"
+            <KeyValText
+              k="Термін дії:"
+              val="з 01.01.2023 до 01.06.2024"
+              className="mb-4 justify-between sm:hidden"
             />
-            Скасувати послугу
-          </Button>
+
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:gap-4">
+              <KeyValText
+                k={
+                  <span className="text-base font-semibold">
+                    Сума до списання:
+                  </span>
+                }
+                val={
+                  <span className="text-base font-semibold">299.00 грн</span>
+                }
+                className="mb-3 justify-between"
+              />
+
+              <Button type="submit" variant="default" className="mb-4">
+                Продовжити зараз
+              </Button>
+            </div>
+          </div>
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
+            <KeyValText
+              k="Термін дії:"
+              val="з 01.01.2023 до 01.06.2024"
+              className="mb-4 sm:mb-0 justify-between hidden sm:flex"
+            />
+            <Button
+              type="button"
+              variant="destructive"
+              className="text-warning"
+              onClick={() => setOpen(true)}
+            >
+              <Icon
+                iconName="DeleteCircle"
+                width={20}
+                height={20}
+                className="w-5 h-5"
+              />
+              Скасувати послугу
+            </Button>
+          </div>
         </form>
       </Form>
 
