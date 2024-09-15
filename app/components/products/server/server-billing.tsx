@@ -30,7 +30,7 @@ import { UnsubscribeTv } from '@/app/components/products/subscription/unsubscrib
 import { Warning } from '@/app/components/common/warning';
 import { ReplenishBalance } from '../../balance/replenish-balance';
 import { useAppSelector } from '@/store/hooks';
-import { selectBalance, selectUser } from '@/store/account/accountSlice';
+import { selectBalance } from '@/store/account/accountSlice';
 
 export const ContinueSubscriptionSchema = z.object({
   subscritionId: z.number().min(1),
@@ -43,9 +43,6 @@ interface ServerBillingProps {
 }
 export const ServerBilling = ({ data }: ServerBillingProps) => {
   const currentBalance = useAppSelector(selectBalance);
-  const currentUser = useAppSelector(selectUser);
-  console.log('currentBalance: ', currentBalance);
-  console.log('currentUser: ', currentUser);
   const [open, setOpen] = useState(false);
   const onClose = (state: boolean, e: React.MouseEvent | undefined) => {
     if (e) e.preventDefault();
@@ -172,6 +169,7 @@ export const ServerBilling = ({ data }: ServerBillingProps) => {
                   className="mb-3 justify-between"
                 />
                 {/* TODO: add amount and current balance for compare */}
+                <p>Поточний баланс: {currentBalance}</p>
                 <Warning>
                   Суми на балансі недостатньо для проведення операції. Необхідно
                   поповнити баланс на %% грн

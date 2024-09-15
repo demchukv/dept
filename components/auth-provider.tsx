@@ -9,6 +9,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     id: 1,
     account: 'company',
     name: 'ТОВ Агропромбуд',
+    balance: 500,
   };
 
   //   const session = await auth();
