@@ -8,7 +8,7 @@ export type subscriptionType = {
   state: 'active' | 'inactive';
   maxDevices?: number;
   devices?: deviceType[];
-  softs?: softType[];
+  softInfo?: softType;
 };
 
 export type deviceType = {
@@ -19,9 +19,7 @@ export type deviceType = {
 };
 
 export type softType = {
-  id: number;
-  title: string;
-  softKey: string;
-  fileSource: string;
-  instruction: string;
+  softKey?: string;
+  fileSource?: string;
+  instruction?: string;
 };

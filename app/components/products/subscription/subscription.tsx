@@ -49,15 +49,11 @@ const data: subscriptionType[] = [
     startFrom: '2023-06-01',
     activeTo: '2025-05-01',
     state: 'active',
-    softs: [
-      {
-        id: 1,
-        title: 'Avast Antivirus',
-        softKey: 'LVFB-****-****-DFZZ',
-        fileSource: 'https://example.com',
-        instruction: 'https://example.com',
-      },
-    ],
+    softInfo: {
+      softKey: 'LVFB-****-****-DFZZ',
+      fileSource: 'https://example.com',
+      instruction: 'https://example.com',
+    },
   },
   {
     id: 4,
@@ -67,6 +63,19 @@ const data: subscriptionType[] = [
     startFrom: '2023-06-01',
     activeTo: '2024-01-01',
     state: 'inactive',
+  },
+  {
+    id: 5,
+    type: 'soft',
+    title: 'Avast Antivirus',
+    price: 50,
+    startFrom: '2023-06-01',
+    activeTo: '2025-05-01',
+    state: 'inactive',
+    softInfo: {
+      fileSource: 'https://example.com',
+      instruction: 'https://example.com',
+    },
   },
 ];
 

@@ -29,6 +29,7 @@ import DeleteCircle from '@/components/icons/delete-circle';
 import Diia from '@/components/icons/diia';
 import Doc from '@/components/icons/doc';
 import Document from '@/components/icons/document';
+import Download from '@/components/icons/download';
 import DragAndDrop from '@/components/icons/drag-and-drop';
 import Electronics from '@/components/icons/electronics';
 import EyeClosed from '@/components/icons/eye-closed';
@@ -104,6 +105,7 @@ export const Icons = {
   Diia,
   Doc,
   Document,
+  Download,
   DragAndDrop,
   Electronics,
   ImageDefault,
