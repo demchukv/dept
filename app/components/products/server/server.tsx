@@ -25,8 +25,11 @@ const data: ServerType[] = [
       price: 299,
       activeTo: '2024-12-31',
       sites: 2,
+      maxSites: 10,
       disk: 120,
+      maxDisk: 200,
       databases: 2,
+      maxDatabases: 10,
     },
   },
   {
@@ -65,8 +68,11 @@ const data: ServerType[] = [
       price: 350,
       activeTo: '2024-12-31',
       sites: 1,
+      maxSites: 5,
       disk: 189,
+      maxDisk: 500,
       databases: 1,
+      maxDatabases: 10,
     },
   },
   {

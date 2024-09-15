@@ -2,6 +2,9 @@ import { ServerType } from '@/types/server';
 import { VirtualHeader } from '@/app/components/products/server/virtual/virtual-header';
 import { DedicatedHeader } from '@/app/components/products/server/dedicated/dedicated-header';
 import { HostingHeader } from '@/app/components/products/server/hosting/hosting-header';
+import { VirtualTabs } from '@/app/components/products/server/virtual/virtual-tabs';
+import { HostingTabs } from '@/app/components/products/server/hosting/hosting-tabs';
+import { DedicatedTabs } from '@/app/components/products/server/dedicated/dedicated-tabs';
 import {
   Accordion,
   AccordionContent,
@@ -30,10 +33,10 @@ export const ServerInfo = ({ data }: ServerInfoProps) => {
               {data.type === 'dedicated' && <DedicatedHeader data={data} />}
               {data.type === 'hosting' && <HostingHeader data={data} />}
             </AccordionTrigger>
-            <AccordionContent className="border-t mt-8 pt-8">
-              {data.type === 'virtual' && 'virtual'}
-              {data.type === 'dedicated' && 'dedicated'}
-              {data.type === 'hosting' && 'hosting'}
+            <AccordionContent className="border-t mt-8">
+              {data.type === 'virtual' && <VirtualTabs data={data} />}
+              {data.type === 'dedicated' && <DedicatedTabs data={data} />}
+              {data.type === 'hosting' && <HostingTabs data={data} />}
             </AccordionContent>
           </AccordionItem>
         </Accordion>

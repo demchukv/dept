@@ -28,6 +28,9 @@ export type HostingType = {
   price: number;
   activeTo: string;
   sites: number;
+  maxSites: number;
   disk: number;
+  maxDisk: number;
   databases: number;
+  maxDatabases: number;
 };
