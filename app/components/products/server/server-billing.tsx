@@ -89,6 +89,9 @@ export const ServerBilling = ({ data }: ServerBillingProps) => {
       });
     });
   }
+
+  console.log('currentBalance', currentBalance);
+  console.log(data);
   return (
     <>
       <ServerPromotion data={data} />
