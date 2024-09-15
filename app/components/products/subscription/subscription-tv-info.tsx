@@ -11,6 +11,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { SubscriptionTvItem } from '@/app/components/products/subscription/subscription-tv-item';
+import { SubscriptionTvContinue } from '@/app/components/products/subscription/subscription-tv-continue';
 
 interface SubscriptionTvInfoProps {
   data: subscriptionType;
@@ -55,7 +56,9 @@ export const SubscriptionTvInfo = ({ data }: SubscriptionTvInfoProps) => {
           </TableBody>
           <TableFooter>
             <TableRow>
-              <TableCell colSpan={3}>Total</TableCell>
+              <TableCell colSpan={3}>
+                <SubscriptionTvContinue data={data} />
+              </TableCell>
             </TableRow>
           </TableFooter>
         </Table>

@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils';
 import React from 'react';
 interface KeyValTextProps {
-  k: string;
+  k: string | React.ReactNode;
   val: string | React.ReactNode;
   icon?: React.ReactNode;
   className?: string;
