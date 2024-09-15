@@ -10,6 +10,7 @@ const data: subscriptionType[] = [
     startFrom: '2023-06-01',
     activeTo: '2024-12-30',
     state: 'active',
+    maxDevices: 5,
     devices: [
       {
         id: 1,

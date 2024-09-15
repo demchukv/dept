@@ -6,6 +6,7 @@ export type subscriptionType = {
   startFrom: string;
   activeTo: string;
   state: 'active' | 'inactive';
+  maxDevices?: number;
   devices?: deviceType[];
   softs?: softType[];
 };
