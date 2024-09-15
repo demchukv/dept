@@ -91,7 +91,7 @@ export const ServerBilling = ({ data }: ServerBillingProps) => {
   }
   return (
     <>
-      <ServerPromotion />
+      <ServerPromotion data={data} />
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -156,7 +156,7 @@ export const ServerBilling = ({ data }: ServerBillingProps) => {
               className="mb-4 justify-between sm:hidden"
             />
 
-            <div className="flex flex-col sm:flex-row sm:justify-between sm:gap-4">
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:gap-4 sm:items-center">
               <div className="flex flex-col">
                 <KeyValText
                   k={

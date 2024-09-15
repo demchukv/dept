@@ -15,20 +15,20 @@ const initialState: AccountState = {
     email: 'mail_address@gmail.com',
     phone: '+38(097) 321-65-87',
     edrpou: 3508934009,
-    balance: 500,
+    balance: 1500,
   },
   currentAccount: {
     id: 1,
     account: 'company',
     name: 'ТОВ Агропромбуд',
-    balance: 500,
+    balance: 1500,
   },
   accounts: [
     {
       id: 1,
       account: 'company',
       name: 'ТОВ Агропромбуд',
-      balance: 500,
+      balance: 1500,
     },
     {
       id: 2,
