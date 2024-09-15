@@ -29,8 +29,8 @@ import { Modal, ModalContent } from '@/app/components/common/modal-new';
 import { UnsubscribeTv } from '@/app/components/products/subscription/unsubscribe-tv';
 import { Warning } from '@/app/components/common/warning';
 import { ReplenishBalance } from '../../balance/replenish-balance';
-import { useAppSelector } from '@/store/hooks';
-import { selectBalance } from '@/store/account/accountSlice';
+import { useSelector } from 'react-redux';
+import { selectBalance, selectUser } from '@/store/account/accountSlice';
 
 export const ContinueSubscriptionSchema = z.object({
   subscritionId: z.number().min(1),
@@ -42,7 +42,8 @@ interface ServerBillingProps {
   data: ServerType;
 }
 export const ServerBilling = ({ data }: ServerBillingProps) => {
-  const currentBalance = useAppSelector(selectBalance);
+  const currentBalance = useSelector(selectBalance);
+
   const [open, setOpen] = useState(false);
   const onClose = (state: boolean, e: React.MouseEvent | undefined) => {
     if (e) e.preventDefault();
@@ -96,7 +97,7 @@ export const ServerBilling = ({ data }: ServerBillingProps) => {
           onSubmit={form.handleSubmit(onSubmit)}
           className="flex flex-col mt-4"
         >
-          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center ">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center sm:gap-6 ">
             <div className="flex flex-col ">
               <FormField
                 control={form.control}
@@ -164,33 +165,46 @@ export const ServerBilling = ({ data }: ServerBillingProps) => {
                     </span>
                   }
                   val={
-                    <span className="text-base font-semibold">299.00 грн</span>
+                    <span className="text-base font-semibold">
+                      {data.virtual?.price} грн
+                    </span>
                   }
                   className="mb-3 justify-between"
                 />
                 {/* TODO: add amount and current balance for compare */}
-                <p>Поточний баланс: {currentBalance}</p>
-                <Warning>
-                  Суми на балансі недостатньо для проведення операції. Необхідно
-                  поповнити баланс на %% грн
-                </Warning>
+                {data.virtual?.price &&
+                  currentBalance < data.virtual?.price && (
+                    <Warning>
+                      Суми на балансі недостатньо для проведення операції.
+                      Необхідно поповнити баланс на{' '}
+                      {data.virtual?.price - currentBalance} грн
+                    </Warning>
+                  )}
               </div>
               <div className="flex flex-col">
-                <Button type="submit" variant="default" className="mb-4">
-                  Продовжити зараз
-                </Button>
-                <Button
-                  type="button"
-                  variant="default"
-                  className="mb-4"
-                  onClick={() => setOpenReplenish(true)}
-                >
-                  Поповнити баланс
-                </Button>
-                <ReplenishBalance
-                  open={openReplenish}
-                  onClose={onCloseReplenish}
-                />
+                {data.virtual?.price &&
+                  currentBalance >= data.virtual?.price && (
+                    <Button type="submit" variant="default" className="mb-4">
+                      Продовжити зараз
+                    </Button>
+                  )}
+                {data.virtual?.price &&
+                  currentBalance < data.virtual?.price && (
+                    <>
+                      <Button
+                        type="button"
+                        variant="default"
+                        className="mb-4"
+                        onClick={() => setOpenReplenish(true)}
+                      >
+                        Поповнити баланс
+                      </Button>
+                      <ReplenishBalance
+                        open={openReplenish}
+                        onClose={onCloseReplenish}
+                      />
+                    </>
+                  )}
               </div>
             </div>
           </div>

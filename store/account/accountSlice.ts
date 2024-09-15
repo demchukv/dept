@@ -68,6 +68,7 @@ export const selectUser = (state: RootState) => state.account.user;
 export const selectAccounts = (state: RootState) => state.account.accounts;
 export const selectCurrentAccount = (state: RootState) =>
   state.account.currentAccount;
-export const selectBalance = (state: RootState) => state.account.balance;
+export const selectBalance = (state: RootState) =>
+  state.account.currentAccount.balance;
 
 export default accountSlice.reducer;
