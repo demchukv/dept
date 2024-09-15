@@ -11,14 +11,14 @@ export type subscriptionType = {
   softs?: softType[];
 };
 
-type deviceType = {
+export type deviceType = {
   id: number;
   title: string;
   lastActivity: string;
   instruction: string;
 };
 
-type softType = {
+export type softType = {
   id: number;
   title: string;
   softKey: string;

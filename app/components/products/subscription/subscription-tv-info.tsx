@@ -1,6 +1,16 @@
 import { subscriptionType } from '@/types/subscription';
 import Link from 'next/link';
 import React from 'react';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import { SubscriptionTvItem } from '@/app/components/products/subscription/subscription-tv-item';
 
 interface SubscriptionTvInfoProps {
   data: subscriptionType;
@@ -22,24 +32,33 @@ export const SubscriptionTvInfo = ({ data }: SubscriptionTvInfoProps) => {
           </Link>
         </p>
       </div>
+      {(!data.devices || data.devices?.length === 0) && (
+        <p>У вас ще немає підключених пристроїв</p>
+      )}
       {data.devices && Array.isArray(data.devices) && (
-        <div className="grid grid-cols-3">
-          <div>Назва</div>
-          <div>Остання активність</div>
-          <div>&nbsp;</div>
-          {data.devices?.map((device) => (
-            <React.Fragment key={device.id}>
-              <div
-                key={device.id}
-                className="flex justify-between items-center text-main-dark font-medium text-sm sm:text-base leading-main-lh"
-              >
-                {device.title}
-              </div>
-              <div>{device.lastActivity}</div>
-              <div>Відв&#038;язати пристрій</div>
-            </React.Fragment>
-          ))}
-        </div>
+        <Table className="w-full rounded-[6px]">
+          <TableHeader>
+            <TableRow>
+              <TableHead className=" font-normal text-sm leading-main-lh rounded-tl">
+                Назва
+              </TableHead>
+              <TableHead className=" font-normal text-sm leading-main-lh">
+                Остання активність
+              </TableHead>
+              <TableHead className=" font-normal text-sm leading-main-lhtext-right rounded-tr"></TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {data.devices?.map((device) => (
+              <SubscriptionTvItem key={device.id} device={device} data={data} />
+            ))}
+          </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TableCell colSpan={3}>Total</TableCell>
+            </TableRow>
+          </TableFooter>
+        </Table>
       )}
     </>
   );
