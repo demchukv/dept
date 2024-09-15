@@ -5,7 +5,7 @@ import {
   TabsList,
   TabsTrigger,
 } from '@/components/ui/tabs-server';
-import { VirtualBilling } from '@/app/components/products/server/virtual/virtual-billing';
+import { ServerBilling } from '@/app/components/products/server/server-billing';
 
 interface VirtualTabsProps {
   data: ServerType;
@@ -21,7 +21,7 @@ export const VirtualTabs = ({ data }: VirtualTabsProps) => {
         <TabsTrigger value="history">Історія</TabsTrigger>
       </TabsList>
       <TabsContent value="biling">
-        <VirtualBilling data={data} />
+        <ServerBilling data={data} />
       </TabsContent>
       <TabsContent value="access">Change your password here.</TabsContent>
       <TabsContent value="control">Change your password here.</TabsContent>

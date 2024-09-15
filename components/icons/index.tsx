@@ -72,6 +72,7 @@ import Trash from '@/components/icons/trash';
 import User from '@/components/icons/user';
 import UserBalance from '@/components/icons/user-balance';
 import HistoryList from '@/components/icons/history-list';
+import Warning from '@/components/icons/warning';
 
 export const Icons = {
   Academy,
@@ -148,4 +149,5 @@ export const Icons = {
   Trash,
   User,
   UserBalance,
+  Warning,
 };
