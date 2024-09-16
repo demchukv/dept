@@ -15,7 +15,7 @@ import { cn } from '@/lib/utils';
 import { Icon } from '@/components/utils/icon';
 
 // TODO: запит для отримання списку тарифів відповідно до типу сервера (хостингу)
-const tariffs = [
+const virtualTariffs = [
   {
     id: 1,
     title: 'Тариф від 2 місяців',
@@ -37,11 +37,36 @@ const tariffs = [
     price: 850,
   },
 ];
+const dedicatedTariff = [
+  {
+    id: 1,
+    title: 'Тариф від 2 місяців',
+    price: 1000,
+  },
+];
+const hostingTariff = [
+  {
+    id: 1,
+    title: 'Тариф від 2 місяців',
+    price: 1000,
+  },
+];
 
 interface ServerChangeTariffProps {
   data: ServerType;
 }
 export const ServerChangeTariff = ({ data }: ServerChangeTariffProps) => {
+  let tariffs;
+  if (data.type === 'virtual') {
+    tariffs = virtualTariffs;
+  }
+  if (data.type === 'dedicated') {
+    tariffs = dedicatedTariff;
+  }
+  if (data.type === 'hosting') {
+    tariffs = hostingTariff;
+  }
+
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [inContainer, setInContainer] = useState(false);
@@ -85,7 +110,7 @@ export const ServerChangeTariff = ({ data }: ServerChangeTariffProps) => {
 
       <Carousel setApi={setApi} className="w-full">
         <CarouselContent className={cn(!inContainer && 'flex justify-between')}>
-          {tariffs.map((item, index) => (
+          {tariffs?.map((item, index) => (
             <CarouselItem key={index} className={cn(`max-w-[304px] w-full`)}>
               <div
                 className={cn(
@@ -121,18 +146,20 @@ export const ServerChangeTariff = ({ data }: ServerChangeTariffProps) => {
             />
           </Button>
           <div className="flex gap-4 items-center justify-center">
-            {Array.from({ length: tariffs.length }).map((_, index) => (
-              <Button
-                type="button"
-                variant="ghost"
-                key={index}
-                onClick={() => api?.scrollTo(index)}
-                className={cn(
-                  'w-2 h-2 rounded-full bg-main-color',
-                  api?.selectedScrollSnap() === index && 'w-4 h-4',
-                )}
-              ></Button>
-            ))}
+            {Array.from({ length: tariffs ? tariffs?.length : 0 }).map(
+              (_, index) => (
+                <Button
+                  type="button"
+                  variant="ghost"
+                  key={index}
+                  onClick={() => api?.scrollTo(index)}
+                  className={cn(
+                    'w-2 h-2 rounded-full bg-main-color',
+                    api?.selectedScrollSnap() === index && 'w-4 h-4',
+                  )}
+                ></Button>
+              ),
+            )}
           </div>
           <Button
             type="button"
