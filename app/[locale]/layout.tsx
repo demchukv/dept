@@ -30,7 +30,7 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: { locale: string };
 }>) {
-  console.log(locale);
+  
   return (
     <html lang={locale} dir={dir(locale)}>
       <head>

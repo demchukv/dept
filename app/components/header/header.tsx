@@ -10,16 +10,28 @@ import { Profile } from '@/app/components/header/profile';
 import { LangSwitch } from '@/app/components/header/lang-switch';
 import { TopMenu } from '@/app/components/header/top-menu';
 
-import { useAppSelector } from '@/store/hooks';
+import { useAppSelector, useAppDispatch } from '@/store/hooks';
 import { selectCurrentAccount } from '@/store/account/accountSlice';
+import { setCurrentAccount } from '@/store/account/accountSlice';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 // import accountData from '@/data/account.json';
 
 export const Header = () => {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
   //TODO: get account type from backend or session
   const currentAccount = useAppSelector(selectCurrentAccount);
+  let accoutType;
 
-  const accoutType = currentAccount.account;
+  try {
+    accoutType = currentAccount.account;
+  } catch (error) {
+    console.log(error);
+    dispatch(setCurrentAccount(1));
+    accoutType = currentAccount.account;
+    router.refresh();
+  }
 
   const newAlert = true;
 
@@ -29,7 +41,7 @@ export const Header = () => {
         <div className="flex gap-3 items-center flex-shrink-0 ml-0 xs:ml-2 lg:ml-9 lg:mr-16">
           <Sidebar />
           <Image
-            src={accoutType === 'company' ? LogoBlue : LogoGreen}
+            src={accoutType && accoutType === 'company' ? LogoBlue : LogoGreen}
             priority
             alt="logo"
             width={60}
