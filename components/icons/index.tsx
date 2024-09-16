@@ -18,6 +18,7 @@ import Call from '@/components/icons/call';
 import CardsList from '@/components/icons/cards-list';
 import Case from '@/components/icons/case';
 import Check from '@/components/icons/check';
+import CheckDouble from '@/components/icons/check-double';
 import CheckList from '@/components/icons/check-list';
 import ClockInWork from '@/components/icons/clock-in-work';
 import ClockPause from '@/components/icons/clock-pause';
@@ -69,6 +70,9 @@ import StatusCheck from '@/components/icons/status-check';
 import StatusReady from '@/components/icons/status-ready';
 import StatusRepair from '@/components/icons/status-repair';
 import StatusSend from '@/components/icons/status-send';
+import TariffOne from '@/components/icons/tariff-one';
+import TariffTwo from '@/components/icons/tariff-two';
+import TariffThree from '@/components/icons/tariff-three';
 import Task from '@/components/icons/task';
 import Trash from '@/components/icons/trash';
 import User from '@/components/icons/user';
@@ -97,6 +101,7 @@ export const Icons = {
   CardsList,
   Case,
   Check,
+  CheckDouble,
   CheckList,
   ClockInWork,
   ClockPause,
@@ -149,6 +154,9 @@ export const Icons = {
   StatusReady,
   StatusRepair,
   StatusSend,
+  TariffOne,
+  TariffTwo,
+  TariffThree,
   Task,
   Trash,
   User,

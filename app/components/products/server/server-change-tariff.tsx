@@ -5,36 +5,59 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
   type CarouselApi,
 } from '@/components/ui/carousel-tariff';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Icon } from '@/components/utils/icon';
+import { VirtualSelectTariff } from '@/app/components/products/server/virtual/virtual-select-tariff';
 
 // TODO: запит для отримання списку тарифів відповідно до типу сервера (хостингу)
 const virtualTariffs = [
   {
     id: 1,
-    title: 'Тариф від 2 місяців',
-    price: 1000,
+    icon: 'TariffOne',
+    title: 'Підприємець',
+    disk: '50 Gb',
+    memory: '512 Mb',
+    processor: '1 Intel XEON',
+    additional: [
+      'Безлімітний трафік',
+      'Датацентр ODS',
+      'Бекапи раз на тиждень',
+    ],
+    price: 300,
+    promoPrice: 250,
+    promoPriceForYear: 3000,
   },
   {
     id: 2,
-    title: 'Тариф від 3 місяців',
-    price: 950,
+    icon: 'TariffTwo',
+    title: 'Компанія',
+    disk: '100 Gb',
+    memory: '4 096 Mb',
+    processor: '2 Intel XEON',
+    additional: ['Безлімітний трафік', 'Датацентр ODS', 'Бекапи кожного дня'],
+    price: 700,
+    promoPrice: 583,
+    promoPriceForYear: 7000,
   },
   {
     id: 3,
-    title: 'Тариф від 6 місяців',
-    price: 900,
-  },
-  {
-    id: 4,
-    title: 'Тариф від 8 місяців',
-    price: 850,
+    icon: 'TariffThree',
+    title: 'Корпорація',
+    disk: '150 Gb',
+    memory: '8 192 Mb',
+    processor: '4 Intel XEON',
+    additional: [
+      'Безлімітний трафік',
+      'Датацентр ODS',
+      'Бекапи кожні 4 години',
+    ],
+    price: 1600,
+    promoPrice: 1333,
+    promoPriceForYear: 16000,
   },
 ];
 const dedicatedTariff = [
@@ -118,11 +141,12 @@ export const ServerChangeTariff = ({ data }: ServerChangeTariffProps) => {
                   !inContainer && 'border-transparent',
                 )}
               >
-                <div className="flex flex-col gap-4 items-center justify-center p-6">
+                <VirtualSelectTariff data={data} tariff={item} />
+                {/* <div className="flex flex-col gap-4 items-center justify-center p-6">
                   <div className="text-4xl font-semibold">{item.id}</div>
                   <div className="text-2xl">{item.title}</div>
                   <div className="text-2xl">{item.price} грн</div>
-                </div>
+                </div> */}
               </div>
             </CarouselItem>
           ))}
