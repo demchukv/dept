@@ -10,14 +10,15 @@ import { Profile } from '@/app/components/header/profile';
 import { LangSwitch } from '@/app/components/header/lang-switch';
 import { TopMenu } from '@/app/components/header/top-menu';
 
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '@/store/hooks';
 import { selectCurrentAccount } from '@/store/account/accountSlice';
 import Link from 'next/link';
 // import accountData from '@/data/account.json';
 
 export const Header = () => {
   //TODO: get account type from backend or session
-  const currentAccount = useSelector(selectCurrentAccount);
+  const currentAccount = useAppSelector(selectCurrentAccount);
+
   const accoutType = currentAccount.account;
 
   const newAlert = true;

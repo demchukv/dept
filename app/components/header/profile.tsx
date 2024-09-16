@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import {
   selectAccounts,
   selectCurrentAccount,
@@ -20,12 +20,12 @@ import {
 } from '@/store/account/accountSlice';
 
 export const Profile = () => {
-  const dispatch = useDispatch();
-  const accounts = useSelector(selectAccounts);
-  const currentAccount = useSelector(selectCurrentAccount);
+  const dispatch = useAppDispatch();
+  const accounts = useAppSelector(selectAccounts);
+  const currentAccount = useAppSelector(selectCurrentAccount);
 
   const changeAccount = async (account: accoutTypeT) => {
-    await dispatch(setCurrentAccount(account));
+    await dispatch(setCurrentAccount(account.id));
   };
   const setAccount = async (account: accoutTypeT) => {
     await changeAccount(account);
@@ -126,7 +126,6 @@ export const Profile = () => {
                   </DropdownMenuItem>
                 );
               })}
-
             </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>

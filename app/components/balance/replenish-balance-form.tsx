@@ -28,6 +28,9 @@ import { Icon } from '@/components/utils/icon';
 import { cn } from '@/lib/utils';
 import { CcInfo } from '@/app/components/balance/cc-info';
 
+import { useAppDispatch } from '@/store/hooks';
+import { setBalance } from '@/store/account/accountSlice';
+
 interface ReplenishBalanceFormProps {
   onClose: (state: boolean, e: React.MouseEvent | undefined) => void;
 }
@@ -70,6 +73,7 @@ const selectedCard = cards.find((card) => card.status === 'Основна');
 export const ReplenishBalanceForm = ({
   onClose,
 }: ReplenishBalanceFormProps) => {
+  const dispatch = useAppDispatch();
   const [isPendig, startTransition] = useTransition();
   const [currentForm, setCurrentForm] = React.useState(0);
 
@@ -85,6 +89,7 @@ export const ReplenishBalanceForm = ({
     startTransition(() => {
       //TODO: make API request and setData
       // const newData = getJson('/data/call-summary.json');
+      dispatch(setBalance(data.amount));
       toast({
         title: 'Ви відправили наступні значення:',
         description: (

@@ -29,7 +29,7 @@ import { Modal, ModalContent } from '@/app/components/common/modal-new';
 import { UnsubscribeTv } from '@/app/components/products/subscription/unsubscribe-tv';
 import { Warning } from '@/app/components/common/warning';
 import { ReplenishBalance } from '../../balance/replenish-balance';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '@/store/hooks';
 import { selectBalance, selectUser } from '@/store/account/accountSlice';
 
 export const ContinueSubscriptionSchema = z.object({
@@ -42,7 +42,7 @@ interface ServerBillingProps {
   data: ServerType;
 }
 export const ServerBilling = ({ data }: ServerBillingProps) => {
-  const currentBalance = useSelector(selectBalance);
+  const currentBalance = useAppSelector(selectBalance);
 
   const [open, setOpen] = useState(false);
   const onClose = (state: boolean, e: React.MouseEvent | undefined) => {
@@ -90,8 +90,6 @@ export const ServerBilling = ({ data }: ServerBillingProps) => {
     });
   }
 
-  console.log('currentBalance', currentBalance);
-  console.log(data);
   return (
     <>
       <ServerPromotion data={data} />
