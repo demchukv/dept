@@ -5,10 +5,12 @@ interface DedicatedHeaderProps {
 }
 export const DedicatedHeader = ({ data }: DedicatedHeaderProps) => {
   return (
-    <div className="w-full flex items-center justify-between">
+    <div className="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between">
       {data?.dedicated?.name && <div>{data.dedicated.name}</div>}
-      <div className="flex flex-end gap-6 font-normal">
-        {data?.dedicated?.ip && <div>IP-адреса: {data.dedicated.ip}</div>}
+      <div className="w-full sm:w-auto flex flex-end justify-between gap-6 font-normal">
+        {data?.dedicated?.ip && (
+          <div className="hidden sm:block">IP-адреса: {data.dedicated.ip}</div>
+        )}
         {data?.dedicated?.price && <div>{data.dedicated.price} грн/міс</div>}
         {data?.dedicated?.activeTo && <div>до {data.dedicated.activeTo}</div>}
       </div>

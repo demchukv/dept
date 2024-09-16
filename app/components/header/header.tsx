@@ -20,6 +20,7 @@ import { useRouter } from 'next/navigation';
 export const Header = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
+
   //TODO: get account type from backend or session
   const currentAccount = useAppSelector(selectCurrentAccount);
   let accoutType;

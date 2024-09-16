@@ -5,9 +5,9 @@ interface HostingHeaderProps {
 }
 export const HostingHeader = ({ data }: HostingHeaderProps) => {
   return (
-    <div className="w-full flex items-center justify-between">
+    <div className="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between">
       {data?.hosting?.name && <div>{data.hosting.name}</div>}
-      <div className="flex flex-end gap-6 font-normal text-gray-medium">
+      <div className="hidden sm:flex flex-end gap-6 font-normal text-gray-medium">
         {data?.hosting?.sites && data?.hosting?.maxSites && (
           <div>
             Сайтів: {data.hosting.sites}/{data.hosting.maxSites}
@@ -24,7 +24,7 @@ export const HostingHeader = ({ data }: HostingHeaderProps) => {
           </div>
         )}
       </div>
-      <div className="flex flex-end gap-6 font-normal">
+      <div className="w-full sm:w-auto flex flex-row-reverse sm:flex-row justify-between flex-end gap-6 font-normal">
         {data?.hosting?.price && <div>{data.hosting.price} грн/міс</div>}
         {data?.hosting?.activeTo && <div>до {data.hosting.activeTo}</div>}
       </div>
