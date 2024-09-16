@@ -8,6 +8,7 @@ const data: ServerType[] = [
     state: 'active',
     title: 'Віртуальний сервер V-500 ',
     price: 1000,
+    tariff: 1,
     virtual: {
       name: 'Віртуальний сервер V-500 ',
       provider: 'Virtuozzo',
@@ -22,6 +23,7 @@ const data: ServerType[] = [
     state: 'active',
     title: 'Хостинг Н-250',
     price: 299,
+    tariff: 1,
     hosting: {
       name: 'Хостинг Н-250',
 
@@ -40,6 +42,7 @@ const data: ServerType[] = [
     state: 'active',
     title: 'Виділений сервер',
     price: 1000,
+    tariff: 1,
     dedicated: {
       name: 'Виділений сервер',
       provider: 'Virtuozzo',
@@ -54,6 +57,7 @@ const data: ServerType[] = [
     state: 'inactive',
     title: 'Віртуальний сервер V-500 ',
     price: 1000,
+    tariff: 2,
     virtual: {
       name: 'Віртуальний сервер V-500 ',
       provider: 'Virtuozzo',
@@ -68,6 +72,7 @@ const data: ServerType[] = [
     state: 'inactive',
     title: 'Хостинг Н-250',
     price: 350,
+    tariff: 2,
     hosting: {
       name: 'Хостинг Н-250',
 
@@ -86,6 +91,7 @@ const data: ServerType[] = [
     state: 'inactive',
     title: 'Виділений сервер',
     price: 1000,
+    tariff: 2,
     dedicated: {
       name: 'Виділений сервер',
       provider: 'Virtuozzo',

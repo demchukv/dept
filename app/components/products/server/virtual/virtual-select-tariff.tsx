@@ -2,6 +2,7 @@ import { KeyValText } from '@/app/components/common/key-val-text';
 import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/utils/icon';
 import { ServerType } from '@/types/server';
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 
 interface VirtualSelectTariffProps {
   data: ServerType;
@@ -39,6 +40,39 @@ export const VirtualSelectTariff = ({
           </li>
         ))}
       </ul>
+
+      <ToggleGroup
+        type="single"
+        variant="outline"
+        size="sm"
+        className="justify-between mb-6"
+      >
+        <ToggleGroupItem
+          value="a"
+          className="font-bold text-xs border-main-color text-main-color data-[state=on]:bg-main-color data-[state=on]:text-white"
+        >
+          1 міс
+        </ToggleGroupItem>
+        <ToggleGroupItem
+          value="b"
+          className="font-bold text-xs border-main-color text-main-color data-[state=on]:bg-main-color data-[state=on]:text-white"
+        >
+          3 міс
+        </ToggleGroupItem>
+        <ToggleGroupItem
+          value="c"
+          className="font-bold text-xs border-main-color text-main-color data-[state=on]:bg-main-color data-[state=on]:text-white"
+        >
+          6 міс
+        </ToggleGroupItem>
+        <ToggleGroupItem
+          value="d"
+          className="font-bold text-xs border-main-color text-main-color data-[state=on]:bg-main-color data-[state=on]:text-white"
+        >
+          1 рік
+        </ToggleGroupItem>
+      </ToggleGroup>
+
       <KeyValText
         k={<span className="line-through">{tariff.price} грн/міс</span>}
         val={
@@ -57,8 +91,12 @@ export const VirtualSelectTariff = ({
         }
         className="mb-6"
       />
-      <Button type="button" className="w-full">
-        Замовити
+      <Button
+        type="button"
+        className="w-full"
+        disabled={data.tariff === tariff.id}
+      >
+        {data.tariff === tariff.id ? 'Поточний тариф' : 'Замовити'}
       </Button>
     </div>
   );

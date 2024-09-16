@@ -4,7 +4,7 @@ export type ServerType = {
   title: string;
   type: 'virtual' | 'dedicated' | 'hosting';
   price: number;
-
+  tariff: number;
   virtual?: VirtualType;
   dedicated?: DedicatedType;
   hosting?: HostingType;
