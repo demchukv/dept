@@ -42,8 +42,8 @@ interface ServerChangeTariffProps {
   data: ServerType;
 }
 export const ServerChangeTariff = ({ data }: ServerChangeTariffProps) => {
-  const carouselRef = useRef<HTMLDivElement>(null);
   const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
   const [inContainer, setInContainer] = useState(false);
   const [contentWidth, setContentWidth] = useState(0);
   const [containerWidth, setContainerWidth] = useState(0);
@@ -60,8 +60,9 @@ export const ServerChangeTariff = ({ data }: ServerChangeTariffProps) => {
     };
 
     api.on('select', () => {
-      handleResize();
+      setCurrent(api.selectedScrollSnap() + 1);
     });
+
     window.addEventListener('resize', handleResize);
     handleResize();
     return () => window.removeEventListener('resize', handleResize);
@@ -78,26 +79,26 @@ export const ServerChangeTariff = ({ data }: ServerChangeTariffProps) => {
         користування послугами та без необхідності перенесення даних на інший
         тариф.
       </p>
-      <div ref={carouselRef}>
-        <Carousel setApi={setApi} className="w-full">
-          <CarouselContent>
-            {tariffs.map((item, index) => (
-              <CarouselItem
-                key={index}
-                className={cn(`max-w-[${CARD_WIDTH}px] w-full`)}
-              >
-                <div className="border border-main-color rounded-[6px]">
-                  <div className="flex flex-col gap-4 items-center justify-center p-6">
-                    <div className="text-4xl font-semibold">{item.id}</div>
-                    <div className="text-2xl">{item.title}</div>
-                    <div className="text-2xl">{item.price} грн</div>
-                  </div>
+
+      <Carousel setApi={setApi} className="w-full">
+        <CarouselContent>
+          {tariffs.map((item, index) => (
+            <CarouselItem
+              key={index}
+              className={cn(`max-w-[${CARD_WIDTH}px] w-full`)}
+            >
+              <div className="border border-main-color rounded-[6px]">
+                <div className="flex flex-col gap-4 items-center justify-center p-6">
+                  <div className="text-4xl font-semibold">{item.id}</div>
+                  <div className="text-2xl">{item.title}</div>
+                  <div className="text-2xl">{item.price} грн</div>
                 </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-        </Carousel>
-      </div>
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
+
       {inContainer && (
         <div className="flex justify-between items-center gap-2 mt-4">
           <Button
