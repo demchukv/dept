@@ -82,7 +82,7 @@ export const ServerTransfer = ({
             </ModalTitle>
             <ModalDescription className="hidden"></ModalDescription>
           </ModalHeader>
-          <ModalInner className="w-full font-normal text-sm text-main-dark leading-main-lh space-y-4 self-start flex-grow">
+          <ModalInner className="flex flex-col justify-center w-full font-normal text-sm text-main-dark leading-main-lh space-y-4 flex-grow">
             <FormField
               control={form.control}
               name="transferDate"

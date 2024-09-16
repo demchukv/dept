@@ -31,7 +31,12 @@ export const ServerPromotion = ({ data }: ServerPromotionProps) => {
             вартість, з фіксацією її протягом одного року.
           </p>
         </div>
-        <Button type="button" variant="outline" onClick={() => setOpen(true)}>
+        <Button
+          type="button"
+          variant="outline"
+          onClick={() => setOpen(true)}
+          className="w-full sm:w-auto"
+        >
           Перенести до dept
         </Button>
       </div>
