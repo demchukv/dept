@@ -7,11 +7,12 @@ const data: ServerType[] = [
     type: 'virtual',
     state: 'active',
     title: 'Віртуальний сервер V-500 ',
+    price: 1000,
     virtual: {
       name: 'Віртуальний сервер V-500 ',
       provider: 'Virtuozzo',
       ip: '237.84.2.178',
-      price: 1000,
+
       activeTo: '2024-12-31',
     },
   },
@@ -20,9 +21,10 @@ const data: ServerType[] = [
     type: 'hosting',
     state: 'active',
     title: 'Хостинг Н-250',
+    price: 299,
     hosting: {
       name: 'Хостинг Н-250',
-      price: 299,
+
       activeTo: '2024-12-31',
       sites: 2,
       maxSites: 10,
@@ -37,11 +39,12 @@ const data: ServerType[] = [
     type: 'dedicated',
     state: 'active',
     title: 'Виділений сервер',
+    price: 1000,
     dedicated: {
       name: 'Виділений сервер',
       provider: 'Virtuozzo',
       ip: '237.84.2.178',
-      price: 1000,
+
       activeTo: '2024-12-31',
     },
   },
@@ -50,11 +53,12 @@ const data: ServerType[] = [
     type: 'virtual',
     state: 'inactive',
     title: 'Віртуальний сервер V-500 ',
+    price: 1000,
     virtual: {
       name: 'Віртуальний сервер V-500 ',
       provider: 'Virtuozzo',
       ip: '237.84.2.178',
-      price: 1000,
+
       activeTo: '2024-12-31',
     },
   },
@@ -63,9 +67,10 @@ const data: ServerType[] = [
     type: 'hosting',
     state: 'inactive',
     title: 'Хостинг Н-250',
+    price: 350,
     hosting: {
       name: 'Хостинг Н-250',
-      price: 350,
+
       activeTo: '2024-12-31',
       sites: 1,
       maxSites: 5,
@@ -80,11 +85,11 @@ const data: ServerType[] = [
     type: 'dedicated',
     state: 'inactive',
     title: 'Виділений сервер',
+    price: 1000,
     dedicated: {
       name: 'Виділений сервер',
       provider: 'Virtuozzo',
       ip: '237.84.2.178',
-      price: 1000,
       activeTo: '2024-12-31',
     },
   },

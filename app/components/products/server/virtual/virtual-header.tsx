@@ -11,7 +11,7 @@ export const VirtualHeader = ({ data }: VirtualHeaderProps) => {
         {data?.virtual?.ip && (
           <div className="hidden sm:block">IP-адреса: {data.virtual.ip}</div>
         )}
-        {data?.virtual?.price && <div>{data.virtual.price} грн/міс</div>}
+        {data?.price && <div>{data.price} грн/міс</div>}
         {data?.virtual?.activeTo && <div>до {data.virtual.activeTo}</div>}
       </div>
     </div>

@@ -11,7 +11,7 @@ export const DedicatedHeader = ({ data }: DedicatedHeaderProps) => {
         {data?.dedicated?.ip && (
           <div className="hidden sm:block">IP-адреса: {data.dedicated.ip}</div>
         )}
-        {data?.dedicated?.price && <div>{data.dedicated.price} грн/міс</div>}
+        {data?.price && <div>{data.price} грн/міс</div>}
         {data?.dedicated?.activeTo && <div>до {data.dedicated.activeTo}</div>}
       </div>
     </div>

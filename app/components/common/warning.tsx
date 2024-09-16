@@ -1,8 +1,20 @@
 import { Icon } from '@/components/utils/icon';
+import { cn } from '@/lib/utils';
 
-export const Warning = ({ children }: { children: React.ReactNode }) => {
+export const Warning = ({
+  children,
+  className = '',
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => {
   return (
-    <div className="flex items-start gap-2 font-normal text-xs text-gray-dark leading-[1.33] mt-3">
+    <div
+      className={cn(
+        'flex items-start gap-2 font-normal text-xs text-gray-dark leading-[1.33] mt-3',
+        className,
+      )}
+    >
       <Icon
         iconName="Warning"
         width={20}

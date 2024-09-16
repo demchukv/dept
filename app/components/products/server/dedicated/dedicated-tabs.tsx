@@ -5,6 +5,7 @@ import {
   TabsList,
   TabsTrigger,
 } from '@/components/ui/tabs-server';
+import { ServerBilling } from '@/app/components/products/server/server-billing';
 
 interface DedicatedTabsProps {
   data: ServerType;
@@ -20,7 +21,7 @@ export const DedicatedTabs = ({ data }: DedicatedTabsProps) => {
         <TabsTrigger value="history">Історія</TabsTrigger>
       </TabsList>
       <TabsContent value="biling">
-        Make changes to your account here.
+        <ServerBilling data={data} />
       </TabsContent>
       <TabsContent value="access">Change your password here.</TabsContent>
       <TabsContent value="control">Change your password here.</TabsContent>

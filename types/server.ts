@@ -3,6 +3,7 @@ export type ServerType = {
   state: 'active' | 'inactive';
   title: string;
   type: 'virtual' | 'dedicated' | 'hosting';
+  price: number;
 
   virtual?: VirtualType;
   dedicated?: DedicatedType;
@@ -13,19 +14,16 @@ export type VirtualType = {
   name: string;
   provider: string;
   ip: string;
-  price: number;
   activeTo: string;
 };
 export type DedicatedType = {
   name: string;
   provider: string;
   ip: string;
-  price: number;
   activeTo: string;
 };
 export type HostingType = {
   name: string;
-  price: number;
   activeTo: string;
   sites: number;
   maxSites: number;

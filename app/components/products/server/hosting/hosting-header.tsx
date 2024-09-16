@@ -25,7 +25,7 @@ export const HostingHeader = ({ data }: HostingHeaderProps) => {
         )}
       </div>
       <div className="w-full sm:w-auto flex flex-row-reverse sm:flex-row justify-between flex-end gap-6 font-normal">
-        {data?.hosting?.price && <div>{data.hosting.price} грн/міс</div>}
+        {data?.price && <div>{data.price} грн/міс</div>}
         {data?.hosting?.activeTo && <div>до {data.hosting.activeTo}</div>}
       </div>
     </div>

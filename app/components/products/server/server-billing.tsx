@@ -26,11 +26,11 @@ import { KeyValText } from '@/app/components/common/key-val-text';
 import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/utils/icon';
 import { Modal, ModalContent } from '@/app/components/common/modal-new';
-import { UnsubscribeTv } from '@/app/components/products/subscription/unsubscribe-tv';
+import { ServerCancel } from '@/app/components/products/server/server-cancel';
 import { Warning } from '@/app/components/common/warning';
 import { ReplenishBalance } from '../../balance/replenish-balance';
 import { useAppSelector } from '@/store/hooks';
-import { selectBalance, selectUser } from '@/store/account/accountSlice';
+import { selectBalance } from '@/store/account/accountSlice';
 
 export const ContinueSubscriptionSchema = z.object({
   subscritionId: z.number().min(1),
@@ -93,13 +93,14 @@ export const ServerBilling = ({ data }: ServerBillingProps) => {
   return (
     <>
       <ServerPromotion data={data} />
+
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           className="flex flex-col mt-4"
         >
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center sm:gap-6 ">
-            <div className="flex flex-col ">
+            <div className="flex flex-col w-auto sm:w-[50%]">
               <FormField
                 control={form.control}
                 name="term"
@@ -167,45 +168,42 @@ export const ServerBilling = ({ data }: ServerBillingProps) => {
                   }
                   val={
                     <span className="text-base font-semibold">
-                      {data.virtual?.price} грн
+                      {data.price} грн
                     </span>
                   }
                   className="mb-3 justify-between"
                 />
                 {/* TODO: add amount and current balance for compare */}
-                {data.virtual?.price &&
-                  currentBalance < data.virtual?.price && (
-                    <Warning>
-                      Суми на балансі недостатньо для проведення операції.
-                      Необхідно поповнити баланс на{' '}
-                      {data.virtual?.price - currentBalance} грн
-                    </Warning>
-                  )}
+                {data.price && currentBalance < data.price && (
+                  <Warning className="mb-4 sm:mb-0">
+                    Суми на балансі недостатньо для проведення операції.
+                    Необхідно поповнити баланс на {data.price - currentBalance}{' '}
+                    грн
+                  </Warning>
+                )}
               </div>
               <div className="flex flex-col">
-                {data.virtual?.price &&
-                  currentBalance >= data.virtual?.price && (
-                    <Button type="submit" variant="default" className="mb-4">
-                      Продовжити зараз
+                {data.price && currentBalance >= data.price && (
+                  <Button type="submit" variant="default" className="mb-4">
+                    Продовжити зараз
+                  </Button>
+                )}
+                {data.price && currentBalance < data.price && (
+                  <>
+                    <Button
+                      type="button"
+                      variant="default"
+                      className="mb-4"
+                      onClick={() => setOpenReplenish(true)}
+                    >
+                      Поповнити баланс
                     </Button>
-                  )}
-                {data.virtual?.price &&
-                  currentBalance < data.virtual?.price && (
-                    <>
-                      <Button
-                        type="button"
-                        variant="default"
-                        className="mb-4"
-                        onClick={() => setOpenReplenish(true)}
-                      >
-                        Поповнити баланс
-                      </Button>
-                      <ReplenishBalance
-                        open={openReplenish}
-                        onClose={onCloseReplenish}
-                      />
-                    </>
-                  )}
+                    <ReplenishBalance
+                      open={openReplenish}
+                      onClose={onCloseReplenish}
+                    />
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -239,7 +237,7 @@ export const ServerBilling = ({ data }: ServerBillingProps) => {
 
       <Modal open={open} onOpenChange={() => onClose(false, undefined)}>
         <ModalContent className="grid grid-cols-1 gap-6">
-          {/* <UnsubscribeTv data={data} onClose={onClose} /> */}
+          <ServerCancel data={data} onClose={onClose} />
         </ModalContent>
       </Modal>
     </>
