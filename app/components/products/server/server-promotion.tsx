@@ -17,7 +17,7 @@ export const ServerPromotion = ({ data }: ServerPromotionProps) => {
   };
   return (
     <>
-      <div className="flex items-center justify-between mb-8 gap-6">
+      <div className="flex flex-col sm:flex-row items-center justify-between mb-8 gap-3 sm:gap-6">
         <div className="flex items-center gap-2">
           <Icon
             iconName="DangerTriangle"
