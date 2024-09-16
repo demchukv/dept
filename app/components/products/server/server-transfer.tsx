@@ -21,7 +21,6 @@ import {
   ModalInner,
   ModalTitle,
 } from '../../common/modal-new';
-import { Input } from '@/components/ui/input';
 import { Info } from '../../common/info';
 import { DatePicker } from '../../common/date-picker';
 import { formatISO } from 'date-fns';
