@@ -1,7 +1,9 @@
 import Academy from '@/components/icons/academy';
 import ActionMenu from '@/components/icons/action-menu';
+import ArrowNext from '@/components/icons/arrow-next';
 import ApplePay from '@/components/icons/apple-pay';
 import ArrowBack from '@/components/icons/arrow-back';
+import ArrowPrev from '@/components/icons/arrow-prev';
 import ArrowDown from '@/components/icons/arrow-down';
 import Attachment from '@/components/icons/attachment';
 import AvatarUser from '@/components/icons/avatar-user';
@@ -77,8 +79,9 @@ import Warning from '@/components/icons/warning';
 export const Icons = {
   Academy,
   ActionMenu,
+  ArrowNext,
   ApplePay,
-  ArrowBack,
+  ArrowPrev,
   ArrowDown,
   Attachment,
   AvatarUser,

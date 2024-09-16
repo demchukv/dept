@@ -12,7 +12,9 @@ import {
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { Icon } from '@/components/utils/icon';
 
+// TODO: запит для отримання списку тарифів відповідно до типу сервера (хостингу)
 const tariffs = [
   {
     id: 1,
@@ -36,8 +38,6 @@ const tariffs = [
   },
 ];
 
-const CARD_WIDTH = 280;
-
 interface ServerChangeTariffProps {
   data: ServerType;
 }
@@ -45,6 +45,7 @@ export const ServerChangeTariff = ({ data }: ServerChangeTariffProps) => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [inContainer, setInContainer] = useState(false);
+
   const [contentWidth, setContentWidth] = useState(0);
   const [containerWidth, setContainerWidth] = useState(0);
 
@@ -57,6 +58,8 @@ export const ServerChangeTariff = ({ data }: ServerChangeTariffProps) => {
       setContainerWidth(api?.rootNode().clientWidth + 24 ?? 0);
       setContentWidth(api?.containerNode().scrollWidth - 1 ?? 0);
       setInContainer(containerWidth >= contentWidth ? false : true);
+
+      api.reInit();
     };
 
     api.on('select', () => {
@@ -81,13 +84,15 @@ export const ServerChangeTariff = ({ data }: ServerChangeTariffProps) => {
       </p>
 
       <Carousel setApi={setApi} className="w-full">
-        <CarouselContent>
+        <CarouselContent className={cn(!inContainer && 'flex justify-between')}>
           {tariffs.map((item, index) => (
-            <CarouselItem
-              key={index}
-              className={cn(`max-w-[${CARD_WIDTH}px] w-full`)}
-            >
-              <div className="border border-main-color rounded-[6px]">
+            <CarouselItem key={index} className={cn(`max-w-[304px] w-full`)}>
+              <div
+                className={cn(
+                  'border border-main-color rounded-[6px]',
+                  !inContainer && 'border-transparent',
+                )}
+              >
                 <div className="flex flex-col gap-4 items-center justify-center p-6">
                   <div className="text-4xl font-semibold">{item.id}</div>
                   <div className="text-2xl">{item.title}</div>
@@ -106,10 +111,16 @@ export const ServerChangeTariff = ({ data }: ServerChangeTariffProps) => {
             variant="ghost"
             onClick={() => api?.canScrollPrev() && api?.scrollPrev()}
             disabled={!api?.canScrollPrev()}
+            className="text-main-color"
           >
-            Prev
+            <Icon
+              iconName="ArrowPrev"
+              width={24}
+              height={24}
+              className="w-6 h-6"
+            />
           </Button>
-          <div className="flex gap-2 items-center justify-center">
+          <div className="flex gap-4 items-center justify-center">
             {Array.from({ length: tariffs.length }).map((_, index) => (
               <Button
                 type="button"
@@ -117,8 +128,8 @@ export const ServerChangeTariff = ({ data }: ServerChangeTariffProps) => {
                 key={index}
                 onClick={() => api?.scrollTo(index)}
                 className={cn(
-                  'w-3 h-3 rounded-full bg-main-color',
-                  api?.selectedScrollSnap() === index && 'w-5 h-5',
+                  'w-2 h-2 rounded-full bg-main-color',
+                  api?.selectedScrollSnap() === index && 'w-4 h-4',
                 )}
               ></Button>
             ))}
@@ -128,8 +139,14 @@ export const ServerChangeTariff = ({ data }: ServerChangeTariffProps) => {
             variant="ghost"
             onClick={() => api?.canScrollNext() && api?.scrollNext()}
             disabled={!api?.canScrollNext()}
+            className="text-main-color"
           >
-            Next
+            <Icon
+              iconName="ArrowNext"
+              width={24}
+              height={24}
+              className="w-6 h-6"
+            />
           </Button>
         </div>
       )}
