@@ -10,7 +10,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@/components/ui/accordion';
+} from '@/components/ui/accordion-server';
 import { Card } from '@/app/components/card/card';
 
 interface ServerInfoProps {

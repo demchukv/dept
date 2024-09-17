@@ -24,9 +24,7 @@ export const VirtualHeader = ({ data }: VirtualHeaderProps) => {
         {data?.virtual?.name && (
           <div className="flex-grow text-left flex items-center gap-4">
             {data.waitOnChange && (
-              <Button
-                type="button"
-                variant="ghost"
+              <span
                 className="text-main-color"
                 onClick={(e) => {
                   setOpen(true);
@@ -34,7 +32,7 @@ export const VirtualHeader = ({ data }: VirtualHeaderProps) => {
                 }}
               >
                 <Icon iconName="ClockWait" width={24} height={24} />
-              </Button>
+              </span>
             )}
             {data.virtual.name}
           </div>
