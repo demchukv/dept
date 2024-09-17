@@ -92,7 +92,7 @@ export const ServerBilling = ({ data }: ServerBillingProps) => {
 
   return (
     <>
-      <ServerPromotion data={data} />
+      {data.state === 'active' && <ServerPromotion data={data} />}
 
       <Form {...form}>
         <form
@@ -163,7 +163,9 @@ export const ServerBilling = ({ data }: ServerBillingProps) => {
                 <KeyValText
                   k={
                     <span className="text-base font-semibold">
-                      Сума до списання:
+                      {data.state === 'active'
+                        ? 'Сума до списання'
+                        : 'Вартість за період'}
                     </span>
                   }
                   val={
@@ -185,7 +187,9 @@ export const ServerBilling = ({ data }: ServerBillingProps) => {
               <div className="flex flex-col">
                 {data.price && currentBalance >= data.price && (
                   <Button type="submit" variant="default" className="mb-4">
-                    Продовжити зараз
+                    {data.state === 'active'
+                      ? 'Продовжити зараз'
+                      : 'Відновити послугу'}
                   </Button>
                 )}
                 {data.price && currentBalance < data.price && (

@@ -1,5 +1,4 @@
 'use client';
-import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/utils/icon';
 import { Modal, ModalContent } from '@/app/components/common/modal-new';
 import { ServerType } from '@/types/server';
