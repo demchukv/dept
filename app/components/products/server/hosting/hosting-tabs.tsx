@@ -7,6 +7,7 @@ import {
 } from '@/components/ui/tabs-server';
 import { ServerBilling } from '@/app/components/products/server/server-billing';
 import { ServerChangeTariff } from '@/app/components/products/server/server-change-tariff';
+import { HostingSites } from '@/app/components/products/server/hosting/hosting-sites';
 
 interface HostingTabsProps {
   data: ServerType;
@@ -36,7 +37,9 @@ export const HostingTabs = ({ data }: HostingTabsProps) => {
         <ServerBilling data={data} />
         <ServerChangeTariff data={data} />
       </TabsContent>
-      <TabsContent value="sites">Change your password here.</TabsContent>
+      <TabsContent value="sites">
+        <HostingSites data={data} />
+      </TabsContent>
       <TabsContent value="ftp">Change your password here.</TabsContent>
       <TabsContent value="databases">Change your password here.</TabsContent>
       <TabsContent value="files">Change your password here.</TabsContent>

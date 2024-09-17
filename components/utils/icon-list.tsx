@@ -2,7 +2,6 @@ import { Icons } from '@/components/icons';
 import { Icon } from '@/components/utils/icon';
 
 export const IconList = () => {
-  console.log(Icons);
   return (
     <div className="grid grid-cols-4 gap-4">
       {Object.keys(Icons).map((key) => (

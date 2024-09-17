@@ -44,7 +44,6 @@ const data: ServerType[] = [
     tariff: 1,
     hosting: {
       name: 'Хостинг Н-250',
-
       activeTo: '2024-12-31',
       sites: 2,
       maxSites: 10,

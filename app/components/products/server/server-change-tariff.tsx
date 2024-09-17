@@ -62,7 +62,7 @@ export const virtualTariffs = [
     promoPriceForYear: 16000,
   },
 ];
-const dedicatedTariff = [
+export const dedicatedTariff = [
   {
     id: 1,
     icon: 'TariffOne',
@@ -117,7 +117,7 @@ const dedicatedTariff = [
     promoPriceForYear: 52000,
   },
 ];
-const hostingTariff = [
+export const hostingTariff = [
   {
     id: 1,
     icon: 'TariffOne',
