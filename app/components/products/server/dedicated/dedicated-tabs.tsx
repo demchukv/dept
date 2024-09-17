@@ -8,6 +8,7 @@ import {
 import { ServerBilling } from '@/app/components/products/server/server-billing';
 import { ServerChangeTariff } from '@/app/components/products/server/server-change-tariff';
 
+
 interface DedicatedTabsProps {
   data: ServerType;
 }

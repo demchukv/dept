@@ -15,13 +15,15 @@ import {
   ModalTitle,
 } from '../../common/modal-new';
 import { VirtualSelectBaseInfo } from '@/app/components/products/server/virtual/virtual-select-base-info';
+import { DedicatedSelectBaseInfo } from '@/app/components/products/server/dedicated/dedicated-select-base-info';
+import { HostingSelectBaseInfo } from '@/app/components/products/server/hosting/hosting-select-base-info';
 import { KeyValText } from '../../common/key-val-text';
 import { useAppSelector } from '@/store/hooks';
 import { selectBalance } from '@/store/account/accountSlice';
 import { ReplenishBalance } from '@/app/components/balance/replenish-balance';
 import { Info } from '@/app/components/common/info';
 
-const VirtualSelectTariffSchema = z.object({
+const SelectTariffSchema = z.object({
   tariffType: z.string(),
   currentTariffId: z.number().min(1),
   tariffId: z.number().min(1),
@@ -43,14 +45,15 @@ export const ServerChange = ({
   selectedTerm,
   onClose,
 }: ServerChangeProps) => {
+  console.log(tariff);
   const balance = useAppSelector(selectBalance);
   const [open, setOpen] = useState(false);
   const onBalanceClose = (state: boolean, e: React.MouseEvent | undefined) => {
     if (e) e.preventDefault();
     setOpen(state);
   };
-  const form = useForm<z.infer<typeof VirtualSelectTariffSchema>>({
-    resolver: zodResolver(VirtualSelectTariffSchema),
+  const form = useForm<z.infer<typeof SelectTariffSchema>>({
+    resolver: zodResolver(SelectTariffSchema),
     mode: 'onChange',
     defaultValues: {
       tariffType: data.type,
@@ -63,7 +66,7 @@ export const ServerChange = ({
   const currentTariff = tariffs.find((item: any) => item.id === data.tariff);
   const tariffTerm = orderTerm.find((item: any) => item.key === selectedTerm);
 
-  function onSubmit(data: z.infer<typeof VirtualSelectTariffSchema>) {
+  function onSubmit(data: z.infer<typeof SelectTariffSchema>) {
     startTransition(() => {
       //TODO: make API request and setData
       // const newData = getJson('/data/call-summary.json');
@@ -104,7 +107,15 @@ export const ServerChange = ({
             <p className="mb-4">Ви замовляєте перехід на новий тариф</p>
 
             <div>
-              <VirtualSelectBaseInfo tariff={tariff} />
+              {data.type === 'virtual' && (
+                <VirtualSelectBaseInfo tariff={tariff} />
+              )}
+              {data.type === 'dedicated' && (
+                <DedicatedSelectBaseInfo tariff={tariff} />
+              )}
+              {data.type === 'hosting' && (
+                <HostingSelectBaseInfo tariff={tariff} />
+              )}
             </div>
 
             <KeyValText

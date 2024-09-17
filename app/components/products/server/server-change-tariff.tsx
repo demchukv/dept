@@ -12,6 +12,8 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Icon } from '@/components/utils/icon';
 import { VirtualSelectTariff } from '@/app/components/products/server/virtual/virtual-select-tariff';
+import { DedicatedSelectTariff } from '@/app/components/products/server/dedicated/dedicated-select-tariff';
+import { HostingSelectTariff } from '@/app/components/products/server/hosting/hosting-select-tariff';
 
 // TODO: запит для отримання списку тарифів відповідно до типу сервера (хостингу)
 export const virtualTariffs = [
@@ -64,92 +66,93 @@ const dedicatedTariff = [
   {
     id: 1,
     icon: 'TariffOne',
-    title: 'Підприємець',
-    disk: '50 Gb',
-    memory: '512 Mb',
-    processor: '1 Intel XEON',
+    title: 'Витривалий',
+    disk: '128 Gb',
+    memory: '8 Gb',
+    processor: '1 x Intel XEON 2,4 Ghz',
     additional: [
-      'Безлімітний трафік',
+      'Повний root доступ',
+      'Статистика трафіку',
+      'Firewall',
       'Датацентр ODS',
-      'Бекапи раз на тиждень',
     ],
-    price: 300,
-    promoPrice: 250,
-    promoPriceForYear: 3000,
+    price: 1500,
+    promoPrice: 1250,
+    promoPriceForYear: 15000,
   },
   {
     id: 2,
     icon: 'TariffTwo',
-    title: 'Компанія',
-    disk: '100 Gb',
-    memory: '4 096 Mb',
-    processor: '2 Intel XEON',
-    additional: ['Безлімітний трафік', 'Датацентр ODS', 'Бекапи кожного дня'],
-    price: 700,
-    promoPrice: 583,
-    promoPriceForYear: 7000,
+    title: 'Потужний',
+    disk: '2 х 256 Gb',
+    memory: '16 Gb',
+    processor: '2 x Intel XEON 2,4 Ghz',
+    additional: [
+      'Повний root доступ',
+      'Статистика трафіку',
+      'Firewall',
+      'Датацентр ODS',
+      'RAID',
+    ],
+    price: 3000,
+    promoPrice: 2500,
+    promoPriceForYear: 30000,
   },
   {
     id: 3,
     icon: 'TariffThree',
-    title: 'Корпорація',
-    disk: '150 Gb',
-    memory: '8 192 Mb',
-    processor: '4 Intel XEON',
+    title: 'Непереможний',
+    disk: '2 х 512 Gb',
+    memory: '32 Gb',
+    processor: '2 x Intel XEON 2,4 Ghz',
     additional: [
-      'Безлімітний трафік',
+      'Повний root доступ',
+      'Статистика трафіку',
+      'Firewall',
       'Датацентр ODS',
-      'Бекапи кожні 4 години',
+      'RAID',
     ],
-    price: 1600,
-    promoPrice: 1333,
-    promoPriceForYear: 16000,
+    price: 5200,
+    promoPrice: 4333,
+    promoPriceForYear: 52000,
   },
 ];
 const hostingTariff = [
   {
     id: 1,
     icon: 'TariffOne',
-    title: 'Підприємець',
-    disk: '50 Gb',
-    memory: '512 Mb',
-    processor: '1 Intel XEON',
-    additional: [
-      'Безлімітний трафік',
-      'Датацентр ODS',
-      'Бекапи раз на тиждень',
-    ],
-    price: 300,
-    promoPrice: 250,
-    promoPriceForYear: 3000,
+    title: 'Базовий',
+    disk: '500 Mb',
+    sites: 1,
+    databases: 1,
+    ftp: 1,
+    price: 100,
+    promoPrice: 79,
+    promoPriceForYear: 950,
   },
   {
     id: 2,
     icon: 'TariffTwo',
-    title: 'Компанія',
-    disk: '100 Gb',
-    memory: '4 096 Mb',
-    processor: '2 Intel XEON',
-    additional: ['Безлімітний трафік', 'Датацентр ODS', 'Бекапи кожного дня'],
-    price: 700,
-    promoPrice: 583,
-    promoPriceForYear: 7000,
+    title: 'Стандартний',
+    disk: '1 Gb',
+    sites: 3,
+    databases: 3,
+    ftp: 3,
+    price: 120,
+    promoPrice: 91,
+    promoPriceForYear: 1100,
   },
   {
     id: 3,
     icon: 'TariffThree',
-    title: 'Корпорація',
-    disk: '150 Gb',
-    memory: '8 192 Mb',
-    processor: '4 Intel XEON',
-    additional: [
-      'Безлімітний трафік',
-      'Датацентр ODS',
-      'Бекапи кожні 4 години',
-    ],
-    price: 1600,
-    promoPrice: 1333,
-    promoPriceForYear: 16000,
+    title: 'Професійний',
+    disk: '3 Gb',
+    sites: 5,
+    databases: 5,
+    ftp: 5,
+    price: 250,
+    promoPrice: 208,
+    promoPriceForYear: 2500,
   },
 ];
 
@@ -219,11 +222,27 @@ export const ServerChangeTariff = ({ data }: ServerChangeTariffProps) => {
                   !inContainer && 'border-transparent',
                 )}
               >
-                <VirtualSelectTariff
-                  data={data}
-                  tariff={item}
-                  tariffs={tariffs}
-                />
+                {data.type === 'virtual' && (
+                  <VirtualSelectTariff
+                    data={data}
+                    tariff={item}
+                    tariffs={tariffs}
+                  />
+                )}
+                {data.type === 'dedicated' && (
+                  <DedicatedSelectTariff
+                    data={data}
+                    tariff={item}
+                    tariffs={tariffs}
+                  />
+                )}
+                {data.type === 'hosting' && (
+                  <HostingSelectTariff
+                    data={data}
+                    tariff={item}
+                    tariffs={tariffs}
+                  />
+                )}
               </div>
             </CarouselItem>
           ))}

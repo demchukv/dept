@@ -12,7 +12,6 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { Card } from '@/app/components/card/card';
-import { cn } from '@/lib/utils';
 
 interface ServerInfoProps {
   data: ServerType;
