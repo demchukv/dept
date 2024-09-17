@@ -9,7 +9,7 @@ import { useState } from 'react';
 import { ServerChange } from '@/app/components/products/server/server-change';
 import { VirtualSelectBaseInfo } from '@/app/components/products/server/virtual/virtual-select-base-info';
 
-const orderTerm: any = [
+export const orderTerm: any = [
   { key: 'a', value: '1 міс' },
   { key: 'b', value: '3 міс' },
   { key: 'c', value: '6 міс' },

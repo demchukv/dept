@@ -9,6 +9,8 @@ const data: ServerType[] = [
     title: 'Віртуальний сервер V-500 ',
     price: 1000,
     tariff: 1,
+    waitOnChange: true,
+    waitOnTariff: 3,
     virtual: {
       name: 'Віртуальний сервер V-500 ',
       provider: 'Virtuozzo',

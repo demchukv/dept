@@ -14,7 +14,7 @@ import { Icon } from '@/components/utils/icon';
 import { VirtualSelectTariff } from '@/app/components/products/server/virtual/virtual-select-tariff';
 
 // TODO: запит для отримання списку тарифів відповідно до типу сервера (хостингу)
-const virtualTariffs = [
+export const virtualTariffs = [
   {
     id: 1,
     icon: 'TariffOne',
@@ -224,11 +224,6 @@ export const ServerChangeTariff = ({ data }: ServerChangeTariffProps) => {
                   tariff={item}
                   tariffs={tariffs}
                 />
-                {/* <div className="flex flex-col gap-4 items-center justify-center p-6">
-                  <div className="text-4xl font-semibold">{item.id}</div>
-                  <div className="text-2xl">{item.title}</div>
-                  <div className="text-2xl">{item.price} грн</div>
-                </div> */}
               </div>
             </CarouselItem>
           ))}

@@ -5,6 +5,8 @@ export type ServerType = {
   type: 'virtual' | 'dedicated' | 'hosting';
   price: number;
   tariff: number;
+  waitOnChange?: boolean;
+  waitOnTariff?: number;
   virtual?: VirtualType;
   dedicated?: DedicatedType;
   hosting?: HostingType;
