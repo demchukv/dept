@@ -14,8 +14,8 @@ import {
   ModalInner,
   ModalTitle,
 } from '../../common/modal-new';
-import { Info } from '../../common/info';
 import { VirtualSelectBaseInfo } from '@/app/components/products/server/virtual/virtual-select-base-info';
+import { KeyValText } from '../../common/key-val-text';
 
 const VirtualSelectTariffSchema = z.object({
   tariffType: z.string(),
@@ -26,12 +26,16 @@ const VirtualSelectTariffSchema = z.object({
 interface ServerChangeProps {
   data: ServerType;
   tariff: any;
+  tariffs: any;
+  orderTerm: any;
   selectedTerm: string;
   onClose: (state: boolean, e: React.MouseEvent | undefined) => void;
 }
 export const ServerChange = ({
   data,
   tariff,
+  tariffs,
+  orderTerm,
   selectedTerm,
   onClose,
 }: ServerChangeProps) => {
@@ -45,6 +49,9 @@ export const ServerChange = ({
       term: selectedTerm,
     },
   });
+
+  const currentTariff = tariffs.find((item: any) => item.id === data.tariff);
+  const tariffTerm = orderTerm.find((item: any) => item.key === selectedTerm);
 
   function onSubmit(data: z.infer<typeof VirtualSelectTariffSchema>) {
     startTransition(() => {
@@ -71,7 +78,7 @@ export const ServerChange = ({
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="flex flex-col h-full"
+          className="flex flex-col h-full space-y-0"
         >
           <input type="hidden" {...form.register('currentTariffId')} />
           <input type="hidden" {...form.register('tariffId')} />
@@ -83,20 +90,37 @@ export const ServerChange = ({
             </ModalTitle>
             <ModalDescription className="hidden"></ModalDescription>
           </ModalHeader>
-          <ModalInner className="flex flex-col justify-center w-full font-normal text-sm text-main-dark leading-main-lh space-y-4 flex-grow">
-            <p>Ви замовляєте перехід на новий тариф</p>
-            <div className="m-auto w-[280px]">
+          <ModalInner className="max-w-[380px] m-auto flex flex-col justify-center w-full font-normal text-sm text-main-dark leading-main-lh flex-grow">
+            <p className="mb-4">Ви замовляєте перехід на новий тариф</p>
+
+            <div>
               <VirtualSelectBaseInfo tariff={tariff} />
             </div>
-            <Info>
-              Буде створено тотожню за потужностями послугу і перенесено всі
-              дані автоматично.{' '}
-            </Info>
-            <Info>
-              Після переносу даних на електронну скриньку надійде сповіщення для
-              переключення DNS записів, які були привʼязані до провайдера
-              Hetzner.
-            </Info>
+
+            <KeyValText
+              k="Термін замовлення тарифу:"
+              val={tariffTerm.value}
+              className="mb-3"
+            />
+            <KeyValText
+              k="Вартість тарифу:"
+              val={`${tariff.promoPriceForYear} грн/рік`}
+              className="mb-6"
+            />
+            <KeyValText
+              k="Поточний тариф:"
+              val={<span>{currentTariff.title}</span>}
+              className="mb-3"
+            />
+            <KeyValText
+              k="Вартість тарифу:"
+              val={`${currentTariff.promoPriceForYear} грн/рік`}
+              className="mb-6"
+            />
+            <p>
+              При переході на новий тариф, послуга буде коштувати більше на{' '}
+              {tariff.promoPrice - currentTariff.promoPrice} грн/міс
+            </p>
           </ModalInner>
 
           <ModalFooter className="flex-col sm:flex-row justify-center gap-4 py-4 flex-shrink-0 self-end w-full">

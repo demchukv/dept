@@ -141,7 +141,11 @@ export const ServerChangeTariff = ({ data }: ServerChangeTariffProps) => {
                   !inContainer && 'border-transparent',
                 )}
               >
-                <VirtualSelectTariff data={data} tariff={item} />
+                <VirtualSelectTariff
+                  data={data}
+                  tariff={item}
+                  tariffs={tariffs}
+                />
                 {/* <div className="flex flex-col gap-4 items-center justify-center p-6">
                   <div className="text-4xl font-semibold">{item.id}</div>
                   <div className="text-2xl">{item.title}</div>

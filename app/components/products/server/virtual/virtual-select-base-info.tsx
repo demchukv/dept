@@ -11,7 +11,7 @@ export const VirtualSelectBaseInfo = ({
     <>
       <div className="flex gap-2 mb-3">
         <Icon
-          iconName="TariffOne"
+          iconName={tariff.icon}
           width={24}
           height={24}
           className="fill-main-color"

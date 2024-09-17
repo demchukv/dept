@@ -9,13 +9,22 @@ import { useState } from 'react';
 import { ServerChange } from '@/app/components/products/server/server-change';
 import { VirtualSelectBaseInfo } from '@/app/components/products/server/virtual/virtual-select-base-info';
 
+const orderTerm: any = [
+  { key: 'a', value: '1 міс' },
+  { key: 'b', value: '3 міс' },
+  { key: 'c', value: '6 міс' },
+  { key: 'd', value: '1 рік' },
+];
+
 interface VirtualSelectTariffProps {
   data: ServerType;
   tariff: any;
+  tariffs: any;
 }
 export const VirtualSelectTariff = ({
   data,
   tariff,
+  tariffs,
 }: VirtualSelectTariffProps) => {
   const [open, setOpen] = useState(false);
   const onClose = (state: boolean, e: React.MouseEvent | undefined) => {
@@ -28,7 +37,6 @@ export const VirtualSelectTariff = ({
     <>
       <div className="flex flex-col p-4">
         <VirtualSelectBaseInfo tariff={tariff} />
-
         <ToggleGroup
           type="single"
           variant="outline"
@@ -40,32 +48,17 @@ export const VirtualSelectTariff = ({
             if (value) setSelectedTerm(value);
           }}
         >
-          <ToggleGroupItem
-            value="a"
-            className="font-bold text-xs border-main-color text-main-color data-[state=on]:bg-main-color data-[state=on]:text-white"
-          >
-            1 міс
-          </ToggleGroupItem>
-          <ToggleGroupItem
-            value="b"
-            className="font-bold text-xs border-main-color text-main-color data-[state=on]:bg-main-color data-[state=on]:text-white"
-          >
-            3 міс
-          </ToggleGroupItem>
-          <ToggleGroupItem
-            value="c"
-            className="font-bold text-xs border-main-color text-main-color data-[state=on]:bg-main-color data-[state=on]:text-white"
-          >
-            6 міс
-          </ToggleGroupItem>
-          <ToggleGroupItem
-            value="d"
-            className="font-bold text-xs border-main-color text-main-color data-[state=on]:bg-main-color data-[state=on]:text-white"
-          >
-            1 рік
-          </ToggleGroupItem>
+          {orderTerm.map((item: any) => (
+            <ToggleGroupItem
+              key={item.key}
+              value={item.key}
+              className="font-bold text-xs border-main-color text-main-color data-[state=on]:bg-main-color data-[state=on]:text-white"
+              disabled={data.tariff === tariff.id}
+            >
+              {item.value}
+            </ToggleGroupItem>
+          ))}
         </ToggleGroup>
-
         <KeyValText
           k={<span className="line-through">{tariff.price} грн/міс</span>}
           val={
@@ -99,6 +92,8 @@ export const VirtualSelectTariff = ({
           <ServerChange
             data={data}
             tariff={tariff}
+            tariffs={tariffs}
+            orderTerm={orderTerm}
             selectedTerm={selectedTerm}
             onClose={onClose}
           />
