@@ -17,7 +17,7 @@ export const KeyValText = ({
   const dataValClass = 'font-medium text-sm leading-main-lh text-main-dark';
 
   return (
-    <div className={cn('flex items-center', className)}>
+    <div className={cn('flex items-center flex-start', className)}>
       <span className={dataKeyClass}>{k} </span>
       <span className={dataValClass}>{val}</span>
       {icon && <span className="ml-2 flex-shrink-0">{icon}</span>}

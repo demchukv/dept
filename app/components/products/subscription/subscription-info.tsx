@@ -1,3 +1,4 @@
+'use client';
 import { subscriptionType } from '@/types/subscription';
 import {
   Accordion,
@@ -5,18 +6,27 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { Card } from '@/app/components/card/card';
+import { Card, CardTopAlert } from '@/app/components/card/card';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 import { SubscriptionTvInfo } from '@/app/components/products/subscription/subscription-tv-info';
 import { SubscriptionSoftInfo } from '@/app/components/products/subscription/subscription-soft-info';
+import { useAppSelector } from '@/store/hooks';
+import { selectBalance } from '@/store/account/accountSlice';
 
 interface SubscriptionInfoProps {
   data: subscriptionType;
 }
 export const SubscriptionInfo = ({ data }: SubscriptionInfoProps) => {
+  const balance = useAppSelector(selectBalance);
+
   return (
     <>
+      {balance < data.price && (
+        <CardTopAlert variant="attention">
+          Увага! Не достатньо коштів на балансі
+        </CardTopAlert>
+      )}
       <Card className="shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)] mb-4 p-4 md:p-8">
         <Accordion
           type="single"
