@@ -4,7 +4,7 @@ import { toast } from '@/components/ui/use-toast';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form } from '@/components/ui/form';
-import { startTransition } from 'react';
+import { startTransition, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { ServerType } from '@/types/server';
 import {
@@ -16,6 +16,10 @@ import {
 } from '../../common/modal-new';
 import { VirtualSelectBaseInfo } from '@/app/components/products/server/virtual/virtual-select-base-info';
 import { KeyValText } from '../../common/key-val-text';
+import { useAppSelector } from '@/store/hooks';
+import { selectBalance } from '@/store/account/accountSlice';
+import { ReplenishBalance } from '@/app/components/balance/replenish-balance';
+import { Info } from '@/app/components/common/info';
 
 const VirtualSelectTariffSchema = z.object({
   tariffType: z.string(),
@@ -39,6 +43,12 @@ export const ServerChange = ({
   selectedTerm,
   onClose,
 }: ServerChangeProps) => {
+  const balance = useAppSelector(selectBalance);
+  const [open, setOpen] = useState(false);
+  const onBalanceClose = (state: boolean, e: React.MouseEvent | undefined) => {
+    if (e) e.preventDefault();
+    setOpen(state);
+  };
   const form = useForm<z.infer<typeof VirtualSelectTariffSchema>>({
     resolver: zodResolver(VirtualSelectTariffSchema),
     mode: 'onChange',
@@ -117,15 +127,32 @@ export const ServerChange = ({
               val={`${currentTariff.promoPriceForYear} грн/рік`}
               className="mb-6"
             />
-            <p>
+            <p className="mb-8">
               При переході на новий тариф, послуга буде коштувати більше на{' '}
               {tariff.promoPrice - currentTariff.promoPrice} грн/міс
             </p>
+
+            {balance < tariff.promoPrice && (
+              <>
+                <Button type="button" onClick={() => setOpen(true)}>
+                  Поповнити баланс
+                </Button>
+                <Info>
+                  Поточний тариф буде змінено після поповнення балансу на
+                  необхідну суму
+                </Info>
+                <ReplenishBalance onClose={onBalanceClose} open={open} />
+              </>
+            )}
           </ModalInner>
 
-          <ModalFooter className="flex-col sm:flex-row justify-center gap-4 py-4 flex-shrink-0 self-end w-full">
-            <Button type="submit" variant="default">
-              Перенести
+          <ModalFooter className="flex-col sm:flex-row-reverse justify-center gap-4 py-4 flex-shrink-0 self-end w-full">
+            <Button
+              type="submit"
+              variant="default"
+              disabled={balance < tariff.promoPrice}
+            >
+              Змінити тариф
             </Button>
             <Button
               type="button"

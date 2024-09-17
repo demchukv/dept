@@ -51,7 +51,7 @@ export const CardTopAlert = ({
   variant = 'attention',
 }: CardTopAlertProps) => {
   return (
-    <div className="w-full flex justify-end rounded-tr-[4px] overflow-hidden">
+    <div className="w-full flex justify-end rounded-tr-[4px] overflow-hidden pr-2.5">
       <div
         className={cn(
           'w-auto font-bold text-xs leading-[1.17] py-[5px] pl-7 pr-4 text-right',

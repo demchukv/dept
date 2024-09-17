@@ -210,7 +210,7 @@ export const ServerChangeTariff = ({ data }: ServerChangeTariffProps) => {
       </p>
 
       <Carousel setApi={setApi} className="w-full">
-        <CarouselContent className={cn(!inContainer && 'flex justify-between')}>
+        <CarouselContent className={cn(!inContainer && 'flex justify-around')}>
           {tariffs?.map((item, index) => (
             <CarouselItem key={index} className={cn(`max-w-[304px] w-full`)}>
               <div
