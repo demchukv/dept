@@ -17,10 +17,18 @@ export const VirtualTabs = ({ data }: VirtualTabsProps) => {
     <Tabs defaultValue="biling" className="w-full">
       <TabsList>
         <TabsTrigger value="biling">Білінг</TabsTrigger>
-        <TabsTrigger value="access">Доступи</TabsTrigger>
-        <TabsTrigger value="control">Керування</TabsTrigger>
-        <TabsTrigger value="additional">Додаткові сервіси</TabsTrigger>
-        <TabsTrigger value="history">Історія</TabsTrigger>
+        <TabsTrigger value="access" disabled={data.state === 'inactive'}>
+          Доступи
+        </TabsTrigger>
+        <TabsTrigger value="control" disabled={data.state === 'inactive'}>
+          Керування
+        </TabsTrigger>
+        <TabsTrigger value="additional" disabled={data.state === 'inactive'}>
+          Додаткові сервіси
+        </TabsTrigger>
+        <TabsTrigger value="history" disabled={data.state === 'inactive'}>
+          Історія
+        </TabsTrigger>
       </TabsList>
       <TabsContent value="biling">
         <ServerBilling data={data} />

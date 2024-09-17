@@ -16,11 +16,21 @@ export const HostingTabs = ({ data }: HostingTabsProps) => {
     <Tabs defaultValue="biling" className="w-full">
       <TabsList>
         <TabsTrigger value="biling">Білінг</TabsTrigger>
-        <TabsTrigger value="sites">Сайти</TabsTrigger>
-        <TabsTrigger value="ftp">FTP-доступ</TabsTrigger>
-        <TabsTrigger value="databases">Бази даних</TabsTrigger>
-        <TabsTrigger value="files">Файловий менеджер</TabsTrigger>
-        <TabsTrigger value="transfer">Передати</TabsTrigger>
+        <TabsTrigger value="sites" disabled={data.state === 'inactive'}>
+          Сайти
+        </TabsTrigger>
+        <TabsTrigger value="ftp" disabled={data.state === 'inactive'}>
+          FTP-доступ
+        </TabsTrigger>
+        <TabsTrigger value="databases" disabled={data.state === 'inactive'}>
+          Бази даних
+        </TabsTrigger>
+        <TabsTrigger value="files" disabled={data.state === 'inactive'}>
+          Файловий менеджер
+        </TabsTrigger>
+        <TabsTrigger value="transfer" disabled={data.state === 'inactive'}>
+          Передати
+        </TabsTrigger>
       </TabsList>
       <TabsContent value="biling">
         <ServerBilling data={data} />

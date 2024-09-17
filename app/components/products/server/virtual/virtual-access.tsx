@@ -150,8 +150,8 @@ export const VirtualAccess = ({ data }: VirtualAccessProps) => {
   };
   return (
     <div className="max-w-full">
-      <p className="font-semibold">Додані SSH ключі</p>
-      <Table className="max-w-full border border-bg-color rounded-[6px] mb-8">
+      <p className="font-semibold mb-4">Додані SSH ключі</p>
+      <Table className="hidden sm:table max-w-full border border-bg-color rounded-[6px] mb-8">
         <TableHeader>
           <TableRow>
             <TableHead className=" font-normal text-sm leading-main-lh rounded-tl">
@@ -176,8 +176,8 @@ export const VirtualAccess = ({ data }: VirtualAccessProps) => {
               <TableCell className="font-semibold text-sm text-main-color leading-none whitespace-nowrap">
                 {item.name}
               </TableCell>
-              <TableCell className="font-normal text-sm leading-none break-all max-h-8 overflow-hidden">
-                {item.key}
+              <TableCell className="font-normal text-sm leading-none break-all ">
+                <div className="max-h-11 overflow-hidden">{item.key}</div>
               </TableCell>
               <TableCell className="font-normal text-sm leading-none whitespace-nowrap">
                 {item.used}
@@ -216,6 +216,108 @@ export const VirtualAccess = ({ data }: VirtualAccessProps) => {
           ))}
         </TableBody>
       </Table>
+      <div className="flex flex-col gap-4 mb-8  sm:hidden">
+        {data.virtual?.sshKey?.map((item: sshKeyType) => (
+          <div
+            key={item.id}
+            className="border border-gray-light rounded overflow-hidden"
+          >
+            <Table className="max-w-full text-sm border border-bg-color rounded-[6px]">
+              <TableBody>
+                <TableRow className="bg-bg-color even:bg-transparent">
+                  <TableCell className="text-sm">Назва</TableCell>
+                  <TableCell>
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="font-semibold text-sm text-main-color">
+                        {item.name}
+                      </span>
+                      <Button
+                        variant="ghost"
+                        className="text-warning hover:text-dark-color"
+                        onClick={() => deleteKey(item.id)}
+                      >
+                        <Icon iconName="Trash" width={24} height={24} />
+                      </Button>
+                    </div>
+                  </TableCell>
+                </TableRow>
+                <TableRow className="bg-white even:bg-transparent">
+                  <TableCell className="text-sm">SSH ключ</TableCell>
+                  <TableCell className="break-all">
+                    <div className="max-h-11 overflow-hidden">{item.key}</div>
+                  </TableCell>
+                </TableRow>
+                <TableRow className="bg-bg-color even:bg-transparent">
+                  <TableCell className="text-sm">Дата</TableCell>
+                  <TableCell className="text-sm">{item.used}</TableCell>
+                </TableRow>
+                <TableRow className="bg-white even:bg-transparent">
+                  <TableCell className="text-sm">Термін дії</TableCell>
+                  <TableCell className="text-sm">
+                    <div className="flex items-center justify-between gap-2">
+                      <span>{item.expired}</span>
+                      <Button
+                        variant="ghost"
+                        className="text-main-color hover:text-dark-color"
+                        onClick={() => refreshKey(item.id)}
+                      >
+                        <Icon iconName="Refresh" width={24} height={24} />
+                      </Button>
+                    </div>
+                  </TableCell>
+                </TableRow>
+                {/* <TableCell className="font-semibold text-sm text-main-color leading-none whitespace-nowrap">
+                    {item.name}
+                  </TableCell>
+                  <TableCell className="font-normal text-sm leading-none break-all ">
+                    <div className="max-h-11 overflow-hidden">{item.key}</div>
+                  </TableCell>
+
+                  <TableCell className="font-normal text-sm leading-none whitespace-nowrap">
+                    {item.used}
+                  </TableCell>
+                  <TableCell className="font-normal text-sm leading-none whitespace-nowrap">
+                    {item.expired}
+                  </TableCell>
+                  <TableCell>
+                    <TooltipShow
+                      content={
+                        <p className="text-xs leading-[1.33] max-w-48">
+                          При оновленні терміну дії ключа його буде подовжено на
+                          365 днів
+                        </p>
+                      }
+                    >
+                      <Button
+                        variant="ghost"
+                        className="text-dark-color hover:text-main-color"
+                        onClick={() => refreshKey(item.id)}
+                      >
+                        <Icon iconName="Refresh" width={24} height={24} />
+                      </Button>
+                    </TooltipShow>
+                  </TableCell>
+                  <TableCell>
+                    <Button
+                      variant="ghost"
+                      className="text-warning hover:text-dark-color"
+                      onClick={() => deleteKey(item.id)}
+                    >
+                      <Icon iconName="Trash" width={24} height={24} />
+                    </Button>
+                  </TableCell>
+                </TableRow> */}
+              </TableBody>
+            </Table>
+          </div>
+        ))}
+      </div>
+
+      {(!data.virtual?.sshKey || data.virtual?.sshKey?.length === 0) && (
+        <p className="font-semibold text-center">
+          У вас ще немає доданих SSH ключів
+        </p>
+      )}
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -247,7 +349,8 @@ export const VirtualAccess = ({ data }: VirtualAccessProps) => {
                 <FormItem className="mb-3">
                   <FormLabel className="font-semibold text-sm text-main-dark flex justify-between sm:justify-start">
                     Вставте ключ{' '}
-                    <span className="hidden sm:inline"> у поле нижче</span> або{' '}
+                    <span className="hidden sm:inline px-2"> у поле нижче</span>{' '}
+                    або &nbsp;
                     <Link
                       href="#"
                       onClick={() => setOpen(true)}
@@ -265,7 +368,7 @@ export const VirtualAccess = ({ data }: VirtualAccessProps) => {
                   <FormControl>
                     <Textarea
                       placeholder="Введіть кожен ключ з нового рядка"
-                      className="resize-y"
+                      className="resize-y bg-bg-color"
                       {...field}
                     />
                   </FormControl>
