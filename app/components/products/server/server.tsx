@@ -17,6 +17,22 @@ const data: ServerType[] = [
       ip: '237.84.2.178',
 
       activeTo: '2024-12-31',
+      sshKey: [
+        {
+          id: 1,
+          name: 'mac@Aleks-Mc-mini.local',
+          key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC/H2jproGBiqCKRpYZVEwDh5gn2ioFHJtxc1W485DR/F53GRCbnRuQ6uIJkJfPw/NnDBxFau4++iVSQ6tTy0yKa9Zpx/nznSZ81hyQowFswT5AT1klZY+CVsAUqzA7HJOcyiixQbGDxr9T83mOh4G5YYxlVtOcjZYJmvI4MHZr+SXoFx/zKtweLadpD3ohTM6IOJg0dqoMw+SEfZlXEcYYeLmFE3oc5fUPBgz1zE3Kry7vetuLNMkv+2uc5/iT/7gvijd9DpR6A60vnCUv0MEHgeviVF0Jx6tMct6liNd2aqn7iyMFbfO8Gn+8rdo961Wtp0Oaiy6DtiXz2Nhh5lw2cF/1ip3zz5pN2RfEtOueL4M4Wsx2r01S35ZpcX7tvdSR6fWK9r49iuhViQKzg0iWr+Vo+ZebEqx52V3aoa7uCdmYxrLn99BynhAnIuLo/ziXE02TnLRSokSBx62J4Ah4NQBkFqOyLzrTdkWYkYmehJ8EwpljqJhsoGE5nE/EiPM= mac@Alexs-Mac-mini.local',
+          used: '2024-12-31',
+          expired: '2025-12-31',
+        },
+        {
+          id: 2,
+          name: 'mac@Aleks-Mc-mini.local',
+          key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC/H2jproGBiqCKRpYZVEwDh5gn2ioFHJtxc1W485DR/F53GRCbnRuQ6uIJkJfPw/NnDBxFau4++iVSQ6tTy0yKa9Zpx/nznSZ81hyQowFswT5AT1klZY+CVsAUqzA7HJOcyiixQbGDxr9T83mOh4G5YYxlVtOcjZYJmvI4MHZr+SXoFx/zKtweLadpD3ohTM6IOJg0dqoMw+SEfZlXEcYYeLmFE3oc5fUPBgz1zE3Kry7vetuLNMkv+2uc5/iT/7gvijd9DpR6A60vnCUv0MEHgeviVF0Jx6tMct6liNd2aqn7iyMFbfO8Gn+8rdo961Wtp0Oaiy6DtiXz2Nhh5lw2cF/1ip3zz5pN2RfEtOueL4M4Wsx2r01S35ZpcX7tvdSR6fWK9r49iuhViQKzg0iWr+Vo+ZebEqx52V3aoa7uCdmYxrLn99BynhAnIuLo/ziXE02TnLRSokSBx62J4Ah4NQBkFqOyLzrTdkWYkYmehJ8EwpljqJhsoGE5nE/EiPM= mac@Alexs-Mac-mini.local',
+          used: '2024-12-31',
+          expired: '2025-12-31',
+        },
+      ],
     },
   },
   {

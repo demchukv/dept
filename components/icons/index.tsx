@@ -60,6 +60,7 @@ import QlBlockquote from '@/components/icons/ql-blockquote';
 import QlCodeBlock from '@/components/icons/ql-code-block';
 import QlSpacing from '@/components/icons/ql-spacing';
 import RadioChecked from '@/components/icons/radio-checked';
+import Refresh from '@/components/icons/refresh';
 import Repair from '@/components/icons/repair';
 import RoundedRrrowRigth from '@/components/icons/rounded-arrow-rigth';
 import Route from '@/components/icons/route';
@@ -144,6 +145,7 @@ export const Icons = {
   QlCodeBlock,
   QlSpacing,
   RadioChecked,
+  Refresh,
   Repair,
   Route,
   RoundedRrrowRigth,

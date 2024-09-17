@@ -17,6 +17,7 @@ export type VirtualType = {
   provider: string;
   ip: string;
   activeTo: string;
+  sshKey?: sshKeyType[];
 };
 export type DedicatedType = {
   name: string;
@@ -33,4 +34,12 @@ export type HostingType = {
   maxDisk: number;
   databases: number;
   maxDatabases: number;
+};
+
+export type sshKeyType = {
+  id: number;
+  name: string;
+  key: string;
+  used: string;
+  expired: string;
 };

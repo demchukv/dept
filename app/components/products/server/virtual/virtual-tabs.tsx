@@ -7,6 +7,7 @@ import {
 } from '@/components/ui/tabs-server';
 import { ServerBilling } from '@/app/components/products/server/server-billing';
 import { ServerChangeTariff } from '@/app/components/products/server/server-change-tariff';
+import { VirtualAccess } from '@/app/components/products/server/virtual/virtual-access';
 
 interface VirtualTabsProps {
   data: ServerType;
@@ -25,7 +26,9 @@ export const VirtualTabs = ({ data }: VirtualTabsProps) => {
         <ServerBilling data={data} />
         <ServerChangeTariff data={data} />
       </TabsContent>
-      <TabsContent value="access">Change your password here.</TabsContent>
+      <TabsContent value="access">
+        <VirtualAccess data={data} />
+      </TabsContent>
       <TabsContent value="control">Change your password here.</TabsContent>
       <TabsContent value="additional">Change your password here.</TabsContent>
       <TabsContent value="history">Change your password here.</TabsContent>
