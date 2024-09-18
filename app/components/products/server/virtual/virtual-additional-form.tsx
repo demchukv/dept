@@ -27,7 +27,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select-form';
+} from '@/components/ui/select-tab';
 import { Textarea } from '@/components/ui/textarea';
 import { Info } from '@/app/components/common/info';
 
@@ -96,7 +96,7 @@ export const VirtualAdditionalForm = ({
               control={form.control}
               name="thema"
               render={({ field }) => (
-                <FormItem className="w-full sm:w-auto sm:max-w-[280px]">
+                <FormItem className="w-full sm:w-auto">
                   <FormLabel className="text-xs text-gray-dark font-normal">
                     Тема запиту
                   </FormLabel>
@@ -105,7 +105,7 @@ export const VirtualAdditionalForm = ({
                     defaultValue={field.value.toString()}
                   >
                     <FormControl className="bg-transparent py-[9px]">
-                      <SelectTrigger>
+                      <SelectTrigger className="bg-bg-color">
                         <SelectValue placeholder="Виберіть тему" />
                       </SelectTrigger>
                     </FormControl>
