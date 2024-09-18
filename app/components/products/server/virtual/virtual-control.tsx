@@ -1,5 +1,6 @@
 import { ServerType } from '@/types/server';
 import { VirtualDedicatedControl } from '@/app/components/products/server/virtual/virtual-dedicated-control';
+import { KeyValText } from '@/app/components/common/key-val-text';
 
 const baseInfo = [
   'Система: Ubuntu 20.04',
@@ -17,7 +18,7 @@ interface VirtualControlProps {
 export const VirtualControl = ({ data }: VirtualControlProps) => {
   return (
     <>
-      <ul className="flex gap-3 mb-8">
+      <ul className="hidden sm:flex gap-3 mb-8">
         {baseInfo.map((item, index) => (
           <li
             key={index}
@@ -27,6 +28,16 @@ export const VirtualControl = ({ data }: VirtualControlProps) => {
           </li>
         ))}
       </ul>
+      <div className="sm:hidden mb-4 flex flex-col gap-2">
+        <KeyValText
+          k="Система:"
+          val={baseInfo[0]}
+          className="justify-between"
+        />
+        <KeyValText k="CPU:" val={baseInfo[1]} className="justify-between" />
+        <KeyValText k="RAM:" val={baseInfo[2]} className="justify-between" />
+        <KeyValText k="SSD:" val={baseInfo[3]} className="justify-between" />
+      </div>
       <VirtualDedicatedControl data={data} />
     </>
   );

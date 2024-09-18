@@ -22,6 +22,7 @@ import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { startTransition } from 'react';
 import { Button } from '@/components/ui/button';
 import { ServerType } from '@/types/server';
+import { Separator } from '@/components/ui/separator';
 
 interface VirtualDedicatedControlProps {
   data: ServerType;
@@ -171,18 +172,18 @@ export const VirtualDedicatedControl = ({
   };
   return (
     <>
-      <div className="grid gap-x-14 gap-y-8 grid-cols-[auto_auto]">
-        <div>
+      <div className="flex flex-col">
+        <div className="flex flex-col-reverse sm:flex-row sm:gap-10 mb-4 sm:flex-start">
           <Form {...rebootForm}>
             <form
               onSubmit={rebootForm.handleSubmit(onRebootSubmit)}
-              className="flex gap-3 items-end"
+              className="flex flex-col sm:flex-row gap-3 items-center sm:items-end"
             >
               <FormField
                 control={rebootForm.control}
                 name="reboot"
                 render={({ field }) => (
-                  <FormItem className="max-w-[280px]">
+                  <FormItem className="w-full sm:max-w-[280px]">
                     <FormLabel className="text-[10px] text-gray-dark leading-none">
                       Спосіб перезавантаження:
                     </FormLabel>
@@ -211,17 +212,18 @@ export const VirtualDedicatedControl = ({
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="py-2.5">
+              <Button type="submit" className="py-2.5 w-full sm:w-auto">
                 Перезавантажити
               </Button>
             </form>
           </Form>
-        </div>
-        <div>
+
+          <Separator className="my-4 sm:hidden" />
+
           <ToggleGroup
             type="single"
             variant="outline"
-            className="gap-3 justify-start"
+            className="flex-col sm:flex-row gap-3 justify-start w-full sm:w-auto sm:mt-[26px]"
             defaultValue=""
             onValueChange={(value) => {
               if (value) switchServerState(value as string);
@@ -231,7 +233,7 @@ export const VirtualDedicatedControl = ({
               <ToggleGroupItem
                 key={item.key}
                 value={item.key}
-                className="px-10 font-bold text-xs border-main-color text-white bg-main-color data-[state=on]:bg-white data-[state=on]:text-main-color"
+                className="w-full sm:w-auto px-6 md:px-10 py-[11px] h-auto font-bold text-xs border-main-color text-white bg-main-color data-[state=on]:bg-white data-[state=on]:text-main-color disabled:bg-white disabled:text-gray-medium disabled:border-gray-medium"
                 disabled={item.key.toString() === currentServerState}
               >
                 {item.value}
@@ -239,17 +241,18 @@ export const VirtualDedicatedControl = ({
             ))}
           </ToggleGroup>
         </div>
-        <div>
+
+        <div className="flex flex-col sm:flex-row sm:gap-10 sm:flex-start mb-4">
           <Form {...restoreForm}>
             <form
               onSubmit={restoreForm.handleSubmit(onRestoreSubmit)}
-              className="flex gap-3 items-end"
+              className="flex flex-col sm:flex-row gap-3 items-center sm:items-end mb-4 sm:mb-0"
             >
               <FormField
                 control={restoreForm.control}
                 name="restoreDate"
                 render={({ field }) => (
-                  <FormItem className="max-w-[280px]">
+                  <FormItem className="w-full sm:w-auto sm:max-w-[280px]">
                     <FormLabel className="text-[10px] text-gray-dark leading-none">
                       Дата відновлення:
                     </FormLabel>
@@ -278,23 +281,22 @@ export const VirtualDedicatedControl = ({
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="py-2.5">
+              <Button type="submit" className="w-full sm:w-auto py-2.5">
                 Відновити з бекапа
               </Button>
             </form>
           </Form>
-        </div>
-        <div>
+
           <Form {...osForm}>
             <form
               onSubmit={osForm.handleSubmit(onOsSubmit)}
-              className="flex gap-3 items-end"
+              className="flex flex-col sm:flex-row gap-3 items-center sm:items-end"
             >
               <FormField
                 control={osForm.control}
                 name="os"
                 render={({ field }) => (
-                  <FormItem className="max-w-[280px]">
+                  <FormItem className="w-full sm:w-auto sm:max-w-[280px]">
                     <FormLabel className="text-[10px] text-gray-dark leading-none">
                       Бажана операційна система:
                     </FormLabel>
@@ -323,7 +325,7 @@ export const VirtualDedicatedControl = ({
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="py-2.5">
+              <Button type="submit" className="w-full sm:w-auto py-2.5">
                 Перевстановити ОС
               </Button>
             </form>
