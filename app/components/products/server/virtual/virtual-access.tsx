@@ -38,6 +38,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { FileUploader } from '@/app/components/common/file-uploader';
+import { ErrorMessage } from '@/app/components/common/error-message';
 
 const addKeyShema = z.object({
   serverId: z.number().min(1),
@@ -50,6 +51,7 @@ interface VirtualAccessProps {
 }
 export const VirtualAccess = ({ data }: VirtualAccessProps) => {
   const [files, setFiles] = useState<File[]>([]);
+  const [fileError, setFileError] = useState<string>('');
   const [open, setOpen] = useState(false);
 
   const form = useForm<z.infer<typeof addKeyShema>>({
@@ -266,47 +268,6 @@ export const VirtualAccess = ({ data }: VirtualAccessProps) => {
                     </div>
                   </TableCell>
                 </TableRow>
-                {/* <TableCell className="font-semibold text-sm text-main-color leading-none whitespace-nowrap">
-                    {item.name}
-                  </TableCell>
-                  <TableCell className="font-normal text-sm leading-none break-all ">
-                    <div className="max-h-11 overflow-hidden">{item.key}</div>
-                  </TableCell>
-
-                  <TableCell className="font-normal text-sm leading-none whitespace-nowrap">
-                    {item.used}
-                  </TableCell>
-                  <TableCell className="font-normal text-sm leading-none whitespace-nowrap">
-                    {item.expired}
-                  </TableCell>
-                  <TableCell>
-                    <TooltipShow
-                      content={
-                        <p className="text-xs leading-[1.33] max-w-48">
-                          При оновленні терміну дії ключа його буде подовжено на
-                          365 днів
-                        </p>
-                      }
-                    >
-                      <Button
-                        variant="ghost"
-                        className="text-dark-color hover:text-main-color"
-                        onClick={() => refreshKey(item.id)}
-                      >
-                        <Icon iconName="Refresh" width={24} height={24} />
-                      </Button>
-                    </TooltipShow>
-                  </TableCell>
-                  <TableCell>
-                    <Button
-                      variant="ghost"
-                      className="text-warning hover:text-dark-color"
-                      onClick={() => deleteKey(item.id)}
-                    >
-                      <Icon iconName="Trash" width={24} height={24} />
-                    </Button>
-                  </TableCell>
-                </TableRow> */}
               </TableBody>
             </Table>
           </div>
@@ -423,16 +384,25 @@ export const VirtualAccess = ({ data }: VirtualAccessProps) => {
                 multiple={false}
                 accept={{ 'text/*': [] }}
                 onValueChange={(value) => {
-                  const fileReader = new FileReader();
-                  fileReader.readAsText(value[0], 'UTF-8');
-                  fileReader.onload = () => {
-                    if (fileReader.result) {
-                      form.setValue('keyText', fileReader.result.toString());
-                    }
-                    setOpen(false);
-                  };
+                  try {
+                    const fileReader = new FileReader();
+                    fileReader.readAsText(value[0], 'UTF-8');
+                    fileReader.onload = () => {
+                      if (fileReader.result) {
+                        form.setValue('keyText', fileReader.result.toString());
+                      }
+                      setOpen(false);
+                    };
+                    setFileError('');
+                  } catch (e) {
+                    console.log(e);
+                    setFileError(
+                      'Помилка завантаження файлу. Ви можете завантажити лише текстові файли.',
+                    );
+                  }
                 }}
               />
+              {fileError !== '' && <ErrorMessage>{fileError}</ErrorMessage>}
             </DialogContent>
           </Dialog>
         </form>
