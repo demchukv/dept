@@ -76,6 +76,7 @@ import TariffTwo from '@/components/icons/tariff-two';
 import TariffThree from '@/components/icons/tariff-three';
 import Task from '@/components/icons/task';
 import Trash from '@/components/icons/trash';
+import Upload from '@/components/icons/upload';
 import User from '@/components/icons/user';
 import UserBalance from '@/components/icons/user-balance';
 import HistoryList from '@/components/icons/history-list';
@@ -161,6 +162,7 @@ export const Icons = {
   TariffThree,
   Task,
   Trash,
+  Upload,
   User,
   UserBalance,
   Warning,
