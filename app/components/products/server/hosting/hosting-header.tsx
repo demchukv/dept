@@ -18,7 +18,7 @@ export const HostingHeader = ({ data }: HostingHeaderProps) => {
   };
   return (
     <>
-      <div className="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between">
+      <div className="w-full flex flex-col sm:flex-row sm:gap-6 items-start sm:items-center justify-between">
         {data?.hosting?.name && (
           <div className="flex-grow text-left flex items-center gap-4">
             {data.waitOnChange && (
