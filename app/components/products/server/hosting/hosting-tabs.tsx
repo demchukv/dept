@@ -8,6 +8,10 @@ import {
 import { ServerBilling } from '@/app/components/products/server/server-billing';
 import { ServerChangeTariff } from '@/app/components/products/server/server-change-tariff';
 import { HostingSites } from '@/app/components/products/server/hosting/hosting-sites';
+import { HostingFtp } from '@/app/components/products/server/hosting/hosting-ftp';
+import { HostingDatabases } from '@/app/components/products/server/hosting/hosting-databases';
+import { HostingFilemanager } from '@/app/components/products/server/hosting/hosting-filemanager';
+import { HostingTransfer } from '@/app/components/products/server/hosting/hosting-transfer';
 
 interface HostingTabsProps {
   data: ServerType;
@@ -40,10 +44,18 @@ export const HostingTabs = ({ data }: HostingTabsProps) => {
       <TabsContent value="sites">
         <HostingSites data={data} />
       </TabsContent>
-      <TabsContent value="ftp">Change your password here.</TabsContent>
-      <TabsContent value="databases">Change your password here.</TabsContent>
-      <TabsContent value="files">Change your password here.</TabsContent>
-      <TabsContent value="transfer">Change your password here.</TabsContent>
+      <TabsContent value="ftp">
+        <HostingFtp data={data} />
+      </TabsContent>
+      <TabsContent value="databases">
+        <HostingDatabases data={data} />
+      </TabsContent>
+      <TabsContent value="files">
+        <HostingFilemanager data={data} />
+      </TabsContent>
+      <TabsContent value="transfer">
+        <HostingTransfer data={data} />
+      </TabsContent>
     </Tabs>
   );
 };

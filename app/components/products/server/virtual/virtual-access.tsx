@@ -395,7 +395,6 @@ export const VirtualAccess = ({ data }: VirtualAccessProps) => {
                     };
                     setFileError('');
                   } catch (e) {
-                    console.log(e);
                     setFileError(
                       'Помилка завантаження файлу. Ви можете завантажити лише текстові файли.',
                     );

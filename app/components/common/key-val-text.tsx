@@ -13,7 +13,7 @@ export const KeyValText = ({
   className = '',
 }: KeyValTextProps) => {
   const dataKeyClass =
-    'font-normal text-sm leading-main-lh text-gray-dark pr-2 flex-grow';
+    'font-normal text-sm leading-main-lh text-gray-dark pr-2';
   const dataValClass = 'font-medium text-sm leading-main-lh text-main-dark';
 
   return (
