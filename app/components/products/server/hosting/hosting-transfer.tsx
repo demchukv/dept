@@ -33,8 +33,12 @@ const transSchema = z.object({
 });
 interface HostingTransferProps {
   data: ServerType;
+  onCloseParent?: (state: boolean, e: React.MouseEvent | undefined) => void;
 }
-export const HostingTransfer = ({ data }: HostingTransferProps) => {
+export const HostingTransfer = ({
+  data,
+  onCloseParent,
+}: HostingTransferProps) => {
   const [open, setOpen] = useState(false);
   const onClose = (state: boolean, e: React.MouseEvent | undefined) => {
     if (e) e.preventDefault();
@@ -64,6 +68,7 @@ export const HostingTransfer = ({ data }: HostingTransferProps) => {
           </pre>
         ),
       });
+      onCloseParent && onCloseParent(false, undefined);
       setOpen(true);
       form.reset();
     });
@@ -130,18 +135,40 @@ export const HostingTransfer = ({ data }: HostingTransferProps) => {
                   </FormItem>
                 )}
               />
-              <div className="flex flex-col sm:flex-row gap-4 items-center">
-                <Button type="submit" className="w-full sm:w-auto">
-                  Передати
-                </Button>
-                <Info>
-                  Для зміни власника номера (трансферу) на електронну адресу
-                  поточного власника буде направлено листа з підтвердженням
-                  передачі. Після підтвердження дії, послуга хостингу зі всіма
-                  даними в ній з&#39;явиться у списку послуг в особистому
-                  кабінеті нового власника.
-                </Info>
-              </div>
+              {data.type === 'hosting' && (
+                <div className="flex flex-col sm:flex-row gap-4 items-center">
+                  <Button type="submit" className="w-full sm:w-auto">
+                    Передати
+                  </Button>
+                  <Info>
+                    Для зміни власника номера (трансферу) на електронну адресу
+                    поточного власника буде направлено листа з підтвердженням
+                    передачі. Після підтвердження дії, послуга хостингу зі всіма
+                    даними в ній з&#39;явиться у списку послуг в особистому
+                    кабінеті нового власника.
+                  </Info>
+                </div>
+              )}
+              {(data.type === 'dedicated' || data.type === 'virtual') && (
+                <div className="flex flex-col gap-4">
+                  <Info>
+                    Для передачі послуги на компанію буде оформлено додатковий
+                    договір про надання послуг для нового контрагента.
+                  </Info>
+                  <div className="flex flex-col gap-4 sm:flex-row-reverse justify-center">
+                    <Button type="submit" className="w-full sm:w-auto">
+                      Передати
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      className="w-full sm:w-auto"
+                    >
+                      Скасувати
+                    </Button>
+                  </div>
+                </div>
+              )}
             </form>
           </Form>
         </div>

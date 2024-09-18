@@ -1,6 +1,10 @@
 import { ServerType } from '@/types/server';
 import { VirtualDedicatedControl } from '@/app/components/products/server/virtual/virtual-dedicated-control';
 import { KeyValText } from '@/app/components/common/key-val-text';
+import { VirtualControlISO } from '@/app/components/products/server/virtual/virtual-control-iso';
+import { VirtualDedicatedTransfer } from '@/app/components/products/server/virtual/virtual-dedicated-transfer';
+import { Separator } from '@/components/ui/separator';
+import { Button } from '@/components/ui/button';
 
 const baseInfo = [
   'Система: Ubuntu 20.04',
@@ -8,10 +12,7 @@ const baseInfo = [
   'RAM: 8 Gb',
   'SSD: 300 Gb',
 ];
-const imagesList = [
-  { key: 1, value: 'Власний ISO' },
-  { key: 2, value: 'Debian 11' },
-];
+
 interface VirtualControlProps {
   data: ServerType;
 }
@@ -39,6 +40,15 @@ export const VirtualControl = ({ data }: VirtualControlProps) => {
         <KeyValText k="SSD:" val={baseInfo[3]} className="justify-between" />
       </div>
       <VirtualDedicatedControl data={data} />
+      <VirtualControlISO data={data} />
+      <Separator className="my-4 sm:hidden" />
+      <VirtualDedicatedTransfer data={data} />
+      <Separator className="my-4" />
+      <div className="w-full flex justify-end">
+        <Button type="button" className="py-2.5 w-full sm:w-auto">
+          Запустити VNC консоль
+        </Button>
+      </div>
     </>
   );
 };
