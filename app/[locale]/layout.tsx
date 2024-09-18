@@ -48,7 +48,7 @@ export default async function RootLayout({
         )}
       >
         <NextTopLoader
-          color="#2299DD"
+          color="#12b2e7"
           initialPosition={0.08}
           crawlSpeed={200}
           height={3}

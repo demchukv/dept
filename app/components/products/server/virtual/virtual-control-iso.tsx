@@ -106,7 +106,7 @@ export const VirtualControlISO = ({ data }: VirtualControlISOProps) => {
                 >
                   <FormControl className="bg-transparent py-[9px]">
                     <SelectTrigger>
-                      <SelectValue placeholder="Спосіб перзавантаження" />
+                      <SelectValue placeholder="Виберіть образ" />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
@@ -124,9 +124,9 @@ export const VirtualControlISO = ({ data }: VirtualControlISOProps) => {
           />
           <Button
             type="button"
-            variant="outline"
+            variant="ghost"
             onClick={() => setOpen(true)}
-            className="py-2.5 w-full sm:w-auto"
+            className="py-2.5 w-full sm:w-auto text-main-color sm:border sm:border-main-color sm:px-3"
           >
             Завантажити файл
             <Icon iconName="Upload" width={20} height={20} className="ml-2" />
