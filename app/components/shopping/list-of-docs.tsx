@@ -38,7 +38,12 @@ export const ListOfDocs = ({ docId, onClose }: ListOfDocsProps) => {
     pageIndex: 0,
     pageSize: 4,
   };
-
+  const initSorting = [
+    {
+      id: 'createdAt',
+      desc: true,
+    },
+  ];
   return (
     <div className="grid grid-cols-1 justify-center gap-6">
       <ModalHeader>
@@ -54,6 +59,7 @@ export const ListOfDocs = ({ docId, onClose }: ListOfDocsProps) => {
         columns={columns}
         data={data}
         rowCount={data.length}
+        sorting={initSorting}
         pagination={initPagination}
         isPending={!data}
       />
