@@ -163,6 +163,9 @@ export const HostingTransfer = ({
                       type="button"
                       variant="outline"
                       className="w-full sm:w-auto"
+                      onClick={() =>
+                        onCloseParent && onCloseParent(false, undefined)
+                      }
                     >
                       Скасувати
                     </Button>
