@@ -45,7 +45,7 @@ export const HostingTransfer = ({ data }: HostingTransferProps) => {
     resolver: zodResolver(transSchema),
     mode: 'onChange',
     defaultValues: {
-      idType: 'id',
+      idType: '',
       id: '',
     },
   });
@@ -65,6 +65,7 @@ export const HostingTransfer = ({ data }: HostingTransferProps) => {
         ),
       });
       setOpen(true);
+      form.reset();
     });
   }
 
