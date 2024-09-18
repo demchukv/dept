@@ -115,7 +115,7 @@ export const HostingTransfer = ({ data }: HostingTransferProps) => {
                 control={form.control}
                 name="id"
                 render={({ field }) => (
-                  <FormItem className="mb-8">
+                  <FormItem className="mb-8 w-full sm:max-w-[300px]">
                     <FormControl>
                       <Input
                         {...field}
