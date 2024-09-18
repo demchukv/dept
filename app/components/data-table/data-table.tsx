@@ -3,8 +3,10 @@
 import * as React from 'react';
 import {
   ColumnDef,
+  SortingState,
   flexRender,
   getCoreRowModel,
+  getSortedRowModel,
   useReactTable,
   getPaginationRowModel,
 } from '@tanstack/react-table';
@@ -33,6 +35,7 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   rowCount: number;
+  sorting: SortingState;
   pagination: PaginationState;
   isPending: boolean;
 }
@@ -54,8 +57,10 @@ export function DataTable<TData, TValue>({
   columns,
   data,
   pagination: { pageIndex, pageSize },
+  sorting: [{ id, desc }],
   isPending,
 }: DataTableProps<TData, TValue>) {
+  const [sorting, setSorting] = React.useState<SortingState>([{ id, desc }]);
   const [pagination, setPagination] = React.useState<PaginationState>({
     pageIndex,
     pageSize,
@@ -67,11 +72,16 @@ export function DataTable<TData, TValue>({
     columnResizeMode: 'onChange',
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    getSortedRowModel: getSortedRowModel(),
     onPaginationChange: setPagination,
+    onSortingChange: setSorting,
     state: {
       pagination,
+      sorting,
     },
     manualPagination: false,
+    manualSorting: false,
+    enableMultiSort: true,
     autoResetPageIndex: false,
     debugTable: false,
     debugHeaders: false,

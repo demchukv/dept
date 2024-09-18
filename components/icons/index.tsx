@@ -71,6 +71,7 @@ import StatusCheck from '@/components/icons/status-check';
 import StatusReady from '@/components/icons/status-ready';
 import StatusRepair from '@/components/icons/status-repair';
 import StatusSend from '@/components/icons/status-send';
+import TabSort from '@/components/icons/tab-sort';
 import TariffOne from '@/components/icons/tariff-one';
 import TariffTwo from '@/components/icons/tariff-two';
 import TariffThree from '@/components/icons/tariff-three';
@@ -157,6 +158,7 @@ export const Icons = {
   StatusReady,
   StatusRepair,
   StatusSend,
+  TabSort,
   TariffOne,
   TariffTwo,
   TariffThree,

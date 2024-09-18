@@ -245,7 +245,7 @@ export const VirtualAdditional = ({ data }: VirtualAdditionalProps) => {
       </Form>
 
       <Modal open={open} onOpenChange={() => onClose(false, undefined)}>
-        <ModalContent className="grid grid-cols-1 gap-6">
+        <ModalContent className="grid grid-cols-1 gap-6 max-w-[420px]">
           <VirtualAdditionalForm onClose={onClose} data={data} />
         </ModalContent>
       </Modal>
