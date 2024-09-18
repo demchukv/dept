@@ -9,6 +9,7 @@ import { ServerBilling } from '@/app/components/products/server/server-billing';
 import { ServerChangeTariff } from '@/app/components/products/server/server-change-tariff';
 import { VirtualAccess } from '@/app/components/products/server/virtual/virtual-access';
 import { VirtualControl } from '@/app/components/products/server/virtual/virtual-control';
+import { VirtualAdditional } from '@/app/components/products/server/virtual/virtual-additional';
 
 interface VirtualTabsProps {
   data: ServerType;
@@ -41,7 +42,9 @@ export const VirtualTabs = ({ data }: VirtualTabsProps) => {
       <TabsContent value="control">
         <VirtualControl data={data} />
       </TabsContent>
-      <TabsContent value="additional">Change your password here.</TabsContent>
+      <TabsContent value="additional">
+        <VirtualAdditional data={data} />
+      </TabsContent>
       <TabsContent value="history">Change your password here.</TabsContent>
     </Tabs>
   );
