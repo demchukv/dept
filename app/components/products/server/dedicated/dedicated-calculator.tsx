@@ -11,6 +11,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import { Checkbox } from '@/components/ui/checkbox';
 import { startTransition, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { ServerType } from '@/types/server';
@@ -250,21 +251,21 @@ const calcData = [
 ];
 
 const diskData = [
-  { dkey: 1, disk: '500 GB NVME' },
-  { dkey: 2, disk: '950 GB NVME' },
-  { dkey: 3, disk: '1920 GB NVME' },
-  { dkey: 4, disk: '250 GB SSD' },
-  { dkey: 5, disk: '500 GB SSD' },
-  { dkey: 6, disk: '1000 GB SSD' },
-  { dkey: 7, disk: '2000 GB SSD' },
-  { dkey: 8, disk: '1000 GB HDD' },
-  { dkey: 9, disk: '2000 GB HDD' },
-  { dkey: 10, disk: '3000 GB HDD' },
-  { dkey: 11, disk: '4000 GB HDD' },
+  { dkey: 1, disk: '500 GB NVME', diskPrice: 100 },
+  { dkey: 2, disk: '950 GB NVME', diskPrice: 200 },
+  { dkey: 3, disk: '1920 GB NVME', diskPrice: 300 },
+  { dkey: 4, disk: '250 GB SSD', diskPrice: 400 },
+  { dkey: 5, disk: '500 GB SSD', diskPrice: 500 },
+  { dkey: 6, disk: '1000 GB SSD', diskPrice: 600 },
+  { dkey: 7, disk: '2000 GB SSD', diskPrice: 700 },
+  { dkey: 8, disk: '1000 GB HDD', diskPrice: 800 },
+  { dkey: 9, disk: '2000 GB HDD', diskPrice: 900 },
+  { dkey: 10, disk: '3000 GB HDD', diskPrice: 1000 },
+  { dkey: 11, disk: '4000 GB HDD', diskPrice: 1100 },
 ];
 
 const CalculatorSchema = z.object({
-  serverId: z.number().min(1),
+  dkey: z.array(z.string()),
 });
 interface DedicatedCalculatorProps {
   data: ServerType;
@@ -291,17 +292,13 @@ export const DedicatedCalculator = ({
   const [memoryData, setMemoryData] = useState<
     { memoryId: number; memoryName: string }[]
   >([]);
-
-  console.log('serverId', serverId, 'cpuId', cpuId, 'memoryId', memoryId);
-  console.log('serverData: ', serverData);
-  console.log('cpuData: ', cpuData);
-  console.log('memoryData: ', memoryData);
+  const [diskPrice, setDiskPrice] = useState<number>(0);
 
   const form = useForm<z.infer<typeof CalculatorSchema>>({
     resolver: zodResolver(CalculatorSchema),
     mode: 'onChange',
     defaultValues: {
-      serverId: data.id,
+      dkey: [],
     },
   });
 
@@ -311,6 +308,9 @@ export const DedicatedCalculator = ({
       // const newData = getJson('/data/call-summary.json');
       const values = {
         ...data,
+        serverId: Number(serverId),
+        cpuId: Number(cpuId),
+        memoryId: Number(memoryId),
         action: 'calculator',
       };
       toast({
@@ -339,11 +339,30 @@ export const DedicatedCalculator = ({
       setMemoryData(cpu.memory);
     }
   };
+
+  const calculatePrice = () => {
+    const vals = form.getValues();
+    let newDiskPrice = 0;
+    if (vals.dkey.length > 0) {
+      for (let i = 0; i < vals.dkey.length; i++) {
+        const disk = diskData.find(
+          (item) => item.dkey === Number(vals.dkey[i]),
+        );
+        if (disk) {
+          newDiskPrice += disk.diskPrice;
+        }
+      }
+    }
+    setDiskPrice(newDiskPrice);
+  };
   return (
     <>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
+          onChange={(e) => {
+            calculatePrice();
+          }}
           className="flex flex-col h-full"
         >
           <ModalHeader className="flex-shrink-0">
@@ -353,7 +372,12 @@ export const DedicatedCalculator = ({
             <ModalDescription className="hidden"></ModalDescription>
           </ModalHeader>
           <ModalInner className="flex flex-col justify-start w-full font-normal text-sm text-main-dark leading-main-lh flex-grow">
-            <p className="text-main-dark text-base font-medium mb-4">Сервер</p>
+            <p className="text-main-dark text-base font-medium mb-4">
+              Сервер
+              <span className="hidden sm:block mt-1 text-xs">
+                Оберіть платформу
+              </span>
+            </p>
             <ToggleGroup
               type="single"
               variant="outline"
@@ -373,7 +397,7 @@ export const DedicatedCalculator = ({
                 <ToggleGroupItem
                   key={item.key}
                   value={item.key}
-                  className="w-full sm:w-auto px-6 md:px-10 py-[11px] h-auto font-bold text-xs border-main-color text-main-color bg-white data-[state=on]:bg-main-color data-[state=on]:text-white disabled:bg-white disabled:text-gray-medium disabled:border-gray-medium"
+                  className="w-full sm:w-auto px-3 md:px-4 py-[11px] h-auto font-bold text-xs border-main-color text-main-color bg-white data-[state=on]:bg-main-color data-[state=on]:text-white disabled:bg-white disabled:text-gray-medium disabled:border-gray-medium"
                 >
                   {item.key}-{item.server}
                 </ToggleGroupItem>
@@ -392,6 +416,9 @@ export const DedicatedCalculator = ({
 
             <p className="text-main-dark text-base font-medium mb-4">
               Процесор
+              <span className="hidden sm:block mt-1 text-xs">
+                Оберіть тип та кількість процесорів
+              </span>
             </p>
             {cpuData && cpuData.length > 0 && (
               <ToggleGroup
@@ -411,7 +438,7 @@ export const DedicatedCalculator = ({
                   <ToggleGroupItem
                     key={item.cpuId}
                     value={item.cpuId}
-                    className="w-full sm:w-auto px-6 md:px-10 py-[11px] h-auto font-bold text-xs border-main-color text-main-color bg-white data-[state=on]:bg-main-color data-[state=on]:text-white disabled:bg-white disabled:text-gray-medium disabled:border-gray-medium"
+                    className="w-full sm:w-auto px-3 md:px-4 py-[11px] h-auto font-bold text-xs border-main-color text-main-color bg-white data-[state=on]:bg-main-color data-[state=on]:text-white disabled:bg-white disabled:text-gray-medium disabled:border-gray-medium"
                   >
                     {item.cpuId} - {item.cpuName}
                   </ToggleGroupItem>
@@ -423,12 +450,15 @@ export const DedicatedCalculator = ({
 
             <p className="text-main-dark text-base font-medium mb-4">
               Пам&#39;ять
+              <span className="hidden sm:block mt-1 text-xs">
+                Оберіть об&#39;єм пам&#39;яті
+              </span>
             </p>
             {memoryData && memoryData.length > 0 && (
               <ToggleGroup
                 type="single"
                 variant="outline"
-                className="flex-col sm:flex-row gap-3 justify-start w-full sm:w-auto"
+                className="flex-col sm:flex-row gap-3 justify-start w-full sm:w-auto mb-4"
                 defaultValue="0"
                 onValueChange={(value) => {
                   if (value) setMemoryId(Number(value));
@@ -438,25 +468,89 @@ export const DedicatedCalculator = ({
                   <ToggleGroupItem
                     key={item.memoryId}
                     value={item.memoryId}
-                    className="w-full sm:w-auto px-6 md:px-10 py-[11px] h-auto font-bold text-xs border-main-color text-main-color bg-white data-[state=on]:bg-main-color data-[state=on]:text-white disabled:bg-white disabled:text-gray-medium disabled:border-gray-medium"
+                    className="w-full sm:w-auto px-3 md:px-4 py-[11px] h-auto font-bold text-xs border-main-color text-main-color bg-white data-[state=on]:bg-main-color data-[state=on]:text-white disabled:bg-white disabled:text-gray-medium disabled:border-gray-medium"
                   >
                     {item.memoryId} - {item.memoryName}
                   </ToggleGroupItem>
                 ))}
               </ToggleGroup>
             )}
+
+            <p className="text-main-dark text-base font-medium mb-4">Диск</p>
+
+            <FormField
+              control={form.control}
+              name="dkey"
+              render={() => (
+                <FormItem className="grid grid-cols-1 sm:grid-cols-3">
+                  {diskData.map((item) => (
+                    <FormField
+                      key={item.dkey.toString()}
+                      control={form.control}
+                      name="dkey"
+                      render={({ field }) => {
+                        return (
+                          <FormItem
+                            key={item.dkey.toString()}
+                            className="flex flex-row items-start space-x-3 space-y-0"
+                          >
+                            <FormControl>
+                              <Checkbox
+                                checked={field.value?.includes(
+                                  item.dkey.toString(),
+                                )}
+                                onCheckedChange={(checked) => {
+                                  return checked
+                                    ? field.onChange([
+                                        ...field.value,
+                                        item.dkey.toString(),
+                                      ])
+                                    : field.onChange(
+                                        field.value?.filter(
+                                          (value) =>
+                                            value !== item.dkey.toString(),
+                                        ),
+                                      );
+                                }}
+                              />
+                            </FormControl>
+                            <FormLabel className="text-sm font-normal">
+                              {item.disk}
+                            </FormLabel>
+                          </FormItem>
+                        );
+                      }}
+                    />
+                  ))}
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <div className="flex justify-end mb-4">
+              {serverData && (
+                <span className="font-bold text-2xl leading-none">
+                  + {diskPrice} грн
+                </span>
+              )}
+            </div>
+            <div className="p-4 bg-main-color rounded flex flex-col gap-2 text-white font-medium text-right ml-8 sm:ml-0">
+              Підсумкова вартість:
+              <div className="font-bold text-2xl">
+                {serverData.basePrice + diskPrice} грн
+              </div>
+            </div>
           </ModalInner>
 
-          <ModalFooter className="flex-col sm:flex-row justify-center gap-4 py-4 flex-shrink-0 self-end w-full">
+          <ModalFooter className="flex-col sm:flex-row-reverse justify-center gap-4 py-4 flex-shrink-0 self-end w-full">
             <Button type="submit" variant="default">
-              Перенести
+              Відправити заявку
             </Button>
             <Button
               type="button"
               variant="outline"
               onClick={() => onClose(false, undefined)}
             >
-              Скасувати
+              Відмінити
             </Button>
           </ModalFooter>
         </form>

@@ -324,7 +324,7 @@ export const ServerChangeTariff = ({ data }: ServerChangeTariffProps) => {
       )}
 
       <Modal open={open} onOpenChange={() => onClose(false, undefined)}>
-        <ModalContent className="grid grid-cols-1 gap-6">
+        <ModalContent className="grid grid-cols-1 gap-6 max-w-[1000px]">
           <DedicatedCalculator data={data} onClose={onClose} />
         </ModalContent>
       </Modal>
