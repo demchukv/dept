@@ -407,7 +407,7 @@ export const DedicatedCalculator = ({
             <div className="flex justify-end mb-4">
               {serverData && (
                 <span className="font-bold text-2xl leading-none">
-                  {serverData.basePrice} грн
+                  {serverData.basePrice ? serverData.basePrice : 0} грн
                 </span>
               )}
             </div>
