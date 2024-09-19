@@ -34,6 +34,7 @@ import Doc from '@/components/icons/doc';
 import Document from '@/components/icons/document';
 import Download from '@/components/icons/download';
 import DragAndDrop from '@/components/icons/drag-and-drop';
+import EditIcon from '@/components/icons/edit';
 import Electronics from '@/components/icons/electronics';
 import EyeClosed from '@/components/icons/eye-closed';
 import ImageDefault from '@/components/icons/image-default';
@@ -120,6 +121,7 @@ export const Icons = {
   Document,
   Download,
   DragAndDrop,
+  EditIcon,
   Electronics,
   ImageDefault,
   Info,
