@@ -4,6 +4,7 @@ import { ColumnDef, RowData } from '@tanstack/react-table';
 import { serversHistoryType } from '@/types/servers-history';
 import { Icon } from '@/components/utils/icon';
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 declare module '@tanstack/react-table' {
   interface ColumnMeta<TData extends RowData, TValue> {
@@ -29,7 +30,12 @@ export const columns: ColumnDef<serversHistoryType>[] = [
           className="flex items-center gap-1"
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
-          <Icon iconName="TabSort" width={20} height={20} />
+          <Icon
+            iconName="TabSort"
+            width={20}
+            height={20}
+            className={cn(column.getIsSorted() === 'asc' && 'rotate-180')}
+          />
           Дата
         </Button>
       );
