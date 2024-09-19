@@ -19,15 +19,15 @@ import { toast } from '@/components/ui/use-toast';
 import { Icon } from '@/components/utils/icon';
 import { domainType } from '@/types/domain';
 import { zodResolver } from '@hookform/resolvers/zod';
-import React, { startTransition } from 'react';
+import React, { startTransition, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 const dnsSchema = z.object({
-  domainId: z.number().min(1, 'Вкажіть домен'),
-  host: z.string().min(1, 'Вкажіть хост'),
-  type: z.string().min(1, 'Вкажіть тип'),
-  server: z.string().min(1, 'Вкажіть сервер'),
+  domainId: z.number(),
+  host: z.string(),
+  type: z.string(),
+  server: z.string(),
 });
 const dnsRecords = [
   { id: 1, host: '@', type: 'A', server: '192.168.0.1', ttl: 3600 },
@@ -49,6 +49,7 @@ interface domainDnsProps {
   data: domainType;
 }
 export const DomainDns = ({ data }: domainDnsProps) => {
+  const [dns, setDns] = useState(dnsRecords);
   const form = useForm({
     resolver: zodResolver(dnsSchema),
     mode: 'onChange',
@@ -61,13 +62,13 @@ export const DomainDns = ({ data }: domainDnsProps) => {
   });
 
   const onSubmit = (data: z.infer<typeof dnsSchema>) => {
+    //TODO: make API request and setData
+    // const newData = getJson('/data/call-summary.json');
+
     startTransition(() => {
       //TODO: make API request and setData
       // const newData = getJson('/data/call-summary.json');
-      const values = {
-        ...data,
-        action: 'createFTPUser',
-      };
+      const values = dns;
       toast({
         title: 'Ви відправили наступні значення:',
         description: (
@@ -78,7 +79,23 @@ export const DomainDns = ({ data }: domainDnsProps) => {
           </pre>
         ),
       });
+      form.reset();
     });
+  };
+  const addDNSRecord = () => {
+    const id = Math.max(...dns.map((item) => item.id)) + 1;
+    const values = form.getValues();
+    const typeName =
+      dnsTypes.find((item) => item.id === Number(values.type))?.name ?? '';
+    setDns((prev) => [...prev, { ...values, type: typeName, id, ttl: 3600 }]);
+  };
+
+  const removeDNS = (id: number) => {
+    setDns((prev) => prev.filter((item) => item.id !== id));
+  };
+
+  const restoreDNS = () => {
+    setDns(dnsRecords);
   };
 
   return (
@@ -92,7 +109,7 @@ export const DomainDns = ({ data }: domainDnsProps) => {
             <div className="font-semibold">Час життя TTL</div>
             <div></div>
             <div></div>
-            {dnsRecords.map((item) => (
+            {dns.map((item) => (
               <React.Fragment key={item.id}>
                 <div>{item.host}</div>
                 <div>{item.type}</div>
@@ -112,6 +129,7 @@ export const DomainDns = ({ data }: domainDnsProps) => {
                     type="button"
                     variant="ghost"
                     className="hover:text-main-color w-6 h-6 items-center justify-center"
+                    onClick={() => removeDNS(item.id)}
                   >
                     <Icon iconName="TrashEmpty" width={20} height={20} />
                   </Button>
@@ -177,11 +195,26 @@ export const DomainDns = ({ data }: domainDnsProps) => {
                 type="button"
                 variant="ghost"
                 className="text-warning hover:text-main-dark h-6 items-center justify-center gap-1"
+                onClick={() => restoreDNS()}
               >
                 Відмінити
                 <Icon iconName="DeleteCircle" width={20} height={20} />
               </Button>
             </div>
+          </div>
+          <div className="flex items-center justify-between">
+            <Button
+              type="button"
+              variant="ghost"
+              className="text-main-color font-semibold"
+              onClick={() => addDNSRecord()}
+            >
+              Додати запис
+              <Icon iconName="Plus" width={20} height={20} />
+            </Button>
+            <Button type="submit" variant="default">
+              Зберегти
+            </Button>
           </div>
         </form>
       </Form>
