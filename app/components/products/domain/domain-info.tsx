@@ -18,6 +18,9 @@ import {
   TabsTrigger,
 } from '@/components/ui/tabs-server';
 import { DomainBilling } from '@/app/components/products/domain/domain-billing';
+import { DomainDns } from '@/app/components/products/domain/domain-dns';
+import { DomainTransfer } from '@/app/components/products/domain/domain-transfer';
+import { DomainNs } from '@/app/components/products/domain/domain-ns';
 
 interface DomainInfoProps {
   data: domainType;
@@ -74,13 +77,13 @@ export const DomainInfo = ({ data }: DomainInfoProps) => {
                   <DomainBilling data={data} />
                 </TabsContent>
                 <TabsContent value="dns">
-                  {/* <HostingSites data={data} /> */}
+                  <DomainDns data={data} />
                 </TabsContent>
                 <TabsContent value="ns">
-                  {/* <HostingFtp data={data} /> */}
+                  <DomainNs data={data} />
                 </TabsContent>
                 <TabsContent value="transfer">
-                  {/* <HostingTransfer data={data} /> */}
+                  <DomainTransfer data={data} />
                 </TabsContent>
               </Tabs>
             </AccordionContent>

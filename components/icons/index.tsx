@@ -48,6 +48,7 @@ import Logout from '@/components/icons/logout';
 import Mail from '@/components/icons/mail';
 import Mention from '@/components/icons/mention';
 import Menu from '@/components/icons/menu';
+import Pencil from '@/components/icons/pencil';
 import Plus from '@/components/icons/plus';
 import Product from '@/components/icons/product';
 import QlBold from '@/components/icons/ql-bold';
@@ -78,6 +79,7 @@ import TariffTwo from '@/components/icons/tariff-two';
 import TariffThree from '@/components/icons/tariff-three';
 import Task from '@/components/icons/task';
 import Trash from '@/components/icons/trash';
+import TrashEmpty from '@/components/icons/trash-empty';
 import Upload from '@/components/icons/upload';
 import User from '@/components/icons/user';
 import UserBalance from '@/components/icons/user-balance';
@@ -136,6 +138,7 @@ export const Icons = {
   Mail,
   Mention,
   Menu,
+  Pencil,
   Plus,
   Product,
   QlBold,
@@ -166,6 +169,7 @@ export const Icons = {
   TariffThree,
   Task,
   Trash,
+  TrashEmpty,
   Upload,
   User,
   UserBalance,
