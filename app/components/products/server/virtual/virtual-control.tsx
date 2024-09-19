@@ -5,6 +5,7 @@ import { VirtualControlISO } from '@/app/components/products/server/virtual/virt
 import { VirtualDedicatedTransfer } from '@/app/components/products/server/virtual/virtual-dedicated-transfer';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
+import { DedicatedOrderKvmForm } from '@/app/components/products/server/dedicated/dedicated-order-kvm-form';
 
 const baseInfo = [
   'Система: Ubuntu 20.04',
@@ -40,15 +41,25 @@ export const VirtualControl = ({ data }: VirtualControlProps) => {
         <KeyValText k="SSD:" val={baseInfo[3]} className="justify-between" />
       </div>
       <VirtualDedicatedControl data={data} />
-      <VirtualControlISO data={data} />
-      <Separator className="my-4 sm:hidden" />
-      <VirtualDedicatedTransfer data={data} />
-      <Separator className="my-4" />
-      <div className="w-full flex justify-end">
-        <Button type="button" className="py-2.5 w-full sm:w-auto">
-          Запустити VNC консоль
-        </Button>
-      </div>
+      {data.type === 'virtual' && (
+        <>
+          <VirtualControlISO data={data} />
+          <Separator className="my-4 sm:hidden" />
+          <VirtualDedicatedTransfer data={data} />
+          <Separator className="my-4" />
+          <div className="w-full flex justify-end">
+            <Button type="button" className="py-2.5 w-full sm:w-auto">
+              Запустити VNC консоль
+            </Button>
+          </div>
+        </>
+      )}
+      {data.type === 'dedicated' && (
+        <>
+          <Separator className="my-4" />
+          <DedicatedOrderKvmForm data={data} />
+        </>
+      )}
     </>
   );
 };
