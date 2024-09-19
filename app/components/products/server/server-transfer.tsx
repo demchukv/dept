@@ -20,9 +20,9 @@ import {
   ModalHeader,
   ModalInner,
   ModalTitle,
-} from '../../common/modal-new';
-import { Info } from '../../common/info';
-import { DatePicker } from '../../common/date-picker';
+} from '@/app/components/common/modal-new';
+import { Info } from '@/app/components/common/info';
+import { DatePicker } from '@/app/components/common/date-picker';
 import { formatISO } from 'date-fns';
 
 export const ContinueSubscriptionSchema = z.object({

@@ -14,6 +14,8 @@ import { Icon } from '@/components/utils/icon';
 import { VirtualSelectTariff } from '@/app/components/products/server/virtual/virtual-select-tariff';
 import { DedicatedSelectTariff } from '@/app/components/products/server/dedicated/dedicated-select-tariff';
 import { HostingSelectTariff } from '@/app/components/products/server/hosting/hosting-select-tariff';
+import { Modal, ModalContent } from '@/app/components/common/modal-new';
+import { DedicatedCalculator } from '@/app/components/products/server/dedicated/dedicated-calculator';
 
 // TODO: запит для отримання списку тарифів відповідно до типу сервера (хостингу)
 export const virtualTariffs = [
@@ -160,6 +162,12 @@ interface ServerChangeTariffProps {
   data: ServerType;
 }
 export const ServerChangeTariff = ({ data }: ServerChangeTariffProps) => {
+  const [open, setOpen] = useState(false);
+  const onClose = (state: boolean, e: React.MouseEvent | undefined) => {
+    if (e) e.preventDefault();
+    setOpen(state);
+  };
+
   let tariffs;
   if (data.type === 'virtual') {
     tariffs = virtualTariffs;
@@ -206,11 +214,28 @@ export const ServerChangeTariff = ({ data }: ServerChangeTariffProps) => {
       <p className="font-semibold text-base leading-normal mb-2">
         Зміна тарифу
       </p>
-      <p className="mb-4">
-        Ви можете розшири можливості поточного тарифу без припинення
-        користування послугами та без необхідності перенесення даних на інший
-        тариф.
-      </p>
+
+      <div className="flex flex-col sm:flex-row justify-between items-start gap-6 mb-4">
+        <p>
+          Ви можете розшири можливості поточного тарифу без припинення
+          користування послугами та без необхідності перенесення даних на інший
+          тариф.
+          {data.type === 'dedicated' && (
+            <span className="block mt-2">
+              Оберіть тариф із запропонованих пакетів або сформуйте
+              індивідуальний набір послуг.
+            </span>
+          )}
+        </p>
+        <Button
+          type="button"
+          size="sm"
+          className="w-full sm:w-auto"
+          onClick={() => setOpen(true)}
+        >
+          Замовити індивідуальну конфігурацію
+        </Button>
+      </div>
 
       <Carousel setApi={setApi} className="w-full">
         <CarouselContent className={cn(!inContainer && 'flex justify-around')}>
@@ -297,6 +322,12 @@ export const ServerChangeTariff = ({ data }: ServerChangeTariffProps) => {
           </Button>
         </div>
       )}
+
+      <Modal open={open} onOpenChange={() => onClose(false, undefined)}>
+        <ModalContent className="grid grid-cols-1 gap-6">
+          <DedicatedCalculator data={data} onClose={onClose} />
+        </ModalContent>
+      </Modal>
     </>
   );
 };
