@@ -135,9 +135,9 @@ export const HostingFtp = ({ data }: HostingFtpProps) => {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="flex flex-col sm:flex-row items-end justify-between gap-4"
+            className="w-full flex flex-col sm:flex-row items-end justify-between gap-4"
           >
-            <div className="w-full sm:w-auto">
+            <div className="w-full sm:w-auto flex-grow">
               <p className="flex justify-between sm:hidden text-xs text-gray-dark mb-4">
                 Доступно користувачів: <span>1/2</span>
               </p>
@@ -234,7 +234,7 @@ export const HostingFtp = ({ data }: HostingFtpProps) => {
               {ftpUsers.map((user) => (
                 <li
                   key={user.id}
-                  className="flex items-center justify-between gap-4"
+                  className="flex items-center justify-between gap-4 hover:bg-bg-color"
                 >
                   <span className="flex-grow font-medium text-base">
                     {user.ftpLogin}
