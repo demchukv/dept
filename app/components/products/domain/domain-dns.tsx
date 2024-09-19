@@ -176,7 +176,7 @@ export const DomainDns = ({ data }: domainDnsProps) => {
               <Button
                 type="button"
                 variant="ghost"
-                className="text-warning hover:text-main-dark w-6 h-6 items-center justify-center"
+                className="text-warning hover:text-main-dark h-6 items-center justify-center gap-1"
               >
                 Відмінити
                 <Icon iconName="DeleteCircle" width={20} height={20} />
