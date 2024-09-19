@@ -69,7 +69,7 @@ export const HostingFtp = ({ data }: HostingFtpProps) => {
     });
   }
 
-  function onDelete(data: z.infer<typeof newFtpSchema>) {
+  function onDelete(data: any) {
     startTransition(() => {
       //TODO: make API request and setData
       // const newData = getJson('/data/call-summary.json');
