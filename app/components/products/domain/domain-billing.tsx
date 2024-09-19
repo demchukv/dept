@@ -1,6 +1,5 @@
 'use client';
 import { domainType } from '@/types/domain';
-import { ServerPromotion } from '@/app/components/products/server/server-promotion';
 import { z } from 'zod';
 import { toast } from '@/components/ui/use-toast';
 import { useForm } from 'react-hook-form';
@@ -26,13 +25,13 @@ import { KeyValText } from '@/app/components/common/key-val-text';
 import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/utils/icon';
 import { Modal, ModalContent } from '@/app/components/common/modal-new';
-import { ServerCancel } from '@/app/components/products/server/server-cancel';
+import { DomainCancel } from '@/app/components/products/domain/domain-cancel';
 import { Warning } from '@/app/components/common/warning';
 import { ReplenishBalance } from '../../balance/replenish-balance';
 import { useAppSelector } from '@/store/hooks';
 import { selectBalance } from '@/store/account/accountSlice';
 
-export const ContinueSubscriptionSchema = z.object({
+export const ContinueDomainSchema = z.object({
   domainId: z.number().min(1),
   term: z.string().min(1, 'Виберіть зі списку термін продовження підписки'),
   autoContinue: z.boolean(),
@@ -58,8 +57,8 @@ export const DomainBilling = ({ data }: DomainBillingProps) => {
     if (e) e.preventDefault();
     setOpenReplenish(state);
   };
-  const form = useForm<z.infer<typeof ContinueSubscriptionSchema>>({
-    resolver: zodResolver(ContinueSubscriptionSchema),
+  const form = useForm<z.infer<typeof ContinueDomainSchema>>({
+    resolver: zodResolver(ContinueDomainSchema),
     mode: 'onChange',
     defaultValues: {
       domainId: data.id,
@@ -72,7 +71,7 @@ export const DomainBilling = ({ data }: DomainBillingProps) => {
     { key: 'two', val: '2 роки' },
     { key: 'three', val: '3 роки' },
   ];
-  function onSubmit(data: z.infer<typeof ContinueSubscriptionSchema>) {
+  function onSubmit(data: z.infer<typeof ContinueDomainSchema>) {
     startTransition(() => {
       //TODO: make API request and setData
       // const newData = getJson('/data/call-summary.json');
@@ -103,7 +102,7 @@ export const DomainBilling = ({ data }: DomainBillingProps) => {
           className="flex flex-col mt-4"
         >
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center sm:gap-6 ">
-            <div className="flex flex-col w-auto sm:w-[50%]">
+            <div className="flex flex-col w-auto sm:w-[38%]">
               <FormField
                 control={form.control}
                 name="term"
@@ -151,11 +150,6 @@ export const DomainBilling = ({ data }: DomainBillingProps) => {
                     </FormLabel>
                   </FormItem>
                 )}
-              />
-              <KeyValText
-                k="Термін дії:"
-                val={`з ${data.activated} до ${data.activeTo}`}
-                className="hidden sm:flex mb-4 justify-start"
               />
             </div>
 
@@ -208,12 +202,33 @@ export const DomainBilling = ({ data }: DomainBillingProps) => {
               </div>
             </div>
           </div>
+          <div className="flex justify-between">
+            <KeyValText
+              k="Термін дії:"
+              val={`з ${data.activated} до ${data.activeTo}`}
+              className="hidden sm:flex mb-4 justify-start"
+            />
+            <Button
+              type="button"
+              variant="destructive"
+              className="text-warning w-full sm:w-auto"
+              onClick={() => setOpen(true)}
+            >
+              <Icon
+                iconName="DeleteCircle"
+                width={20}
+                height={20}
+                className="w-5 h-5 "
+              />
+              Скасувати послугу
+            </Button>
+          </div>
         </form>
       </Form>
 
       <Modal open={open} onOpenChange={() => onClose(false, undefined)}>
         <ModalContent className="grid grid-cols-1 gap-6">
-          {/* <ServerCancel data={data} onClose={onClose} /> */}
+          <DomainCancel data={data} onClose={onClose} />
         </ModalContent>
       </Modal>
     </>
