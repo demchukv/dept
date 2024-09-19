@@ -74,7 +74,7 @@ export const DedicatedOrderKvmForm = ({ data }: DedicatedOrderKvmFormProps) => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="grid grid-cols-1 sm:grid-cols-2 sm:gap-3 md:grid-cols-4 md:place-items-center"
+          className="grid grid-cols-1 sm:grid-cols-2 sm:gap-3 md:grid-cols-4"
         >
           <div>
             <FormLabel
@@ -169,7 +169,9 @@ export const DedicatedOrderKvmForm = ({ data }: DedicatedOrderKvmFormProps) => {
             </div>
           </div>
 
-          <Button type="submit">Підключити KVM</Button>
+          <Button type="submit" className="md:self-center">
+            Підключити KVM
+          </Button>
 
           <Info>
             Після підключення KVM нашими спеціалістами ви отримаєте лист із
