@@ -54,7 +54,6 @@ export const DomainTransfer = ({ data }: domainTransferProps) => {
     });
   };
 
-  console.log(transferStep);
   return (
     <>
       {transferStep === 0 && (
@@ -68,16 +67,18 @@ export const DomainTransfer = ({ data }: domainTransferProps) => {
             Для цього спочатку отримайте код на електронну пошту, натиснувши
             кнопку нижче.
           </p>
-          <Button
-            type="button"
-            className="w-full sm:w-auto mb-4"
-            onClick={() => sendRequestOnTransferCode()}
-          >
-            Отримати код трансфера
-          </Button>
-          <Button type="button" className="w-full sm:w-auto" disabled>
-            Розблокувати домен
-          </Button>
+          <div className="flex flex-col sm:flex-row sm justify-end gap-4">
+            <Button
+              type="button"
+              className="w-full sm:w-auto"
+              onClick={() => sendRequestOnTransferCode()}
+            >
+              Отримати код трансфера
+            </Button>
+            <Button type="button" className="w-full sm:w-auto" disabled>
+              Розблокувати домен
+            </Button>
+          </div>
         </>
       )}
 
@@ -97,21 +98,23 @@ export const DomainTransfer = ({ data }: domainTransferProps) => {
               test_mail@gmail.com
             </span>
           </p>
-          <Input
-            type="text"
-            name="transferCode"
-            placeholder="Введіть код"
-            value={transferCode}
-            onChange={(e) => setTransferCode(e.target.value)}
-            className="mb-4"
-          />
-          <Button
-            type="button"
-            className="w-full sm:w-auto"
-            onClick={() => unlockDomain()}
-          >
-            Розблокувати домен
-          </Button>
+          <div className="flex flex-col sm:flex-row sm justify-end gap-4">
+            <Input
+              type="text"
+              name="transferCode"
+              placeholder="Введіть код"
+              value={transferCode}
+              onChange={(e) => setTransferCode(e.target.value)}
+              className="w-full sm:w-auto"
+            />
+            <Button
+              type="button"
+              className="w-full sm:w-auto"
+              onClick={() => unlockDomain()}
+            >
+              Розблокувати домен
+            </Button>
+          </div>
         </>
       )}
     </>
