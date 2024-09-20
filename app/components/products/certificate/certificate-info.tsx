@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/tabs-server';
 import { CertificateBilling } from '@/app/components/products/certificate/certificate-billing';
 import { CertificateCsr } from '@/app/components/products/certificate/certificate-csr';
+import { CertificateControl } from '@/app/components/products/certificate/certificate-control';
 
 interface CertificateInfoProps {
   data: certificateType;
@@ -48,7 +49,7 @@ export const CertificateInfo = ({ data }: CertificateInfoProps) => {
                   </div>
                 </div>
                 <div className="flex flex-row-reverse sm:flex-row justify-between sm:justify-end gap-5 items-center w-full sm:w-[50%]">
-                  <div className="text-right font-normal text-sm sm:text-base text-main-dark leading-main-lh">
+                  <div className="hidden sm:block text-right font-normal text-sm sm:text-base text-main-dark leading-main-lh">
                     {data.domain}
                   </div>
                   <div className="text-right font-normal text-sm sm:text-base text-main-dark leading-main-lh">
@@ -76,7 +77,7 @@ export const CertificateInfo = ({ data }: CertificateInfoProps) => {
                   <CertificateCsr data={data} />
                 </TabsContent>
                 <TabsContent value="control">
-                  {/* <DomainNs data={data} /> */}
+                  <CertificateControl data={data} />
                 </TabsContent>
               </Tabs>
             </AccordionContent>
