@@ -17,6 +17,7 @@ import {
   TabsList,
   TabsTrigger,
 } from '@/components/ui/tabs-server';
+import { CertificateBilling } from '@/app/components/products/certificate/certificate-billing';
 
 interface CertificateInfoProps {
   data: certificateType;
@@ -69,7 +70,7 @@ export const CertificateInfo = ({ data }: CertificateInfoProps) => {
                   <TabsTrigger value="control">Керування</TabsTrigger>
                 </TabsList>
                 <TabsContent value="biling">
-                  {/* <DomainBilling data={data} /> */}
+                  <CertificateBilling data={data} />
                 </TabsContent>
                 <TabsContent value="csr">
                   {/* <DomainDns data={data} /> */}
