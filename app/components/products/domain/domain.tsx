@@ -9,6 +9,8 @@ const data: domainType[] = [
     activated: '01.01.2023',
     activeTo: '01.01.2024',
     autoContinue: false,
+    transferCode: '123456',
+    transferRequested: false,
   },
 ];
 

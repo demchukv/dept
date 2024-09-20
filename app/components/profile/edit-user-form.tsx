@@ -15,7 +15,7 @@ import { z } from 'zod';
 import { Icon } from '@/components/utils/icon';
 import { Button } from '@/components/ui/button';
 import React from 'react';
-import { CardHeader } from '../card/card';
+import { CardHeader } from '@/app/components/card/card';
 
 interface EditUserFormProps {
   addrData: {

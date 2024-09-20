@@ -18,7 +18,7 @@ import {
   TabsTrigger,
 } from '@/components/ui/tabs-server';
 import { DomainBilling } from '@/app/components/products/domain/domain-billing';
-import { DomainDns } from '@/app/components/products/domain/domain-dns';
+import { DomainDns } from '@/app/components/products/domain/domain-dns-array';
 import { DomainTransfer } from '@/app/components/products/domain/domain-transfer';
 import { DomainNs } from '@/app/components/products/domain/domain-ns';
 

@@ -62,11 +62,8 @@ export const DomainDns = ({ data }: domainDnsProps) => {
   });
 
   const onSubmit = (data: z.infer<typeof dnsSchema>) => {
-    //TODO: make API request and setData
-    // const newData = getJson('/data/call-summary.json');
-
     startTransition(() => {
-      //TODO: make API request and setData
+      //TODO: make API request and setData and reload data
       // const newData = getJson('/data/call-summary.json');
       const values = dns;
       toast({
@@ -202,7 +199,7 @@ export const DomainDns = ({ data }: domainDnsProps) => {
               </Button>
             </div>
           </div>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between mt-8">
             <Button
               type="button"
               variant="ghost"
@@ -213,7 +210,7 @@ export const DomainDns = ({ data }: domainDnsProps) => {
               <Icon iconName="Plus" width={20} height={20} />
             </Button>
             <Button type="submit" variant="default">
-              Зберегти
+              Зберегти зміни
             </Button>
           </div>
         </form>
