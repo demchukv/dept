@@ -4,16 +4,8 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select-form';
 import { Input } from '@/components/ui/input';
 import { toast } from '@/components/ui/use-toast';
 import { Icon } from '@/components/utils/icon';
@@ -24,12 +16,13 @@ import { useFieldArray, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 const nsSchema = z.object({
+  ns1: z.string().min(1, 'Вкажіть хост'),
+  ns2: z.string().min(1, 'Вкажіть хост'),
   allData: z.object({
     nsRecord: z
       .array(
         z.object({
           host: z.string().min(1, 'Вкажіть хост'),
-          id: z.number().optional(),
         }),
       )
       .optional(),
@@ -37,28 +30,22 @@ const nsSchema = z.object({
 });
 
 type nsRecordsType = {
-  id: number | undefined;
   host: string;
 };
-const nsRecords: nsRecordsType[] = [
-  {
-    id: 1,
-    host: 'NS1.DEPT.COM.UA',
-  },
-  {
-    id: 2,
-    host: 'NS2.DEPT.COM.UA',
-  },
-];
+const nsRecords: nsRecordsType[] = [{ host: 'ns3.dept.com.ua' }];
+const ns1 = 'NS1.DEPT.COM.UA';
+const ns2 = 'NS2.DEPT.COM.UA';
 
 interface domainNsProps {
   data: domainType;
 }
 export const DomainNs = ({ data }: domainNsProps) => {
-  const form = useForm({
+  const form = useForm<z.infer<typeof nsSchema>>({
     resolver: zodResolver(nsSchema),
     mode: 'onChange',
     defaultValues: {
+      ns1: ns1,
+      ns2: ns2,
       allData: {
         nsRecord: nsRecords,
       },
@@ -71,13 +58,14 @@ export const DomainNs = ({ data }: domainNsProps) => {
   } = useFieldArray({
     control: form.control,
     name: 'allData.nsRecord',
-    keyName: 'dnsKey',
+    keyName: 'nsKey',
   });
-  const onSubmit = (data: z.infer<typeof nsSchema>) => {
+  const onSubmit = (vals: z.infer<typeof nsSchema>) => {
+    console.log(vals);
     startTransition(() => {
       //TODO: make API request and setData and reload data
       // const newData = getJson('/data/call-summary.json');
-      const values = { ...data };
+      const values = { ...vals };
       toast({
         title: 'Ви відправили наступні значення:',
         description: (
@@ -104,16 +92,43 @@ export const DomainNs = ({ data }: domainNsProps) => {
       </p>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="sm:grid grid-cols-[auto_auto] sm:grid-cols-[auto_auto_auto_auto_24px_24px] gap-2">
-            {fieldsNS.map((field, i) => (
-              <React.Fragment key={`b-${i}`}>
-                <div className="sm:hidden">Host</div>
-                <div className="grid grid-cols-[auto_24px_24px] sm:grid-cols-1 gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
+              name="ns1"
+              render={({ field }) => (
+                <FormItem className="space-y-1">
+                  <FormControl>
+                    <Input type="text" {...field} placeholder="" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="ns2"
+              render={({ field }) => (
+                <FormItem className="space-y-1">
+                  <FormControl>
+                    <Input type="text" {...field} placeholder="" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <>
+              {fieldsNS.map((field, i) => (
+                <div
+                  key={`b-${i}`}
+                  className="flex flex-row items-center justify-between gap-4"
+                >
                   <FormField
                     control={form.control}
                     name={`allData.nsRecord.${i}.host`}
                     render={({ field }) => (
-                      <FormItem className="space-y-1">
+                      <FormItem className="space-y-1 flex-grow">
                         <FormControl>
                           <Input type="text" {...field} placeholder="" />
                         </FormControl>
@@ -121,58 +136,32 @@ export const DomainNs = ({ data }: domainNsProps) => {
                       </FormItem>
                     )}
                   />
+
                   <Button
                     type="button"
                     variant="ghost"
-                    className="p-0 w-6 h-6 bg-transparent sm:hidden text-warning"
+                    className="p-0 w-6 h-6 bg-transparent text-warning flex-shrink-0"
                     onClick={() => deleteNS(i)}
                   >
                     <Icon
                       width={24}
                       height={24}
                       iconName="Trash"
-                      className="fill-warning w-6 h-6 flex-shrink-0"
+                      className="w-6 h-6 flex-shrink-0"
                     />
                   </Button>
                 </div>
-                <FormField
-                  control={form.control}
-                  name={`allData.nsRecord.${i}.id`}
-                  render={({ field }) => (
-                    <FormItem className="space-y-1">
-                      <FormControl>
-                        <Input type="hidden" {...field} placeholder="" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <Button
-                  type="button"
-                  variant="ghost"
-                  className="p-0 w-6 h-6 bg-transparent hidden sm:flex text-main-dark"
-                  onClick={() => deleteNS(i)}
-                >
-                  <Icon
-                    width={24}
-                    height={24}
-                    iconName="TrashEmpty"
-                    className="w-6 h-6 flex-shrink-0"
-                  />
-                </Button>
-              </React.Fragment>
-            ))}
+              ))}
+            </>
           </div>
           <div className="w-full flex flex-col sm:flex-row gap-4 items-center justify-between mt-8">
             <Button
               type="button"
-              variant="ghost"
-              className="text-main-color font-semibold w-full sm:w-auto"
-              onClick={() =>
-                appendNS({ host: '@', id: undefined }, { shouldFocus: true })
-              }
+              variant="outline"
+              className="font-semibold w-full sm:w-auto"
+              onClick={() => appendNS({ host: '' }, { shouldFocus: true })}
             >
-              Додати запис
+              Додати
               <Icon iconName="Plus" width={20} height={20} />
             </Button>
 
