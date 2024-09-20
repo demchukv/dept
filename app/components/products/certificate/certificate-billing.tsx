@@ -172,7 +172,6 @@ export const CertificateBilling = ({ data }: CertificateBillingProps) => {
                 />
                 {/* TODO: add amount and current balance for compare */}
                 {!isNaN(Number(data.price)) &&
-                  data.price &&
                   currentBalance < Number(data.price) && (
                     <Warning className="mb-4 sm:mb-0">
                       Суми на балансі недостатньо для проведення операції.
@@ -183,12 +182,12 @@ export const CertificateBilling = ({ data }: CertificateBillingProps) => {
               </div>
               <div className="flex flex-col">
                 {isNaN(Number(data.price)) ||
-                  (data.price && currentBalance >= Number(data.price) && (
+                  (currentBalance >= Number(data.price) && (
                     <Button type="submit" variant="default" className="mb-4">
                       Продовжити зараз
                     </Button>
                   ))}
-                {data.price && currentBalance < data.price && (
+                {currentBalance < data.price && (
                   <>
                     <Button
                       type="button"
