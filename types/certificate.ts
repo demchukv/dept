@@ -8,4 +8,6 @@ export type certificateType = {
   activated: string;
   activeTo: string;
   autoContinue: boolean;
+  csr: string;
+  privateKey: string;
 };

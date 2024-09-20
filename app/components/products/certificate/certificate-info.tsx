@@ -7,7 +7,6 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { Card, CardTopAlert } from '@/app/components/card/card';
-import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 import { useAppSelector } from '@/store/hooks';
 import { selectBalance } from '@/store/account/accountSlice';
@@ -18,6 +17,7 @@ import {
   TabsTrigger,
 } from '@/components/ui/tabs-server';
 import { CertificateBilling } from '@/app/components/products/certificate/certificate-billing';
+import { CertificateCsr } from '@/app/components/products/certificate/certificate-csr';
 
 interface CertificateInfoProps {
   data: certificateType;
@@ -73,7 +73,7 @@ export const CertificateInfo = ({ data }: CertificateInfoProps) => {
                   <CertificateBilling data={data} />
                 </TabsContent>
                 <TabsContent value="csr">
-                  {/* <DomainDns data={data} /> */}
+                  <CertificateCsr data={data} />
                 </TabsContent>
                 <TabsContent value="control">
                   {/* <DomainNs data={data} /> */}

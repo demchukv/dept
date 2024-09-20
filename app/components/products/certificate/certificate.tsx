@@ -12,6 +12,8 @@ const data: certificateType[] = [
     activated: '01.01.2024',
     activeTo: '01.01.2025',
     autoContinue: false,
+    csr: "'string;'",
+    privateKey: 'string;',
   },
   {
     id: 2,
@@ -23,6 +25,8 @@ const data: certificateType[] = [
     activated: '01.07.2024',
     activeTo: '01.10.2024',
     autoContinue: true,
+    csr: 'string;',
+    privateKey: 'string;',
   },
   {
     id: 3,
@@ -34,6 +38,8 @@ const data: certificateType[] = [
     activated: '01.01.2024',
     activeTo: '01.01.2025',
     autoContinue: false,
+    csr: 'string;',
+    privateKey: 'string;',
   },
 ];
 export const Certificate = () => {
