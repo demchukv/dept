@@ -31,6 +31,8 @@ import { ReplenishBalance } from '../../balance/replenish-balance';
 import { useAppSelector } from '@/store/hooks';
 import { selectBalance } from '@/store/account/accountSlice';
 
+import { useSession } from 'next-auth/react';
+
 export const ContinueDomainSchema = z.object({
   id: z.number().min(1),
   term: z.string().min(1, 'Виберіть зі списку термін продовження підписки'),
@@ -41,6 +43,8 @@ interface CertificateBillingProps {
   data: certificateType;
 }
 export const CertificateBilling = ({ data }: CertificateBillingProps) => {
+  const { data: session, status } = useSession();
+  console.log(session, status);
   const currentBalance = useAppSelector(selectBalance);
 
   const [open, setOpen] = useState(false);

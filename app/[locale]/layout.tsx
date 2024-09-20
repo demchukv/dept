@@ -7,6 +7,9 @@ import '@/app/globals.css';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
 import StoreProvider from '@/app/StoreProvider';
+import AuthProvider from '@/hooks/session-provider';
+// import { getServerSession } from 'next-auth/next';
+// import { authOptions } from '@/app/api/auth/[...nextauth]';
 
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
@@ -31,6 +34,8 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: { locale: string };
 }>) {
+  // const session = await getServerSession(authOptions);
+  // console.log(session);
   return (
     <html lang={locale} dir={dir(locale)}>
       <head>
@@ -59,8 +64,10 @@ export default async function RootLayout({
           shadow="0 0 10px #2299DD,0 0 5px #2299DD"
         />
         <StoreProvider>
-          {children}
-          <Toaster />
+          <AuthProvider>
+            {children}
+            <Toaster />
+          </AuthProvider>
           <SpeedInsights />
         </StoreProvider>
       </body>
