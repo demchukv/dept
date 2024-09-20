@@ -10,4 +10,8 @@ export type certificateType = {
   autoContinue: boolean;
   csr: string;
   privateKey: string;
+  pib: string;
+  phone: string;
+  city: string;
+  email: string;
 };

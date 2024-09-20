@@ -14,6 +14,10 @@ const data: certificateType[] = [
     autoContinue: false,
     csr: "'string;'",
     privateKey: 'string;',
+    pib: 'Прізвище Іван Іванов ',
+    phone: '380963333333',
+    city: 'Kyiv',
+    email: 'admin@localhost.ua',
   },
   {
     id: 2,
@@ -27,6 +31,10 @@ const data: certificateType[] = [
     autoContinue: true,
     csr: 'string;',
     privateKey: 'string;',
+    pib: 'Прізвище Іван Іванов ',
+    phone: '380963333333',
+    city: 'Kyiv',
+    email: 'admin@localhost.ua',
   },
   {
     id: 3,
@@ -40,6 +48,10 @@ const data: certificateType[] = [
     autoContinue: false,
     csr: 'string;',
     privateKey: 'string;',
+    pib: 'Прізвище Іван Іванов ',
+    phone: '380963333333',
+    city: 'Kyiv',
+    email: 'admin@localhost.ua',
   },
 ];
 export const Certificate = () => {
