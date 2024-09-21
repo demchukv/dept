@@ -22,6 +22,7 @@ interface NumbersControlProps {
 export const NumbersControl = ({ data }: NumbersControlProps) => {
   const [phoneNumbers, setPhoneNumbers] = useState<PhoneNumbers[]>(data);
   const [sortKey, setSortKey] = useState('numberType');
+  const [checkAll, setCheckAll] = useState(false);
 
   const onSort = (key: string) => {
     if (key === sortKey) {
@@ -44,14 +45,14 @@ export const NumbersControl = ({ data }: NumbersControlProps) => {
     setSortKey(key);
   };
 
+  const onCheckAllNumbers = (checked: boolean) => {
+    setCheckAll(checked);
+  };
+
   return (
     <>
       <div className="flex justify-between items-center gap-4 mb-5 sm:mb-9">
-        <MyNumberFilterList
-          data={phoneNumbers}
-          onSort={onSort}
-          sortKey={sortKey}
-        />
+        <MyNumberFilterList onSort={onSort} sortKey={sortKey} />
         <div className="flex items-center gap-9">
           <Link
             href="#"
@@ -70,7 +71,12 @@ export const NumbersControl = ({ data }: NumbersControlProps) => {
       </div>
       <div className="flex flex-col sm:flex-row gap-4 items-center sm:justify-between border border-gray-light rounded p-4 sm:p-6 mb-4 sm:mb-8">
         <div className="flex items-center gap-4">
-          <Checkbox id="allNumbers" />{' '}
+          <Checkbox
+            id="allNumbers"
+            onCheckedChange={(checked) => {
+              onCheckAllNumbers(checked);
+            }}
+          />{' '}
           <label
             htmlFor="allNumbers"
             className="text-base font-semibold leading-normal"
@@ -116,51 +122,57 @@ export const NumbersControl = ({ data }: NumbersControlProps) => {
             defaultValue={undefined}
           >
             <AccordionItem value={`item-${item.id}`} className="p-0">
-              <AccordionTrigger className="p-0 gap-1 sm:gap-9">
-                <div className="flex flex-col gap-2.5 sm:gap-0 sm:flex-row justify-between w-full items-start sm:items-center">
-                  <div className="flex gap-4 items-center">
-                    {/* <Checkbox id="phoneNumber" /> */}
-                    <div
-                      className={cn(
-                        'flex justify-center items-center px-2.5 py-0.5 font-semibold text-xs text-white leading-[1.33] rounded',
-                        item.numberType === 'sip' &&
-                          'bg-orange-additional-color',
-                        item.numberType === 'sim' &&
-                          'bg-green-additional-color',
-                      )}
-                    >
-                      {item.numberType.toUpperCase()}
-                    </div>
-                    <div className="flex justify-start gap-5 items-center w-full sm:w-[50%] flex-shrink-0">
-                      <div className="text-left font-semibold text-sm sm:text-base text-main-dark leading-main-lh">
-                        +{item.number}
+              <div className="w-full items-center flex gap-2.5 justify-stretch">
+                <Checkbox
+                  id="phoneNumber"
+                  className="flex-shrink-0"
+                  checked={checkAll}
+                />
+                <AccordionTrigger className="p-0 gap-1 sm:gap-9 flex-grow w-full">
+                  <div className="flex flex-col gap-2.5 sm:gap-0 sm:flex-row justify-between w-full items-start sm:items-center">
+                    <div className="flex gap-4 items-center">
+                      <div
+                        className={cn(
+                          'flex justify-center items-center px-2.5 py-0.5 font-semibold text-xs text-white leading-[1.33] rounded',
+                          item.numberType === 'sip' &&
+                            'bg-orange-additional-color',
+                          item.numberType === 'sim' &&
+                            'bg-green-additional-color',
+                        )}
+                      >
+                        {item.numberType.toUpperCase()}
+                      </div>
+                      <div className="flex justify-start gap-5 items-center w-full sm:w-[50%] flex-shrink-0">
+                        <div className="text-left font-semibold text-sm sm:text-base text-main-dark leading-main-lh">
+                          +{item.number}
+                        </div>
+                      </div>
+                      <div className="hidden sm:block text-right font-normal text-sm sm:text-base text-main-dark leading-main-lh">
+                        <Icon
+                          iconName={`${item.operatorIcon}`}
+                          width={57}
+                          height={20}
+                        />
                       </div>
                     </div>
-                    <div className="hidden sm:block text-right font-normal text-sm sm:text-base text-main-dark leading-main-lh">
-                      <Icon
-                        iconName={`${item.operatorIcon}`}
-                        width={57}
-                        height={20}
-                      />
+                    <div className="flex flex-row-reverse sm:flex-row justify-between sm:justify-end gap-5 items-center w-full sm:w-[50%]">
+                      <div className="text-right font-normal text-sm sm:text-base text-main-dark leading-main-lh">
+                        {isNaN(Number(item.priceForMonth))
+                          ? item.priceForMonth
+                          : `${Number(item.priceForMonth).toFixed(0)} грн/міс`}
+                      </div>
+                      <div className="text-right font-normal text-sm sm:text-base text-main-dark leading-main-lh">
+                        {isNaN(Number(item.priceForMinute))
+                          ? item.priceForMinute
+                          : `${Number(item.priceForMinute).toFixed(2)} грн/хв`}
+                      </div>
+                      <div className="font-normal text-sm sm:text-base text-main-dark leading-main-lh text-right">
+                        до {format(item.activeTo, 'yyyy-MM-dd')}
+                      </div>
                     </div>
                   </div>
-                  <div className="flex flex-row-reverse sm:flex-row justify-between sm:justify-end gap-5 items-center w-full sm:w-[50%]">
-                    <div className="text-right font-normal text-sm sm:text-base text-main-dark leading-main-lh">
-                      {isNaN(Number(item.priceForMonth))
-                        ? item.priceForMonth
-                        : `${Number(item.priceForMonth).toFixed(0)} грн/міс`}
-                    </div>
-                    <div className="text-right font-normal text-sm sm:text-base text-main-dark leading-main-lh">
-                      {isNaN(Number(item.priceForMinute))
-                        ? item.priceForMinute
-                        : `${Number(item.priceForMinute).toFixed(2)} грн/хв`}
-                    </div>
-                    <div className="font-normal text-sm sm:text-base text-main-dark leading-main-lh text-right">
-                      до {format(item.activeTo, 'yyyy-MM-dd')}
-                    </div>
-                  </div>
-                </div>
-              </AccordionTrigger>
+                </AccordionTrigger>
+              </div>
               <AccordionContent className="border-t mt-8 pt-8">
                 <p>{item.number}</p>
               </AccordionContent>

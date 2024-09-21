@@ -21,11 +21,9 @@ const filterList = [
   { key: 'country', value: 'за країною' },
 ];
 export const MyNumberFilterList = ({
-  data,
   onSort,
   sortKey,
 }: {
-  data: PhoneNumbers[];
   onSort: (key: string) => void;
   sortKey: string;
 }) => {
