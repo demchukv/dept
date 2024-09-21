@@ -6,6 +6,9 @@ import {
   TabsTrigger,
 } from '@/components/ui/tabs-server';
 import { NumbersControl } from '@/app/components/call/my-numbers/numbers-control';
+import { OrderNumberList } from '@/app/components/call/my-numbers/order-number-list';
+import { Sms } from '@/app/components/call/my-numbers/sms';
+import { History } from '@/app/components/call/my-numbers/history';
 
 const data: PhoneNumbers[] = [
   {
@@ -86,16 +89,13 @@ export const MyNumbers = () => {
           <NumbersControl data={data} />
         </TabsContent>
         <TabsContent value="ordernew">
-          {/* <CertificateCsr data={data} /> */}
-          <p>Замовити новий номер</p>
+          <OrderNumberList />
         </TabsContent>
         <TabsContent value="sms">
-          {/* <CertificateControl data={data} /> */}
-          <p>SMS</p>
+          <Sms />
         </TabsContent>
         <TabsContent value="history">
-          {/* <CertificateControl data={data} /> */}
-          <p>Історія дзвінків і витрати</p>
+          <History />
         </TabsContent>
       </Tabs>
     </>

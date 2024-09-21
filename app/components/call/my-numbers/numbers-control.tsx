@@ -91,12 +91,12 @@ export const NumbersControl = ({ data }: NumbersControlProps) => {
       if (key) {
         values = {
           phoneNumbers: [key],
-          action: 'continueNumbers',
+          action: 'deleteNumbers',
         };
       } else {
         values = {
           phoneNumbers: checkedNumbers,
-          action: 'continueNumbers',
+          action: 'deleteNumbers',
         };
       }
       toast({
