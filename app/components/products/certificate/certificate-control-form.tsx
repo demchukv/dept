@@ -42,8 +42,12 @@ const newCertSchema = z.object({
 
 interface certificateControlProps {
   data: certificateType;
+  closeForm: () => void;
 }
-export const CertificateControlForm = ({ data }: certificateControlProps) => {
+export const CertificateControlForm = ({
+  data,
+  closeForm,
+}: certificateControlProps) => {
   const form = useForm<z.infer<typeof newCertSchema>>({
     resolver: zodResolver(newCertSchema),
     mode: 'onChange',

@@ -10,12 +10,14 @@ export const metadata: Metadata = {
   title: 'Dept | Сертифікати: Мої продукти',
   description: 'Dept - Інформація про ваші сертифікати',
 };
+
 const CertificatePage = async ({
   params: { locale },
 }: {
   params: { locale: string };
 }) => {
   const { t, resources } = await initTranslations(locale, i18nNamespaces);
+
   return (
     <TranslationsProvider
       namespaces={i18nNamespaces}
