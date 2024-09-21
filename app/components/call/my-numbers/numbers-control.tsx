@@ -73,7 +73,7 @@ export const NumbersControl = ({ data }: NumbersControlProps) => {
         <div className="flex items-center gap-4">
           <Checkbox
             id="allNumbers"
-            onCheckedChange={(checked) => {
+            onCheckedChange={(checked: boolean) => {
               onCheckAllNumbers(checked);
             }}
           />{' '}
