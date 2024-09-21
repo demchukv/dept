@@ -1,3 +1,4 @@
+'use client';
 import { PhoneNumbers } from '@/types/call';
 import {
   Accordion,
@@ -12,26 +13,45 @@ import { format } from 'date-fns';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { Checkbox } from '@/components/ui/checkbox';
+import { MyNumberFilterList } from '@/app/components/call/my-numbers/my-numbers-filter-list';
+import { useState } from 'react';
 
 interface NumbersControlProps {
   data: PhoneNumbers[];
 }
 export const NumbersControl = ({ data }: NumbersControlProps) => {
+  const [phoneNumbers, setPhoneNumbers] = useState<PhoneNumbers[]>(data);
+  const [sortKey, setSortKey] = useState('numberType');
+
+  const onSort = (key: string) => {
+    if (key === sortKey) {
+      return;
+    }
+    setPhoneNumbers(
+      [...phoneNumbers].sort((a: PhoneNumbers, b: PhoneNumbers) => {
+        if (key === 'numberType') {
+          return a.numberType.localeCompare(b.numberType);
+        }
+        if (key === 'operator') {
+          return a.operator.localeCompare(b.operator);
+        }
+        if (key === 'country') {
+          return a.country.localeCompare(b.country);
+        }
+        return 0;
+      }),
+    );
+    setSortKey(key);
+  };
+
   return (
     <>
       <div className="flex justify-between items-center gap-4 mb-5 sm:mb-9">
-        <div className="hidden sm:flex">
-          Сортування: за типом номера / за мобільним оператором / за країною
-        </div>
-        <div className="sm:hidden">
-          <Button
-            type="button"
-            variant="ghost"
-            className="text-main-color w-6 h-6"
-          >
-            <Icon iconName="FilterIcon" width={24} height={24} />
-          </Button>
-        </div>
+        <MyNumberFilterList
+          data={phoneNumbers}
+          onSort={onSort}
+          sortKey={sortKey}
+        />
         <div className="flex items-center gap-9">
           <Link
             href="#"
@@ -84,7 +104,7 @@ export const NumbersControl = ({ data }: NumbersControlProps) => {
         </div>
       </div>
 
-      {data.map((item: any) => (
+      {phoneNumbers.map((item: any) => (
         <Card
           key={item.id}
           className="shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)] mb-4 p-4 md:p-8"
