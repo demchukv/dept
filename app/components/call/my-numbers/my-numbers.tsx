@@ -1,3 +1,4 @@
+import { PhoneNumbers } from '@/types/call';
 import {
   Tabs,
   TabsContent,
@@ -6,7 +7,63 @@ import {
 } from '@/components/ui/tabs-server';
 import { NumbersControl } from '@/app/components/call/my-numbers/numbers-control';
 
-const data: any = {};
+const data: PhoneNumbers[] = [
+  {
+    id: 1,
+    number: '380963578891',
+    numberType: 'sip',
+    operator: 'Kyivstar',
+    operatorIcon: 'KyivStar',
+    country: 'Україна',
+    priceForMonth: 120,
+    priceForMinute: 0.02,
+    activeTo: '2024-12-31',
+  },
+  {
+    id: 2,
+    number: '380987654321',
+    numberType: 'sip',
+    operator: 'Kyivstar',
+    operatorIcon: 'KyivStar',
+    country: 'Україна',
+    priceForMonth: 120,
+    priceForMinute: 0.02,
+    activeTo: '2024-12-31',
+  },
+  {
+    id: 3,
+    number: '380963578891',
+    numberType: 'sim',
+    operator: 'Kyivstar',
+    operatorIcon: 'KyivStar',
+    country: 'Україна',
+    priceForMonth: 120,
+    priceForMinute: 0.02,
+    activeTo: '2024-12-31',
+  },
+  {
+    id: 4,
+    number: '380963578891',
+    numberType: 'sim',
+    operator: 'Kyivstar',
+    operatorIcon: 'KyivStar',
+    country: 'Україна',
+    priceForMonth: 120,
+    priceForMinute: 0.02,
+    activeTo: '2024-12-31',
+  },
+  {
+    id: 5,
+    number: '380963578891',
+    numberType: 'sim',
+    operator: 'Kyivstar',
+    operatorIcon: 'KyivStar',
+    country: 'Україна',
+    priceForMonth: 120,
+    priceForMinute: 0.02,
+    activeTo: '2024-12-31',
+  },
+];
 export const MyNumbers = () => {
   return (
     <>

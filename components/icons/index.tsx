@@ -40,10 +40,12 @@ import EyeClosed from '@/components/icons/eye-closed';
 import ImageDefault from '@/components/icons/image-default';
 import Info from '@/components/icons/info';
 import EyeOpen from '@/components/icons/eye-open';
+import FilterIcon from '@/components/icons/filter-icon';
 import Globe from '@/components/icons/globe';
 import GooglePay from '@/components/icons/google-pay';
 import Help from '@/components/icons/help';
 import Home from '@/components/icons/home';
+import KyivStar from '@/components/icons/kyivstar';
 import Logout from '@/components/icons/logout';
 import Mail from '@/components/icons/mail';
 import Mention from '@/components/icons/mention';
@@ -129,11 +131,13 @@ export const Icons = {
   Info,
   EyeClosed,
   EyeOpen,
+  FilterIcon,
   Globe,
   GooglePay,
   Help,
   HistoryList,
   Home,
+  KyivStar,
   Logout,
   Mail,
   Mention,

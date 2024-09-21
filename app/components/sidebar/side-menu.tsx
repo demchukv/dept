@@ -35,7 +35,7 @@ export const SideMenu = ({ closeSidebar }: MenuItemProps) => {
         ? true
         : false,
     call:
-      path === '/my-nymbers' ||
+      path === '/my-numbers' ||
       path === '/scenario' ||
       path === '/my-group' ||
       path === '/internal-lines'
