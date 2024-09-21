@@ -29,6 +29,7 @@ const data: PhoneNumbers[] = [
     priceForMonth: 120,
     priceForMinute: 0.02,
     activeTo: '2024-12-31',
+    inTransfer: true,
   },
   {
     id: 3,

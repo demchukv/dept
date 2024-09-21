@@ -17,6 +17,7 @@ import { MyNumberFilterList } from '@/app/components/call/my-numbers/my-numbers-
 import { startTransition, useState } from 'react';
 import { toast } from '@/components/ui/use-toast';
 import { Info } from '@/app/components/common/info';
+import { MyNumberTransfer } from '@/app/components/call/my-numbers/my-numbers-transfer';
 
 interface NumbersControlProps {
   data: PhoneNumbers[];
@@ -205,6 +206,14 @@ export const NumbersControl = ({ data }: NumbersControlProps) => {
                 <AccordionTrigger className="p-0 gap-1 sm:gap-9 flex-grow w-full">
                   <div className="w-full flex flex-col gap-2.5 sm:gap-0 sm:flex-row justify-between items-start sm:items-center">
                     <div className="flex gap-4 items-center">
+                      {item.inTransfer && (
+                        <Icon
+                          iconName="ClockWait"
+                          width={24}
+                          height={24}
+                          className="w-6 h-6 text-main-color flex-shrink-0"
+                        />
+                      )}
                       <div
                         className={cn(
                           'flex justify-center items-center px-2.5 py-0.5 font-semibold text-xs text-white leading-[1.33] rounded',
@@ -278,7 +287,12 @@ export const NumbersControl = ({ data }: NumbersControlProps) => {
                     збереженням всіх внесених налаштувань. Цей номер
                     залишатиметься активним на новий обраний період.
                   </Info>
-                  <Button type="button" className="w-full sm:w-auto" disabled>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="w-full sm:w-auto"
+                    disabled
+                  >
                     Активувати зберігання
                   </Button>
                   <Info className="mt-0 mb-2">
@@ -287,7 +301,12 @@ export const NumbersControl = ({ data }: NumbersControlProps) => {
                     підключення в майбутньому. Вартість зберігання sim-карти
                     складає %% грн/міс
                   </Info>
-                  <Button type="button" className="w-full sm:w-auto" disabled>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="w-full sm:w-auto"
+                    disabled
+                  >
                     Вийняти зі шлюза
                   </Button>
                   <Info className="mt-0 mb-2">
@@ -296,9 +315,7 @@ export const NumbersControl = ({ data }: NumbersControlProps) => {
                     робочий день. Після відправки ви отримаєте сповіщення на
                     номер телефону, зазначений в профілі.
                   </Info>
-                  <Button type="button" className="w-full sm:w-auto">
-                    Передати
-                  </Button>
+                  <MyNumberTransfer item={item} />
                   <Info className="mt-0 mb-2">
                     Для зміни власника номера (трансферу) на електронну адресу
                     поточного власника буде направлено листа з підтвердженням

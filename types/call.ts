@@ -8,4 +8,5 @@ export type PhoneNumbers = {
   priceForMonth: number;
   priceForMinute: number;
   activeTo: string;
+  inTransfer?: boolean;
 };
