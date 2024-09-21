@@ -33,6 +33,7 @@ const transSchema = z.object({
 });
 export const MyNumberTransfer = ({ item }: { item: PhoneNumbers }) => {
   const [open, setOpen] = useState(false);
+  const [openRes, setOpenRes] = useState(false);
 
   const onClose = (state: boolean, e: React.MouseEvent | undefined) => {
     if (e) e.preventDefault();
@@ -66,18 +67,24 @@ export const MyNumberTransfer = ({ item }: { item: PhoneNumbers }) => {
           </pre>
         ),
       });
+      setOpenRes(true);
       form.reset();
     });
   }
+
+  const closeTwoModal = () => {
+    setOpen(false);
+    setOpenRes(false);
+  };
   return (
     <>
       <Button
         type="button"
-        variant={item.inTransfer ? 'default' : 'outline'}
+        variant="outline"
         className="w-full sm:w-auto"
         onClick={() => setOpen(true)}
       >
-        {item.inTransfer ? 'В процесі трансферу' : 'Передати'}
+        Передати
       </Button>
 
       <Modal open={open} onOpenChange={() => setOpen(false)}>
@@ -88,7 +95,7 @@ export const MyNumberTransfer = ({ item }: { item: PhoneNumbers }) => {
               className="h-full flex flex-col"
             >
               <ModalHeader className="mb-6 flex-shrink-0">
-                <ModalTitle>Передати номер</ModalTitle>
+                <ModalTitle className="text-center">Передати номер</ModalTitle>
                 <ModalDescription className="hidden"></ModalDescription>
               </ModalHeader>
               <ModalInner className="h-full flex-grow">
@@ -167,6 +174,21 @@ export const MyNumberTransfer = ({ item }: { item: PhoneNumbers }) => {
               </ModalFooter>
             </form>
           </Form>
+        </ModalContent>
+      </Modal>
+
+      <Modal open={openRes} onOpenChange={() => closeTwoModal()}>
+        <ModalContent>
+          <ModalHeader className="mb-6 flex-shrink-0">
+            <ModalTitle className="text-center">Передати номер</ModalTitle>
+            <ModalDescription className="hidden"></ModalDescription>
+          </ModalHeader>
+          <ModalInner className="h-full flex-grow">
+            <p className="mb-5">
+              Передачу номера (трансфер) буде завершено після підтвердження дії
+              через електронну пошту.
+            </p>
+          </ModalInner>
         </ModalContent>
       </Modal>
     </>

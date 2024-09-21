@@ -18,6 +18,7 @@ import { startTransition, useState } from 'react';
 import { toast } from '@/components/ui/use-toast';
 import { Info } from '@/app/components/common/info';
 import { MyNumberTransfer } from '@/app/components/call/my-numbers/my-numbers-transfer';
+import { MyNumberTransferInfo } from '@/app/components/call/my-numbers/my-numbers-transfer-info';
 
 interface NumbersControlProps {
   data: PhoneNumbers[];
@@ -315,7 +316,11 @@ export const NumbersControl = ({ data }: NumbersControlProps) => {
                     робочий день. Після відправки ви отримаєте сповіщення на
                     номер телефону, зазначений в профілі.
                   </Info>
-                  <MyNumberTransfer item={item} />
+                  {item.inTransfer ? (
+                    <MyNumberTransferInfo item={item} />
+                  ) : (
+                    <MyNumberTransfer item={item} />
+                  )}
                   <Info className="mt-0 mb-2">
                     Для зміни власника номера (трансферу) на електронну адресу
                     поточного власника буде направлено листа з підтвердженням
