@@ -34,7 +34,13 @@ export const SideMenu = ({ closeSidebar }: MenuItemProps) => {
       path === '/certificate'
         ? true
         : false,
-    call: false,
+    call:
+      path === '/my-nymbers' ||
+      path === '/scenario' ||
+      path === '/my-group' ||
+      path === '/internal-lines'
+        ? true
+        : false,
     mail: false,
     setting: false,
     home: false,
@@ -268,7 +274,10 @@ export const SideMenu = ({ closeSidebar }: MenuItemProps) => {
         >
           <Link
             href="/my-numbers"
-            className={subLinkClass}
+            className={cn(
+              subLinkClass,
+              path === '/my-numbers' && 'text-main-color',
+            )}
             locale={lang}
             scroll={false}
             onClick={() => closeSidebar && closeSidebar()}
@@ -277,7 +286,10 @@ export const SideMenu = ({ closeSidebar }: MenuItemProps) => {
           </Link>
           <Link
             href="/scenario"
-            className={subLinkClass}
+            className={cn(
+              subLinkClass,
+              path === '/scenario' && 'text-main-color',
+            )}
             locale={lang}
             scroll={false}
             onClick={() => closeSidebar && closeSidebar()}
@@ -286,7 +298,10 @@ export const SideMenu = ({ closeSidebar }: MenuItemProps) => {
           </Link>
           <Link
             href="/my-group"
-            className={subLinkClass}
+            className={cn(
+              subLinkClass,
+              path === '/my-group' && 'text-main-color',
+            )}
             locale={lang}
             scroll={false}
             onClick={() => closeSidebar && closeSidebar()}
@@ -295,7 +310,10 @@ export const SideMenu = ({ closeSidebar }: MenuItemProps) => {
           </Link>
           <Link
             href="/internal-lines"
-            className={subLinkClass}
+            className={cn(
+              subLinkClass,
+              path === '/internal-lines' && 'text-main-color',
+            )}
             locale={lang}
             scroll={false}
             onClick={() => closeSidebar && closeSidebar()}
