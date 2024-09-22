@@ -10,3 +10,10 @@ export type PhoneNumbers = {
   activeTo: string;
   inTransfer?: boolean;
 };
+
+export type FlagType = {
+  flag: string;
+  iso2: string;
+  iso3: string;
+  name: string;
+};

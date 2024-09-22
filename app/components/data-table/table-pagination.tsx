@@ -11,7 +11,7 @@ export const TablePagination = ({
   table,
   currentPage,
 }: TablePaginationProps) => {
-  const totalPage = table.getPageCount();
+  const totalPage = table.getPageCount() - 1;
   const pageList = [];
   const pagination = createPagination(currentPage, totalPage);
   //   console.log('pagination', pagination);
@@ -19,7 +19,7 @@ export const TablePagination = ({
     if (pagination[i] === '...') {
       const pageBtn = (
         <Button
-          key={i}
+          key={`${i}-dots`}
           variant={'pagination'}
           size="sm"
           className="cursor-default"
@@ -31,14 +31,18 @@ export const TablePagination = ({
     } else {
       const pageBtn = (
         <Button
-          key={i}
-          variant={i === currentPage ? 'paginationActive' : 'pagination'}
+          key={pagination[i]}
+          variant={
+            Number(pagination[i]) === Number(currentPage)
+              ? 'paginationActive'
+              : 'pagination'
+          }
           size="sm"
           onClick={() => {
-            table.setPageIndex(i);
+            table.setPageIndex(Number(pagination[i]));
           }}
         >
-          {i + 1}
+          {Number(pagination[i]) + 1}
         </Button>
       );
       pageList.push(pageBtn);
@@ -55,17 +59,17 @@ function createPagination(currentPage: number, totalPages: number) {
   let pages = [];
 
   if (totalPages <= maxVisiblePages) {
-    for (let i = 1; i <= totalPages; i++) {
+    for (let i = 0; i <= totalPages; i++) {
       pages.push(i);
     }
   } else {
     if (currentPage <= 2) {
-      pages = [1, 2, 3, '...', totalPages];
+      pages = [0, 1, 2, '...', totalPages];
     } else if (currentPage >= totalPages - 1) {
-      pages = [1, '...', totalPages - 2, totalPages - 1, totalPages];
+      pages = [0, '...', totalPages - 2, totalPages - 1, totalPages];
     } else {
       pages = [
-        1,
+        0,
         '...',
         currentPage - 1,
         currentPage,
@@ -75,6 +79,5 @@ function createPagination(currentPage: number, totalPages: number) {
       ];
     }
   }
-
   return pages;
 }
