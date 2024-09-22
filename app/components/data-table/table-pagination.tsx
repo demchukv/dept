@@ -63,7 +63,7 @@ function createPagination(currentPage: number, totalPages: number) {
       pages.push(i);
     }
   } else {
-    if (currentPage <= 2) {
+    if (currentPage <= 1) {
       pages = [0, 1, 2, '...', totalPages];
     } else if (currentPage >= totalPages - 1) {
       pages = [0, '...', totalPages - 2, totalPages - 1, totalPages];

@@ -23,7 +23,7 @@ declare module '@tanstack/react-table' {
 export const columns: ColumnDef<FlagType>[] = [
   {
     accessorKey: 'name',
-    header: 'Номер',
+    header: 'Напрямок',
     cell: ({ getValue, row }) => {
       const name = getValue<string>();
       const flag = row.original.flag;

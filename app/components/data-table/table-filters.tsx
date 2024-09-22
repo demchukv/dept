@@ -28,9 +28,11 @@ import { Icon } from '@/components/utils/icon';
 export const Filter = ({
   column,
   icon,
+  placeholder = 'Пошук',
 }: {
   column: Column<any, unknown>;
   icon?: string;
+  placeholder?: string;
 }) => {
   const [isLoading, setLoading] = useState(false);
   const [isDisabled, setDisbled] = useState(false);
@@ -177,7 +179,7 @@ export const Filter = ({
       <DebouncedInput
         className="min-w-[130px] w-full border rounded py-[8px]"
         onChange={(value) => column.setFilterValue(value)}
-        placeholder={`Search...`}
+        placeholder={placeholder}
         type="text"
         value={(columnFilterValue ?? '') as string}
         icon={icon}

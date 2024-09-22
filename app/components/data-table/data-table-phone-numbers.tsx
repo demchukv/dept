@@ -37,6 +37,7 @@ import {
 
 import { Filter } from '@/app/components/data-table/table-filters';
 import { TablePagination } from '@/app/components/data-table/table-pagination';
+import { Button } from '@/components/ui/button';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -121,11 +122,21 @@ export function DataTable<TData, TValue>({
 
   return (
     <>
-      <div className="flex flex-col justify-between gap-2 sm:flex-row sm:gap-6 sm:mb-9">
+      <div className="flex justify-between gap-2">
+        <Button
+          type="button"
+          variant="ghost"
+          onClick={() => table.resetColumnFilters()}
+        >
+          Всі країни
+        </Button>
         {name?.column.getCanFilter() ? (
           <div className="w-full flex flex-col gap-2">
-            <span className="text-xs leading-none">Клієнт</span>
-            <Filter column={name.column} />
+            <Filter
+              column={name.column}
+              placeholder="Пошук по країні"
+              icon="Search"
+            />
           </div>
         ) : null}
       </div>

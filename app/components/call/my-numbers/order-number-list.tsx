@@ -51,7 +51,8 @@ export const OrderNumberList = () => {
           тільки мобільні
         </Button>
       </div>
-      <p className="text-base font-semibold mb-2">Популярні</p>
+      <p className="text-base font-semibold mb-2">Популярні країни</p>
+      <div>List of popular countries</div>
 
       {isPending && <Loading />}
 
