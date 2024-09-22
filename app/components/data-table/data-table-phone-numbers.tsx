@@ -46,6 +46,7 @@ interface DataTableProps<TData, TValue> {
   pagination: PaginationState;
   sorting: SortingState;
   isPending: boolean;
+  setOrderStep: (step: number) => void;
 }
 
 export type PaginationState = {
@@ -68,6 +69,7 @@ export function DataTable<TData, TValue>({
   pagination: { pageIndex, pageSize },
   sorting: [{ id, desc }],
   isPending,
+  setOrderStep,
 }: DataTableProps<TData, TValue>) {
   const [expanded, setExpanded] = React.useState<ExpandedState>({});
   const [sorting, setSorting] = React.useState<SortingState>([{ id, desc }]);

@@ -4,7 +4,6 @@ import { ColumnDef, RowData } from '@tanstack/react-table';
 import { FlagType } from '@/types/call';
 import { cn } from '@/lib/utils';
 
-import Link from 'next/link';
 import Image from 'next/image';
 
 declare module '@tanstack/react-table' {
@@ -41,7 +40,7 @@ export const columns: ColumnDef<FlagType>[] = [
       const name = getValue<string>();
       const flag = row.original.flag;
       return (
-        <div className="flex gap-2 items-center text-sm sm:text-base text-main-dark font-medium">
+        <button className="flex gap-2 items-center text-sm sm:text-base text-main-dark font-medium">
           <div className="flex items-center justify-center w-6 h-6 text-center overflow-hidden rounded-full object-cover flex-shrink-0">
             <Image
               src={flag}
@@ -56,7 +55,7 @@ export const columns: ColumnDef<FlagType>[] = [
             />
           </div>
           <p>{name}</p>
-        </div>
+        </button>
       );
     },
   },

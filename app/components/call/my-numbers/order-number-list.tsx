@@ -4,15 +4,13 @@ import { getAllFlags } from '@/action/get-flags';
 import { Button } from '@/components/ui/button';
 import { Loading } from '@/app/components/common/loading';
 
-import { ColumnFiltersState, SortingState } from '@tanstack/react-table';
-import {
-  DataTable,
-  PaginationState,
-} from '@/app/components/data-table/data-table-phone-numbers';
+import { SortingState } from '@tanstack/react-table';
+import { DataTable } from '@/app/components/data-table/data-table-phone-numbers';
 import { columns } from '@/app/components/data-table/columns/columns-phone-numbers';
 import { FlagType } from '@/types/call';
 
 export const OrderNumberList = () => {
+  const [orderStep, setOrderStep] = useState(1);
   const [isPending, startTransition] = useTransition();
   const [flags, setFlags] = useState<FlagType[]>([]);
   const [popularCountries, setPopularCountries] = useState<FlagType[]>([]);
@@ -80,6 +78,7 @@ export const OrderNumberList = () => {
             pagination={initPagination}
             sorting={initSorting}
             isPending={isPending}
+            setOrderStep={setOrderStep}
           />
         </>
       )}
