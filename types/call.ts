@@ -16,4 +16,7 @@ export type FlagType = {
   iso2: string;
   iso3: string;
   name: string;
+  phoneCode?: string;
+  priceForMonth?: number;
+  priceForContract?: number;
 };

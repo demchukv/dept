@@ -22,6 +22,14 @@ declare module '@tanstack/react-table' {
 
 export const columns: ColumnDef<FlagType>[] = [
   {
+    accessorKey: 'phoneCode',
+    header: 'Код',
+    cell: ({ getValue }) => {
+      const phoneCode = getValue<string>();
+      return phoneCode.startsWith('+') ? phoneCode : `+${phoneCode}`;
+    },
+  },
+  {
     accessorKey: 'name',
     header: 'Напрямок',
     cell: ({ getValue, row }) => {
@@ -45,6 +53,22 @@ export const columns: ColumnDef<FlagType>[] = [
           <p>{name}</p>
         </div>
       );
+    },
+  },
+  {
+    accessorKey: 'priceForContract',
+    header: 'Ціна підключення',
+    cell: ({ getValue }) => {
+      const priceForContract = getValue<string>();
+      return `${priceForContract} грн.`;
+    },
+  },
+  {
+    accessorKey: 'priceForMonth',
+    header: 'Абонплата.міс',
+    cell: ({ getValue }) => {
+      const priceForMonth = getValue<string>();
+      return `${priceForMonth} грн.`;
     },
   },
   //   {

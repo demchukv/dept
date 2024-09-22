@@ -1,13 +1,30 @@
+import phoneCode from '@/public/test-data/country-phone-code.json';
+import { FlagType } from '@/types/call';
+
+type phoneCodeType = {
+  [key: string]: string;
+};
+type Iso2Code = keyof typeof phoneCode;
+
 export const getAllFlags = async () => {
-  // const response = await fetch('https://flagcdn.com/en/codes.json');
-  const response2 = await fetch(
+  const response = await fetch(
     'https://countriesnow.space/api/v0.1/countries/flag/images',
   );
-  const data2 = await response2.json();
-  const response = await fetch(
-    'http://localhost:3000/public/test-data/country-phone-code.json',
-  );
-  console.log(response);
-  // const data = await response.json();
-  return data2.data;
+  const data = await response.json();
+  const res = data.data as FlagType[];
+  const retArray: FlagType[] = [];
+  if (res) {
+    res.map((item: any) => {
+      if (phoneCode[item.iso2 as Iso2Code]) {
+        const ret = {
+          ...item,
+          phoneCode: phoneCode[item.iso2 as Iso2Code],
+          priceForMonth: Math.floor(Math.random() * 2000),
+          priceForContract: Math.floor(Math.random() * 350),
+        };
+        retArray.push(ret);
+      }
+    });
+  }
+  return retArray;
 };

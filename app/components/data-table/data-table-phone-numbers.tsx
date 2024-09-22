@@ -152,7 +152,7 @@ export function DataTable<TData, TValue>({
                       return (
                         <TableHead
                           key={header.id}
-                          className="font-normal text-sm leading-main-lh text-gray-dark bg-white px-1 py-[22px] first:pl-2 last:pr-2 sm:first:pl-8 sm:last:pr-8 first:border-r first:border-gray-light"
+                          className="font-normal text-sm leading-main-lh text-gray-dark bg-white px-1 py-[22px] first:pl-2 last:pr-2 sm:first:pl-8 sm:last:pr-8"
                         >
                           {header.isPlaceholder
                             ? null
@@ -187,7 +187,7 @@ export function DataTable<TData, TValue>({
                           {row.getVisibleCells().map((cell) => (
                             <TableCell
                               key={cell.id}
-                              className="px-1 py-[14px] first:py-0 font-medium text-sm leading-main-lh text-main-dark first:pl-2 last:pr-2 sm:first:pl-8 sm:last:pr-8 first:border-r first:border-gray-light"
+                              className="px-1 py-[14px] first:py-0 font-medium text-sm leading-main-lh text-main-dark first:pl-2 last:pr-2 sm:first:pl-8 sm:last:pr-8"
                             >
                               {flexRender(
                                 cell.column.columnDef.cell,
