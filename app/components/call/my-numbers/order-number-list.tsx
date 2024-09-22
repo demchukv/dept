@@ -16,6 +16,7 @@ import { FlagType } from '@/types/call';
 export const OrderNumberList = () => {
   const [isPending, startTransition] = useTransition();
   const [flags, setFlags] = useState<FlagType[]>([]);
+  const [populatCountries, setPopulatCountries] = useState<FlagType[]>([]);
   const [rowCount, setRowCount] = useState(0);
 
   const initPagination = {
@@ -34,6 +35,8 @@ export const OrderNumberList = () => {
     startTransition(async () => {
       const data = await getAllFlags();
       setFlags(data);
+      const randomCountries = data.slice(0, 10).sort(() => Math.random() - 0.5);
+      setPopulatCountries(randomCountries);
     });
   };
 
@@ -52,7 +55,22 @@ export const OrderNumberList = () => {
         </Button>
       </div>
       <p className="text-base font-semibold mb-2">Популярні країни</p>
-      <div className="mb-4">List of popular countries</div>
+      <div className="mb-4 flex gap-6 overflow-x-auto">
+        {populatCountries &&
+          populatCountries.length > 0 &&
+          populatCountries.map((country) => (
+            <div key={country.iso3} className="flex items-center gap-2">
+              <div className="bg-orange-additional-color rounded text-xs text-white text-semibold px-2 py-1 flex-shrink-0">
+                {country.phoneCode?.startsWith('+')
+                  ? country.phoneCode
+                  : `+${country.phoneCode}`}
+              </div>
+              <div className="whitespace-nowrap text-base font-medium">
+                {country.name}
+              </div>
+            </div>
+          ))}
+      </div>
 
       {isPending && <Loading />}
 

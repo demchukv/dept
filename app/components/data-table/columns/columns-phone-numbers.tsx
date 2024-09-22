@@ -41,7 +41,7 @@ export const columns: ColumnDef<FlagType>[] = [
       const name = getValue<string>();
       const flag = row.original.flag;
       return (
-        <div className="flex gap-5 items-center text-sm sm:text-base text-main-dark font-medium">
+        <div className="flex gap-2 items-center text-sm sm:text-base text-main-dark font-medium">
           <div className="flex items-center justify-center w-6 h-6 text-center overflow-hidden rounded-full object-cover flex-shrink-0">
             <Image
               src={flag}
