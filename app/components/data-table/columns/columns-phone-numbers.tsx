@@ -2,6 +2,7 @@
 
 import { ColumnDef, RowData } from '@tanstack/react-table';
 import { FlagType } from '@/types/call';
+import { cn } from '@/lib/utils';
 
 import Link from 'next/link';
 import Image from 'next/image';
@@ -26,7 +27,11 @@ export const columns: ColumnDef<FlagType>[] = [
     header: 'Код',
     cell: ({ getValue }) => {
       const phoneCode = getValue<string>();
-      return phoneCode.startsWith('+') ? phoneCode : `+${phoneCode}`;
+      return (
+        <span className="text-sm sm:ext-base text-main-dark font-medium">
+          {phoneCode.startsWith('+') ? phoneCode : `+${phoneCode}`}
+        </span>
+      );
     },
   },
   {
@@ -36,7 +41,7 @@ export const columns: ColumnDef<FlagType>[] = [
       const name = getValue<string>();
       const flag = row.original.flag;
       return (
-        <div className="flex gap-5 items-center">
+        <div className="flex gap-5 items-center text-sm sm:text-base text-main-dark font-medium">
           <div className="flex items-center justify-center w-6 h-6 text-center overflow-hidden rounded-full object-cover flex-shrink-0">
             <Image
               src={flag}
@@ -57,99 +62,62 @@ export const columns: ColumnDef<FlagType>[] = [
   },
   {
     accessorKey: 'priceForContract',
-    header: 'Ціна підключення',
+    header: () => (
+      <>
+        <span className="hidden sm:inline">Ціна підключення</span>
+      </>
+    ),
     cell: ({ getValue }) => {
-      const priceForContract = getValue<string>();
-      return `${priceForContract} грн.`;
+      const priceForContract = getValue<number>();
+      return (
+        <span
+          className={cn(
+            'hidden sm:inline text-sm sm:text-base text-main-dark font-medium',
+            !priceForContract || (priceForContract === 0 && 'text-gray-medium'),
+          )}
+        >
+          {priceForContract && priceForContract > 0 ? priceForContract : 0} грн
+        </span>
+      );
     },
   },
   {
     accessorKey: 'priceForMonth',
-    header: 'Абонплата.міс',
-    cell: ({ getValue }) => {
-      const priceForMonth = getValue<string>();
-      return `${priceForMonth} грн.`;
+    header: () => (
+      <>
+        <span className="hidden sm:inline">Абонплата/міс</span>
+        <p className="sm:hidden text-right">
+          Підключення
+          <br />
+          Плата/міс
+        </p>
+      </>
+    ),
+    cell: ({ getValue, row }) => {
+      const priceForMonth = getValue<number>();
+      const priceForContract = row.original.priceForContract;
+      return (
+        <>
+          <span
+            className={cn(
+              'sm:hidden block text-sm sm:text-base text-main-dark font-medium text-right',
+              !priceForContract ||
+                (priceForContract === 0 && 'text-gray-medium'),
+            )}
+          >
+            {priceForContract && priceForContract > 0 ? priceForContract : 0}{' '}
+            грн
+          </span>
+          <span
+            className={cn(
+              'text-sm block sm:text-base text-main-dark font-medium text-right',
+              !priceForMonth || (priceForMonth === 0 && 'text-gray-medium'),
+            )}
+          >
+            {priceForMonth && priceForMonth > 0 ? priceForMonth : 0} грн
+          </span>
+        </>
+      );
     },
   },
-  //   {
-  //     accessorKey: 'device',
-  //     header: () => 'Пристрій',
-  //     cell: ({ getValue }) => {
-  //       const device = getValue<string>();
-  //       return device;
-  //     },
-  //     footer: (props) => props.column.id,
-  //   },
-
-  //   {
-  //     accessorKey: 'createdAt',
-  //     header: 'Створено',
-  //     cell: ({ getValue }) => {
-  //       const createdAt = getValue<string>();
-  //       return createdAt;
-  //     },
-  //     meta: {
-  //       filterVariant: 'date',
-  //     },
-  //   },
-  //   {
-  //     accessorKey: 'action',
-  //     header: () => 'Дія',
-  //     cell: ({ getValue }) => {
-  //       const action = getValue<string>();
-  //       return action;
-  //     },
-  //     footer: (props) => props.column.id,
-  //   },
-  //   {
-  //     accessorKey: 'status',
-  //     header: 'Статус',
-  //     cell: ({ getValue }) => {
-  //       const status = getValue<string>();
-  //       return <RepairStatusLabelText status={status} />;
-  //     },
-  //     meta: {
-  //       filterVariant: 'select',
-  //       selectValues: statusSelect,
-  //     },
-  //   },
-  //   {
-  //     accessorKey: 'client',
-  //     header: 'Клієнт/Співробітник',
-  //     cell: (info) => info.getValue<string>(),
-  //     meta: {
-  //       filterVariant: 'autocomplete',
-  //       selectValues: statusSelect,
-  //     },
-  //   },
-  //   {
-  //     accessorKey: 'deadline',
-  //     header: 'Плановий термін',
-  //     cell: ({ getValue }) => {
-  //       const deadline = getValue<string>();
-  //       const dmy = deadline.split('.').reverse().join('-');
-  //       const cres = compareAsc(dmy, new Date().toISOString());
-  //       if (cres === 1) {
-  //         return deadline;
-  //       } else {
-  //         return <span className="text-warning">{deadline}</span>;
-  //       }
-  //     },
-  //   },
-  //   {
-  //     accessorKey: 'cost',
-  //     header: 'Вартість, грн',
-  //     cell: ({ getValue }) => {
-  //       const cost = getValue<string>();
-  //       return cost;
-  //     },
-  //   },
-  //   {
-  //     accessorKey: 'payment',
-  //     header: 'Оплата',
-  //     cell: ({ getValue }) => {
-  //       const cost = getValue<string>();
-  //       return cost;
-  //     },
-  //   },
 ];

@@ -122,11 +122,12 @@ export function DataTable<TData, TValue>({
 
   return (
     <>
-      <div className="flex justify-between gap-2">
+      <div className="flex flex-col sm:flex-row justify-between gap-4 mb-4">
         <Button
           type="button"
           variant="ghost"
           onClick={() => table.resetColumnFilters()}
+          className="p-0 justify-start font-semibold text-base"
         >
           Всі країни
         </Button>

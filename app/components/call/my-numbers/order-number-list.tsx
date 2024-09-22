@@ -52,7 +52,7 @@ export const OrderNumberList = () => {
         </Button>
       </div>
       <p className="text-base font-semibold mb-2">Популярні країни</p>
-      <div>List of popular countries</div>
+      <div className="mb-4">List of popular countries</div>
 
       {isPending && <Loading />}
 
@@ -66,29 +66,6 @@ export const OrderNumberList = () => {
             sorting={initSorting}
             isPending={isPending}
           />
-
-          {/* <div className="flex flex-col gap-2">
-            {flags.map((item) => (
-              <div key={item.iso3} className="flex gap-5">
-                <div className="flex items-center justify-center w-6 h-6 text-center overflow-hidden rounded-full object-cover flex-shrink-0">
-                  <Image
-                    src={item.flag}
-                    alt={item.name}
-                    width={24}
-                    height={24}
-                    style={{
-                      objectFit: 'cover',
-                      height: '24px',
-                      width: 'auto',
-                    }}
-                  />
-                </div>
-                <p>
-                  {item.iso2} - {item.iso3} - {item.name}
-                </p>
-              </div>
-            ))}
-          </div> */}
         </>
       )}
     </>
