@@ -132,7 +132,7 @@ export function DataTable<TData, TValue>({
           Всі країни
         </Button>
         {name?.column.getCanFilter() ? (
-          <div className="w-full flex flex-col gap-2">
+          <div className="w-full sm:w-[50%] md:w-[30%] flex flex-col justify-end gap-2">
             <Filter
               column={name.column}
               placeholder="Пошук по країні"

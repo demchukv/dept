@@ -29,10 +29,12 @@ export const Filter = ({
   column,
   icon,
   placeholder = 'Пошук',
+  className = '',
 }: {
   column: Column<any, unknown>;
   icon?: string;
   placeholder?: string;
+  className?: string;
 }) => {
   const [isLoading, setLoading] = useState(false);
   const [isDisabled, setDisbled] = useState(false);
@@ -177,7 +179,10 @@ export const Filter = ({
   ) : (
     <>
       <DebouncedInput
-        className="min-w-[130px] w-full border rounded py-[8px]"
+        className={cn(
+          'min-w-[130px] w-full border rounded py-[8px]',
+          className,
+        )}
         onChange={(value) => column.setFilterValue(value)}
         placeholder={placeholder}
         type="text"
