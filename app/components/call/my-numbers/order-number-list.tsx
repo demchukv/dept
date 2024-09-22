@@ -3,13 +3,20 @@ import { useEffect, useState, useTransition } from 'react';
 import { getAllFlags } from '@/action/get-flags';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
+import { Loading } from '@/app/components/common/loading';
 
+// type FlagType = {
+//   [key: string]: string;
+// };
 type FlagType = {
-  [key: string]: string;
+  flag: string;
+  iso2: string;
+  iso3: string;
+  name: string;
 };
 export const OrderNumberList = () => {
   const [isPending, startTransition] = useTransition();
-  const [flags, setFlags] = useState<FlagType>({});
+  const [flags, setFlags] = useState<FlagType[]>([]);
   useEffect(() => {
     const getFlags = async () => {
       startTransition(async () => {
@@ -32,21 +39,24 @@ export const OrderNumberList = () => {
       </div>
       <p className="text-base font-semibold mb-2">Популярні</p>
 
-      {isPending && <p>Завантаження</p>}
+      {isPending && <Loading />}
       <div className="flex flex-col gap-2">
         {flags &&
-          Object.keys(flags).length > 0 &&
-          Object.entries(flags).map(([key, value]) => (
-            <div key={key} className="flex gap-5">
-              <div className="flex items-center justify-center w-6 h-6 text-center overflow-hidden rounded-full object-center flex-shrink-0">
+          flags.length > 0 &&
+          flags.map((item) => (
+            <div key={item.iso3} className="flex gap-5">
+              <div className="flex items-center justify-center w-6 h-6 text-center overflow-hidden rounded-full object-cover flex-shrink-0">
                 <Image
-                  src={`https://flagcdn.com/h24/${key}.png`}
-                  alt={value}
-                  width={32}
+                  src={item.flag}
+                  alt={item.name}
+                  width={24}
                   height={24}
+                  style={{ objectFit: 'cover', height: '24px', width: 'auto' }}
                 />
               </div>
-              <p>{value}</p>
+              <p>
+                {item.iso2} - {item.iso3} - {item.name}
+              </p>
             </div>
           ))}
       </div>
