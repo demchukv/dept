@@ -1,8 +1,6 @@
 'use client';
 import { useEffect, useState, useTransition } from 'react';
-import { getAllFlags } from '@/action/get-flags';
 import { Button } from '@/components/ui/button';
-import { Loading } from '@/app/components/common/loading';
 
 import { SortingState } from '@tanstack/react-table';
 import { DataTable } from '@/app/components/data-table/data-table-phone-numbers';

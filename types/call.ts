@@ -20,3 +20,14 @@ export type FlagType = {
   priceForMonth?: number;
   priceForContract?: number;
 };
+
+export type smsType = {
+  id: number;
+  numberFrom: string;
+  numberTo: string;
+  date: string;
+  text: string;
+  type: string;
+  status: string;
+  price: number;
+};

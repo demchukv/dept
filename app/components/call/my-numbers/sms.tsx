@@ -5,6 +5,7 @@ import {
   TabsTrigger,
 } from '@/components/ui/tabs-sms';
 import { SendSMS } from '@/app/components/call/my-numbers/send-sms';
+import { SmsList } from '@/app/components/call/my-numbers/sms-list';
 
 export const Sms = () => {
   return (
@@ -19,10 +20,10 @@ export const Sms = () => {
           <SendSMS />
         </TabsContent>
         <TabsContent value="inSMS">
-          <p>Incoming SMS</p>
+          <SmsList listType="incoming" />
         </TabsContent>
         <TabsContent value="outSMS">
-          <p>Outgoing SMS</p>
+          <SmsList listType="outgoing" />
         </TabsContent>
       </Tabs>
     </>
