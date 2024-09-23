@@ -115,11 +115,11 @@ export const SendSMS = () => {
           </p>
         </Card>
 
-        <Card className="shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)] mb-4 p-4 md:p-8 bg-main-color">
+        <Card className="shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)] mb-4 p-4 md:p-8 bg-main-color sm:w-min">
           <p className="font-semibold text-base leading-normal text-white text-center mb-4">
             Повідомлення
           </p>
-          <div className="rounded border border-gray-light bg-white px-3 pt-2 pb-4 mb-4 h-[468px] flex flex-col justify-between">
+          <div className="rounded border border-gray-light bg-white px-3 pt-2 pb-4 mb-4 h-[468px] sm:w-[322px] flex flex-col justify-between">
             <div className="flex-shrink-0 px-3 py-2.5">
               <div className=" flex items-center justify-between">
                 <div className="font-medium leading-[1.43]">9:30</div>
@@ -182,17 +182,19 @@ export const SendSMS = () => {
               <div className="text-xs text-warning">{whomError}</div>
             </div>
           </div>
-          <p className="font-semibold text-base leading-normal text-white text-center mb-4">
-            Вартість {totalPrice} грн
-          </p>
-          <Button
-            type="button"
-            variant="outline"
-            className="w-full"
-            onClick={onSendSMS}
-          >
-            Відправити
-          </Button>
+          <div className="flex flex-col sm:flex-row sm:gap-4 sm:justify-between sm:items-center">
+            <p className="font-semibold text-base leading-normal text-white text-center mb-4 sm:mb-0">
+              Вартість {totalPrice} грн
+            </p>
+            <Button
+              type="button"
+              variant="outline"
+              className="w-full sm:w-auto"
+              onClick={onSendSMS}
+            >
+              Відправити
+            </Button>
+          </div>
         </Card>
       </div>
     </>
