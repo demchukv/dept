@@ -50,7 +50,11 @@ import Logout from '@/components/icons/logout';
 import Mail from '@/components/icons/mail';
 import Mention from '@/components/icons/mention';
 import Menu from '@/components/icons/menu';
+import MsgTriangle from '@/components/icons/msg-triangle';
 import Pencil from '@/components/icons/pencil';
+import PhoneBattery from '@/components/icons/phone-battery';
+import PhoneWifi from '@/components/icons/phone-wifi';
+import PhoneNetwork from '@/components/icons/phone-network';
 import Plus from '@/components/icons/plus';
 import Product from '@/components/icons/product';
 import QlBold from '@/components/icons/ql-bold';
@@ -142,7 +146,11 @@ export const Icons = {
   Mail,
   Mention,
   Menu,
+  MsgTriangle,
   Pencil,
+  PhoneBattery,
+  PhoneWifi,
+  PhoneNetwork,
   Plus,
   Product,
   QlBold,
