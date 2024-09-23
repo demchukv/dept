@@ -38,6 +38,7 @@ import {
 import { Filter } from '@/app/components/data-table/table-filters';
 import { TablePagination } from '@/app/components/data-table/table-pagination';
 import { Button } from '@/components/ui/button';
+import { FlagType } from '@/types/call';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -46,7 +47,7 @@ interface DataTableProps<TData, TValue> {
   pagination: PaginationState;
   sorting: SortingState;
   isPending: boolean;
-  setOrderStep: (step: number) => void;
+  setOrderStep: ({ step, iso2 }: { step: number; iso2: string }) => void;
 }
 
 export type PaginationState = {
@@ -62,7 +63,7 @@ export type PaginationInitialTableState = {
   pagination?: Partial<PaginationState>;
 };
 
-export function DataTable<TData, TValue>({
+export function DataTable<TData extends FlagType, TValue>({
   columns,
   data,
   rowCount,
@@ -186,6 +187,12 @@ export function DataTable<TData, TValue>({
                           key={row.id}
                           data-state={row.getIsSelected() && 'selected'}
                           className="odd:bg-bg-color"
+                          onClick={() => {
+                            setOrderStep({
+                              step: 2,
+                              iso2: row.original.iso2,
+                            });
+                          }}
                         >
                           {row.getVisibleCells().map((cell) => (
                             <TableCell

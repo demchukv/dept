@@ -9,10 +9,14 @@ import { DataTable } from '@/app/components/data-table/data-table-phone-numbers'
 import { columns } from '@/app/components/data-table/columns/columns-phone-numbers';
 import { FlagType } from '@/types/call';
 
-export const OrderNumberList = () => {
-  const [orderStep, setOrderStep] = useState(1);
-  const [isPending, startTransition] = useTransition();
-  const [flags, setFlags] = useState<FlagType[]>([]);
+interface OrderNumberListProps {
+  setOrderStep: ({ step, iso2 }: { step: number; iso2: string }) => void;
+  flags: FlagType[];
+}
+export const OrderNumberList = ({
+  setOrderStep,
+  flags,
+}: OrderNumberListProps) => {
   const [popularCountries, setPopularCountries] = useState<FlagType[]>([]);
 
   const initPagination = {
@@ -26,18 +30,10 @@ export const OrderNumberList = () => {
     },
   ];
 
-  const getFlags = async () => {
-    startTransition(async () => {
-      const data = await getAllFlags();
-      setFlags(data);
-      const randomCountries = data.slice(0, 10).sort(() => Math.random() - 0.5);
-      setPopularCountries(randomCountries);
-    });
-  };
-
   useEffect(() => {
-    getFlags();
-  }, []);
+    const randomCountries = flags.slice(0, 10).sort(() => Math.random() - 0.5);
+    setPopularCountries(randomCountries);
+  }, [flags]);
 
   return (
     <>
@@ -67,8 +63,6 @@ export const OrderNumberList = () => {
           ))}
       </div>
 
-      {isPending && <Loading />}
-
       {flags && flags.length > 0 && (
         <>
           <DataTable
@@ -77,7 +71,7 @@ export const OrderNumberList = () => {
             rowCount={flags.length}
             pagination={initPagination}
             sorting={initSorting}
-            isPending={isPending}
+            isPending={false}
             setOrderStep={setOrderStep}
           />
         </>

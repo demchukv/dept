@@ -6,7 +6,7 @@ import {
   TabsTrigger,
 } from '@/components/ui/tabs-server';
 import { NumbersControl } from '@/app/components/call/my-numbers/numbers-control';
-import { OrderNumberList } from '@/app/components/call/my-numbers/order-number-list';
+import { OrderNumber } from '@/app/components/call/my-numbers/order-number';
 import { Sms } from '@/app/components/call/my-numbers/sms';
 import { History } from '@/app/components/call/my-numbers/history';
 
@@ -89,7 +89,7 @@ export const MyNumbers = () => {
           <NumbersControl data={data} />
         </TabsContent>
         <TabsContent value="ordernew">
-          <OrderNumberList />
+          <OrderNumber />
         </TabsContent>
         <TabsContent value="sms">
           <Sms />
