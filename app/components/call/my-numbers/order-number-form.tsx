@@ -153,46 +153,257 @@ export const OrderNumberForm = ({
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} onChange={parseFormData}>
           <p className="font-semibold text-base mb-4">Вибір номера</p>
-
-          <Card className="shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)] mb-4 p-4 md:p-8">
-            <Accordion
-              type="single"
-              collapsible
-              className="w-full flex flex-col gap-4 border-none p-0"
-              defaultValue="operators"
-            >
-              <AccordionItem value="operators" className="p-0">
-                <AccordionTrigger className="p-0 gap-1 sm:gap-9 flex-grow w-full">
-                  <div className="flex gap-2 items-center text-sm sm:text-base text-main-dark font-medium">
-                    <div className="flex items-center justify-center w-6 h-6 text-center overflow-hidden rounded-full object-cover flex-shrink-0">
-                      {currentFlag && (
-                        <Image
-                          src={currentFlag?.flag}
-                          alt={currentFlag?.name}
-                          width={24}
-                          height={24}
-                          style={{
-                            objectFit: 'cover',
-                            height: '24px',
-                            width: 'auto',
-                          }}
-                        />
-                      )}
+          <div className="flex flex-col sm:flex-row sm:gap-4">
+            <Card className="shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)] mb-4 p-4 md:p-8 sm:max-w[40%] sm:w-[40%]">
+              <Accordion
+                type="single"
+                collapsible
+                className="w-full flex flex-col gap-4 border-none p-0"
+                defaultValue="operators"
+              >
+                <AccordionItem value="operators" className="p-0">
+                  <AccordionTrigger className="p-0 gap-1 sm:gap-9 flex-grow w-full">
+                    <div className="flex gap-2 items-center text-sm sm:text-base text-main-dark font-medium">
+                      <div className="flex items-center justify-center w-6 h-6 text-center overflow-hidden rounded-full object-cover flex-shrink-0">
+                        {currentFlag && (
+                          <Image
+                            src={currentFlag?.flag}
+                            alt={currentFlag?.name}
+                            width={24}
+                            height={24}
+                            style={{
+                              objectFit: 'cover',
+                              height: '24px',
+                              width: 'auto',
+                            }}
+                          />
+                        )}
+                      </div>
+                      <p className="text-base font-semibold">Оператор</p>
                     </div>
-                    <p className="text-base font-semibold">Оператор</p>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="border-t mt-8 pt-8">
+                  </AccordionTrigger>
+                  <AccordionContent className="border-t mt-8 pt-8">
+                    <FormField
+                      control={form.control}
+                      name="operator"
+                      render={() => (
+                        <FormItem>
+                          {callOperatorsForCountry.map((item) => (
+                            <FormField
+                              key={item.id}
+                              control={form.control}
+                              name="operator"
+                              render={({ field }) => {
+                                return (
+                                  <FormItem className="flex flex-row items-center space-x-3 space-y-0">
+                                    <FormControl>
+                                      <Checkbox
+                                        checked={field.value?.includes(
+                                          item.id.toString(),
+                                        )}
+                                        onCheckedChange={(checked) => {
+                                          return checked
+                                            ? field.onChange([
+                                                ...field.value,
+                                                item.id.toString(),
+                                              ])
+                                            : field.onChange(
+                                                field.value?.filter(
+                                                  (value) =>
+                                                    value !==
+                                                    item.id.toString(),
+                                                ),
+                                              );
+                                        }}
+                                      />
+                                    </FormControl>
+                                    <FormLabel className="font-normal">
+                                      {item.name}
+                                    </FormLabel>
+                                  </FormItem>
+                                );
+                              }}
+                            />
+                          ))}
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </Card>
+
+            <Card className="shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)] mb-4 p-4 md:p-8 flex-grow">
+              <CardHeader>Пошук по масці</CardHeader>
+              <Separator className="my-4" />
+              <div className="flex items-center justify-between sm:justify-start gap-6">
+                <div>
                   <FormField
                     control={form.control}
-                    name="operator"
+                    name="exclude"
+                    render={({ field }) => {
+                      return (
+                        <FormItem className="flex flex-row items-center space-x-3 space-y-0">
+                          <FormControl>
+                            <Checkbox
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                            />
+                          </FormControl>
+                          <FormLabel className="font-normal whitespace-nowrap">
+                            Виключити цифри
+                          </FormLabel>
+                        </FormItem>
+                      );
+                    }}
+                  />
+                </div>
+                <div>
+                  <FormField
+                    control={form.control}
+                    name="excludeNumbers"
+                    render={({ field }) => (
+                      <FormItem className=" w-20">
+                        <FormControl>
+                          <Input
+                            placeholder="XXXX"
+                            {...field}
+                            inputMode="numeric"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </div>
+              <Info className="mb-4">
+                Для звуження пошуку введіть в поле цифри, яких точно не має бути
+                в номері телефону.
+              </Info>
+              <div className="flex flex-col sm:flex-row sm:gap-4">
+                <div className="flex items-center justify-start gap-1">
+                  <div>
+                    <FormField
+                      control={form.control}
+                      name="operatorCode"
+                      render={({ field }) => (
+                        <FormItem className="w-[90px]">
+                          <Select
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                          >
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="XXX" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {operatorsCode.map((item) => (
+                                <SelectItem key={item} value={item}>
+                                  {item}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <div>&mdash;</div>
+                  <div>
+                    <FormField
+                      control={form.control}
+                      name="numberPartOne"
+                      render={({ field }) => (
+                        <FormItem className="w-[70px]">
+                          <FormControl>
+                            <Input
+                              placeholder="XXX"
+                              {...field}
+                              inputMode="numeric"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <div>&mdash;</div>
+                  <div>
+                    <FormField
+                      control={form.control}
+                      name="numberPartTwo"
+                      render={({ field }) => (
+                        <FormItem className="w-[56px]">
+                          <FormControl>
+                            <Input
+                              placeholder="XX"
+                              {...field}
+                              inputMode="numeric"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <div>&mdash;</div>
+                  <div>
+                    <FormField
+                      control={form.control}
+                      name="numberPartThree"
+                      render={({ field }) => (
+                        <FormItem className="w-[56px]">
+                          <FormControl>
+                            <Input
+                              placeholder="XX"
+                              {...field}
+                              inputMode="numeric"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                </div>
+                <Info className="mb-4 sm:hidden">
+                  Для пошуку бажаного номеру введіть, будь ласка, мінімум 3
+                  відомих цифри. Невідомі цифри позначаються символом “Х”.
+                </Info>
+                <Button
+                  type="button"
+                  className="w-full sm:w-auto border-0"
+                  onClick={() => searchNumbers(form.getValues())}
+                >
+                  Знайти
+                </Button>
+              </div>
+              <Info className="mb-4 hidden sm:flex">
+                Для пошуку бажаного номеру введіть, будь ласка, мінімум 3
+                відомих цифри. Невідомі цифри позначаються символом “Х”.
+              </Info>
+
+              {isSearchPending && <Loading />}
+              {searchRes && searchRes.length > 0 && (
+                <div className="mt-6">
+                  <p className="font-semibold text-base mb-4">
+                    Результати пошуку
+                  </p>
+                  <Separator className="my-4" />
+                  <FormField
+                    control={form.control}
+                    name="selectedNumbers"
                     render={() => (
                       <FormItem>
-                        {callOperatorsForCountry.map((item) => (
+                        {searchRes.map((item) => (
                           <FormField
                             key={item.id}
                             control={form.control}
-                            name="operator"
+                            name="selectedNumbers"
                             render={({ field }) => {
                               return (
                                 <FormItem className="flex flex-row items-center space-x-3 space-y-0">
@@ -228,229 +439,32 @@ export const OrderNumberForm = ({
                       </FormItem>
                     )}
                   />
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-          </Card>
-          <Card className="shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)] mb-4 p-4 md:p-8">
-            <CardHeader>Пошук по масці</CardHeader>
-            <Separator className="my-4" />
-            <div className="flex items-center justify-between gap-6">
-              <div>
-                <FormField
-                  control={form.control}
-                  name="exclude"
-                  render={({ field }) => {
-                    return (
-                      <FormItem className="flex flex-row items-center space-x-3 space-y-0">
-                        <FormControl>
-                          <Checkbox
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
-                          />
-                        </FormControl>
-                        <FormLabel className="font-normal whitespace-nowrap">
-                          Виключити цифри
-                        </FormLabel>
-                      </FormItem>
-                    );
-                  }}
-                />
-              </div>
-              <div>
-                <FormField
-                  control={form.control}
-                  name="excludeNumbers"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input
-                          placeholder="XXXX"
-                          {...field}
-                          inputMode="numeric"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-            </div>
-            <Info className="mb-4">
-              Для звуження пошуку введіть в поле цифри, яких точно не має бути в
-              номері телефону.
-            </Info>
-            <div className="flex items-center justify-between gap-1">
-              <div>
-                <FormField
-                  control={form.control}
-                  name="operatorCode"
-                  render={({ field }) => (
-                    <FormItem>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="XXX" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          {operatorsCode.map((item) => (
-                            <SelectItem key={item} value={item}>
-                              {item}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-              <div>&mdash;</div>
-              <div>
-                <FormField
-                  control={form.control}
-                  name="numberPartOne"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input
-                          placeholder="XXX"
-                          {...field}
-                          inputMode="numeric"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-              <div>&mdash;</div>
-              <div>
-                <FormField
-                  control={form.control}
-                  name="numberPartTwo"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input
-                          placeholder="XX"
-                          {...field}
-                          inputMode="numeric"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-              <div>&mdash;</div>
-              <div>
-                <FormField
-                  control={form.control}
-                  name="numberPartThree"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input
-                          placeholder="XX"
-                          {...field}
-                          inputMode="numeric"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-            </div>
-            <Info className="mb-4">
-              Для пошуку бажаного номеру введіть, будь ласка, мінімум 3 відомих
-              цифри. Невідомі цифри позначаються символом “Х”.
-            </Info>
-            <Button
-              type="button"
-              className="w-full sm:w-auto"
-              onClick={() => searchNumbers(form.getValues())}
-            >
-              Знайти
-            </Button>
-
-            {isSearchPending && <Loading />}
-            {searchRes && searchRes.length > 0 && (
-              <div className="mt-6">
-                <p className="font-semibold text-base mb-4">
-                  Результати пошуку
-                </p>
-                <Separator className="my-4" />
-                <FormField
-                  control={form.control}
-                  name="selectedNumbers"
-                  render={() => (
-                    <FormItem>
-                      {searchRes.map((item) => (
-                        <FormField
-                          key={item.id}
-                          control={form.control}
-                          name="selectedNumbers"
-                          render={({ field }) => {
-                            return (
-                              <FormItem className="flex flex-row items-center space-x-3 space-y-0">
-                                <FormControl>
-                                  <Checkbox
-                                    checked={field.value?.includes(
-                                      item.id.toString(),
-                                    )}
-                                    onCheckedChange={(checked) => {
-                                      return checked
-                                        ? field.onChange([
-                                            ...field.value,
-                                            item.id.toString(),
-                                          ])
-                                        : field.onChange(
-                                            field.value?.filter(
-                                              (value) =>
-                                                value !== item.id.toString(),
-                                            ),
-                                          );
-                                    }}
-                                  />
-                                </FormControl>
-                                <FormLabel className="font-normal">
-                                  {item.name}
-                                </FormLabel>
-                              </FormItem>
-                            );
-                          }}
-                        />
-                      ))}
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <Info className="mb-4">
-                  Звертаємо увагу, що для замовлення номера у профілі
-                  користувача/компанії мають бути зазначені та підтверджені
-                  реальні та актуальні реєстраційні дані та/або авторизація
-                  через Дія.
-                </Info>
-                <Button type="submit" className="w-full sm:w-auto mb-4">
-                  Обрати
-                </Button>
-                <Button
-                  type="button"
-                  variant="outline"
-                  className="w-full sm:w-auto"
-                  onClick={() => clearSearchNumbers()}
-                >
-                  Очистити пошук
-                </Button>
-              </div>
-            )}
-          </Card>
+                  <Info className="mb-4">
+                    Звертаємо увагу, що для замовлення номера у профілі
+                    користувача/компанії мають бути зазначені та підтверджені
+                    реальні та актуальні реєстраційні дані та/або авторизація
+                    через Дія.
+                  </Info>
+                  <div className="w-full flex flex-col sm:flex-row-reverse sm:justify-start sm:gap-4">
+                    <Button
+                      type="submit"
+                      className="w-full sm:w-auto mb-4 sm:mb-0"
+                    >
+                      Обрати
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      className="w-full sm:w-auto"
+                      onClick={() => clearSearchNumbers()}
+                    >
+                      Очистити пошук
+                    </Button>
+                  </div>
+                </div>
+              )}
+            </Card>
+          </div>
         </form>
       </Form>
     </>
