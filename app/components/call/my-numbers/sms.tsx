@@ -19,10 +19,10 @@ export const Sms = () => {
           <SendSMS />
         </TabsContent>
         <TabsContent value="inSMS">
-          <p>In sms</p>
+          <p>Incoming SMS</p>
         </TabsContent>
         <TabsContent value="outSMS">
-          <p>Out SMS</p>
+          <p>Outgoing SMS</p>
         </TabsContent>
       </Tabs>
     </>

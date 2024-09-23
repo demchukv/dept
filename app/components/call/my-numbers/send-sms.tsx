@@ -90,7 +90,7 @@ export const SendSMS = () => {
 
   return (
     <>
-      <div className="flex flex-col sm:flex-row-reverse sm:items-start gap-4">
+      <div className="flex flex-col sm:flex-row-reverse sm:items-start gap-4 sm:gap-6">
         <Card className="shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)] mb-4 p-4 md:p-8">
           <div className="rounded border border-gray-light bg-bg-color px-5 pt-4 pb-6 mb-5">
             <p className="font-semibold text-base leading-normal mb-4">
@@ -104,13 +104,13 @@ export const SendSMS = () => {
             ></Textarea>
             <div className="text-xs text-warning">{smsError}</div>
           </div>
-          <p className="font-semibold text-gray-dark">
+          <p className="font-semibold text-gray-dark w-[200px] flex justify-between">
             Символів:{' '}
             <span className="text-main-color">
               {symbolsSMS}/{MAXLEN}
             </span>
           </p>
-          <p className="font-semibold text-gray-dark">
+          <p className="font-semibold text-gray-dark w-[200px] flex justify-between">
             Кількість СМС: <span className="text-main-color">{totalSMS}</span>
           </p>
         </Card>
