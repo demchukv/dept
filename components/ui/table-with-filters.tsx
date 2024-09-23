@@ -2,21 +2,31 @@ import * as React from 'react';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
 
-const Table = React.forwardRef<
-  HTMLTableElement,
-  React.HTMLAttributes<HTMLTableElement>
->(({ className, ...props }, ref) => (
-  //   <div className="relative w-full overflow-auto">
-  <ScrollArea className="w-full whitespace-nowrap pb-2">
-    <table
-      ref={ref}
-      className={cn('w-full caption-bottom text-sm', className)}
-      {...props}
-    />
-    <ScrollBar orientation="horizontal" forceMount={true} />
-  </ScrollArea>
+interface TableProps extends React.HTMLAttributes<HTMLTableElement> {
+  useScroll?: boolean;
+}
+
+const Table = React.forwardRef<HTMLTableElement, TableProps>(
+  ({ className, useScroll = true, ...props }, ref) =>
+    //   <div className="relative w-full overflow-auto">
+    useScroll ? (
+      <ScrollArea className="w-full whitespace-nowrap pb-2">
+        <table
+          ref={ref}
+          className={cn('w-full caption-bottom text-sm', className)}
+          {...props}
+        />
+        <ScrollBar orientation="horizontal" forceMount={true} />
+      </ScrollArea>
+    ) : (
+      <table
+        ref={ref}
+        className={cn('w-full caption-bottom text-sm', className)}
+        {...props}
+      />
+    ),
   //   </div>
-));
+);
 Table.displayName = 'Table';
 
 const TableHeader = React.forwardRef<

@@ -30,7 +30,7 @@ export const columns: ColumnDef<smsType>[] = [
       const numberFrom = getValue<string>();
       const numberTo = row.original.numberTo;
       return (
-        <span className="font-medium">
+        <span className="font-medium whitespace-nowrap">
           від <span className="text-main-color">{numberFrom}</span>
           <br />
           на {numberTo}
