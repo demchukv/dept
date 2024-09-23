@@ -116,8 +116,8 @@ export function DataTable<TData, TValue>({
     debugHeaders: false,
   });
 
-  const name = table.getHeaderGroups()[0].headers.find((header) => {
-    return header.id === 'name';
+  const date = table.getHeaderGroups()[0].headers.find((header) => {
+    return header.id === 'date';
   });
 
   return (
@@ -129,12 +129,12 @@ export function DataTable<TData, TValue>({
           onClick={() => table.resetColumnFilters()}
           className="p-0 justify-start font-semibold text-base"
         >
-          Всі країни
+          фільтра...
         </Button>
-        {name?.column.getCanFilter() ? (
+        {date?.column.getCanFilter() ? (
           <div className="w-full sm:w-[50%] md:w-[30%] flex flex-col justify-end gap-2">
             <Filter
-              column={name.column}
+              column={date.column}
               placeholder="Пошук по країні"
               icon="Search"
             />

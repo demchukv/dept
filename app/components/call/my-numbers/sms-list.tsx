@@ -7,6 +7,12 @@ import { DataTable } from '@/app/components/data-table/data-table-sms';
 import { columns } from '@/app/components/data-table/columns/columns-sms';
 import { smsType } from '@/types/call';
 
+import {
+  SmsListRow,
+  SmsListRowBig,
+} from '@/app/components/call/my-numbers/sms-list-row';
+import { Card } from '../../card/card';
+
 const msgs: smsType[] = [
   {
     id: 1,
@@ -159,6 +165,21 @@ export const SmsList = ({ listType }: SmsListProps) => {
     <>
       {msgs && msgs.length > 0 && (
         <>
+          <Card className="sm:hidden shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)] p-4 flex flex-col gap-4 overflow-hidden">
+            <p className="sm:hidden text-base font-semibold">Повідомлення</p>
+            {msgs.map((msg) => (
+              <SmsListRow key={msg.id} msg={msg} />
+            ))}
+          </Card>
+          <Card className="hidden sm:grid grid-cols-[auto_auto_auto_auto] shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)] p-0 overflow-hidden">
+            {msgs.map((msg, index) => (
+              <SmsListRowBig key={msg.id} msg={msg} index={index} />
+            ))}
+          </Card>
+        </>
+      )}
+      {/* {msgs && msgs.length > 0 && (
+        <>
           <DataTable
             columns={columns}
             data={msgs}
@@ -168,7 +189,7 @@ export const SmsList = ({ listType }: SmsListProps) => {
             isPending={false}
           />
         </>
-      )}
+      )} */}
     </>
   );
 };

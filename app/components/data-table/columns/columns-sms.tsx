@@ -53,6 +53,9 @@ export const columns: ColumnDef<smsType>[] = [
       const date = getValue<string>();
       return <span className="text-sm text-main-dark">{date}</span>;
     },
+    meta: {
+      filterVariant: 'date',
+    },
   },
   {
     accessorKey: 'id',
