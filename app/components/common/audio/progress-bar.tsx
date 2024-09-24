@@ -2,6 +2,7 @@ import React from 'react';
 import { formatTime } from '@/lib/utils';
 import { Icon } from '@/components/utils/icon';
 import Link from 'next/link';
+import { set } from 'date-fns';
 
 interface ProgressBarProps {
   currentTime: number;
@@ -24,9 +25,18 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
   onPause,
   onStop,
 }) => {
+  const [isPlaying, setIsPlaying] = React.useState(false);
   const progressBarWidth = (currentTime / duration) * 100;
   const cursorPosition = Math.round((currentTime / duration) * 100);
 
+  const changePlayState = (action: string) => {
+    setIsPlaying(action === 'play');
+    if (action === 'play') {
+      onPlay();
+    } else {
+      onPause();
+    }
+  };
   return (
     <div className="flex items-center justify-between">
       <Link
@@ -42,9 +52,33 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
         />
       </Link>
       <div className="flex-shrink-0  flex items-center justify-evenly p-2">
-        <button onClick={onPlay} type="button" className="text-main-color">
-          <Icon iconName="PlayCircle" width={24} height={24} />
-        </button>
+        {isPlaying ? (
+          <button
+            onClick={() => changePlayState('pause')}
+            type="button"
+            className="text-main-color"
+          >
+            <Icon
+              iconName="DeleteCircle"
+              width={24}
+              height={24}
+              className="w-6 h-6"
+            />
+          </button>
+        ) : (
+          <button
+            onClick={() => changePlayState('play')}
+            type="button"
+            className="text-main-color"
+          >
+            <Icon
+              iconName="PlayCircle"
+              width={24}
+              height={24}
+              className="w-6 h-6"
+            />
+          </button>
+        )}
       </div>
       <div className="text-main-dark font-medium leading-main-lh flex-shrink-0 w-[46px]">
         {formatTime(currentTime)}
