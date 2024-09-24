@@ -37,6 +37,7 @@ export const SideMenu = ({ closeSidebar }: MenuItemProps) => {
     call:
       path === '/my-numbers' ||
       path === '/scenario' ||
+      path.includes('/scenario/') ||
       path === '/my-group' ||
       path === '/internal-lines'
         ? true
@@ -288,7 +289,8 @@ export const SideMenu = ({ closeSidebar }: MenuItemProps) => {
             href="/scenario"
             className={cn(
               subLinkClass,
-              path === '/scenario' && 'text-main-color',
+              (path === '/scenario' || path.includes('/scenario/')) &&
+                'text-main-color',
             )}
             locale={lang}
             scroll={false}

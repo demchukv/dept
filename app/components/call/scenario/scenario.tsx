@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import React from 'react';
 import { Card } from '@/app/components/card/card';
 import { Icon } from '@/components/utils/icon';
+import Link from 'next/link';
 
 const scenarios = [
   {
@@ -34,7 +35,9 @@ export const Scenario = () => {
         <h1 className="font-bold text-2xl leading-none text-main-dark mb-4 lg:mb-8">
           Телефонія. Сценарії
         </h1>
-        <Button type="button">Створити сценарій</Button>
+        <Button type="button" asChild>
+          <Link href="/scenario/create">Створити сценарій</Link>
+        </Button>
       </div>
 
       <div className="flex flex-col gap-4">
@@ -50,20 +53,23 @@ export const Scenario = () => {
               <div>{scenario.numbers.length} номери</div>
             </div>
             <div className="flex items-center flex-shrink-0 gap-6">
-              <Button type="button" className="hidden sm:flex">
-                Редагувати
+              <Button type="button" className="hidden sm:flex" asChild>
+                <Link href={`/scenario/${scenario.id}`}>Редагувати</Link>
               </Button>
               <Button
                 type="button"
                 variant="ghost"
                 className="text-main-color sm:hidden"
+                asChild
               >
-                <Icon
-                  iconName="EditIcon"
-                  width={24}
-                  height={24}
-                  className="w-6 h-6"
-                />
+                <Link href={`/scenario/${scenario.id}`}>
+                  <Icon
+                    iconName="EditIcon"
+                    width={24}
+                    height={24}
+                    className="w-6 h-6"
+                  />
+                </Link>
               </Button>
               <Button type="button" variant="ghost" className="text-main-color">
                 <Icon

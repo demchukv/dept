@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   description: 'Dept - Сценарії - управління номерами',
 };
 
-const CertificatePage = async ({
+const ScenarioPage = async ({
   params: { locale },
 }: {
   params: { locale: string };
@@ -29,4 +29,4 @@ const CertificatePage = async ({
   );
 };
 
-export default CertificatePage;
+export default ScenarioPage;
