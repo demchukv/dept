@@ -117,6 +117,7 @@ export const SmsListFilters = ({
           <div className="w-full">
             <div className="flex flex-col sm:flex-row gap-2 justify-between items-center w-full">
               <div className="flex-grow w-full">
+                <p className="sm:hidden text-xs text-gray-dark mb-1">З дати</p>
                 <DatePicker
                   selected={startDate}
                   onSelect={(value: Date) => {
@@ -127,6 +128,7 @@ export const SmsListFilters = ({
               </div>
               <div className="hidden sm:block flex-shrink-0">–</div>
               <div className="flex-grow w-full">
+                <p className="sm:hidden text-xs text-gray-dark mb-1">По дату</p>
                 <DatePicker
                   selected={endDate}
                   onSelect={(value: Date) => {
