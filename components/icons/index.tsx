@@ -40,6 +40,7 @@ import EditIcon from '@/components/icons/edit';
 import Electronics from '@/components/icons/electronics';
 import EyeClosed from '@/components/icons/eye-closed';
 import ImageDefault from '@/components/icons/image-default';
+import Incoming from '@/components/icons/incoming';
 import Info from '@/components/icons/info';
 import EyeOpen from '@/components/icons/eye-open';
 import FilterIcon from '@/components/icons/filter-icon';
@@ -53,10 +54,12 @@ import Mail from '@/components/icons/mail';
 import Mention from '@/components/icons/mention';
 import Menu from '@/components/icons/menu';
 import MsgTriangle from '@/components/icons/msg-triangle';
+import Outgoing from '@/components/icons/outgoing';
 import Pencil from '@/components/icons/pencil';
 import PhoneBattery from '@/components/icons/phone-battery';
 import PhoneWifi from '@/components/icons/phone-wifi';
 import PhoneNetwork from '@/components/icons/phone-network';
+import PlayCircle from '@/components/icons/play-circle';
 import Plus from '@/components/icons/plus';
 import Product from '@/components/icons/product';
 import QlBold from '@/components/icons/ql-bold';
@@ -77,6 +80,7 @@ import Route from '@/components/icons/route';
 import Search from '@/components/icons/search';
 import SettingAlert from '@/components/icons/setting-alert';
 import Settings from '@/components/icons/settings';
+import Sound from '@/components/icons/sound';
 import StatusCheck from '@/components/icons/status-check';
 import StatusReady from '@/components/icons/status-ready';
 import StatusRepair from '@/components/icons/status-repair';
@@ -136,6 +140,7 @@ export const Icons = {
   EditIcon,
   Electronics,
   ImageDefault,
+  Incoming,
   Info,
   EyeClosed,
   EyeOpen,
@@ -151,10 +156,12 @@ export const Icons = {
   Mention,
   Menu,
   MsgTriangle,
+  Outgoing,
   Pencil,
   PhoneBattery,
   PhoneWifi,
   PhoneNetwork,
+  PlayCircle,
   Plus,
   Product,
   QlBold,
@@ -175,6 +182,7 @@ export const Icons = {
   Search,
   SettingAlert,
   Settings,
+  Sound,
   StatusCheck,
   StatusReady,
   StatusRepair,

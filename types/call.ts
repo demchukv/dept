@@ -31,3 +31,16 @@ export type smsType = {
   status: 'ok' | 'badnumber' | 'notdelivered' | 'error' | 'waiting';
   price: number;
 };
+
+export type callType = {
+  id: number;
+  date: string;
+  direction: 'incoming' | 'outgoing';
+  number: string;
+  line: string;
+  status: 'ok' | 'noreply' | 'skipped' | 'error' | 'waiting';
+  recording?: string;
+  duration?: string;
+  price?: number;
+  doc?: string;
+};
