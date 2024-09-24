@@ -64,6 +64,16 @@ const msgs: callType[] = [
   },
 ];
 
+const directions = [
+  { id: 'all', name: 'Всі' },
+  { id: 'incoming', name: 'Вхідні' },
+  { id: 'outgoing', name: 'Вихідні' },
+];
+const innerLines = [
+  { id: '0', name: 'Всі' },
+  { id: '1', name: '101 - О. Остапченко' },
+  { id: '2', name: '102 - С. Сергієнко' },
+];
 type filtersType = {
   id: string;
   name: string;
@@ -102,7 +112,12 @@ export const History = ({}: SmsListProps) => {
 
   return (
     <>
-      <HistoryFilters filters={filters} setFilters={setFilters} />
+      <HistoryFilters
+        filters={filters}
+        setFilters={setFilters}
+        directions={directions}
+        innerLines={innerLines}
+      />
       {msgs && msgs.length > 0 && (
         <>
           <Card className="sm:hidden shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)] p-4 flex flex-col gap-4 overflow-hidden">
