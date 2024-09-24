@@ -20,7 +20,10 @@
 export default function Loading() {
   return (
     <div className="w-screen h-screen grid place-items-center">
-      <div className="loader"></div>
+      {/* <div className="loader"></div> */}
+      <video autoPlay muted loop>
+        <source src="/animation/preloader.mp4" type="video/mp4" />
+      </video>
     </div>
   );
 }
