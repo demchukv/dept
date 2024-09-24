@@ -28,6 +28,6 @@ export type smsType = {
   date: string;
   text: string;
   type: string;
-  status: string;
+  status: 'ok' | 'badnumber' | 'notdelivered' | 'error' | 'waiting';
   price: number;
 };

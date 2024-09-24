@@ -18,6 +18,7 @@ import Call from '@/components/icons/call';
 import CardsList from '@/components/icons/cards-list';
 import Case from '@/components/icons/case';
 import Check from '@/components/icons/check';
+import CheckIcon from '@/components/icons/check-icon';
 import CheckDouble from '@/components/icons/check-double';
 import CheckList from '@/components/icons/check-list';
 import ClockInWork from '@/components/icons/clock-in-work';
@@ -26,6 +27,7 @@ import ClockReady from '@/components/icons/clock-ready';
 import ClockWait from '@/components/icons/clock-wait';
 import Close from '@/components/icons/close';
 import Copy from '@/components/icons/copy';
+import DangerHexagon from '@/components/icons/danger-hexagon';
 import DangerTriangle from '@/components/icons/danger-triangle';
 import Dashboard from '@/components/icons/dashboard';
 import DeleteCircle from '@/components/icons/delete-circle';
@@ -113,6 +115,7 @@ export const Icons = {
   CardsList,
   Case,
   Check,
+  CheckIcon,
   CheckDouble,
   CheckList,
   ClockInWork,
@@ -121,6 +124,7 @@ export const Icons = {
   ClockWait,
   Close,
   Copy,
+  DangerHexagon,
   DangerTriangle,
   Dashboard,
   DeleteCircle,

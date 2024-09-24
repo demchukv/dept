@@ -3,18 +3,29 @@ import { Table } from '@tanstack/react-table';
 import React from 'react';
 
 interface TablePaginationProps {
-  table: Table<any>;
+  table?: Table<any>;
+  setPagination?: ({
+    pageIndex,
+    pageSize,
+  }: {
+    pageIndex: number;
+    pageSize: number;
+  }) => void;
   currentPage: number;
+  pages?: number;
 }
 
 export const TablePagination = ({
   table,
+  setPagination,
   currentPage,
+  pages = 0,
 }: TablePaginationProps) => {
-  const totalPage = table.getPageCount() - 1;
+  const totalPage = table ? table?.getPageCount() - 1 : pages;
   const pageList = [];
+
   const pagination = createPagination(currentPage, totalPage);
-  //   console.log('pagination', pagination);
+
   for (let i = 0; i < pagination.length; i++) {
     if (pagination[i] === '...') {
       const pageBtn = (
@@ -39,7 +50,13 @@ export const TablePagination = ({
           }
           size="sm"
           onClick={() => {
-            table.setPageIndex(Number(pagination[i]));
+            table
+              ? table.setPageIndex(Number(pagination[i]))
+              : setPagination &&
+                setPagination({
+                  pageIndex: Number(pagination[i]),
+                  pageSize: 10,
+                });
           }}
         >
           {Number(pagination[i]) + 1}
@@ -59,7 +76,7 @@ function createPagination(currentPage: number, totalPages: number) {
   let pages = [];
 
   if (totalPages <= maxVisiblePages) {
-    for (let i = 0; i <= totalPages; i++) {
+    for (let i = 0; i < totalPages; i++) {
       pages.push(i);
     }
   } else {
