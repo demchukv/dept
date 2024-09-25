@@ -1,3 +1,4 @@
+'use client';
 import { PhoneNumbers } from '@/types/call';
 import {
   Tabs,
@@ -9,6 +10,7 @@ import { NumbersControl } from '@/app/components/call/my-numbers/numbers-control
 import { OrderNumber } from '@/app/components/call/my-numbers/order-number';
 import { Sms } from '@/app/components/call/my-numbers/sms';
 import { History } from '@/app/components/call/my-numbers/history';
+import { useEffect, useState } from 'react';
 
 const data: PhoneNumbers[] = [
   {
@@ -69,9 +71,27 @@ const data: PhoneNumbers[] = [
   },
 ];
 export const MyNumbers = () => {
+  const [activeTab, setActiveTab] = useState('numbers');
+
+  useEffect(() => {
+    if (window.location.hash === '#ordernew') {
+      setActiveTab('ordernew');
+    } else {
+      return;
+    }
+  }, [window.location.hash]);
+
   return (
     <>
-      <Tabs defaultValue="numbers" className="w-full">
+      <Tabs
+        defaultValue={activeTab}
+        value={activeTab}
+        onValueChange={(value) => {
+          window.location.hash = value;
+          setActiveTab(value);
+        }}
+        className="w-full"
+      >
         <div className="flex flex-col sm:flex-row sm:justify-between">
           <h1 className="font-bold text-2xl leading-none text-main-dark mb-4 lg:mb-8">
             Телефонія. Мої номери

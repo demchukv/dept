@@ -32,6 +32,7 @@ import DangerTriangle from '@/components/icons/danger-triangle';
 import Dashboard from '@/components/icons/dashboard';
 import DeleteCircle from '@/components/icons/delete-circle';
 import Diia from '@/components/icons/diia';
+import DndIcon from '@/components/icons/dnd-icon';
 import Doc from '@/components/icons/doc';
 import Document from '@/components/icons/document';
 import Download from '@/components/icons/download';
@@ -133,6 +134,7 @@ export const Icons = {
   Dashboard,
   DeleteCircle,
   Diia,
+  DndIcon,
   Doc,
   Document,
   Download,
