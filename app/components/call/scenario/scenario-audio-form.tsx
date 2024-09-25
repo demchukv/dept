@@ -19,6 +19,7 @@ import {
 } from '@/components/ui/select-form';
 import { useState } from 'react';
 import { Input } from '@/components/ui/input';
+import AudioPlayer from '@/app/components/common/audio/player';
 
 interface ScenarioAudioFormProps {
   //   groups: any;
@@ -99,7 +100,9 @@ export const ScenarioAudioForm = (
             </div>
             <AccordionContent className="border-t mt-8 pt-8">
               <p className="font-semibold text-base mb-4">
-                Settings IVR menu
+                <p>Add and edit audio</p>
+                {audiofile && <AudioPlayer audioSrc={audiofile} />}
+
                 {/* <Select value={group} onValueChange={setGroup}>
             <SelectTrigger>
               <SelectValue placeholder="Оберіть групу" />
