@@ -89,17 +89,14 @@ function AudioPlayer({ audioSrc }: { audioSrc: string }) {
               >
                 <div
                   ref={props.ref}
+                  className="w-full h-1 rounded self-center"
                   style={{
-                    height: '5px',
-                    width: '100%',
-                    borderRadius: '4px',
                     background: getTrackBackground({
                       values: [currentTime],
                       colors: ['var(--main-color)', 'var(--gray-light)'],
                       min: 0,
                       max: duration,
                     }),
-                    alignSelf: 'center',
                   }}
                 >
                   {children}
