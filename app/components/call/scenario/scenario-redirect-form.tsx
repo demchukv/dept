@@ -32,7 +32,7 @@ export const ScenarioRedirectForm = ({
         />
         <div className="flex-grow flex flex-col gap-4 sm:flex-row sm:justify-between">
           <p className="text-base font-semibold leading-normal flex items-center justify-between whitespace-nowrap">
-            Виклик на групу
+            Переадресація
             <Button type="button" variant="ghost" className="sm:hidden">
               <Icon
                 iconName="Trash"

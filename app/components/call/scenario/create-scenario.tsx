@@ -18,7 +18,6 @@ import { ScenarioRedirectForm } from '@/app/components/call/scenario/scenario-re
 import { ScenarioCallGroupForm } from '@/app/components/call/scenario/scenario-call-group-form';
 import { ScenarioAudioForm } from '@/app/components/call/scenario/scenario-audio-form';
 import { ScenarioIvrMenuForm } from '@/app/components/call/scenario/scenario-ivr-menu-form';
-import { redirect } from 'next/dist/server/api-utils';
 
 const phones = [
   { id: 1, phoneNumber: '38 098 765 43 21', numberType: 'sip' },
