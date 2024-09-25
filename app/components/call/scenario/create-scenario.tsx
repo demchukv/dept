@@ -18,6 +18,7 @@ import { ScenarioRedirectForm } from '@/app/components/call/scenario/scenario-re
 import { ScenarioCallGroupForm } from '@/app/components/call/scenario/scenario-call-group-form';
 import { ScenarioAudioForm } from '@/app/components/call/scenario/scenario-audio-form';
 import { ScenarioIvrMenuForm } from '@/app/components/call/scenario/scenario-ivr-menu-form';
+import { redirect } from 'next/dist/server/api-utils';
 
 const phones = [
   { id: 1, phoneNumber: '38 098 765 43 21', numberType: 'sip' },
@@ -25,12 +26,26 @@ const phones = [
   { id: 3, phoneNumber: '38 067 527 56 10', numberType: 'sim' },
   { id: 4, phoneNumber: '38 067 527 56 11', numberType: 'sim' },
 ];
+const groups = [
+  { id: 1, name: 'Група 1' },
+  { id: 2, name: 'Група 2' },
+  { id: 3, name: 'Група 3' },
+];
+
+const contacts = [
+  { id: 1, name: 'Остапченко Остап' },
+  { id: 2, name: 'Сергієнко Сергій' },
+  { id: 3, name: 'Контакт 3' },
+  { id: 4, name: 'Контакт 4' },
+];
 
 export const CreateScenario = () => {
   const [scenarioName, setScenarioName] = useState('');
   const [scenarioNumbers, setScenarioNumbers] = useState<number[]>([]);
   const [activeButtons, setActiveButtons] = useState(false);
   const [activeForm, setActiveForm] = useState(0);
+  const [group, setGroup] = useState(0);
+  const [contact, setContact] = useState(0);
 
   const onChangeCheckedNumbers = (id: number) => {
     if (scenarioNumbers.includes(id)) {
@@ -47,6 +62,20 @@ export const CreateScenario = () => {
     }
     setActiveButtons(true);
   }, [scenarioNumbers, scenarioName]);
+
+  const deleteScenario = () => {
+    console.log('Видалити сценарій');
+  };
+  const saveScenario = () => {
+    const values = {
+      title: scenarioName,
+      phones: scenarioNumbers,
+      callGroup: group,
+      redirectContact: contact,
+    };
+    console.log('Зберегти дані: ', values);
+  };
+
   return (
     <div className="flex gap-4 sm:gap-6 flex-col sm:flex-row">
       <div className="flex flex-col gap-4">
@@ -113,8 +142,20 @@ export const CreateScenario = () => {
           застосовуватись у відповідній послідовності під час вхідного дзвінка
           на обрані номери.{' '}
         </Info>
-        {activeForm === 1 && <ScenarioRedirectForm />}
-        {activeForm === 2 && <ScenarioCallGroupForm />}
+        {activeForm === 1 && (
+          <ScenarioRedirectForm
+            contacts={contacts}
+            contact={contact}
+            setContact={setContact}
+          />
+        )}
+        {activeForm === 2 && (
+          <ScenarioCallGroupForm
+            groups={groups}
+            group={group}
+            setGroup={setGroup}
+          />
+        )}
         {activeForm === 3 && <ScenarioAudioForm />}
         {activeForm === 4 && <ScenarioIvrMenuForm />}
         <div className="flex flex-col gap-4 sm:flex-row sm:justify-around p-4 border border-dashed border-gray-light rounded-[6px]">
@@ -155,6 +196,16 @@ export const CreateScenario = () => {
             IVR меню <Icon iconName="Plus" width={20} height={20} />
           </Button>
         </div>
+        {activeForm > 0 && (
+          <div className="flex flex-col sm:flex-row sm:justify-end gap-4 mt-6">
+            <Button type="button" variant="outline" onClick={deleteScenario}>
+              Видалити сценарій
+            </Button>
+            <Button type="button" onClick={saveScenario}>
+              Зберегти сценарій
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );

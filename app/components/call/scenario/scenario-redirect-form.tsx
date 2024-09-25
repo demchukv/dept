@@ -11,7 +11,16 @@ import {
   SelectValue,
 } from '@/components/ui/select-form';
 
-export const ScenarioRedirectForm = () => {
+interface ScenarioRedirectFormProps {
+  contacts: any;
+  contact: any;
+  setContact: any;
+}
+export const ScenarioRedirectForm = ({
+  contacts,
+  contact,
+  setContact,
+}: ScenarioRedirectFormProps) => {
   return (
     <>
       <Card className="shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)] mb-4 p-4 md:p-8 flex gap-4 items-center">
@@ -22,7 +31,7 @@ export const ScenarioRedirectForm = () => {
           className="fill-main-dark flex-shrink-0"
         />
         <div className="flex-grow flex flex-col gap-4 sm:flex-row sm:justify-between">
-          <p className="text-base font-semibold leading-normal flex items-center justify-between">
+          <p className="text-base font-semibold leading-normal flex items-center justify-between whitespace-nowrap">
             Виклик на групу
             <Button type="button" variant="ghost" className="sm:hidden">
               <Icon
@@ -33,18 +42,17 @@ export const ScenarioRedirectForm = () => {
               />
             </Button>
           </p>
-          <Select>
-            <SelectTrigger className="w-auto">
-              <SelectValue placeholder="Select a fruit" />
+          <Select value={contact} onValueChange={setContact}>
+            <SelectTrigger>
+              <SelectValue placeholder="Оберіть контакт" />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectLabel>Fruits</SelectLabel>
-                <SelectItem value="apple">Apple</SelectItem>
-                <SelectItem value="banana">Banana</SelectItem>
-                <SelectItem value="blueberry">Blueberry</SelectItem>
-                <SelectItem value="grapes">Grapes</SelectItem>
-                <SelectItem value="pineapple">Pineapple</SelectItem>
+                {contacts.map((contact: any) => (
+                  <SelectItem key={contact.id} value={contact.id.toString()}>
+                    {contact.name}
+                  </SelectItem>
+                ))}
               </SelectGroup>
             </SelectContent>
           </Select>
