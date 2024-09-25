@@ -76,136 +76,139 @@ export const CreateScenario = () => {
   };
 
   return (
-    <div className="flex gap-4 sm:gap-6 flex-col sm:flex-row">
-      <div className="flex flex-col gap-4">
-        <Input
-          placeholder="Введіть назву сценарію"
-          value={scenarioName}
-          onChange={(e) => setScenarioName(e.target.value)}
-        />
-        <Card className="shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)] mb-4 p-4 md:p-8">
-          <Accordion
-            type="single"
-            collapsible
-            className="w-full flex flex-col gap-4 border-none p-0"
-            defaultValue="phoneNumbers"
-          >
-            <AccordionItem value="phoneNumbers" className="p-0">
-              <AccordionTrigger className="p-0 gap-1 sm:gap-9">
-                <p className="font-semibold text-base leading-normal whitespace-nowrap">
-                  Застосувати до номерів
-                </p>
-              </AccordionTrigger>
-              <AccordionContent className="border-t mt-8 pt-8">
-                <ul className="flex flex-col gap-2">
-                  {phones.map((item) => (
-                    <li key={item.id} className="flex items-center gap-4">
-                      <Checkbox
-                        key={item.id}
-                        id={item.id.toString()}
-                        value={item.id.toString()}
-                        onCheckedChange={(value) =>
-                          onChangeCheckedNumbers(item.id)
-                        }
-                      />
-                      <span
-                        className={cn(
-                          'flex items-center justify-center w-14 h-5 rounded text-white text-xs font-semibold leading-[1.33]',
-                          item.numberType === 'sip'
-                            ? 'bg-orange-additional-color'
-                            : 'bg-green-additional-color',
-                        )}
-                      >
-                        {item.numberType.toUpperCase()}
-                      </span>
-                      <span className="text-base text-main-dark font-semibold leading-normal">
-                        +{item.phoneNumber}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
-          <Link
-            href="/my-numbers#ordernew"
-            className="text-main-color font-semibold mt-1 text-sm flex items-center gap-1"
-          >
-            <Icon iconName="Plus" width={20} height={20} /> Замовити новий номер
-          </Link>
-        </Card>
-      </div>
-      <div className="flex flex-col gap-4">
-        <Info>
-          Зверніть увагу: всі налаштування на цій сторінці, будуть
-          застосовуватись у відповідній послідовності під час вхідного дзвінка
-          на обрані номери.{' '}
-        </Info>
-        {activeForm === 1 && (
-          <ScenarioRedirectForm
-            contacts={contacts}
-            contact={contact}
-            setContact={setContact}
+    <>
+      <div className="flex gap-4 sm:gap-6 flex-col sm:flex-row">
+        <div className="flex flex-col gap-4">
+          <Input
+            placeholder="Введіть назву сценарію"
+            value={scenarioName}
+            onChange={(e) => setScenarioName(e.target.value)}
           />
-        )}
-        {activeForm === 2 && (
-          <ScenarioCallGroupForm
-            groups={groups}
-            group={group}
-            setGroup={setGroup}
-          />
-        )}
-        {activeForm === 3 && <ScenarioAudioForm />}
-        {activeForm === 4 && <ScenarioIvrMenuForm />}
-        <div className="flex flex-col gap-4 sm:flex-row sm:justify-around p-4 border border-dashed border-gray-light rounded-[6px]">
-          <Button
-            type="button"
-            variant="ghost"
-            disabled={!activeButtons}
-            className="gap-1 text-main-color disabled:text-main-dark disabled:opacity-100"
-            onClick={() => setActiveForm(1)}
-          >
-            Переадресація <Icon iconName="Plus" width={20} height={20} />
-          </Button>
-          <Button
-            type="button"
-            variant="ghost"
-            disabled={!activeButtons}
-            className="gap-1 text-main-color disabled:text-main-dark disabled:opacity-100"
-            onClick={() => setActiveForm(2)}
-          >
-            Виклик на групу <Icon iconName="Plus" width={20} height={20} />
-          </Button>
-          <Button
-            type="button"
-            variant="ghost"
-            disabled={!activeButtons}
-            className="gap-1 text-main-color disabled:text-main-dark disabled:opacity-100"
-            onClick={() => setActiveForm(3)}
-          >
-            Аудіофайл <Icon iconName="Plus" width={20} height={20} />
-          </Button>
-          <Button
-            type="button"
-            variant="ghost"
-            disabled={!activeButtons}
-            className="gap-1 text-main-color disabled:text-main-dark disabled:opacity-100"
-            onClick={() => setActiveForm(4)}
-          >
-            IVR меню <Icon iconName="Plus" width={20} height={20} />
-          </Button>
+          <Card className="shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)] mb-4 p-4 md:p-8">
+            <Accordion
+              type="single"
+              collapsible
+              className="w-full flex flex-col gap-4 border-none p-0"
+              defaultValue="phoneNumbers"
+            >
+              <AccordionItem value="phoneNumbers" className="p-0">
+                <AccordionTrigger className="p-0 gap-1 sm:gap-9">
+                  <p className="font-semibold text-base leading-normal whitespace-nowrap">
+                    Застосувати до номерів
+                  </p>
+                </AccordionTrigger>
+                <AccordionContent className="border-t mt-8 pt-8">
+                  <ul className="flex flex-col gap-2">
+                    {phones.map((item) => (
+                      <li key={item.id} className="flex items-center gap-4">
+                        <Checkbox
+                          key={item.id}
+                          id={item.id.toString()}
+                          value={item.id.toString()}
+                          onCheckedChange={(value) =>
+                            onChangeCheckedNumbers(item.id)
+                          }
+                        />
+                        <span
+                          className={cn(
+                            'flex items-center justify-center w-14 h-5 rounded text-white text-xs font-semibold leading-[1.33]',
+                            item.numberType === 'sip'
+                              ? 'bg-orange-additional-color'
+                              : 'bg-green-additional-color',
+                          )}
+                        >
+                          {item.numberType.toUpperCase()}
+                        </span>
+                        <span className="text-base text-main-dark font-semibold leading-normal">
+                          +{item.phoneNumber}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+            <Link
+              href="/my-numbers#ordernew"
+              className="text-main-color font-semibold mt-1 text-sm flex items-center gap-1"
+            >
+              <Icon iconName="Plus" width={20} height={20} /> Замовити новий
+              номер
+            </Link>
+          </Card>
         </div>
-        {activeForm > 0 && (
-          <div className="flex flex-col sm:flex-row sm:justify-end gap-4 mt-6">
-            <Button type="button" variant="outline" onClick={deleteScenario}>
-              Видалити сценарій
+        <div className="flex flex-col gap-4">
+          <Info>
+            Зверніть увагу: всі налаштування на цій сторінці, будуть
+            застосовуватись у відповідній послідовності під час вхідного дзвінка
+            на обрані номери.{' '}
+          </Info>
+          {activeForm === 1 && (
+            <ScenarioRedirectForm
+              contacts={contacts}
+              contact={contact}
+              setContact={setContact}
+            />
+          )}
+          {activeForm === 2 && (
+            <ScenarioCallGroupForm
+              groups={groups}
+              group={group}
+              setGroup={setGroup}
+            />
+          )}
+          {activeForm === 3 && <ScenarioAudioForm />}
+          {activeForm === 4 && <ScenarioIvrMenuForm />}
+          <div className="flex flex-col gap-4 sm:flex-row sm:justify-around p-4 border border-dashed border-gray-light rounded-[6px]">
+            <Button
+              type="button"
+              variant="ghost"
+              disabled={!activeButtons}
+              className="gap-1 text-main-color disabled:text-main-dark disabled:opacity-100"
+              onClick={() => setActiveForm(1)}
+            >
+              Переадресація <Icon iconName="Plus" width={20} height={20} />
             </Button>
-            <Button type="button" onClick={saveScenario}>
-              Зберегти сценарій
+            <Button
+              type="button"
+              variant="ghost"
+              disabled={!activeButtons}
+              className="gap-1 text-main-color disabled:text-main-dark disabled:opacity-100"
+              onClick={() => setActiveForm(2)}
+            >
+              Виклик на групу <Icon iconName="Plus" width={20} height={20} />
+            </Button>
+            <Button
+              type="button"
+              variant="ghost"
+              disabled={!activeButtons}
+              className="gap-1 text-main-color disabled:text-main-dark disabled:opacity-100"
+              onClick={() => setActiveForm(3)}
+            >
+              Аудіофайл <Icon iconName="Plus" width={20} height={20} />
+            </Button>
+            <Button
+              type="button"
+              variant="ghost"
+              disabled={!activeButtons}
+              className="gap-1 text-main-color disabled:text-main-dark disabled:opacity-100"
+              onClick={() => setActiveForm(4)}
+            >
+              IVR меню <Icon iconName="Plus" width={20} height={20} />
             </Button>
           </div>
-        )}
+          {activeForm > 0 && (
+            <div className="flex flex-col sm:flex-row sm:justify-end gap-4 mt-6">
+              <Button type="button" variant="outline" onClick={deleteScenario}>
+                Видалити сценарій
+              </Button>
+              <Button type="button" onClick={saveScenario}>
+                Зберегти сценарій
+              </Button>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };

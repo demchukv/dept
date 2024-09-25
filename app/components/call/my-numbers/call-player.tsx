@@ -12,7 +12,7 @@ import {
   ModalInner,
   ModalTitle,
 } from '@/app/components/common/modal-new';
-import { AudioPlayer } from '@/app/components/common/audio/audio-player';
+import AudioPlayer from '@/app/components/common/audio/player';
 import { KeyValText } from '../../common/key-val-text';
 
 export const CallPlayer = ({ msg }: { msg: callType }) => {
@@ -79,7 +79,7 @@ export const CallPlayer = ({ msg }: { msg: callType }) => {
                     className="justify-between"
                   />
                 </div>
-                <AudioPlayer src={msg.recording} />
+                <AudioPlayer audioSrc={msg.recording} />
               </>
             )}
           </ModalInner>
