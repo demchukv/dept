@@ -4,8 +4,8 @@ import Dragger, { Pos } from './dragger';
 import { formatSeconds } from './utils';
 import { useRaf } from './hooks';
 
-const containerWidth = 1000;
-const containerHeight = 160;
+const containerWidth = 300;
+const containerHeight = 20;
 
 function clamp(x: number, min: number, max: number) {
   if (x < min) {
@@ -132,7 +132,7 @@ export default function Player({
   useRaf(handleTimeUpdate);
 
   return (
-    <div className="relative block h-5">
+    <div className="relative block h-5" style={{ width: containerWidth }}>
       <audio hidden src={url} ref={audioRef} onEnded={handleEnded} />
       <div className="absolute w-full h-full flex items-center">
         <div

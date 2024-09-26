@@ -1,6 +1,6 @@
 import { Encoder } from '../types';
 
-const vendorPrefix = process.env.IS_DEV ? '/vendor/' : '/vendor/';
+const vendorPrefix = '/vendor/';
 
 Object.assign(globalThis, {
   Mp3LameEncoderConfig: {

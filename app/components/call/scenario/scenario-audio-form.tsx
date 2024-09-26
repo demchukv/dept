@@ -251,7 +251,38 @@ export const ScenarioAudioForm = (
                         DECODING...
                       </div>
                     ) : (
-                      <div className="relative">
+                      <div className="flex items-center justify-start gap-4">
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          onClick={handlePlayPauseClick}
+                          className="text-main-color"
+                        >
+                          <Icon
+                            iconName={
+                              state.paused ? 'PlayCircle' : 'DeleteCircle'
+                            }
+                            width={24}
+                            height={24}
+                            className="w-6 h-6"
+                          />
+                        </Button>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          onClick={handleReplayClick}
+                          className="text-main-color"
+                        >
+                          <Icon
+                            iconName="Refresh"
+                            width={24}
+                            height={24}
+                            className="w-6 h-6"
+                          />
+                        </Button>
+                        <p className="w-14">
+                          {formatDuration(state.currentTime)}
+                        </p>
                         <Player
                           audioBuffer={state.audioBuffer!}
                           blob={state.file!}
@@ -264,31 +295,16 @@ export const ScenarioAudioForm = (
                           onCurrentTimeChange={handleCurrentTimeChange}
                           onEnd={handleEnd}
                         />
+                        <p className="w-14">
+                          {formatDuration(state.audioBuffer?.duration ?? 0)}
+                        </p>
                       </div>
                     )}
 
                     <div className="flex gap-2 mt-2.5">
-                      <button
-                        type="button"
-                        className="ctrl-item"
-                        title="Play/Pause"
-                        onClick={handlePlayPauseClick}
-                      >
-                        {state.paused ? 'Play' : 'Pause'}
-                      </button>
-
-                      <button
-                        type="button"
-                        className="ctrl-item"
-                        title="Replay"
-                        onClick={handleReplayClick}
-                      >
-                        Replay
-                      </button>
-
                       <div className="dropdown list-wrap">
                         <button type="button" className="ctrl-item">
-                          {state.processing ? 'Loading...' : 'Download'}
+                          {state.processing ? 'Кодування...' : 'Завантажити'}
                         </button>
                         {!state.processing && (
                           <ul className="list">
