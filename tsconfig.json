@@ -24,12 +24,13 @@
   },
   "include": [
     "next-env.d.ts",
+    "typings",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
     "app/[locale]/expagetrans",
     ".next/types/**/*.ts",
-    "types/**/*.ts"
+    "types/**/*.ts",
   ],
   "exclude": ["node_modules"]
 }

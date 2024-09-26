@@ -19,7 +19,7 @@ import {
 } from '@/components/ui/select-form';
 import { useState } from 'react';
 import { Input } from '@/components/ui/input';
-import AudioPlayer from '@/app/components/common/audio/player';
+import { AudioEditor } from '@/app/components/common/audio-editor';
 
 interface ScenarioAudioFormProps {
   //   groups: any;
@@ -99,25 +99,7 @@ export const ScenarioAudioForm = (
               ></AccordionTrigger>
             </div>
             <AccordionContent className="border-t mt-8 pt-8">
-              <p className="font-semibold text-base mb-4">
-                <p>Add and edit audio</p>
-                {audiofile && <AudioPlayer audioSrc={audiofile} />}
-
-                {/* <Select value={group} onValueChange={setGroup}>
-            <SelectTrigger>
-              <SelectValue placeholder="Оберіть групу" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                {groups.map((group: any) => (
-                  <SelectItem key={group.id} value={group.id.toString()}>
-                    {group.name}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select> */}
-              </p>
+              <AudioEditor />
             </AccordionContent>
           </AccordionItem>
         </Accordion>
