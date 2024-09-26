@@ -4,7 +4,7 @@ import Dragger, { Pos } from './dragger';
 import { formatSeconds } from './utils';
 import { useRaf } from './hooks';
 
-const containerWidth = 300;
+const containerWidth = 290;
 const containerHeight = 20;
 
 function clamp(x: number, min: number, max: number) {

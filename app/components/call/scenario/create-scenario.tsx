@@ -137,7 +137,7 @@ export const CreateScenario = () => {
             </Link>
           </Card>
         </div>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 flex-grow">
           <Info>
             Зверніть увагу: всі налаштування на цій сторінці, будуть
             застосовуватись у відповідній послідовності під час вхідного дзвінка
@@ -159,7 +159,7 @@ export const CreateScenario = () => {
           )}
           {activeForm === 3 && <ScenarioAudioForm />}
           {activeForm === 4 && <ScenarioIvrMenuForm />}
-          <div className="flex flex-col gap-4 sm:flex-row sm:justify-around p-4 border border-dashed border-gray-light rounded-[6px]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 p-4 border border-dashed border-gray-light rounded-[6px]">
             <Button
               type="button"
               variant="ghost"

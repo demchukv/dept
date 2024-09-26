@@ -243,7 +243,7 @@ export const ScenarioAudioForm = (
               ></AccordionTrigger>
             </div>
             <AccordionContent className="border-t mt-8 pt-8">
-              <div className="relative w-full p-10">
+              <div className="relative w-full">
                 {(state.audioBuffer || state.decoding) && (
                   <div>
                     {state.decoding ? (
@@ -280,9 +280,7 @@ export const ScenarioAudioForm = (
                             className="w-6 h-6"
                           />
                         </Button>
-                        <p className="w-14">
-                          {formatDuration(state.currentTime)}
-                        </p>
+                        <p className="">{formatDuration(state.currentTime)}</p>
                         <Player
                           audioBuffer={state.audioBuffer!}
                           blob={state.file!}
@@ -295,7 +293,7 @@ export const ScenarioAudioForm = (
                           onCurrentTimeChange={handleCurrentTimeChange}
                           onEnd={handleEnd}
                         />
-                        <p className="w-14">
+                        <p className="">
                           {formatDuration(state.audioBuffer?.duration ?? 0)}
                         </p>
                       </div>
