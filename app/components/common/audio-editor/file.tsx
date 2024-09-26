@@ -20,9 +20,19 @@ export default function FilePicker({
 
   return (
     // eslint-disable-next-line jsx-a11y/label-has-associated-control
-    <label className={clsx('file', className)}>
-      { children }
-      <input type="file" key={inputKey} onChange={handleChange} />
+    <label
+      className={clsx(
+        'flex flex-shrink-0 w-full sm:w-auto px-3 py-2 text-white bg-main-color rounded text-xs font-semibold cursor-pointer',
+        className,
+      )}
+    >
+      {children}
+      <input
+        type="file"
+        key={inputKey}
+        onChange={handleChange}
+        className="hidden"
+      />
     </label>
   );
 }

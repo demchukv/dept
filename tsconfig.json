@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": ["dom", "dom.iterable", "esnext", "WebWorker"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -31,6 +31,7 @@
     "app/[locale]/expagetrans",
     ".next/types/**/*.ts",
     "types/**/*.ts",
+    "vendor/Mp3LameEncoder.min.js"
   ],
   "exclude": ["node_modules"]
 }

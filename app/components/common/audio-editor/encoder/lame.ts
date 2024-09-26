@@ -1,8 +1,6 @@
 import { Encoder } from '../types';
 
-const vendorPrefix = process.env.IS_DEV
-  ? '/vendor/'
-  : '/audio-cutter/vendor/';
+const vendorPrefix = process.env.IS_DEV ? '/vendor/' : '/public/vendor/';
 
 Object.assign(globalThis, {
   Mp3LameEncoderConfig: {
@@ -13,10 +11,7 @@ Object.assign(globalThis, {
 
 importScripts(`${vendorPrefix}Mp3LameEncoder.min.js`);
 
-const encodeAudioBufferLame: Encoder = ({
-  channels,
-  sampleRate,
-}) => {
+const encodeAudioBufferLame: Encoder = ({ channels, sampleRate }) => {
   // new an encoder: bitRate = 192
   const encoder = new (globalThis as any).Mp3LameEncoder(sampleRate, 192);
   encoder.encode(channels);

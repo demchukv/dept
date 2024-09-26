@@ -1,7 +1,11 @@
 /**
- * 找出数组某区域最大最小值
+ *
  */
-function getMinMaxInRange(array: ArrayLike<number>, start: number, end: number) {
+function getMinMaxInRange(
+  array: ArrayLike<number>,
+  start: number,
+  end: number,
+) {
   let min = 0;
   let min1 = 0;
   let max = 0;
@@ -24,7 +28,7 @@ function getMinMaxInRange(array: ArrayLike<number>, start: number, end: number) 
 }
 
 /**
- * 峰值取样
+ *
  */
 export default function getPeaks(
   width: number,
