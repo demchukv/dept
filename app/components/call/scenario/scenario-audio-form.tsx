@@ -267,7 +267,7 @@ export const ScenarioAudioForm = (
                       </div>
                     )}
 
-                    <div className="flex mt-2.5">
+                    <div className="flex gap-2 mt-2.5">
                       <button
                         type="button"
                         className="ctrl-item"
