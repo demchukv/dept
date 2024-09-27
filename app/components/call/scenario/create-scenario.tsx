@@ -46,6 +46,7 @@ export const CreateScenario = () => {
   const [group, setGroup] = useState(0);
   const [contact, setContact] = useState(0);
   const [audio, setAudio] = useState<any>({});
+  const [ivrMenu, setIvrMenu] = useState<any>({});
 
   const onChangeCheckedNumbers = (id: number) => {
     if (scenarioNumbers.includes(id)) {
@@ -73,6 +74,7 @@ export const CreateScenario = () => {
       callGroup: group,
       redirectContact: contact,
       audio: audio,
+      ivrMenu: ivrMenu,
     };
     console.log('Зберегти дані: ', values);
   };
@@ -159,8 +161,12 @@ export const CreateScenario = () => {
               setGroup={setGroup}
             />
           )}
-          {activeForm === 3 && <ScenarioAudioForm audio={audio} setAudio={setAudio} />}
-          {activeForm === 4 && <ScenarioIvrMenuForm />}
+          {activeForm === 3 && (
+            <ScenarioAudioForm audio={audio} setAudio={setAudio} />
+          )}
+          {activeForm === 4 && (
+            <ScenarioIvrMenuForm ivrMenu={ivrMenu} setIvrMenu={setIvrMenu} />
+          )}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 p-4 border border-dashed border-gray-light rounded-[6px]">
             <Button
               type="button"

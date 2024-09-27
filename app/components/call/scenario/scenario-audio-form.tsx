@@ -184,12 +184,11 @@ export const ScenarioAudioForm = ({
     );
     encode(audioSliced, 'mp3')
       .then((url) => {
-        console.log('url type: ', typeof url);
         const newFile = new File([url], 'sliced.mp3', {
           type: 'audio/mp3',
           lastModified: Date.now(),
         });
-        console.log(newFile);
+
         setState({
           ...state,
           file: newFile,
@@ -220,13 +219,15 @@ export const ScenarioAudioForm = ({
   };
 
   const handleSaveAudioData = () => {
-    handleEncode('mp3');
+    // handleEncode('mp3');
     setAudio({
       ...audio,
+      file: state.file,
       repeat: repeat,
       repeatCount: repeatCount,
     });
   };
+
   return (
     <>
       <Card className="shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)] mb-4 p-4 md:p-8 flex gap-4 items-center">
@@ -234,9 +235,9 @@ export const ScenarioAudioForm = ({
           type="single"
           collapsible
           className="w-full flex flex-col gap-4 border-none p-0"
-          defaultValue="ivrmenu"
+          defaultValue="addaudio"
         >
-          <AccordionItem value="ivrmenu" className="p-0 justify-between">
+          <AccordionItem value="addaudio" className="p-0 justify-between">
             <div className="w-full items-center flex flex-1 gap-2.5 justify-between">
               <Icon
                 iconName="DndIcon"

@@ -32,6 +32,7 @@ export default function FilePicker({
         key={inputKey}
         onChange={handleChange}
         className="hidden"
+        accept="audio/*"
       />
     </label>
   );
