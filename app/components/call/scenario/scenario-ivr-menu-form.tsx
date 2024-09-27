@@ -31,6 +31,20 @@ import { startTransition } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+const operationList = [
+  {
+    id: 'redirect',
+    name: 'Переадресація',
+  },
+  {
+    id: 'group',
+    name: 'Виклик на групу',
+  },
+  {
+    id: 'audio',
+    name: 'Аудіофайл',
+  },
+];
 const ivrMenuSchema = z.object({
   ivrMenuData: z.object({
     oneIvrItem: z
@@ -187,16 +201,16 @@ export const ScenarioIvrMenuForm = ({
                               >
                                 <FormControl>
                                   <SelectTrigger>
-                                    <SelectValue placeholder="Operation" />
+                                    <SelectValue placeholder="Оберіть дію" />
                                   </SelectTrigger>
                                 </FormControl>
                                 <SelectContent>
-                                  {Array.from(
-                                    { length: 5 },
-                                    (_, si) => si + 1,
-                                  ).map((si) => (
-                                    <SelectItem key={si} value={si.toString()}>
-                                      {si}
+                                  {operationList.map((operation) => (
+                                    <SelectItem
+                                      key={operation.id}
+                                      value={operation.id}
+                                    >
+                                      {operation.name}
                                     </SelectItem>
                                   ))}
                                 </SelectContent>
