@@ -169,8 +169,42 @@ export const ScenarioAudioForm = ({
 
   const displaySeconds = (seconds: number) => `${seconds.toFixed(2)}s`;
 
-  const handleCutAudio = () => {
-    console.log('handleCutAudio');
+  const handleCutAudio = async () => {
+    const { startTime, endTime, audioBuffer, file } = state;
+    if (!audioBuffer || !file) return;
+    setState({
+      processing: true,
+    });
+    const { length, duration } = audioBuffer;
+
+    const audioSliced = sliceAudioBuffer(
+      audioBuffer,
+      Math.floor((length * startTime) / duration),
+      Math.floor((length * endTime) / duration),
+    );
+    encode(audioSliced, 'mp3')
+      .then((url) => {
+        console.log('url type: ', typeof url);
+        const newFile = new File([url], 'sliced.mp3', {
+          type: 'audio/mp3',
+          lastModified: Date.now(),
+        });
+        console.log(newFile);
+        setState({
+          ...state,
+          file: newFile,
+          audioBuffer: audioSliced,
+          startTime: 0,
+          currentTime: 0,
+          endTime: audioSliced.duration,
+        });
+      })
+      .catch((e) => console.error(e))
+      .then(() => {
+        setState({
+          processing: false,
+        });
+      });
   };
   const clearFileState = () => {
     setState({
@@ -322,7 +356,7 @@ export const ScenarioAudioForm = ({
                             onClick={handleCutAudio}
                             className="text-main-color border-transparent"
                           >
-                            Обрізати
+                            {state.processing ? 'Кодування...' : 'Обрізати'}
                           </Button>
                         </div>
                       </>
