@@ -73,7 +73,9 @@ export const ScenarioIvrMenuForm = ({
   const form = useForm<z.infer<typeof ivrMenuSchema>>({
     resolver: zodResolver(ivrMenuSchema),
     mode: 'onChange',
-    defaultValues: ivrMenu,
+    defaultValues: {
+      ivrMenuData: { oneIvrItem: ivrMenu },
+    },
   });
   const {
     fields: fieldsIvrMenuItem,

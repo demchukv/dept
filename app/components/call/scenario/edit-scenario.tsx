@@ -39,7 +39,7 @@ const contacts = [
   { id: 4, name: 'Контакт 4' },
 ];
 
-//TODO: get data from API by ID from URL params
+//TODO: get data from API by ID from URL params and set it to state
 const scenarioData = {
   title: 'Технічна підтримка',
   phones: [1, 2],
@@ -50,7 +50,10 @@ const scenarioData = {
     repeat: true,
     repeatCount: '3',
   },
-  ivrMenu: 1, // ?
+  ivrMenu: [
+    { sortNumber: '1', operation: 'ivrmenu', id: 1 },
+    { sortNumber: '2', operation: 'redirect', id: 2 },
+  ],
 };
 export const EditScenario = () => {
   const { id } = useParams();
@@ -63,7 +66,7 @@ export const EditScenario = () => {
   const [group, setGroup] = useState(scenarioData.callGroup);
   const [contact, setContact] = useState(scenarioData.redirectContact);
   const [audio, setAudio] = useState<any>(scenarioData.audio);
-  const [ivrMenu, setIvrMenu] = useState<any>({});
+  const [ivrMenu, setIvrMenu] = useState<any>(scenarioData.ivrMenu);
 
   const onChangeCheckedNumbers = (id: number) => {
     if (scenarioNumbers.includes(id)) {
