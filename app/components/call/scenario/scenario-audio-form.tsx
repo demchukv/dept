@@ -9,7 +9,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Input } from '@/components/ui/input';
 
 import Player from '@/app/components/common/audio-editor/player-simple';
@@ -19,6 +19,8 @@ import {
   readBlobURL,
   download,
   rename,
+  readDataURL,
+  url2blob,
 } from '@/app/components/common/audio-editor/utils';
 import {
   decodeAudioBuffer,
@@ -227,6 +229,17 @@ export const ScenarioAudioForm = ({
       repeatCount: repeatCount,
     });
   };
+
+  useEffect(() => {
+    if (audio.file) {
+      url2blob(audio.file).then((blob) => {
+        if (blob) {
+          const file = new File([blob], 'audio.mp3', { type: 'audio/mp3' });
+          handleFileChange(file);
+        }
+      });
+    }
+  }, []);
 
   return (
     <>

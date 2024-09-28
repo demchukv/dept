@@ -6,10 +6,8 @@ export const isAudio = (file: File) => file.type.indexOf('audio') > -1;
 /**
  * create range [min .. max]
  */
-export const range = (min: number, max: number) => Array.from(
-  new Array(max - min + 1),
-  (v, i) => i + min,
-);
+export const range = (min: number, max: number) =>
+  Array.from(new Array(max - min + 1), (v, i) => i + min);
 
 interface FileReadAsType {
   ArrayBuffer: ArrayBuffer;
@@ -22,7 +20,8 @@ interface FileReadAsType {
 export const readFile = <Type extends keyof FileReadAsType>(
   file: Blob,
   dataType: Type,
-) => new Promise<FileReadAsType[Type]>((resolve, reject) => {
+) =>
+  new Promise<FileReadAsType[Type]>((resolve, reject) => {
     const reader = new FileReader();
     (reader as any)[`readAs${dataType}`](file);
     reader.onload = () => resolve(reader.result as any);
@@ -48,7 +47,8 @@ export const download = (url: string, name: string) => {
   link.click();
 };
 
-export const rename = (filename: string, ext: string, stamp?: string) => `${filename.replace(/\.\w+$/, '')}${stamp || ''}.${ext}`;
+export const rename = (filename: string, ext: string, stamp?: string) =>
+  `${filename.replace(/\.\w+$/, '')}${stamp || ''}.${ext}`;
 
 /**
  * format seconds to [minutes, integer, decimal(2)]
@@ -58,3 +58,17 @@ export const formatSeconds = (seconds: number) => [
   Math.floor(seconds % 60),
   Math.round((seconds % 1) * 100),
 ];
+
+/**
+ * get file by URL and convert to file object
+ */
+export const url2blob = async (url: string) => {
+  try {
+    const data = await fetch(url);
+    const blob = await data.blob();
+
+    return blob;
+  } catch (err: any) {
+    console.error(err.name, err.message);
+  }
+};

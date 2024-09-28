@@ -42,18 +42,16 @@ export const ScenarioCallGroupForm = ({
               />
             </Button>
           </p>
-          <Select value={group} onValueChange={setGroup}>
+          <Select defaultValue={group} onValueChange={setGroup}>
             <SelectTrigger>
               <SelectValue placeholder="Оберіть групу" />
             </SelectTrigger>
             <SelectContent>
-              <SelectGroup>
-                {groups.map((group: any) => (
-                  <SelectItem key={group.id} value={group.id.toString()}>
-                    {group.name}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
+              {groups.map((group: any) => (
+                <SelectItem key={group.id} value={group.id.toString()}>
+                  {group.name}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
           <Button

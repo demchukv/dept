@@ -7,8 +7,10 @@ import '@/app/globals.css';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
 import StoreProvider from '@/app/StoreProvider';
+import { NavigationEvents } from '@/app/components/common/navigation-events';
 
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Suspense } from 'react';
 
 const montserrat = Montserrat({
   subsets: ['latin', 'cyrillic'],
@@ -64,6 +66,9 @@ export default async function RootLayout({
 
           <SpeedInsights />
         </StoreProvider>
+        <Suspense fallback={null}>
+          <NavigationEvents />
+        </Suspense>
       </body>
     </html>
   );

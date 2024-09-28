@@ -27,11 +27,15 @@ import {
 import { Input } from '@/components/ui/input';
 import { toast } from '@/components/ui/use-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { startTransition } from 'react';
+import React, { startTransition } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 const operationList = [
+  {
+    id: 'ivrmenu',
+    name: 'IVR Меню',
+  },
   {
     id: 'redirect',
     name: 'Переадресація',
@@ -155,100 +159,105 @@ export const ScenarioIvrMenuForm = ({
                 </div>
                 <AccordionContent className="border-t mt-8 pt-8">
                   {fieldsIvrMenuItem.map((field: any, i: number) => (
-                    <div
-                      key={i}
-                      className="flex items-center justify-between gap-3 bg-bg-color border border-gray-light rounded p-4 mb-4"
-                    >
-                      <div className="flex items-center gap-3">
-                        <FormField
-                          control={form.control}
-                          name={`ivrMenuData.oneIvrItem.${i}.sortNumber`}
-                          render={({ field }) => (
-                            <FormItem>
-                              <Select
-                                onValueChange={field.onChange}
-                                defaultValue={field.value}
-                              >
-                                <FormControl>
-                                  <SelectTrigger>
-                                    <SelectValue placeholder="Sort" />
-                                  </SelectTrigger>
-                                </FormControl>
-                                <SelectContent>
-                                  {Array.from(
-                                    { length: 5 },
-                                    (_, si) => si + 1,
-                                  ).map((si) => (
-                                    <SelectItem key={si} value={si.toString()}>
-                                      {si}
-                                    </SelectItem>
-                                  ))}
-                                </SelectContent>
-                              </Select>
+                    <React.Fragment key={i}>
+                      <div
+                        key={i}
+                        className="flex items-center justify-between gap-3 bg-bg-color border border-gray-light rounded p-4 mb-4"
+                      >
+                        <div className="flex items-center gap-3">
+                          <FormField
+                            control={form.control}
+                            name={`ivrMenuData.oneIvrItem.${i}.sortNumber`}
+                            render={({ field }) => (
+                              <FormItem>
+                                <Select
+                                  onValueChange={field.onChange}
+                                  defaultValue={field.value}
+                                >
+                                  <FormControl>
+                                    <SelectTrigger>
+                                      <SelectValue placeholder="Sort" />
+                                    </SelectTrigger>
+                                  </FormControl>
+                                  <SelectContent>
+                                    {Array.from(
+                                      { length: 5 },
+                                      (_, si) => si + 1,
+                                    ).map((si) => (
+                                      <SelectItem
+                                        key={si}
+                                        value={si.toString()}
+                                      >
+                                        {si}
+                                      </SelectItem>
+                                    ))}
+                                  </SelectContent>
+                                </Select>
 
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name={`ivrMenuData.oneIvrItem.${i}.operation`}
-                          render={({ field }) => (
-                            <FormItem>
-                              <Select
-                                onValueChange={field.onChange}
-                                defaultValue={field.value}
-                              >
-                                <FormControl>
-                                  <SelectTrigger>
-                                    <SelectValue placeholder="Оберіть дію" />
-                                  </SelectTrigger>
-                                </FormControl>
-                                <SelectContent>
-                                  {operationList.map((operation) => (
-                                    <SelectItem
-                                      key={operation.id}
-                                      value={operation.id}
-                                    >
-                                      {operation.name}
-                                    </SelectItem>
-                                  ))}
-                                </SelectContent>
-                              </Select>
-
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                      </div>
-                      <div>
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          className="p-0 w-6 h-6 bg-transparent"
-                          onClick={() => removeIvrMenuItem(i)}
-                        >
-                          <Icon
-                            width={24}
-                            height={24}
-                            iconName="Trash"
-                            className="fill-warning w-6 h-6 flex-shrink-0"
+                                <FormMessage />
+                              </FormItem>
+                            )}
                           />
-                        </Button>
-                        <FormField
-                          control={form.control}
-                          name={`ivrMenuData.oneIvrItem.${i}.id`}
-                          render={({ field }) => (
-                            <FormItem className="space-y-1">
-                              <FormControl>
-                                <Input type="hidden" {...field} />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
+                          <FormField
+                            control={form.control}
+                            name={`ivrMenuData.oneIvrItem.${i}.operation`}
+                            render={({ field }) => (
+                              <FormItem>
+                                <Select
+                                  onValueChange={field.onChange}
+                                  defaultValue={field.value}
+                                >
+                                  <FormControl>
+                                    <SelectTrigger>
+                                      <SelectValue placeholder="Оберіть дію" />
+                                    </SelectTrigger>
+                                  </FormControl>
+                                  <SelectContent>
+                                    {operationList.map((operation) => (
+                                      <SelectItem
+                                        key={operation.id}
+                                        value={operation.id}
+                                      >
+                                        {operation.name}
+                                      </SelectItem>
+                                    ))}
+                                  </SelectContent>
+                                </Select>
+
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                        <div>
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            className="p-0 w-6 h-6 bg-transparent"
+                            onClick={() => removeIvrMenuItem(i)}
+                          >
+                            <Icon
+                              width={24}
+                              height={24}
+                              iconName="Trash"
+                              className="fill-warning w-6 h-6 flex-shrink-0"
+                            />
+                          </Button>
+                          <FormField
+                            control={form.control}
+                            name={`ivrMenuData.oneIvrItem.${i}.id`}
+                            render={({ field }) => (
+                              <FormItem className="space-y-1">
+                                <FormControl>
+                                  <Input type="hidden" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
                       </div>
-                    </div>
+                    </React.Fragment>
                   ))}
 
                   <div className="flex items-center justify-between">

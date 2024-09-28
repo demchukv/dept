@@ -78,8 +78,8 @@ export const SideMenu = ({ closeSidebar }: MenuItemProps) => {
   return (
     <div className="flex flex-col gap-6 my-10 lg:my-6 px-6 pb-9 w-full h-full overflow-y-auto">
       <Link
-        href="/"
-        className={cn(linkClass, path === '/' && 'text-main-color')}
+        href="/dashboard"
+        className={cn(linkClass, path === '/dashboard' && 'text-main-color')}
         locale={lang}
         scroll={false}
         onClick={() => closeSidebar && closeSidebar()}

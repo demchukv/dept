@@ -42,18 +42,16 @@ export const ScenarioRedirectForm = ({
               />
             </Button>
           </p>
-          <Select value={contact} onValueChange={setContact}>
+          <Select defaultValue={contact} onValueChange={setContact}>
             <SelectTrigger>
               <SelectValue placeholder="Оберіть контакт" />
             </SelectTrigger>
             <SelectContent>
-              <SelectGroup>
-                {contacts.map((contact: any) => (
-                  <SelectItem key={contact.id} value={contact.id.toString()}>
-                    {contact.name}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
+              {contacts.map((contact: any) => (
+                <SelectItem key={contact.id} value={contact.id.toString()}>
+                  {contact.name}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
           <Button
