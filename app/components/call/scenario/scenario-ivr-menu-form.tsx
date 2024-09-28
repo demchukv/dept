@@ -32,6 +32,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import React, { startTransition } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { ScenarioIvrMenuSubform } from '@/app/components/call/scenario/scenario-ivr-menu-subform';
 
 const operationList = [
   {
@@ -58,7 +59,18 @@ const ivrMenuSchema = z.object({
         z.object({
           sortNumber: z.string().min(1, 'Вкажіть Номер'),
           operation: z.string().min(1, 'Вкажіть дію'),
+          operationValue: z.string().optional(),
           id: z.number().optional(),
+          subMenu: z
+            .array(
+              z.object({
+                sortNumber: z.string().min(1, 'Вкажіть Номер'),
+                operation: z.string().min(1, 'Вкажіть дію'),
+                operationValue: z.string().optional(),
+                id: z.number().optional(),
+              }),
+            )
+            .optional(),
         }),
       )
       .optional(),
@@ -289,14 +301,11 @@ export const ScenarioIvrMenuForm = ({
                               `ivrMenuData.oneIvrItem.${i}.operation`,
                             ) === 'ivrmenu' && (
                               <div className="border-l border-gray-light pl-3">
-                                SUB items for IVR Menu
-                              </div>
-                            )}
-                            {form.getValues(
-                              `ivrMenuData.oneIvrItem.${i}.operation`,
-                            ) === 'audio' && (
-                              <div className="border-l border-gray-light pl-3">
-                                Upload and edit audio file
+                                <ScenarioIvrMenuSubform
+                                  form={form}
+                                  fieldsIvrMenuItem={fieldsIvrMenuItem}
+                                  index={i}
+                                />
                               </div>
                             )}
                           </CollapsibleContent>
@@ -309,7 +318,7 @@ export const ScenarioIvrMenuForm = ({
                     <Button
                       type="button"
                       variant="outline"
-                      className="border-transparent text-main-color gap-1"
+                      className="border-transparent bg-transparent shadow-none text-main-color hover:text-main-dark px-0 gap-1"
                       onClick={() =>
                         appendIvrMenuItem(
                           { sortNumber: '', operation: '', id: undefined },

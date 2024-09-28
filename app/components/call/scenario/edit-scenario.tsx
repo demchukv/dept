@@ -51,8 +51,17 @@ const scenarioData = {
     repeatCount: '3',
   },
   ivrMenu: [
-    { sortNumber: '1', operation: 'ivrmenu', id: 1 },
-    { sortNumber: '2', operation: 'redirect', id: 2 },
+    {
+      sortNumber: '1',
+      operation: 'ivrmenu',
+      id: 1,
+      subMenu: [
+        { sortNumber: '1', operation: 'audio', id: 11 },
+        { sortNumber: '2', operation: 'redirect', id: 12 },
+        { sortNumber: '3', operation: 'group', id: 13 },
+      ],
+    },
+    { sortNumber: '2', operation: 'redirect', operationValue: '3', id: 2 },
   ],
 };
 export const EditScenario = () => {
