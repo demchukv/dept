@@ -8,11 +8,14 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/ui/collapsible';
+import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select-form';
@@ -21,7 +24,6 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
@@ -107,10 +109,17 @@ export const ScenarioIvrMenuForm = ({
     });
   }
 
+  function onChange(data: z.infer<typeof ivrMenuSchema>) {
+    return;
+  }
+
   return (
     <>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          onChange={form.handleSubmit(onChange)}
+        >
           <Card className="shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)] mb-4 p-4 md:p-8 flex gap-4 items-center">
             <Accordion
               type="single"
@@ -164,100 +173,134 @@ export const ScenarioIvrMenuForm = ({
                     <React.Fragment key={i}>
                       <div
                         key={i}
-                        className="flex items-center justify-between gap-3 bg-bg-color border border-gray-light rounded p-4 mb-4"
+                        className="flex flex-col gap-3 bg-bg-color border border-gray-light rounded p-4 mb-4"
                       >
-                        <div className="flex items-center gap-3">
-                          <FormField
-                            control={form.control}
-                            name={`ivrMenuData.oneIvrItem.${i}.sortNumber`}
-                            render={({ field }) => (
-                              <FormItem>
-                                <Select
-                                  onValueChange={field.onChange}
-                                  defaultValue={field.value}
-                                >
-                                  <FormControl>
-                                    <SelectTrigger>
-                                      <SelectValue placeholder="Sort" />
-                                    </SelectTrigger>
-                                  </FormControl>
-                                  <SelectContent>
-                                    {Array.from(
-                                      { length: 5 },
-                                      (_, si) => si + 1,
-                                    ).map((si) => (
-                                      <SelectItem
-                                        key={si}
-                                        value={si.toString()}
-                                      >
-                                        {si}
-                                      </SelectItem>
-                                    ))}
-                                  </SelectContent>
-                                </Select>
+                        <Collapsible className="flex flex-col gap-3">
+                          <div className="flex items-center justify-between gap-3">
+                            <div className="flex items-center gap-3">
+                              <FormField
+                                control={form.control}
+                                name={`ivrMenuData.oneIvrItem.${i}.sortNumber`}
+                                render={({ field }) => (
+                                  <FormItem>
+                                    <Select
+                                      onValueChange={field.onChange}
+                                      defaultValue={field.value}
+                                    >
+                                      <FormControl>
+                                        <SelectTrigger>
+                                          <SelectValue placeholder="Sort" />
+                                        </SelectTrigger>
+                                      </FormControl>
+                                      <SelectContent>
+                                        {Array.from(
+                                          { length: 5 },
+                                          (_, si) => si + 1,
+                                        ).map((si) => (
+                                          <SelectItem
+                                            key={si}
+                                            value={si.toString()}
+                                          >
+                                            {si}
+                                          </SelectItem>
+                                        ))}
+                                      </SelectContent>
+                                    </Select>
 
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-                          <FormField
-                            control={form.control}
-                            name={`ivrMenuData.oneIvrItem.${i}.operation`}
-                            render={({ field }) => (
-                              <FormItem>
-                                <Select
-                                  onValueChange={field.onChange}
-                                  defaultValue={field.value}
-                                >
-                                  <FormControl>
-                                    <SelectTrigger>
-                                      <SelectValue placeholder="Оберіть дію" />
-                                    </SelectTrigger>
-                                  </FormControl>
-                                  <SelectContent>
-                                    {operationList.map((operation) => (
-                                      <SelectItem
-                                        key={operation.id}
-                                        value={operation.id}
-                                      >
-                                        {operation.name}
-                                      </SelectItem>
-                                    ))}
-                                  </SelectContent>
-                                </Select>
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
+                              <FormField
+                                control={form.control}
+                                name={`ivrMenuData.oneIvrItem.${i}.operation`}
+                                render={({ field }) => (
+                                  <FormItem>
+                                    <Select
+                                      onValueChange={field.onChange}
+                                      defaultValue={field.value}
+                                    >
+                                      <FormControl>
+                                        <SelectTrigger>
+                                          <SelectValue placeholder="Оберіть дію" />
+                                        </SelectTrigger>
+                                      </FormControl>
+                                      <SelectContent>
+                                        {operationList.map((operation) => (
+                                          <SelectItem
+                                            key={operation.id}
+                                            value={operation.id}
+                                          >
+                                            {operation.name}
+                                          </SelectItem>
+                                        ))}
+                                      </SelectContent>
+                                    </Select>
 
-                                <FormMessage />
-                              </FormItem>
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
+                            </div>
+                            <div className="flex flex-shrink-0 gap-3 items-center justify-between">
+                              <Button
+                                type="button"
+                                variant="ghost"
+                                className="p-0 w-6 h-6 bg-transparent"
+                                onClick={() => removeIvrMenuItem(i)}
+                              >
+                                <Icon
+                                  width={24}
+                                  height={24}
+                                  iconName="Trash"
+                                  className="fill-warning w-6 h-6 flex-shrink-0"
+                                />
+                              </Button>
+                              <FormField
+                                control={form.control}
+                                name={`ivrMenuData.oneIvrItem.${i}.id`}
+                                render={({ field }) => (
+                                  <FormItem className="space-y-1">
+                                    <FormControl>
+                                      <Input type="hidden" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
+                              {(form.getValues(
+                                `ivrMenuData.oneIvrItem.${i}.operation`,
+                              ) === 'ivrmenu' ||
+                                form.getValues(
+                                  `ivrMenuData.oneIvrItem.${i}.operation`,
+                                ) === 'audio') && (
+                                <CollapsibleTrigger>
+                                  <Icon
+                                    width={24}
+                                    height={24}
+                                    iconName="ArrowDown"
+                                  />
+                                </CollapsibleTrigger>
+                              )}
+                            </div>
+                          </div>
+                          <CollapsibleContent>
+                            {form.getValues(
+                              `ivrMenuData.oneIvrItem.${i}.operation`,
+                            ) === 'ivrmenu' && (
+                              <div className="border-l border-gray-light pl-3">
+                                SUB items for IVR Menu
+                              </div>
                             )}
-                          />
-                        </div>
-                        <div>
-                          <Button
-                            type="button"
-                            variant="ghost"
-                            className="p-0 w-6 h-6 bg-transparent"
-                            onClick={() => removeIvrMenuItem(i)}
-                          >
-                            <Icon
-                              width={24}
-                              height={24}
-                              iconName="Trash"
-                              className="fill-warning w-6 h-6 flex-shrink-0"
-                            />
-                          </Button>
-                          <FormField
-                            control={form.control}
-                            name={`ivrMenuData.oneIvrItem.${i}.id`}
-                            render={({ field }) => (
-                              <FormItem className="space-y-1">
-                                <FormControl>
-                                  <Input type="hidden" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
+                            {form.getValues(
+                              `ivrMenuData.oneIvrItem.${i}.operation`,
+                            ) === 'audio' && (
+                              <div className="border-l border-gray-light pl-3">
+                                Upload and edit audio file
+                              </div>
                             )}
-                          />
-                        </div>
+                          </CollapsibleContent>
+                        </Collapsible>
                       </div>
                     </React.Fragment>
                   ))}
