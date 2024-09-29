@@ -21,6 +21,7 @@ import {
 import { Icon } from '@/components/utils/icon';
 import React from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
+import { ScenarioIvrMenuSubaudio } from './scenario-ivr-menu-subaudio';
 
 const subOperationList = [
   {
@@ -57,7 +58,6 @@ export const ScenarioIvrMenuSubform = ({
     keyName: 'bKey',
   });
 
-  console.log(fieldsIvrMenuItem);
   return (
     <>
       {subFields.map((field: any, i: number) => (
@@ -152,18 +152,18 @@ export const ScenarioIvrMenuSubform = ({
                       </FormItem>
                     )}
                   />
-                  {/* {form.getValues(
+                  {form.getValues(
                     `ivrMenuData.oneIvrItem.${index}.subMenu.${i}.operation` ===
                       'audio',
                   ) && (
                     <CollapsibleTrigger>
                       <Icon width={24} height={24} iconName="ArrowDown" />
                     </CollapsibleTrigger>
-                  )} */}
+                  )}
                 </div>
               </div>
               <CollapsibleContent>
-                {/* {form.getValues(`ivrMenuData.oneIvrItem.${i}.operation`) ===
+                {form.getValues(`ivrMenuData.oneIvrItem.${i}.operation`) ===
                   'audio' && (
                   <div className="border-l border-gray-light pl-3">
                     <ScenarioIvrMenuSubaudio
@@ -171,7 +171,7 @@ export const ScenarioIvrMenuSubform = ({
                       fieldsIvrMenuItem={fieldsIvrMenuItem}
                     />
                   </div>
-                )} */}
+                )}
               </CollapsibleContent>
             </Collapsible>
           </div>
@@ -193,7 +193,7 @@ export const ScenarioIvrMenuSubform = ({
           Додати варіант
           <Icon iconName="Plus" width={20} height={20} className="w-5 h-5" />
         </Button>
-        <Button type="submit">Зберегти</Button>
+        {/* <Button type="submit">Зберегти</Button> */}
       </div>
     </>
   );
