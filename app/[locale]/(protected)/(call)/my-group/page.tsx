@@ -3,6 +3,7 @@ import React from 'react';
 
 import initTranslations from '@/app/i18n';
 import TranslationsProvider from '@/components/translations-provider';
+import { Groups } from '@/app/components/call/groups/groups';
 
 const i18nNamespaces = ['task'];
 export const metadata: Metadata = {
@@ -23,8 +24,7 @@ const CertificatePage = async ({
       locale={locale}
       resources={resources}
     >
-      {/* <Certificate /> */}
-      <p>Телефонія: Мої групи</p>
+      <Groups />
     </TranslationsProvider>
   );
 };
