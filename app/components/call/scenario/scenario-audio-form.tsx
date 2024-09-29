@@ -17,9 +17,7 @@ import FilePicker from '@/app/components/common/audio-editor/file';
 import {
   isAudio,
   readBlobURL,
-  download,
   rename,
-  readDataURL,
   url2blob,
 } from '@/app/components/common/audio-editor/utils';
 import {
@@ -31,15 +29,15 @@ import { useClassicState } from '@/app/components/common/audio-editor/hooks';
 import { SUpportedFormat } from '@/app/components/common/audio-editor/types';
 import { Checkbox } from '@/components/ui/checkbox';
 
-// import { AudioEditor } from '@/app/components/common/audio-editor';
-
 interface ScenarioAudioFormProps {
   audio: any;
   setAudio: any;
+  viewHead?: boolean;
 }
 export const ScenarioAudioForm = ({
   audio,
   setAudio,
+  viewHead = true,
 }: ScenarioAudioFormProps) => {
   const [state, setState] = useClassicState<{
     file: File | null;
@@ -145,7 +143,6 @@ export const ScenarioAudioForm = ({
     encode(audioSliced, type)
       .then(readBlobURL)
       .then((url) => {
-        // download(url, rename(file.name, type));
         setAudio({
           ...audio,
           file: {
@@ -221,7 +218,6 @@ export const ScenarioAudioForm = ({
   };
 
   const handleSaveAudioData = () => {
-    // handleEncode('mp3');
     setAudio({
       ...audio,
       file: state.file,
@@ -231,7 +227,7 @@ export const ScenarioAudioForm = ({
   };
 
   useEffect(() => {
-    if (audio.file) {
+    if (audio?.file) {
       url2blob(audio.file).then((blob) => {
         if (blob) {
           const file = new File([blob], 'audio.mp3', { type: 'audio/mp3' });
@@ -288,7 +284,10 @@ export const ScenarioAudioForm = ({
                     Видалити
                   </Button>
                   {!state.file && (
-                    <FilePicker onPick={handleFileChange}>
+                    <FilePicker
+                      onPick={handleFileChange}
+                      className="text-xs text-white"
+                    >
                       Додати аудіофайл
                     </FilePicker>
                   )}
@@ -309,11 +308,21 @@ export const ScenarioAudioForm = ({
                       </div>
                     ) : (
                       <>
-                        <div className="mb-6 font-medium">
-                          <span className="font-semibold">
-                            Редагування аудіофайлу
-                          </span>{' '}
-                          {state.file?.name}
+                        <div className="mb-6 font-medium flex items-center justify-between">
+                          <div>
+                            <span className="font-semibold">
+                              Редагування аудіофайлу
+                            </span>{' '}
+                            {state.file?.name}
+                          </div>
+                          <div>
+                            <FilePicker
+                              onPick={handleFileChange}
+                              className="text-main-color bg-white  text-sm px-6"
+                            >
+                              Замінити
+                            </FilePicker>
+                          </div>
                         </div>
                         <div className="flex items-center justify-between gap-4">
                           <div className="flex items-center justify-start gap-4">
@@ -375,57 +384,6 @@ export const ScenarioAudioForm = ({
                         </div>
                       </>
                     )}
-
-                    {/* <div className="flex gap-2 mt-2.5">
-                      <div className="dropdown list-wrap">
-                        <button type="button" className="ctrl-item">
-                          {state.processing ? 'Кодування...' : 'Завантажити'}
-                        </button>
-                        {!state.processing && (
-                          <ul className="list">
-                            <li>
-                              <button
-                                type="button"
-                                onClick={() => handleEncode('wav')}
-                              >
-                                Wav
-                              </button>
-                            </li>
-                            <li>
-                              <button
-                                type="button"
-                                onClick={() => handleEncode('mp3')}
-                                data-type="mp3"
-                              >
-                                MP3
-                              </button>
-                            </li>
-                          </ul>
-                        )}
-                      </div>
-
-                      {Number.isFinite(state.endTime) && (
-                        <span className="seconds">
-                          Вибрано{' '}
-                          <span className="seconds-range">
-                            {displaySeconds(state.endTime - state.startTime)}
-                          </span>{' '}
-                          з{' '}
-                          <span className="seconds-total">
-                            {displaySeconds(state.audioBuffer?.duration ?? 0)}
-                          </span>{' '}
-                          (від{' '}
-                          <span className="seconds-start">
-                            {displaySeconds(state.startTime)}
-                          </span>{' '}
-                          до{' '}
-                          <span className="seconds-end">
-                            {displaySeconds(state.endTime)}
-                          </span>
-                          )
-                        </span>
-                      )}
-                    </div> */}
 
                     <div className="flex gap-2 items-center justify-between mt-5">
                       <div className="flex gap-2 items-center">

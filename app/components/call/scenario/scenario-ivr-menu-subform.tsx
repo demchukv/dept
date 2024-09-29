@@ -19,7 +19,7 @@ import {
   SelectValue,
 } from '@/components/ui/select-form';
 import { Icon } from '@/components/utils/icon';
-import React from 'react';
+import React, { useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { ScenarioIvrMenuSubaudio } from './scenario-ivr-menu-subaudio';
 
@@ -57,6 +57,7 @@ export const ScenarioIvrMenuSubform = ({
     name: `ivrMenuData.oneIvrItem.${index}.subMenu`,
     keyName: 'bKey',
   });
+  const [audio, setAudio] = useState<any>(null);
 
   return (
     <>
@@ -153,9 +154,8 @@ export const ScenarioIvrMenuSubform = ({
                     )}
                   />
                   {form.getValues(
-                    `ivrMenuData.oneIvrItem.${index}.subMenu.${i}.operation` ===
-                      'audio',
-                  ) && (
+                    `ivrMenuData.oneIvrItem.${index}.subMenu.${i}.operation`,
+                  ) === 'audio' && (
                     <CollapsibleTrigger>
                       <Icon width={24} height={24} iconName="ArrowDown" />
                     </CollapsibleTrigger>
@@ -163,12 +163,15 @@ export const ScenarioIvrMenuSubform = ({
                 </div>
               </div>
               <CollapsibleContent>
-                {form.getValues(`ivrMenuData.oneIvrItem.${i}.operation`) ===
-                  'audio' && (
+                {form.getValues(
+                  `ivrMenuData.oneIvrItem.${index}.subMenu.${i}.operation`,
+                ) === 'audio' && (
                   <div className="border-l border-gray-light pl-3">
                     <ScenarioIvrMenuSubaudio
                       form={form}
                       fieldsIvrMenuItem={fieldsIvrMenuItem}
+                      audio={audio}
+                      setAudio={setAudio}
                     />
                   </div>
                 )}
