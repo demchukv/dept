@@ -35,27 +35,7 @@ export const Groups = () => {
       <div className="flex flex-col gap-4">
         {groupsData.map((group) => (
           <React.Fragment key={group.id}>
-            <Card className="shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)] p-4 md:p-8">
-              <Accordion
-                type="single"
-                collapsible
-                className="w-full flex flex-col gap-4 border-none p-0"
-                defaultValue={undefined}
-              >
-                <AccordionItem value={`group-item-${group.id}`} className="p-0">
-                  <div>
-                    <AccordionTrigger className="p-0 gap-1 sm:gap-9">
-                      <p className="font-semibold text-base leading-normal whitespace-nowrap">
-                        {group.name}
-                      </p>
-                    </AccordionTrigger>
-                  </div>
-                  <AccordionContent className="border-t mt-8 pt-8">
-                    <GroupForm />
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            </Card>
+            <GroupForm group={group} />
           </React.Fragment>
         ))}
       </div>
