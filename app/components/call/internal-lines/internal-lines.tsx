@@ -18,7 +18,7 @@ const linesList = [
       login: 'admin',
       password: 'admin',
     },
-    settings: { callOnly: false, monopoly: false, multyGroup: true },
+    settings: { callOnly: true, monopoly: false, multyGroup: true },
     phone: {
       id: 1,
       type: 'sip',

@@ -14,7 +14,81 @@ import { Icon } from '@/components/utils/icon';
 import { Checkbox } from '@/components/ui/checkbox';
 import { KeyValText } from '../../common/key-val-text';
 import copy from 'copy-to-clipboard';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select-form';
+import { PhoneNumbers } from '@/types/call';
+import { cn } from '@/lib/utils';
 
+const phoneList1: PhoneNumbers[] = [];
+const phoneList: PhoneNumbers[] = [
+  {
+    id: 1,
+    number: '380963578891',
+    numberType: 'sip',
+    operator: 'Kyivstar',
+    operatorIcon: 'KyivStar',
+    country: 'Україна',
+    priceForMonth: 120,
+    priceForMinute: 0.02,
+    activeTo: '2024-12-31',
+  },
+  {
+    id: 2,
+    number: '380987654321',
+    numberType: 'sip',
+    operator: 'Kyivstar',
+    operatorIcon: 'KyivStar',
+    country: 'Україна',
+    priceForMonth: 120,
+    priceForMinute: 0.02,
+    activeTo: '2024-12-31',
+    inTransfer: true,
+  },
+  {
+    id: 3,
+    number: '380963578891',
+    numberType: 'sim',
+    operator: 'Kyivstar',
+    operatorIcon: 'KyivStar',
+    country: 'Україна',
+    priceForMonth: 120,
+    priceForMinute: 0.02,
+    activeTo: '2024-12-31',
+  },
+  {
+    id: 4,
+    number: '380963578891',
+    numberType: 'sim',
+    operator: 'Kyivstar',
+    operatorIcon: 'KyivStar',
+    country: 'Україна',
+    priceForMonth: 120,
+    priceForMinute: 0.02,
+    activeTo: '2024-12-31',
+  },
+  {
+    id: 5,
+    number: '380963578891',
+    numberType: 'sim',
+    operator: 'Kyivstar',
+    operatorIcon: 'KyivStar',
+    country: 'Україна',
+    priceForMonth: 120,
+    priceForMinute: 0.02,
+    activeTo: '2024-12-31',
+  },
+];
+
+const settingsList = [
+  { key: 'callOnly', label: 'Здійснює дзвінки тільки з цього номера' },
+  { key: 'monopoly', label: 'Монопольно приймає дзвінки на номер' },
+  { key: 'multyGroup', label: 'Дозволити додавання лінії до кількох груп' },
+];
 interface LinesFormProps {
   formType: 'new' | 'edit';
   line?: any;
@@ -136,6 +210,64 @@ export const LineForm = ({ formType, line }: LinesFormProps) => {
                   <p className="text-base font-semibold mb-4">
                     Підключити до номера
                   </p>
+                  <Select
+                    onValueChange={(value) => console.log(value)}
+                    defaultValue=""
+                    disabled={phoneList.length === 0}
+                  >
+                    <SelectTrigger className="mb-4">
+                      <SelectValue
+                        placeholder={
+                          phoneList.length > 0
+                            ? 'Оберіть номер зі списку'
+                            : 'Немає вільних номерів'
+                        }
+                      />
+                    </SelectTrigger>
+
+                    <SelectContent>
+                      {phoneList.map((phone) => (
+                        <SelectItem key={phone.id} value={phone.id.toString()}>
+                          <div className="flex gap-2 items-center">
+                            <span
+                              className={cn(
+                                'inline-flex items-center justify-center font-semibold text-xs text-white leading-[1.33] px-2.5 py-1.5 rounded',
+                                phone.numberType === 'sip' &&
+                                  'bg-orange-additional-color',
+                                phone.numberType === 'sim' &&
+                                  'bg-green-additional-color',
+                              )}
+                            >
+                              {phone.numberType}
+                            </span>
+                            <span className="font-semibold text-base leading-normal">
+                              +{phone.number}
+                            </span>
+                          </div>
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <div className="flex flex-col gap-4">
+                    {settingsList.map((setting) => (
+                      <label
+                        key={setting.key}
+                        className="flex gap-3 items-center"
+                      >
+                        <Checkbox
+                          name="settings"
+                          value={setting.key}
+                          checked={
+                            line?.settings && line?.settings[setting.key]
+                          }
+                          onCheckedChange={(chk) => {
+                            console.log(Boolean(chk), setting.key);
+                          }}
+                        />
+                        {setting.label}
+                      </label>
+                    ))}
+                  </div>
                 </div>
                 <div className="flex flex-col gap-4 ">
                   <Button
