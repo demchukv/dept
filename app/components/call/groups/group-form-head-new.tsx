@@ -1,5 +1,21 @@
 import React from 'react';
 
-export const GroupFormHeadNew = () => {
-  return <div>GroupFormHeadNew</div>;
+interface GroupFormProps {
+  form: any;
+}
+export const GroupFormHeadNew = ({ form }: GroupFormProps) => {
+  return (
+    <div className="w-full flex flex-col sm:flex-row gap-4 sm:gap-8">
+      <div className="font-semibold text-base leading-normal whitespace-nowrap">
+        Field
+      </div>
+      <div className="w-full grid grid-cols-2 grid-rows-2 sm:grid-cols-[auto_auto_auto] sm:grid-rows-1 gap-2">
+        <div className="order-1 text-right">Ліній: 0</div>
+        <div className="col-span-2 sm:col-span-1">
+          Не використовується в сценарії
+        </div>
+        <div>ID групи: -</div>
+      </div>
+    </div>
+  );
 };

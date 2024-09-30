@@ -16,6 +16,7 @@ const groupsData = [
 ];
 export const Groups = () => {
   const [addForm, setAddForm] = React.useState(false);
+  const [groups, setGroups] = React.useState(groupsData);
 
   return (
     <>
@@ -33,7 +34,7 @@ export const Groups = () => {
         </div>
       )}
       <div className="flex flex-col gap-4">
-        {groupsData.map((group) => (
+        {groups.map((group) => (
           <React.Fragment key={group.id}>
             <GroupForm group={group} />
           </React.Fragment>
