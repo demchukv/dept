@@ -38,7 +38,7 @@ export const GroupForm = ({
 }: GroupFormProps) => {
   const [lines, setLines] = useState(group?.lines || []);
   const [checkedLines, setCheckedLines] = useState(group?.lines || []);
-  const [title, setTitle] = useState(group?.title || '');
+  const [title, setTitle] = useState(group?.name || '');
   const [editTitle, setEditTitle] = useState(false);
   const [addLineForm, setAddLineForm] = useState(false);
 
@@ -51,10 +51,12 @@ export const GroupForm = ({
       groupID: '30x',
     };
     const updValues = {
+      name: title,
       lines,
     };
     if (group?.id) {
       updateGroup(updValues);
+      setEditTitle(false);
     } else {
       appendGroup(values);
       setTitle('');
@@ -102,7 +104,14 @@ export const GroupForm = ({
                   lines={lines}
                 />
               ) : (
-                <GroupFormHeadExists group={group} lines={lines} />
+                <GroupFormHeadExists
+                  group={group}
+                  lines={lines}
+                  title={title}
+                  editTitle={editTitle}
+                  setEditTitle={setEditTitle}
+                  setTitle={setTitle}
+                />
               )}
               <AccordionTrigger
                 className="p-0 gap-1 sm:gap-9"

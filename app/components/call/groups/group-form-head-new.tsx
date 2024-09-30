@@ -10,7 +10,6 @@ interface GroupFormProps {
 export const GroupFormHeadNew = ({
   title,
   setTitle,
-  editTitle,
   lines,
 }: GroupFormProps) => {
   return (
