@@ -2,11 +2,13 @@ import { Input } from '@/components/ui/input';
 import React from 'react';
 
 interface LineFormProps {
+  line: any;
   title: string;
   setTitle: any;
   editTitle: boolean;
 }
 export const LineFormHeadNew = ({
+  line,
   title,
   setTitle,
   editTitle,

@@ -68,6 +68,14 @@ const linesList = [
     state: 'online',
   },
 ];
+
+const startLine = {
+  connectionData: {
+    host: 'sip.dept.ua',
+    login: 'admin',
+    password: 'admin',
+  },
+};
 export const InternalLines = () => {
   const [addForm, setAddForm] = React.useState(false);
   const [lines, setLines] = React.useState(linesList);
@@ -117,7 +125,7 @@ export const InternalLines = () => {
 
       {addForm && (
         <div className="mb-4">
-          <LineForm formType="new" />
+          <LineForm formType="new" line={startLine} />
         </div>
       )}
 

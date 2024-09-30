@@ -5,7 +5,6 @@ import React from 'react';
 
 interface LineFormProps {
   line: any;
-  lines: any;
   title: string;
   setTitle: any;
   editTitle: boolean;
@@ -13,7 +12,6 @@ interface LineFormProps {
 }
 export const LineFormHeadExists = ({
   line,
-  lines,
   title,
   setTitle,
   editTitle,
@@ -22,31 +20,27 @@ export const LineFormHeadExists = ({
   return (
     <div className="w-full flex flex-col sm:flex-row sm:justify-between gap-3 sm:gap-8 sm:items-center">
       <div className="font-semibold text-base leading-normal whitespace-nowrap">
-        {!editTitle && (
-          <>
-            <Button
-              type="button"
-              variant="ghost"
-              onClick={() => setEditTitle(true)}
-            >
-              <Icon iconName="EditIcon" width={24} height={24} />
-            </Button>
-            {title}
-          </>
-        )}
-        {editTitle && (
-          <Input
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            onBlur={() => setEditTitle(false)}
-            placeholder="Назва лінії"
-          />
-        )}
+        {line.lineNumber} - {line.lineUser}
       </div>
-      <div className="">Сценарій: немає</div>
+      <div className="">
+        Сценарій:{' '}
+        {line.scenarios.length === 0 ? 'немає' : ' індивідуальний номер'}
+      </div>
       <div className="flex gap-8 justify-between items-center">
-        <div className="">Не використовується в групах</div>
-        <div>{lines.state === 'online' ? 'online' : 'offline'}</div>
+        <div className="">
+          {line.groups.length === 0
+            ? 'Не використовується в групах'
+            : `Група: ${line.groups[0].groupNumber} ${line.groups[0].name}`}
+        </div>
+        <div>
+          {line.state === 'online' ? (
+            <span className="font-semibold text-green-additional-color">
+              Активний
+            </span>
+          ) : (
+            <span className="font-semibold text-gray-medium">Офлайн</span>
+          )}
+        </div>
       </div>
     </div>
   );

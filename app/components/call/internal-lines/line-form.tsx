@@ -44,20 +44,19 @@ export const LineForm = ({ formType, line }: LinesFormProps) => {
             <div className="w-full items-start flex flex-1 gap-2.5 justify-between">
               {formType === 'new' ? (
                 <LineFormHeadNew
+                  line={line}
                   title={title}
                   setTitle={setTitle}
                   editTitle={editTitle}
                 />
               ) : (
-                // <LineFormHeadExists
-                //   line={line}
-                //   lines={lines}
-                //   title={title}
-                //   editTitle={editTitle}
-                //   setEditTitle={setEditTitle}
-                //   setTitle={setTitle}
-                // />
-                <p>Header</p>
+                <LineFormHeadExists
+                  line={line}
+                  title={title}
+                  editTitle={editTitle}
+                  setEditTitle={setEditTitle}
+                  setTitle={setTitle}
+                />
               )}
               <AccordionTrigger
                 className="p-0 gap-1 sm:gap-9"
