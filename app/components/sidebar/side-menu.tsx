@@ -42,8 +42,16 @@ export const SideMenu = ({ closeSidebar }: MenuItemProps) => {
       path === '/internal-lines'
         ? true
         : false,
-    mail: false,
-    setting: false,
+    mail:
+      path === '/mail-account' ||
+      path === '/mail-domain' ||
+      path === '/mail-group' ||
+      path === '/mail-history',
+    setting:
+      path === '/employee' ||
+      path === '/department' ||
+      path === '/integration' ||
+      path === '/role',
     home: false,
     lang: false,
   };
@@ -367,8 +375,11 @@ export const SideMenu = ({ closeSidebar }: MenuItemProps) => {
           className={cn(subContentClass, isOpen.mail && 'pt-3')}
         >
           <Link
-            href="/my-numbers"
-            className={subLinkClass}
+            href="/mail-account"
+            className={cn(
+              linkClass,
+              path === '/mail-account' && 'text-main-color',
+            )}
             locale={lang}
             scroll={false}
             onClick={() => closeSidebar && closeSidebar()}
@@ -376,8 +387,11 @@ export const SideMenu = ({ closeSidebar }: MenuItemProps) => {
             Акаунти
           </Link>
           <Link
-            href="/scenario"
-            className={subLinkClass}
+            href="/mail-domain"
+            className={cn(
+              linkClass,
+              path === '/mail-domain' && 'text-main-color',
+            )}
             locale={lang}
             scroll={false}
             onClick={() => closeSidebar && closeSidebar()}
@@ -385,8 +399,11 @@ export const SideMenu = ({ closeSidebar }: MenuItemProps) => {
             Домени
           </Link>
           <Link
-            href="/my-group"
-            className={subLinkClass}
+            href="/mail-group"
+            className={cn(
+              linkClass,
+              path === '/mail-group' && 'text-main-color',
+            )}
             locale={lang}
             scroll={false}
             onClick={() => closeSidebar && closeSidebar()}
@@ -394,13 +411,16 @@ export const SideMenu = ({ closeSidebar }: MenuItemProps) => {
             Групи
           </Link>
           <Link
-            href="/internal-lines"
-            className={subLinkClass}
+            href="/mail-history"
+            className={cn(
+              linkClass,
+              path === '/mail-history' && 'text-main-color',
+            )}
             locale={lang}
             scroll={false}
             onClick={() => closeSidebar && closeSidebar()}
           >
-            Внутрішні лінії
+            Журнал
           </Link>
         </CollapsibleContent>
       </Collapsible>
@@ -432,8 +452,8 @@ export const SideMenu = ({ closeSidebar }: MenuItemProps) => {
           className={cn(subContentClass, isOpen.setting && 'pt-3')}
         >
           <Link
-            href="/my-numbers"
-            className={subLinkClass}
+            href="/employee"
+            className={cn(linkClass, path === '/employee' && 'text-main-color')}
             locale={lang}
             scroll={false}
             onClick={() => closeSidebar && closeSidebar()}
@@ -441,8 +461,11 @@ export const SideMenu = ({ closeSidebar }: MenuItemProps) => {
             Співробітники
           </Link>
           <Link
-            href="/scenario"
-            className={subLinkClass}
+            href="/department"
+            className={cn(
+              linkClass,
+              path === '/department' && 'text-main-color',
+            )}
             locale={lang}
             scroll={false}
             onClick={() => closeSidebar && closeSidebar()}
@@ -450,8 +473,11 @@ export const SideMenu = ({ closeSidebar }: MenuItemProps) => {
             Відділи
           </Link>
           <Link
-            href="/my-group"
-            className={subLinkClass}
+            href="/integration"
+            className={cn(
+              linkClass,
+              path === '/integration' && 'text-main-color',
+            )}
             locale={lang}
             scroll={false}
             onClick={() => closeSidebar && closeSidebar()}
@@ -459,8 +485,8 @@ export const SideMenu = ({ closeSidebar }: MenuItemProps) => {
             Інтеграції
           </Link>
           <Link
-            href="/internal-lines"
-            className={subLinkClass}
+            href="/role"
+            className={cn(linkClass, path === '/role' && 'text-main-color')}
             locale={lang}
             scroll={false}
             onClick={() => closeSidebar && closeSidebar()}
