@@ -11,9 +11,9 @@ import { LineFormHeadNew } from '@/app/components/call/internal-lines/line-form-
 import { LineFormHeadExists } from '@/app/components/call/internal-lines/line-form-head-exists';
 import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/utils/icon';
-import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { Checkbox } from '@/components/ui/checkbox';
 import { KeyValText } from '../../common/key-val-text';
+import copy from 'copy-to-clipboard';
 
 interface LinesFormProps {
   formType: 'new' | 'edit';
@@ -75,6 +75,63 @@ export const LineForm = ({ formType, line }: LinesFormProps) => {
                   <p className="text-base font-semibold mb-4">
                     Дані для підключення
                   </p>
+                  <KeyValText
+                    k="server / host:"
+                    val={
+                      <div className="flex items-center justify-between gap-3">
+                        <span className="font-medium">
+                          {line.connectionData.host}
+                        </span>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          className="hover:text-main-color"
+                          onClick={() => copy(line.connectionData.host)}
+                        >
+                          <Icon iconName="Copy" width={24} height={24} />
+                        </Button>
+                      </div>
+                    }
+                    className="justify-between gap-6 mb-4"
+                  />
+                  <KeyValText
+                    k="login:"
+                    val={
+                      <div className="flex items-center justify-between gap-3">
+                        <span className="font-medium">
+                          {line.connectionData.login}
+                        </span>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          className="hover:text-main-color"
+                          onClick={() => copy(line.connectionData.login)}
+                        >
+                          <Icon iconName="Copy" width={24} height={24} />
+                        </Button>
+                      </div>
+                    }
+                    className="justify-between gap-6 mb-4"
+                  />
+                  <KeyValText
+                    k="password:"
+                    val={
+                      <div className="flex items-center justify-between gap-3">
+                        <span className="font-medium">
+                          {line.connectionData.password}
+                        </span>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          className="hover:text-main-color"
+                          onClick={() => copy(line.connectionData.password)}
+                        >
+                          <Icon iconName="Copy" width={24} height={24} />
+                        </Button>
+                      </div>
+                    }
+                    className="justify-between gap-6 mb-4"
+                  />
                 </div>
                 <div className="">
                   <p className="text-base font-semibold mb-4">
