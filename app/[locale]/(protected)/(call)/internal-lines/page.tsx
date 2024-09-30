@@ -3,6 +3,7 @@ import React from 'react';
 
 import initTranslations from '@/app/i18n';
 import TranslationsProvider from '@/components/translations-provider';
+import { InternalLines } from '@/app/components/call/internal-lines/internal-lines';
 
 const i18nNamespaces = ['task'];
 export const metadata: Metadata = {
@@ -23,8 +24,7 @@ const CertificatePage = async ({
       locale={locale}
       resources={resources}
     >
-      {/* <Certificate /> */}
-      <p>Телефонія: Внутрішні лінії</p>
+      <InternalLines />
     </TranslationsProvider>
   );
 };
