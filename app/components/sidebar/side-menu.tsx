@@ -46,12 +46,16 @@ export const SideMenu = ({ closeSidebar }: MenuItemProps) => {
       path === '/mail-account' ||
       path === '/mail-domain' ||
       path === '/mail-group' ||
-      path === '/mail-history',
+      path === '/mail-history'
+        ? true
+        : false,
     setting:
       path === '/employee' ||
       path === '/department' ||
       path === '/integration' ||
-      path === '/role',
+      path === '/role'
+        ? true
+        : false,
     home: false,
     lang: false,
   };

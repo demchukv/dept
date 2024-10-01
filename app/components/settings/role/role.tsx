@@ -9,6 +9,7 @@ import { Card } from '@/app/components/card/card';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Icon } from '@/components/utils/icon';
+import { NewRole } from '@/app/components/settings/role/new-role';
 
 const rolesList = [
   { id: 1, roleName: 'Адміністратор', roleCountsers: 2 },
@@ -56,14 +57,7 @@ export const Role = () => {
                   ))}
                 </div>
                 <Separator className="my-4" />
-                <Button
-                  type="button"
-                  variant="outline"
-                  className="border-0 hover:shadow-none px-0 py-0"
-                >
-                  Створити нову роль{' '}
-                  <Icon iconName="Plus" width={20} height={20} />
-                </Button>
+                <NewRole />
               </AccordionContent>
             </AccordionItem>
           </Accordion>
