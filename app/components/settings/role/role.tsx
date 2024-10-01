@@ -1,23 +1,47 @@
-import React from 'react';
+'use client';
+import React, { useState } from 'react';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { Card } from '@/app/components/card/card';
+import { Card, CardHeader } from '@/app/components/card/card';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Icon } from '@/components/utils/icon';
 import { NewRole } from '@/app/components/settings/role/new-role';
+import { UserList } from '@/app/components/settings/role/user-list';
+import { SelectedRole } from '@/app/components/settings/role/selected-role';
 
 const rolesList = [
-  { id: 1, roleName: 'Адміністратор', roleCountsers: 2 },
-  { id: 2, roleName: 'Фінансист', roleCountsers: 3 },
-  { id: 3, roleName: 'Тімлід', roleCountsers: 1 },
-  { id: 4, roleName: 'Девелопер', roleCountsers: 2 },
+  { id: 1, roleName: 'Адміністратор' },
+  { id: 2, roleName: 'Фінансист' },
+  { id: 3, roleName: 'Тімлід' },
+  { id: 4, roleName: 'Девелопер' },
 ];
+const usersList: object[] = [
+  { userId: 1, userName: 'Іванов Іван Іванович', userRoleId: 1 },
+  { userId: 2, userName: 'Курбас Іван Леонідович', userRoleId: 2 },
+  { userId: 3, userName: 'Петренко Ірина Василівна', userRoleId: 2 },
+  { userId: 4, userName: 'Кононов Сергій Сергійович', userRoleId: 3 },
+  { userId: 5, userName: 'Жадан Олексій Хомич ', userRoleId: 4 },
+  { userId: 6, userName: 'Петров Іван Іванович', userRoleId: 1 },
+  { userId: 7, userName: 'Іванов Степан Іванович', userRoleId: 1 },
+  { userId: 8, userName: 'Іванов Іван Леонідович', userRoleId: 3 },
+  { userId: 9, userName: 'Іванов Іван Леонідович', userRoleId: 4 },
+  { userId: 10, userName: 'Іванов Іван Леонідович', userRoleId: 4 },
+  { userId: 11, userName: 'Іванов Іван Леонідович', userRoleId: 3 },
+  { userId: 12, userName: 'Іванов Іван Леонідович', userRoleId: 2 },
+  { userId: 13, userName: 'Іванов Іван Леонідович', userRoleId: 1 },
+];
+
 export const Role = () => {
+  const [selectedRole, setSelectedRole] = useState<number | null>(null);
+
+  const coutUserForRole = (role: number) => {
+    return usersList.filter((user: any) => user.userRoleId === role).length;
+  };
   return (
     <>
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-9">
@@ -25,7 +49,7 @@ export const Role = () => {
           Налаштування. Ролі
         </h1>
       </div>
-      <div className="flex flex-col sm:flex-row gap-6">
+      <div className="flex flex-col justify-start items-start sm:flex-row gap-6">
         <Card className="shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)] p-4 md:p-8">
           <Accordion
             type="single"
@@ -40,7 +64,7 @@ export const Role = () => {
                 </p>
                 <AccordionTrigger
                   className="p-0 gap-1 sm:gap-9"
-                  headClassName="w-auto"
+                  headClassName="w-auto sm:hidden"
                 ></AccordionTrigger>
               </div>
               <AccordionContent className="border-t mt-4 pt-8">
@@ -49,10 +73,15 @@ export const Role = () => {
                     <Button
                       key={role.id}
                       type="button"
-                      variant="outline"
+                      variant={selectedRole === role.id ? 'default' : 'outline'}
                       className="w-full"
+                      onClick={() => {
+                        selectedRole === role.id
+                          ? setSelectedRole(null)
+                          : setSelectedRole(role.id);
+                      }}
                     >
-                      {role.roleName} ({role.roleCountsers})
+                      {role.roleName} ({coutUserForRole(role.id)})
                     </Button>
                   ))}
                 </div>
@@ -62,10 +91,39 @@ export const Role = () => {
             </AccordionItem>
           </Accordion>
         </Card>
-        <div>
-          <p className="font-semibold text-base leading-normal mb-6">
-            Призначені ролі для співробітників
-          </p>
+        <div className="sm:min-w-[60%]">
+          {selectedRole === null && (
+            <UserList rolesList={rolesList} usersList={usersList} />
+          )}
+          {selectedRole !== null && (
+            <Card className="shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)] p-4 md:p-8">
+              <CardHeader className="py-0">
+                <div>
+                  Співробітники ролі{' '}
+                  <span className="text-main-color font-semibold">
+                    {
+                      rolesList.find((role) => role.id === selectedRole)
+                        ?.roleName
+                    }
+                  </span>
+                </div>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  className="text-main-color hover:text-main-dark"
+                >
+                  <Icon
+                    iconName="SettingAlert"
+                    width={24}
+                    height={24}
+                    className="w-6 h-6"
+                  />
+                </Button>
+              </CardHeader>
+              <Separator className="my-4" />
+              <SelectedRole selectedRole={selectedRole} usersList={usersList} />
+            </Card>
+          )}
         </div>
       </div>
     </>

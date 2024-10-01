@@ -22,7 +22,7 @@ const usersList = [
 ];
 
 interface AddEmployeeProps {
-  usersForRole: object[];
+  usersForRole: any;
   setUsersForRole: React.Dispatch<React.SetStateAction<object[]>>;
 }
 export const AddEmployee = ({
@@ -31,7 +31,9 @@ export const AddEmployee = ({
 }: AddEmployeeProps) => {
   const [open, setOpen] = useState(false);
   const [userFind, setUserFind] = useState('');
-  const [checkedUsers, setCheckedUsers] = useState<number[]>([]);
+  const [checkedUsers, setCheckedUsers] = useState<number[]>(
+    usersForRole.map((user: any) => user.userId),
+  );
   const [filteredUsers, setFilteredUsers] = useState(usersList);
 
   const removeUserFromChecked = (userId: number) => {
@@ -59,53 +61,47 @@ export const AddEmployee = ({
     setFilteredUsers(userFindResult);
   }, [userFind]);
 
+  useEffect(() => {
+    setCheckedUsers(usersForRole.map((user: any) => user.userId));
+  }, [usersForRole]);
+
   return (
     <>
       <div className="w-full flex justify-start items-start flex-col gap-4 sm:flex-row">
-        {!open && (
-          <Button
-            type="button"
-            variant="outline"
-            className="border-0 hover:shadow-none px-0 py-0"
-            onClick={() => setOpen(true)}
-          >
-            Додати співробітника <Icon iconName="Plus" width={20} height={20} />
-          </Button>
-        )}
-        {open && (
-          <>
-            {checkedUsers.length > 0 && (
-              <div className="w-full mb-4 flex flex-col gap-3">
-                {checkedUsers.map((userId) => (
-                  <div
-                    key={userId}
-                    className="rounded border border-gray-light px-5 py-4 font-medium flex items-center justify-between gap-2"
+        <>
+          {checkedUsers.length > 0 && (
+            <div className="w-full mb-4 flex flex-col gap-3">
+              {checkedUsers.map((userId) => (
+                <div
+                  key={userId}
+                  className="rounded border border-gray-light px-5 py-4 font-medium flex items-center justify-between gap-2"
+                >
+                  {usersList.find((user) => user.userId === userId)?.userName}
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    onClick={() => {
+                      removeUserFromChecked(userId);
+                    }}
+                    className="text-warning hover:text-main-dark"
                   >
-                    {usersList.find((user) => user.userId === userId)?.userName}
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      onClick={() => {
-                        removeUserFromChecked(userId);
-                      }}
-                      className="text-warning hover:text-main-dark"
-                    >
-                      <Icon
-                        iconName="Trash"
-                        width={24}
-                        height={24}
-                        className="w-6 h-6"
-                      />
-                    </Button>
-                  </div>
-                ))}
-              </div>
-            )}
-            {checkedUsers.length === 0 && (
-              <div className="w-full rounded border border-gray-light px-5 py-4 font-medium flex items-center justify-between gap-2 mb-4">
-                Не додано жодного співробітника
-              </div>
-            )}
+                    <Icon
+                      iconName="Trash"
+                      width={24}
+                      height={24}
+                      className="w-6 h-6"
+                    />
+                  </Button>
+                </div>
+              ))}
+            </div>
+          )}
+          {checkedUsers.length === 0 && (
+            <div className="w-full rounded border border-gray-light px-5 py-4 font-medium flex items-center justify-between gap-2 mb-4">
+              Не додано жодного співробітника
+            </div>
+          )}
+          {open && (
             <div className="w-full">
               <div className="bg-bg-color border border-gray-light rounded py-4 px-3 mb-4">
                 <p className="font-medium mb-3">Додати співробітника</p>
@@ -162,7 +158,17 @@ export const AddEmployee = ({
                 Відмінити
               </Button>
             </div>
-          </>
+          )}
+        </>
+        {!open && (
+          <Button
+            type="button"
+            variant="outline"
+            className="border-0 hover:shadow-none px-0 py-0 bg-transparent"
+            onClick={() => setOpen(true)}
+          >
+            Додати співробітника <Icon iconName="Plus" width={20} height={20} />
+          </Button>
         )}
       </div>
     </>
