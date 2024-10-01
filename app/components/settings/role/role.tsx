@@ -42,8 +42,8 @@ export const Role = () => {
                   headClassName="w-auto"
                 ></AccordionTrigger>
               </div>
-              <AccordionContent className="border-t mt-4 pt-4">
-                <div className="flex flex-col gap-4">
+              <AccordionContent className="border-t mt-4 pt-8">
+                <div className="flex flex-col gap-4 pb-4">
                   {rolesList.map((role) => (
                     <Button
                       key={role.id}
