@@ -36,7 +36,10 @@ const roleSchema = z.object({
     .optional(),
 });
 
-export const NewRole = () => {
+interface NewRoleProps {
+  usersList: any;
+}
+export const NewRole = ({ usersList }: NewRoleProps) => {
   const [open, setOpen] = useState(false);
   const [usersForRole, setUsersForRole] = useState<object[]>([]);
 
@@ -89,6 +92,7 @@ export const NewRole = () => {
                   )}
                 />
                 <AddEmployee
+                  usersList={usersList}
                   usersForRole={usersForRole}
                   setUsersForRole={setUsersForRole}
                 />

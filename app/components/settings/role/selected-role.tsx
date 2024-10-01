@@ -22,6 +22,7 @@ export const SelectedRole = ({
   return (
     <>
       <AddEmployee
+        usersList={usersList}
         usersForRole={usersForRole}
         setUsersForRole={setUsersForRole}
       />

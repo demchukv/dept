@@ -20,7 +20,7 @@ const rolesList = [
   { id: 3, roleName: 'Тімлід' },
   { id: 4, roleName: 'Девелопер' },
 ];
-const usersList: object[] = [
+const usersList: any = [
   { userId: 1, userName: 'Іванов Іван Іванович', userRoleId: 1 },
   { userId: 2, userName: 'Курбас Іван Леонідович', userRoleId: 2 },
   { userId: 3, userName: 'Петренко Ірина Василівна', userRoleId: 2 },
@@ -38,6 +38,7 @@ const usersList: object[] = [
 
 export const Role = () => {
   const [selectedRole, setSelectedRole] = useState<number | null>(null);
+  const [roleForm, setRoleForm] = useState<'users' | 'access'>('users');
 
   const coutUserForRole = (role: number) => {
     return usersList.filter((user: any) => user.userRoleId === role).length;
@@ -86,43 +87,83 @@ export const Role = () => {
                   ))}
                 </div>
                 <Separator className="my-4" />
-                <NewRole />
+                <NewRole usersList={usersList} />
               </AccordionContent>
             </AccordionItem>
           </Accordion>
         </Card>
-        <div className="sm:min-w-[60%]">
+        <div className="w-full sm:min-w-[60%]">
           {selectedRole === null && (
             <UserList rolesList={rolesList} usersList={usersList} />
           )}
           {selectedRole !== null && (
-            <Card className="shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)] p-4 md:p-8">
-              <CardHeader className="py-0">
-                <div>
-                  Співробітники ролі{' '}
-                  <span className="text-main-color font-semibold">
-                    {
-                      rolesList.find((role) => role.id === selectedRole)
-                        ?.roleName
-                    }
-                  </span>
-                </div>
-                <Button
-                  type="button"
-                  variant="ghost"
-                  className="text-main-color hover:text-main-dark"
-                >
-                  <Icon
-                    iconName="SettingAlert"
-                    width={24}
-                    height={24}
-                    className="w-6 h-6"
+            <>
+              {roleForm === 'users' && (
+                <Card className="shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)] p-4 md:p-8">
+                  <CardHeader className="py-0">
+                    <div>
+                      Співробітники ролі{' '}
+                      <span className="text-main-color font-semibold">
+                        {
+                          rolesList.find((role) => role.id === selectedRole)
+                            ?.roleName
+                        }
+                      </span>
+                    </div>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      className="text-main-color hover:text-main-dark"
+                      onClick={() => setRoleForm('access')}
+                    >
+                      <Icon
+                        iconName="SettingAlert"
+                        width={24}
+                        height={24}
+                        className="w-6 h-6"
+                      />
+                    </Button>
+                  </CardHeader>
+                  <Separator className="my-4" />
+                  <SelectedRole
+                    selectedRole={selectedRole}
+                    usersList={usersList}
                   />
-                </Button>
-              </CardHeader>
-              <Separator className="my-4" />
-              <SelectedRole selectedRole={selectedRole} usersList={usersList} />
-            </Card>
+                </Card>
+              )}
+
+              {roleForm === 'access' && (
+                <Card className="shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)] p-4 md:p-8">
+                  <CardHeader className="py-0 flex-col sm:flex-row">
+                    <div className="flex items-center gap-2">
+                      <Icon
+                        iconName="SettingAlert"
+                        width={24}
+                        height={24}
+                        className="w-6 h-6"
+                      />
+                      Налаштування ролі{' '}
+                      <span className="text-main-color font-semibold">
+                        {
+                          rolesList.find((role) => role.id === selectedRole)
+                            ?.roleName
+                        }
+                      </span>
+                    </div>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      className="text-main-color hover:text-main-dark text-base"
+                      onClick={() => setRoleForm('users')}
+                    >
+                      Співробітники ролі
+                    </Button>
+                  </CardHeader>
+                  <Separator className="my-4" />
+                  <p>FORM</p>
+                </Card>
+              )}
+            </>
           )}
         </div>
       </div>

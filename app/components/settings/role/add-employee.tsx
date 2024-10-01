@@ -5,27 +5,13 @@ import { Icon } from '@/components/utils/icon';
 import { Checkbox } from '@/components/ui/checkbox';
 import React, { useEffect, useState } from 'react';
 
-const usersList = [
-  { userId: 1, userName: 'Іванов Іван Іванович' },
-  { userId: 2, userName: 'Курбас Іван Леонідович' },
-  { userId: 3, userName: 'Петренко Ірина Василівна' },
-  { userId: 4, userName: 'Кононов Сергій Сергійович' },
-  { userId: 5, userName: 'Жадан Олексій Хомич ' },
-  { userId: 6, userName: 'Петров Іван Іванович' },
-  { userId: 7, userName: 'Іванов Степан Іванович' },
-  { userId: 8, userName: 'Іванов Іван Леонідович' },
-  { userId: 9, userName: 'Іванов Іван Леонідович' },
-  { userId: 10, userName: 'Іванов Іван Леонідович' },
-  { userId: 11, userName: 'Іванов Іван Леонідович' },
-  { userId: 12, userName: 'Іванов Іван Леонідович' },
-  { userId: 13, userName: 'Іванов Іван Леонідович' },
-];
-
 interface AddEmployeeProps {
+  usersList: any;
   usersForRole: any;
   setUsersForRole: React.Dispatch<React.SetStateAction<object[]>>;
 }
 export const AddEmployee = ({
+  usersList,
   usersForRole,
   setUsersForRole,
 }: AddEmployeeProps) => {
@@ -43,7 +29,7 @@ export const AddEmployee = ({
   const addUsersToRole = () => {
     let users: any = [];
     checkedUsers.map((userId) =>
-      users.push(usersList.find((item) => item.userId === userId)),
+      users.push(usersList.find((item: any) => item.userId === userId)),
     );
     setUsersForRole(users);
     setOpen(false);
