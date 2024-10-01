@@ -41,7 +41,7 @@ export const AddEmployee = ({
     }
     const userFindLower = userFind.toLowerCase();
     const userFindRegexp = new RegExp(userFindLower, 'i');
-    const userFindResult = usersList.filter((user) =>
+    const userFindResult = usersList.filter((user: any) =>
       userFindRegexp.test(user.userName.toLowerCase()),
     );
     setFilteredUsers(userFindResult);
@@ -62,7 +62,10 @@ export const AddEmployee = ({
                   key={userId}
                   className="rounded border border-gray-light px-5 py-4 font-medium flex items-center justify-between gap-2"
                 >
-                  {usersList.find((user) => user.userId === userId)?.userName}
+                  {
+                    usersList.find((user: any) => user.userId === userId)
+                      ?.userName
+                  }
                   <Button
                     type="button"
                     variant="ghost"
@@ -102,7 +105,7 @@ export const AddEmployee = ({
                     />
                   </div>
                   <ScrollArea className="h-52 mt-2 p-3 pr-4">
-                    {filteredUsers.map((user) => (
+                    {filteredUsers.map((user: any) => (
                       <label
                         key={user.userId}
                         className="flex items-center gap-2 pb-4 font-medium"
