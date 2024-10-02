@@ -2,6 +2,27 @@ import React, { useState } from 'react';
 import { RoleSettingsDesktop } from '@/app/components/settings/role/role-settings-desktop';
 import { RoleSettingsMobile } from '@/app/components/settings/role/role-settings-mobile';
 import z from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Separator } from '@/components/ui/separator';
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select-form';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Button } from '@/components/ui/button';
+import { useForm } from 'react-hook-form';
 
 const accessList: any = [{ all: 'Всі' }, { own: 'Свої' }, { none: 'Закрито' }];
 const accessListBoolean: boolean[] = [true, false];
@@ -120,26 +141,43 @@ interface RoleSettingsProps {
   selectedRole: number;
 }
 export const RoleSettings = ({ selectedRole }: RoleSettingsProps) => {
-  const [data, setData] = useState<any>(roleSettings);
+  const [settingsData, setSettingsData] = useState<any>(roleSettings);
+  const form = useForm({
+    mode: 'onChange',
+    defaultValues: {
+      settingsData: settingsData,
+    },
+  });
+
+  const onSubmit = (data: any) => {
+    console.log(data);
+    setSettingsData(data.settingsData);
+  };
 
   return (
     <>
-      <div className="hidden sm:block">
-        <RoleSettingsDesktop
-          settingsData={data}
-          roleSettingsSchema={roleSettingsSchema}
-          accessList={accessList}
-          accessListBoolean={accessListBoolean}
-        />
-      </div>
-      <div className="block sm:hidden">
-        <RoleSettingsMobile
-          settingsData={data}
-          roleSettingsSchema={roleSettingsSchema}
-          accessList={accessList}
-          accessListBoolean={accessListBoolean}
-        />
-      </div>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+          <div className="hidden sm:block">
+            <RoleSettingsDesktop
+              settingsData={settingsData}
+              roleSettingsSchema={roleSettingsSchema}
+              accessList={accessList}
+              accessListBoolean={accessListBoolean}
+              form={form}
+            />
+          </div>
+          <div className="block sm:hidden">
+            <RoleSettingsMobile
+              settingsData={settingsData}
+              roleSettingsSchema={roleSettingsSchema}
+              accessList={accessList}
+              accessListBoolean={accessListBoolean}
+              form={form}
+            />
+          </div>
+        </form>
+      </Form>
     </>
   );
 };
