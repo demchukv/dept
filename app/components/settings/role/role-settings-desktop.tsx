@@ -1,13 +1,8 @@
 import React from 'react';
-import { Card, CardHeader } from '@/app/components/card/card';
-import { useForm } from 'react-hook-form';
-import z from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { Card } from '@/app/components/card/card';
 import { Separator } from '@/components/ui/separator';
 import {
-  Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -22,20 +17,25 @@ import {
 } from '@/components/ui/select-form';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
-import { set } from 'date-fns';
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 
 interface RoleSettingsDesktopProps {
   settingsData: any;
-  roleSettingsSchema: any;
   accessList: any;
-  accessListBoolean: boolean[];
   form: any;
 }
 export const RoleSettingsDesktop = ({
   settingsData,
-  roleSettingsSchema,
   accessList,
-  accessListBoolean,
   form,
 }: RoleSettingsDesktopProps) => {
   //   const form = useForm({
@@ -52,6 +52,57 @@ export const RoleSettingsDesktop = ({
     <>
       {/* <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}> */}
+      <Table className="mb-6 shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)]">
+        <TableHeader>
+          <TableRow>
+            <TableHead className="bg-white text-sm text-gray-dark pl-6 rounded-tl">
+              Розділ
+            </TableHead>
+            <TableHead className="bg-white text-sm text-gray-dark">
+              Перегляд
+            </TableHead>
+            <TableHead className="bg-white text-sm text-gray-dark">
+              Додавання
+            </TableHead>
+            <TableHead className="bg-white text-sm text-gray-dark">
+              Редагування
+            </TableHead>
+            <TableHead className="bg-white text-sm text-gray-dark pr-6 rounded-tr">
+              Видалення
+            </TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {settingsData.map((invoice: any, index: number) => (
+            <TableRow key={index} className="even:bg-white">
+              <TableCell className="pl-6">first</TableCell>
+              <TableCell>Second</TableCell>
+              <TableCell>third</TableCell>
+              <TableCell>Four</TableCell>
+              <TableCell className="pr-6">Five</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+        <TableFooter>
+          <TableRow>
+            <TableCell
+              className="bg-white px-6 rounded-bl rounded-br"
+              colSpan={5}
+            >
+              <div className="flex flex-row justify-end gap-3">
+                <Button type="submit">Застосувати зміни</Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="border-0 hover:shadow-none"
+                >
+                  Скинути налаштування
+                </Button>
+              </div>
+            </TableCell>
+          </TableRow>
+        </TableFooter>
+      </Table>
       <div className="flex flex-col gap-4">
         {settingsData.map((item: any, index: number) => (
           <Card
@@ -330,16 +381,7 @@ export const RoleSettingsDesktop = ({
           </Card>
         ))}
       </div>
-      <div className="flex flex-row justify-end gap-3 mt-6">
-        <Button type="submit">Застосувати зміни</Button>
-        <Button
-          type="button"
-          variant="outline"
-          className="border-0 hover:shadow-none"
-        >
-          Скинути налаштування
-        </Button>
-      </div>
+
       {/* </form>
     </Form> */}
     </>

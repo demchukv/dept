@@ -1,13 +1,8 @@
 import React from 'react';
-import { Card, CardHeader } from '@/app/components/card/card';
-import { useForm } from 'react-hook-form';
-import z from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { Card } from '@/app/components/card/card';
 import { Separator } from '@/components/ui/separator';
 import {
-  Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -25,16 +20,12 @@ import { Button } from '@/components/ui/button';
 
 interface RoleSettingsProps {
   settingsData: any;
-  roleSettingsSchema: any;
   accessList: any;
-  accessListBoolean: boolean[];
   form: any;
 }
 export const RoleSettingsMobile = ({
   settingsData,
-  roleSettingsSchema,
   accessList,
-  accessListBoolean,
   form,
 }: RoleSettingsProps) => {
   //   const form = useForm({
