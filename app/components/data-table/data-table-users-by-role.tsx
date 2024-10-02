@@ -122,14 +122,14 @@ export function DataTable<TData extends userRoleType, TValue>({
       },
     },
   });
-
+  //   console.log(sorting);
   return (
     <>
       <div className="rounded-[6px] shadow-[0_4px_15px_0_rgba(0,0,0,0.05)] bg-white overflow-hidden">
         <>
           <>
             <Table>
-              <TableHeader>
+              <TableHeader className="hidden sm:table-header-group">
                 {table.getHeaderGroups().map((headerGroup) => (
                   <TableRow key={headerGroup.id}>
                     {headerGroup.headers.map((header) => {

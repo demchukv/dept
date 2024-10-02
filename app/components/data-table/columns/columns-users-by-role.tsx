@@ -34,7 +34,7 @@ export const columns: ColumnDef<userRoleType>[] = [
     accessorKey: 'userName',
     header: ({ column }) => {
       return (
-        <div className="text-sm text-gray-dark flex items-center gap-1">
+        <div className="text-sm text-gray-dark hidden sm:flex items-center gap-1">
           <Button
             type="button"
             variant="ghost"
@@ -55,18 +55,48 @@ export const columns: ColumnDef<userRoleType>[] = [
         </div>
       );
     },
-    cell: ({ getValue }) => {
+    cell: ({ getValue, row }) => {
       const userName = getValue<string>();
-      return <div className="text-sm text-gray-dark">{userName}</div>;
+      const roleName = row.original.roleName;
+      return (
+        <>
+          <div className="text-sm text-gray-dark">{userName}</div>
+          <span className="font-semibold text-main-color text-sm sm:hidden">
+            {roleName}
+          </span>
+        </>
+      );
     },
   },
   {
     accessorKey: 'roleName',
-    header: 'Роль',
-    cell: ({ getValue, row }) => {
+    header: ({ column }) => {
+      return (
+        <div className="text-sm text-gray-dark hidden sm:flex items-center gap-1">
+          <Button
+            type="button"
+            variant="ghost"
+            className="text-gray-dark"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          >
+            <Icon
+              iconName="TabSort"
+              width={24}
+              height={24}
+              className={cn(
+                'w-6 h-6',
+                column.getIsSorted() === 'asc' && 'rotate-180',
+              )}
+            />
+          </Button>
+          <span className="hidden sm:inline">Роль</span>
+        </div>
+      );
+    },
+    cell: ({ getValue }) => {
       const roleName = getValue<string>();
       return (
-        <span className="font-semibold text-main-color text-sm">
+        <span className="hidden sm:inline font-semibold text-main-color text-sm">
           {roleName}
         </span>
       );
@@ -75,7 +105,7 @@ export const columns: ColumnDef<userRoleType>[] = [
   {
     accessorKey: 'userId',
     header: '',
-    cell: ({ getValue, row, table }) => {
+    cell: ({ getValue, table }) => {
       const userId = getValue<number>();
       return (
         <Button

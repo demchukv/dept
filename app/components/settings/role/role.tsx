@@ -13,6 +13,7 @@ import { Icon } from '@/components/utils/icon';
 import { NewRole } from '@/app/components/settings/role/new-role';
 import { UserList } from '@/app/components/settings/role/user-list';
 import { SelectedRole } from '@/app/components/settings/role/selected-role';
+import { RoleSettings } from '@/app/components/settings/role/role-settings';
 
 const rolesList = [
   { id: 1, roleName: 'Адміністратор' },
@@ -133,9 +134,9 @@ export const Role = () => {
               )}
 
               {roleForm === 'access' && (
-                <Card className="shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)] p-4 md:p-8">
-                  <CardHeader className="py-0 flex-col sm:flex-row">
-                    <div className="flex items-center gap-2">
+                <>
+                  <div className="w-full flex flex-col sm:flex-row items-start sm:items-center sm:justify-between gap-2 mb-4">
+                    <div className="w-auto flex items-center gap-2">
                       <Icon
                         iconName="SettingAlert"
                         width={24}
@@ -153,15 +154,14 @@ export const Role = () => {
                     <Button
                       type="button"
                       variant="ghost"
-                      className="text-main-color hover:text-main-dark text-base"
+                      className="text-main-color hover:text-main-dark text-base justify-start sm:justify-end"
                       onClick={() => setRoleForm('users')}
                     >
                       Співробітники ролі
                     </Button>
-                  </CardHeader>
-                  <Separator className="my-4" />
-                  <p>FORM</p>
-                </Card>
+                  </div>
+                  <RoleSettings selectedRole={selectedRole} />
+                </>
               )}
             </>
           )}
