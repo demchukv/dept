@@ -22,6 +22,7 @@ import {
 } from '@/components/ui/select-form';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
+import { set } from 'date-fns';
 
 interface RoleSettingsProps {
   settingsData: any;
@@ -36,9 +37,11 @@ export const RoleSettingsMobile = ({
   accessListBoolean,
 }: RoleSettingsProps) => {
   const form = useForm({
-    defaultValues: settingsData,
+    defaultValues: {
+      settingsData: settingsData,
+    },
   });
-  console.log(settingsData);
+
   const onSubmit = (data: any) => {
     console.log(data);
   };
@@ -52,9 +55,30 @@ export const RoleSettingsMobile = ({
               key={index}
               className="shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)] p-4 md:p-8"
             >
-              <p className="text-main-color font-semibold text-base">
-                {item.name}
-              </p>
+              <div className="flex flex-col gap-2">
+                <p className="text-main-color font-semibold text-base">
+                  {item.name}
+                </p>
+                {item.super && (
+                  <FormField
+                    control={form.control}
+                    name={`settingsData.${index}.super` as const}
+                    render={({ field }) => (
+                      <FormItem className="flex flex-row-reverse gap-2 items-center space-y-0 justify-end">
+                        <FormLabel className="space-y-0">
+                          Доступ суперадміністратора
+                        </FormLabel>
+                        <FormControl>
+                          <Checkbox
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                )}
+              </div>
               <Separator className="my-4" />
               {item.sub.length > 0 && (
                 <>
@@ -69,14 +93,16 @@ export const RoleSettingsMobile = ({
                             {subItem.type === 'select' && (
                               <FormField
                                 control={form.control}
-                                name={`${index}.sub.${i}.values.view` as const}
+                                name={
+                                  `settingsData.${index}.sub.${i}.values.view` as const
+                                }
                                 render={({ field }) => (
                                   <FormItem>
                                     <Select
                                       onValueChange={field.onChange}
                                       defaultValue={field.value}
                                     >
-                                      <FormControl>
+                                      <FormControl className="w-[110px]">
                                         <SelectTrigger>
                                           <SelectValue placeholder="" />
                                         </SelectTrigger>
@@ -102,7 +128,9 @@ export const RoleSettingsMobile = ({
                             {subItem.type === 'checkbox' && (
                               <FormField
                                 control={form.control}
-                                name={`${index}.sub.${i}.values.view` as const}
+                                name={
+                                  `settingsData.${index}.sub.${i}.values.view` as const
+                                }
                                 render={({ field }) => (
                                   <FormItem>
                                     <FormControl>
@@ -124,7 +152,7 @@ export const RoleSettingsMobile = ({
                               <FormField
                                 control={form.control}
                                 name={
-                                  `${index}.sub.${i}.values.create` as const
+                                  `settingsData.${index}.sub.${i}.values.create` as const
                                 }
                                 render={({ field }) => (
                                   <FormItem>
@@ -132,7 +160,7 @@ export const RoleSettingsMobile = ({
                                       onValueChange={field.onChange}
                                       defaultValue={field.value}
                                     >
-                                      <FormControl>
+                                      <FormControl className="w-[110px]">
                                         <SelectTrigger>
                                           <SelectValue placeholder="" />
                                         </SelectTrigger>
@@ -159,7 +187,7 @@ export const RoleSettingsMobile = ({
                               <FormField
                                 control={form.control}
                                 name={
-                                  `${index}.sub.${i}.values.create` as const
+                                  `settingsData.${index}.sub.${i}.values.create` as const
                                 }
                                 render={({ field }) => (
                                   <FormItem>
@@ -181,14 +209,16 @@ export const RoleSettingsMobile = ({
                             {subItem.type === 'select' && (
                               <FormField
                                 control={form.control}
-                                name={`${index}.sub.${i}.values.edit` as const}
+                                name={
+                                  `settingsData.${index}.sub.${i}.values.edit` as const
+                                }
                                 render={({ field }) => (
                                   <FormItem>
                                     <Select
                                       onValueChange={field.onChange}
                                       defaultValue={field.value}
                                     >
-                                      <FormControl>
+                                      <FormControl className="w-[110px]">
                                         <SelectTrigger>
                                           <SelectValue placeholder="" />
                                         </SelectTrigger>
@@ -214,7 +244,9 @@ export const RoleSettingsMobile = ({
                             {subItem.type === 'checkbox' && (
                               <FormField
                                 control={form.control}
-                                name={`${index}.sub.${i}.values.edit` as const}
+                                name={
+                                  `settingsData.${index}.sub.${i}.values.edit` as const
+                                }
                                 render={({ field }) => (
                                   <FormItem>
                                     <FormControl>
@@ -236,7 +268,7 @@ export const RoleSettingsMobile = ({
                               <FormField
                                 control={form.control}
                                 name={
-                                  `${index}.sub.${i}.values.delete` as const
+                                  `settingsData.${index}.sub.${i}.values.delete` as const
                                 }
                                 render={({ field }) => (
                                   <FormItem>
@@ -244,7 +276,7 @@ export const RoleSettingsMobile = ({
                                       onValueChange={field.onChange}
                                       defaultValue={field.value}
                                     >
-                                      <FormControl>
+                                      <FormControl className="w-[110px]">
                                         <SelectTrigger>
                                           <SelectValue placeholder="" />
                                         </SelectTrigger>
@@ -271,7 +303,7 @@ export const RoleSettingsMobile = ({
                               <FormField
                                 control={form.control}
                                 name={
-                                  `${index}.sub.${i}.values.delete` as const
+                                  `settingsData.${index}.sub.${i}.values.delete` as const
                                 }
                                 render={({ field }) => (
                                   <FormItem>
