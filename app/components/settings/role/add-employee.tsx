@@ -4,6 +4,7 @@ import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { Icon } from '@/components/utils/icon';
 import { Checkbox } from '@/components/ui/checkbox';
 import React, { useEffect, useState } from 'react';
+import { Separator } from '@/components/ui/separator';
 
 interface AddEmployeeProps {
   usersList: any;
@@ -144,6 +145,16 @@ export const AddEmployee = ({
                 onClick={() => setOpen(false)}
                 className="w-full"
               >
+                Відмінити
+              </Button>
+              <Separator className="my-4" />
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setOpen(false)}
+                className="w-full text-warning border-0 hover:shadow-none gap-2"
+              >
+                <Icon iconName="DeleteCircle" width={20} height={20} />
                 Відмінити
               </Button>
             </div>
