@@ -2,7 +2,148 @@ import React from 'react';
 import { Card } from '@/app/components/card/card';
 import { Info } from '../../common/info';
 import { Separator } from '@/components/ui/separator';
+import { IntegrateList } from '@/app/components/settings/integration/integrate-list';
 
+const iData = {
+  task: [
+    {
+      id: 1,
+      name: 'Bitrix24',
+      logo: 'bitrix24.png',
+      state: 'active',
+      instruction: 'https://youtu.be/QU7X5S1yQrY?si=XjWcC4xAeuZn9y2R',
+      data: {
+        apiKey: 'dsfsdalkfsalkdfaslkdf8wyhjkdhfvajksl',
+        href: 'http://bitrix.com/api',
+      },
+    },
+    {
+      id: 1,
+      name: 'Trello',
+      logo: 'trello.png',
+      state: 'active',
+      instruction: 'https://youtu.be/QU7X5S1yQrY?si=XjWcC4xAeuZn9y2R',
+      data: {
+        apiKey: 'dsfsdalkfsalkdfaslkdf8wyhjkdhfvajksl',
+        href: 'http://trello.com/api',
+      },
+    },
+    {
+      id: 1,
+      name: 'Jira',
+      logo: 'jira.png',
+      state: 'notset',
+      instruction: 'https://youtu.be/QU7X5S1yQrY?si=XjWcC4xAeuZn9y2R',
+      data: {
+        apiKey: '',
+        href: 'http://jira.com/api',
+      },
+    },
+    {
+      id: 1,
+      name: 'Asana',
+      logo: 'asana.png',
+      state: 'notset',
+      instruction: 'https://youtu.be/QU7X5S1yQrY?si=XjWcC4xAeuZn9y2R',
+      data: {
+        apiKey: '',
+        href: 'http://jira.com/api',
+      },
+    },
+    {
+      id: 1,
+      name: 'OneBox',
+      logo: 'onebox.png',
+      state: 'notset',
+      instruction: 'https://youtu.be/QU7X5S1yQrY?si=XjWcC4xAeuZn9y2R',
+      data: {
+        apiKey: '',
+        href: 'http://jira.com/api',
+      },
+    },
+    {
+      id: 1,
+      name: 'PeopleForce',
+      logo: 'peopleforce.png',
+      state: 'notset',
+      instruction: 'https://youtu.be/QU7X5S1yQrY?si=XjWcC4xAeuZn9y2R',
+      data: {
+        apiKey: '',
+        href: 'http://jira.com/api',
+      },
+    },
+  ],
+  datacentre: [
+    {
+      id: 1,
+      name: 'Hetzner',
+      logo: 'hetzner.png',
+      state: 'notset',
+      instruction: 'https://youtu.be/QU7X5S1yQrY?si=XjWcC4xAeuZn9y2R',
+      data: {
+        apiKey: '',
+        href: 'http://jira.com/api',
+      },
+    },
+    {
+      id: 1,
+      name: 'Ukraine',
+      logo: 'ukraine.png',
+      state: 'notset',
+      instruction: 'https://youtu.be/QU7X5S1yQrY?si=XjWcC4xAeuZn9y2R',
+      data: {
+        apiKey: '',
+        href: 'http://ukraine.com.ua/api',
+      },
+    },
+    {
+      id: 1,
+      name: 'DigitalOcean',
+      logo: 'digitalocean.png',
+      state: 'notset',
+      instruction: 'https://youtu.be/QU7X5S1yQrY?si=XjWcC4xAeuZn9y2R',
+      data: {
+        apiKey: '',
+        href: 'http://jira.com/api',
+      },
+    },
+  ],
+  call: [
+    {
+      id: 1,
+      name: 'Binotel',
+      logo: 'binotel.png',
+      state: 'active',
+      instruction: 'https://youtu.be/QU7X5S1yQrY?si=XjWcC4xAeuZn9y2R',
+      data: {
+        apiKey: 'sdyffy8sd9789sydfyh3298yr23feh',
+        href: 'http://jira.com/api',
+      },
+    },
+    {
+      id: 1,
+      name: 'Ringostat',
+      logo: 'ringostat.png',
+      state: 'notset',
+      instruction: 'https://youtu.be/QU7X5S1yQrY?si=XjWcC4xAeuZn9y2R',
+      data: {
+        apiKey: '',
+        href: 'http://jira.com/api',
+      },
+    },
+    {
+      id: 1,
+      name: 'Zadarma',
+      logo: 'zadarma.png',
+      state: 'notset',
+      instruction: 'https://youtu.be/QU7X5S1yQrY?si=XjWcC4xAeuZn9y2R',
+      data: {
+        apiKey: '',
+        href: 'http://jira.com/api',
+      },
+    },
+  ],
+};
 export const Integration = () => {
   return (
     <>
@@ -21,6 +162,7 @@ export const Integration = () => {
           </Info>
         </div>
         <Separator className="my-8" />
+        <IntegrateList data={iData.task} />
       </Card>
 
       <Card className="shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)] p-4 md:p-8 mb-9">
@@ -34,6 +176,7 @@ export const Integration = () => {
           </Info>
         </div>
         <Separator className="my-8" />
+        <IntegrateList data={iData.datacentre} />
       </Card>
 
       <Card className="shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)] p-4 md:p-8">
@@ -47,6 +190,7 @@ export const Integration = () => {
           </Info>
         </div>
         <Separator className="my-8" />
+        <IntegrateList data={iData.call} />
       </Card>
     </>
   );
