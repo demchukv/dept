@@ -18,7 +18,7 @@ const iData = {
       },
     },
     {
-      id: 1,
+      id: 2,
       name: 'Trello',
       logo: 'trello.png',
       state: 'active',
@@ -29,7 +29,7 @@ const iData = {
       },
     },
     {
-      id: 1,
+      id: 3,
       name: 'Jira',
       logo: 'jira.png',
       state: 'notset',
@@ -40,7 +40,7 @@ const iData = {
       },
     },
     {
-      id: 1,
+      id: 4,
       name: 'Asana',
       logo: 'asana.png',
       state: 'notset',
@@ -51,7 +51,7 @@ const iData = {
       },
     },
     {
-      id: 1,
+      id: 5,
       name: 'OneBox',
       logo: 'onebox.png',
       state: 'notset',
@@ -62,7 +62,7 @@ const iData = {
       },
     },
     {
-      id: 1,
+      id: 6,
       name: 'PeopleForce',
       logo: 'peopleforce.png',
       state: 'notset',
@@ -86,7 +86,7 @@ const iData = {
       },
     },
     {
-      id: 1,
+      id: 2,
       name: 'Ukraine',
       logo: 'ukraine.png',
       state: 'notset',
@@ -97,7 +97,7 @@ const iData = {
       },
     },
     {
-      id: 1,
+      id: 3,
       name: 'DigitalOcean',
       logo: 'digitalocean.png',
       state: 'notset',
@@ -121,7 +121,7 @@ const iData = {
       },
     },
     {
-      id: 1,
+      id: 3,
       name: 'Ringostat',
       logo: 'ringostat.png',
       state: 'notset',
@@ -132,7 +132,7 @@ const iData = {
       },
     },
     {
-      id: 1,
+      id: 4,
       name: 'Zadarma',
       logo: 'zadarma.png',
       state: 'notset',
