@@ -3,9 +3,6 @@
 import { SortingState } from '@tanstack/react-table';
 import { DataTable } from '@/app/components/data-table/data-table-users-by-role';
 import { columns } from '@/app/components/data-table/columns/columns-users-by-role';
-import { Button } from '@/components/ui/button';
-import { Icon } from '@/components/utils/icon';
-import { cn } from '@/lib/utils';
 import { Separator } from '@/components/ui/separator';
 import { UserSortModal } from '@/app/components/settings/role/user-sort-modal';
 import { useEffect, useState } from 'react';
