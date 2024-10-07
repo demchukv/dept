@@ -45,7 +45,6 @@ interface DataTableProps<TData, TValue> {
   pagination: PaginationState;
   sorting: SortingState;
   isPending: boolean;
-  onRemoveUserRole: (userId: number) => void;
 }
 
 export type PaginationState = {
@@ -68,7 +67,6 @@ export function DataTable<TData extends employeeType, TValue>({
   pagination: { pageIndex, pageSize },
   sorting: [{ id, desc }],
   isPending,
-  onRemoveUserRole,
 }: DataTableProps<TData, TValue>) {
   const [expanded, setExpanded] = React.useState<ExpandedState>({});
   const [sorting, setSorting] = React.useState<SortingState>([{ id, desc }]);
@@ -115,11 +113,7 @@ export function DataTable<TData extends employeeType, TValue>({
     autoResetPageIndex: false,
     debugTable: false,
     debugHeaders: false,
-    meta: {
-      removeUserRole: (userId: number) => {
-        onRemoveUserRole(userId);
-      },
-    },
+    
   });
   //   console.log(sorting);
   return (

@@ -65,21 +65,18 @@ const employeeList = [
   },
 ];
 
-const initPagination = {
-  pageIndex: 0,
-  pageSize: 5,
-};
-const initSorting: SortingState = [
-  {
-    id: 'name',
-    desc: false,
-  },
-];
 
-const removeUserRole = (id: number) => {
-  console.log('remove user from role: ', id);
-};
 export const Employee = () => {
+  const initPagination = {
+    pageIndex: 0,
+    pageSize: 5,
+  };
+  const initSorting: SortingState = [
+    {
+      id: 'name',
+      desc: false,
+    },
+  ];
   return (
     <>
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-9">
@@ -96,7 +93,6 @@ export const Employee = () => {
           pagination={initPagination}
           sorting={initSorting}
           isPending={false}
-          onRemoveUserRole={removeUserRole}
         />
       </Card>
     </>

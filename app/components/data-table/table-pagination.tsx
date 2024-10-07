@@ -21,7 +21,7 @@ export const TablePagination = ({
   currentPage,
   pages = 0,
 }: TablePaginationProps) => {
-  const totalPage = table ? table?.getPageCount() - 1 : pages;
+  const totalPage = table ? table?.getPageCount() : pages;
   const pageList = [];
 
   const pagination = createPagination(currentPage, totalPage);
