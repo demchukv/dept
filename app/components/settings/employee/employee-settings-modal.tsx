@@ -33,8 +33,9 @@ import {
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import { Info } from '@/app/components/common/info';
+import { roleList } from '@/app/components/settings/employee/employee';
+import Link from 'next/link';
 
-const roleList = ['Адміністратор', 'Менеджер проєкту', 'Фінансист', 'Керівник'];
 const employeeSchema = z.object({
   id: z.number(),
   name: z.string().min(1, "Вкажіть ім'я співробітника"),
@@ -72,6 +73,7 @@ export const EmployeeSettingsModal = ({
     const values = { ...data, roleUsers: usersForRole };
     console.log(values);
   };
+
   return (
     <>
       <Button
@@ -80,7 +82,7 @@ export const EmployeeSettingsModal = ({
         className={cn('border-0 hover:shadow-none px-0 py-0', className)}
         onClick={() => setOpen(true)}
       >
-        <Icon iconName="SettingAlert" width={20} height={20} />
+        <Icon iconName="SettingAlert" width={24} height={24} />
       </Button>
 
       <Modal open={open} onOpenChange={() => setOpen(false)}>
@@ -138,14 +140,41 @@ export const EmployeeSettingsModal = ({
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="m@example.com">
-                            m@example.com
-                          </SelectItem>
-                          <SelectItem value="m@google.com">
-                            m@google.com
-                          </SelectItem>
-                          <SelectItem value="m@support.com">
-                            m@support.com
+                          {roleList.map((item) => (
+                            <SelectItem
+                              key={item.id}
+                              value={item.id.toString()}
+                            >
+                              <span
+                                className={cn(
+                                  'font-medium',
+                                  item.id === 1 &&
+                                    'text-green-additional-color',
+                                  item.id === 2 && 'text-blue-additional-color',
+                                  item.id === 3 &&
+                                    'text-orange-additional-color',
+                                  item.id === 4 && 'text-warning',
+                                )}
+                              >
+                                {item.label}
+                              </span>
+                            </SelectItem>
+                          ))}
+                          <SelectItem
+                            id="roles"
+                            value="roles"
+                            className="bg-bg-color hover:cursor-pointer"
+                          >
+                            <Link href="/settings/roles">
+                              <span className="flex gap-2 items-center">
+                                <Icon
+                                  iconName="SettingAlert"
+                                  width={24}
+                                  height={24}
+                                />
+                                Керування ролями
+                              </span>
+                            </Link>
                           </SelectItem>
                         </SelectContent>
                       </Select>
@@ -202,6 +231,14 @@ export const EmployeeSettingsModal = ({
                     onClick={() => setOpen(false)}
                   >
                     Відмінити
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    className="hover:shadow-none text-warning hover:text-main-dark gap-2 py-2.5"
+                  >
+                    <Icon iconName="DeleteCircle" width={20} height={20} />
+                    Видалити співробітника
                   </Button>
                 </div>
               </ModalFooter>

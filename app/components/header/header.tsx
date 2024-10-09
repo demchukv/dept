@@ -2,8 +2,8 @@
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 
-import LogoBlue from '@/public/logo-blue.png';
-import LogoGreen from '@/public/logo-green.png';
+import LogoBlue from '@/public/logo-blue.svg';
+import LogoGreen from '@/public/logo-green.svg';
 import { Sidebar } from '@/app/components/sidebar/sidebar';
 import { Alert } from '@/app/components/header/alert';
 import { Profile } from '@/app/components/header/profile';

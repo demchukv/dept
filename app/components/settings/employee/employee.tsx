@@ -65,6 +65,12 @@ const employeeList = [
   },
 ];
 
+export const roleList = [
+  { id: 1, label: 'Адміністратор', color: 'text-' },
+  { id: 2, label: 'Менеджер проєкту' },
+  { id: 3, label: 'Фінансист' },
+  { id: 4, label: 'Керівник' },
+];
 
 export const Employee = () => {
   const initPagination = {
