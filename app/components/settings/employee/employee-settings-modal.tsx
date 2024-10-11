@@ -10,7 +10,7 @@ import {
   ModalInner,
   ModalTitle,
 } from '@/app/components/common/modal-new';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -30,16 +30,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select-form';
+
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import { Info } from '@/app/components/common/info';
 import { roleList } from '@/app/components/settings/employee/employee';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const employeeSchema = z.object({
   id: z.number(),
   name: z.string().min(1, "Вкажіть ім'я співробітника"),
-  role: z.string().min(1, 'Виберіть роль'),
+  role: z.string(),
   phone: z.string().min(1, 'Вкажіть телефон співробітника'),
   email: z.string().min(1, 'Вкажіть e-mail співробітника'),
   restrict: z.boolean().default(false),
@@ -54,7 +56,8 @@ export const EmployeeSettingsModal = ({
   className,
 }: EmployeeSettingsProps) => {
   const [open, setOpen] = useState(false);
-  const [usersForRole, setUsersForRole] = useState<object[]>([]);
+  const [userRole, setUserRole] = useState<string>(data.role);
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof employeeSchema>>({
     resolver: zodResolver(employeeSchema),
@@ -68,11 +71,23 @@ export const EmployeeSettingsModal = ({
       restrict: false,
     },
   });
+  const { watch } = form;
+  const watchRole = watch('role');
 
   const onSubmit = (data: z.infer<typeof employeeSchema>) => {
-    const values = { ...data, roleUsers: usersForRole };
+    const values = { ...data };
     console.log(values);
   };
+
+  useEffect(() => {
+    if (watchRole?.toString() !== 'roles') {
+      setUserRole(watchRole.toString());
+      return;
+    }
+    form.setValue('role', userRole);
+    router.push('/role');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [watchRole]);
 
   return (
     <>
@@ -90,7 +105,20 @@ export const EmployeeSettingsModal = ({
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <ModalHeader className="mb-6">
-                <ModalTitle>Налаштування співробітника</ModalTitle>
+                <ModalTitle className="flex items-center justify-between">
+                  <div>
+                    Налаштування{' '}
+                    <span className="sm:hidden">співробітника</span>
+                  </div>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    className="hidden sm:flex hover:shadow-none text-warning hover:text-main-dark gap-2 py-2.5 text-base"
+                  >
+                    <Icon iconName="Trash" width={24} height={24} />
+                    Видалити співробітника
+                  </Button>
+                </ModalTitle>
                 <ModalDescription className="hidden"></ModalDescription>
               </ModalHeader>
               <ModalInner>
@@ -132,7 +160,7 @@ export const EmployeeSettingsModal = ({
                       <FormLabel>Роль співробітника:</FormLabel>
                       <Select
                         onValueChange={field.onChange}
-                        defaultValue={field.value}
+                        defaultValue={field.value.toString()}
                       >
                         <FormControl>
                           <SelectTrigger>
@@ -161,6 +189,7 @@ export const EmployeeSettingsModal = ({
                             </SelectItem>
                           ))}
                           <SelectItem
+                            key="roles"
                             id="roles"
                             value="roles"
                             className="bg-bg-color hover:cursor-pointer"
@@ -182,9 +211,10 @@ export const EmployeeSettingsModal = ({
                     </FormItem>
                   )}
                 />
+
                 <FormField
                   control={form.control}
-                  name="phone"
+                  name="email"
                   render={({ field }) => (
                     <FormItem className="mb-4 space-y-0">
                       <FormLabel className="text-xs text-gray-dark leading-none">
@@ -235,7 +265,7 @@ export const EmployeeSettingsModal = ({
                   <Button
                     type="button"
                     variant="ghost"
-                    className="hover:shadow-none text-warning hover:text-main-dark gap-2 py-2.5"
+                    className="sm:hidden hover:shadow-none text-warning hover:text-main-dark gap-2 py-2.5"
                   >
                     <Icon iconName="DeleteCircle" width={20} height={20} />
                     Видалити співробітника

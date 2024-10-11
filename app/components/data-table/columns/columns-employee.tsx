@@ -5,11 +5,12 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/utils/icon';
 import { EmployeeSettingsModal } from '@/app/components/settings/employee/employee-settings-modal';
+import { roleList } from '@/app/components/settings/employee/employee';
 
 export type employeeType = {
   id: number;
   name: string;
-  role: string;
+  role: number;
   phone: string;
   email: string;
 };
@@ -52,12 +53,12 @@ export const columns: ColumnDef<employeeType>[] = [
                 <div
                   className={cn(
                     'text-sm text-gray-dark font-medium',
-                    role === 'Адміністратор' && 'text-green-additional-color',
-                    role === 'Фінансист' && 'text-orange-additional-color',
-                    role === 'Менеджер проєкту' && 'text-blue-additional-color',
+                    role === 1 && 'text-green-additional-color',
+                    role === 3 && 'text-orange-additional-color',
+                    role === 2 && 'text-blue-additional-color',
                   )}
                 >
-                  {role}
+                  {roleList[role].label}
                 </div>
               </div>
               <div className="sm:hidden">
