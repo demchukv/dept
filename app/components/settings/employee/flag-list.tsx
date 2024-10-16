@@ -1,4 +1,3 @@
-import { FlagType } from '@/types/call';
 import {
   Select,
   SelectContent,
@@ -7,31 +6,48 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 import { cn } from '@/lib/utils';
 
+import { getAllFlags } from '@/action/get-flags';
+import { FlagType } from '@/types/call';
+import { Loading } from '../../common/loading';
+
 interface FlagListProps {
-  flags: FlagType[];
   currentValue: string;
   onChange: (value: string) => void;
 }
-export const FlagList = ({ flags, currentValue, onChange }: FlagListProps) => {
+export const CountryList = ({ currentValue, onChange }: FlagListProps) => {
   const [openList, setOpenList] = useState(false);
+  const [isPending, startTransition] = useTransition();
+  const [flags, setFlags] = useState<FlagType[]>([]);
+
+  const getFlags = async () => {
+    startTransition(async () => {
+      const data = await getAllFlags();
+      setFlags(data);
+    });
+  };
+
+  useEffect(() => {
+    getFlags();
+  }, []);
 
   return (
-    <Select
-      onValueChange={(value) => {
-        onChange(value);
-      }}
-      defaultValue={currentValue}
-      onOpenChange={(value) => setOpenList(value)}
-    >
-      <SelectTrigger className="w-min border-0 bg-transparent outline-none shadow-none focus:ring-0">
-        <SelectValue placeholder="" />
-      </SelectTrigger>
-      <SelectContent>
-        {flags && flags.length > 0 && (
-          <>
+    <>
+      {isPending && <Loading className="w-6 h-6" />}
+      {!isPending && flags && flags.length > 0 && (
+        <Select
+          onValueChange={(value) => {
+            onChange(value);
+          }}
+          defaultValue={currentValue}
+          onOpenChange={(value) => setOpenList(value)}
+        >
+          <SelectTrigger className="w-min border-0 bg-transparent outline-none shadow-none focus:ring-0">
+            <SelectValue placeholder="" />
+          </SelectTrigger>
+          <SelectContent>
             {flags.map((flag) => (
               <SelectItem
                 key={`flag-${flag.iso3}`}
@@ -57,9 +73,9 @@ export const FlagList = ({ flags, currentValue, onChange }: FlagListProps) => {
                 </div>
               </SelectItem>
             ))}
-          </>
-        )}
-      </SelectContent>
-    </Select>
+          </SelectContent>
+        </Select>
+      )}
+    </>
   );
 };

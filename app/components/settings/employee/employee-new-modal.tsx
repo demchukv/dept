@@ -36,11 +36,7 @@ import { cn } from '@/lib/utils';
 import { roleList } from '@/app/components/settings/employee/employee';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-
-import { getAllFlags } from '@/action/get-flags';
-import { FlagType } from '@/types/call';
-import { Loading } from '../../common/loading';
-import { FlagList } from '@/app/components/settings/employee/flag-list';
+import { CountryList } from '@/app/components/settings/employee/flag-list';
 
 const newEmployeeSchema = z.object({
   name: z.string().min(1, "Вкажіть ім'я співробітника"),
@@ -58,8 +54,6 @@ interface EmployeeNewProps {
   className?: string;
 }
 export const EmployeeNewModal = ({ className }: EmployeeNewProps) => {
-  const [isPending, startTransition] = useTransition();
-  const [flags, setFlags] = useState<FlagType[]>([]);
   const [phoneCode, setPhoneCode] = useState<string>('380');
 
   const [open, setOpen] = useState(false);
@@ -88,19 +82,6 @@ export const EmployeeNewModal = ({ className }: EmployeeNewProps) => {
     console.log(values);
   };
 
-  const getFlags = async () => {
-    startTransition(async () => {
-      const data = await getAllFlags();
-      setFlags(data);
-    });
-  };
-
-  useEffect(() => {
-    if (open) {
-      getFlags();
-    }
-  }, [open]);
-
   useEffect(() => {
     if (watchRole?.toString() !== 'roles') {
       setUserRole(watchRole.toString());
@@ -119,7 +100,6 @@ export const EmployeeNewModal = ({ className }: EmployeeNewProps) => {
 
       <Modal open={open} onOpenChange={() => setOpen(false)}>
         <ModalContent className="sm:max-w-[532px] md:max-w-[532px]">
-          {isPending && <Loading />}
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <ModalHeader className="mb-6">
@@ -164,13 +144,10 @@ export const EmployeeNewModal = ({ className }: EmployeeNewProps) => {
                             inputMode="tel"
                           />
                           <div className="absolute top-1/2 -translate-y-1/2 right-2">
-                            {flags && flags.length > 0 && !isPending && (
-                              <FlagList
-                                flags={flags}
-                                currentValue={phoneCode}
-                                onChange={setPhoneCode}
-                              />
-                            )}
+                            <CountryList
+                              currentValue={phoneCode}
+                              onChange={setPhoneCode}
+                            />
                           </div>
                         </div>
                       </FormControl>
