@@ -66,18 +66,6 @@ export const columns: ColumnDef<employeeType>[] = [
                   data={row.original}
                   className="sm:hidden text-main-color hover:text-main-dark"
                 />
-                {/* <Button
-                  type="button"
-                  variant="ghost"
-                  className="sm:hidden text-main-color hover:text-main-dark"
-                >
-                  <Icon
-                    iconName="SettingAlert"
-                    width={24}
-                    height={24}
-                    className="w-6 h-6"
-                  />
-                </Button> */}
               </div>
             </div>
             <div className="text-sm text-main-dark p-2 sm:p-0  border-b border-gray-light sm:border-0">
@@ -88,20 +76,8 @@ export const columns: ColumnDef<employeeType>[] = [
             </div>
             <EmployeeSettingsModal
               data={row.original}
-              className="hidden sm:flex text-main-color hover:text-main-dark"
+              className="hidden sm:flex self-start text-main-color hover:text-main-dark"
             />
-            {/* <Button
-              type="button"
-              variant="ghost"
-              className="hidden sm:flex text-main-color hover:text-main-dark"
-            >
-              <Icon
-                iconName="SettingAlert"
-                width={24}
-                height={24}
-                className="w-6 h-6"
-              />
-            </Button> */}
           </div>
         </>
       );

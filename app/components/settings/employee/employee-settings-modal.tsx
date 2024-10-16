@@ -35,6 +35,7 @@ import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import { Info } from '@/app/components/common/info';
 import { roleList } from '@/app/components/settings/employee/employee';
+import { EmployeeDeleteModal } from '@/app/components/settings/employee/employee-delete-modal';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
@@ -110,14 +111,7 @@ export const EmployeeSettingsModal = ({
                     Налаштування{' '}
                     <span className="sm:hidden">співробітника</span>
                   </div>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    className="hidden sm:flex hover:shadow-none text-warning hover:text-main-dark gap-2 py-2.5 text-base"
-                  >
-                    <Icon iconName="Trash" width={24} height={24} />
-                    Видалити співробітника
-                  </Button>
+                  <EmployeeDeleteModal data={data} className="hidden sm:flex" />
                 </ModalTitle>
                 <ModalDescription className="hidden"></ModalDescription>
               </ModalHeader>
@@ -227,30 +221,47 @@ export const EmployeeSettingsModal = ({
                     </FormItem>
                   )}
                 />
-                <FormField
-                  control={form.control}
-                  name="restrict"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-row items-center space-x-3 space-y-0 mb-5">
-                      <FormControl>
-                        <Checkbox
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                      </FormControl>
-                      <div className="space-y-1 leading-none">
-                        <FormLabel>Обмежити доступ</FormLabel>
-                      </div>
-                    </FormItem>
-                  )}
-                />
+                <div className="flex items-center justify-between">
+                  <FormField
+                    control={form.control}
+                    name="restrict"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-row items-center space-x-3 space-y-0 mb-5">
+                        <FormControl>
+                          <Checkbox
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                          />
+                        </FormControl>
+                        <div className="space-y-1 leading-none">
+                          <FormLabel className="whitespace-nowrap">
+                            Обмежити доступ
+                          </FormLabel>
+                        </div>
+                      </FormItem>
+                    )}
+                  />
+                  <div className="hidden sm:flex flex-col sm:flex-row-reverse gap-3">
+                    <Button type="submit" variant="default">
+                      Зберегти
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => setOpen(false)}
+                    >
+                      Відмінити
+                    </Button>
+                    <EmployeeDeleteModal data={data} className="sm:hidden" />
+                  </div>
+                </div>
                 <Info>
                   Звертаємо увагу: обмеження доступу співробітника буде
                   застосовано для всіх продуктів співробітника, в тому числі і
                   до корпоративної пошти.
                 </Info>
               </ModalInner>
-              <ModalFooter>
+              <ModalFooter className="sm:hidden">
                 <div className="w-full flex flex-col sm:flex-row-reverse gap-3">
                   <Button type="submit" variant="default">
                     Зберегти
@@ -262,14 +273,7 @@ export const EmployeeSettingsModal = ({
                   >
                     Відмінити
                   </Button>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    className="sm:hidden hover:shadow-none text-warning hover:text-main-dark gap-2 py-2.5"
-                  >
-                    <Icon iconName="DeleteCircle" width={20} height={20} />
-                    Видалити співробітника
-                  </Button>
+                  <EmployeeDeleteModal data={data} className="sm:hidden" />
                 </div>
               </ModalFooter>
             </form>
