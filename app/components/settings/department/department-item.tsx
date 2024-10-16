@@ -6,16 +6,19 @@ import { Icon } from '@/components/utils/icon';
 
 interface DepartmentItemProps {
   department: any;
+  color?: string;
 }
-export const DepartmentItem = ({ department }: DepartmentItemProps) => {
+export const DepartmentItem = ({ department, color }: DepartmentItemProps) => {
   return (
-    <div>
-      <div className="mb-4">
+    <div className="flex-flex-col gap-4">
+      <div
+        className={cn(department.sub && department.sub.length > 0 && 'mb-4')}
+      >
         <Card className="shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)] p-4 md:p-8 w-[280px] ">
           <div className="flex items-center justify-between mb-3">
             <div
               className={cn('font-semibold text-base leading-main-lh')}
-              style={{ color: department.color }}
+              style={{ color: color ? color : department?.color }}
             >
               {department.name}
             </div>
@@ -43,11 +46,17 @@ export const DepartmentItem = ({ department }: DepartmentItemProps) => {
           </div>
         </Card>
       </div>
-      {/* <div className="border-l-[2px] border-gray-medium pl-5 flex gap-4 items-start">
-        {department.sub.map((depart: any) => (
-          <DepartmentItem department={depart} key={depart.id} />
-        ))}
-      </div> */}
+      {department.sub && department.sub.length > 0 && (
+        <div className="border-l-[2px] border-gray-medium pl-5 flex flex-col gap-4 items-start">
+          {department.sub.map((depart: any) => (
+            <DepartmentItem
+              department={depart}
+              color={color ? color : department.color}
+              key={depart.id}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
