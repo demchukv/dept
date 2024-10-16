@@ -4,8 +4,13 @@ import { cn } from '@/lib/utils';
 import { DepartmentItem } from '@/app/components/settings/department/department-item';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Icon } from '@/components/utils/icon';
+import { Button } from '@/components/ui/button';
+import { DepartmentAddModal } from '@/app/components/settings/department/department-add-modal';
+import { DepartmentEditModal } from '@/app/components/settings/department/department-edit-modal';
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 
 const departmentHead = {
+  id: 150,
   name: 'Шевченко Василь Петрович',
   title: 'Керівник',
   avatar: '',
@@ -159,47 +164,54 @@ export const Department = () => {
         </h1>
       </div>
 
-      <div>
-        <div className="mb-4">
-          <Card className="shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)] p-4 md:p-8 w-[280px] ">
-            <div className="flex items-center justify-between mb-3">
-              <div
-                className={cn(
-                  'font-semibold text-base leading-main-lh',
-                  `text-warning`,
-                )}
-              >
-                {departmentHead.title}
+      <div className="mr-4 max-w-[100%] max-h-[100%]">
+        <ScrollArea className="pb-4 w-full h-full">
+          <div className="mb-4">
+            <Card className="shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)] p-4 md:p-8 w-[280px] ">
+              <div className="flex items-center justify-between mb-3">
+                <div
+                  className={cn(
+                    'font-semibold text-base leading-main-lh',
+                    `text-warning`,
+                  )}
+                >
+                  {departmentHead.title}
+                </div>
+                <div className="flex items-center gap-2">
+                  <DepartmentEditModal id={departmentHead.id} />
+                  <DepartmentAddModal parentId={departmentHead.id} />
+                </div>
               </div>
-              <div>Icons</div>
-            </div>
-            <div className="flex items-center gap-2">
-              <Avatar className="bg-transparent w-8 h-8">
-                <AvatarImage
-                  src={departmentHead.avatar}
-                  alt={departmentHead.name}
-                  className="w-8 h-8 bg-transparent"
-                />
-                <AvatarFallback>
-                  <Icon
-                    iconName="AvatarUser"
-                    width={32}
-                    height={32}
-                    className="w-8 h-8 fill-gray-medium"
+              <div className="flex items-center gap-2">
+                <Avatar className="bg-transparent w-8 h-8">
+                  <AvatarImage
+                    src={departmentHead.avatar}
+                    alt={departmentHead.name}
+                    className="w-8 h-8 bg-transparent"
                   />
-                </AvatarFallback>
-              </Avatar>
-              <div className="font-medium leading-main-lh">
-                {departmentHead.name}
+                  <AvatarFallback>
+                    <Icon
+                      iconName="AvatarUser"
+                      width={32}
+                      height={32}
+                      className="w-8 h-8 fill-gray-medium"
+                    />
+                  </AvatarFallback>
+                </Avatar>
+                <div className="font-medium leading-main-lh">
+                  {departmentHead.name}
+                </div>
               </div>
-            </div>
-          </Card>
-        </div>
-        <div className="border-l-[2px] border-gray-medium pl-5 flex gap-4 items-start">
-          {departmentsList.map((department) => (
-            <DepartmentItem department={department} key={department.id} />
-          ))}
-        </div>
+            </Card>
+          </div>
+          <div className="border-l-[2px] border-gray-medium pl-5 flex gap-4 items-start">
+            {departmentsList.map((department) => (
+              <DepartmentItem department={department} key={department.id} />
+            ))}
+          </div>
+          <ScrollBar forceMount={true} orientation="horizontal" className="" />
+          <ScrollBar forceMount={true} orientation="vertical" />
+        </ScrollArea>
       </div>
     </>
   );

@@ -21,15 +21,32 @@ export const DepartmentEmployees = ({
 
       <Accordion
         type="single"
-        collapsible
+        collapsible={true}
         className="w-full flex flex-col gap-4 border-none p-0"
         defaultValue={undefined}
       >
         <AccordionItem value="employeesList" className="p-0">
-          <AccordionTrigger className="p-0 gap-2 justify-start flex-grow w-full">
-            <div className="flex items-center gap-0">
+          <AccordionTrigger className="group p-0 gap-2 justify-start flex-grow w-full">
+            <div className="flex items-center gap-0 group-[&[aria-expanded='true']]:hidden">
               {employees.map((employee) => (
-                <p key={employee.id}>a</p>
+                <Avatar
+                  key={employee.id}
+                  className="bg-transparent w-5 h-5 ml-[-6px]"
+                >
+                  <AvatarImage
+                    src={employee.avatar}
+                    alt={employee.name}
+                    className="w-5 h-5 bg-transparent"
+                  />
+                  <AvatarFallback>
+                    <Icon
+                      iconName="AvatarUser"
+                      width={20}
+                      height={20}
+                      className="w-5 h-5 fill-gray-medium"
+                    />
+                  </AvatarFallback>
+                </Avatar>
               ))}
             </div>
             <div className="text-xs font-medium leading-main-lh">

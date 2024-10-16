@@ -4,6 +4,9 @@ import { cn } from '@/lib/utils';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Icon } from '@/components/utils/icon';
 import { DepartmentEmployees } from '@/app/components/settings/department/department-employees';
+import { Button } from '@/components/ui/button';
+import { DepartmentAddModal } from '@/app/components/settings/department/department-add-modal';
+import { DepartmentEditModal } from '@/app/components/settings/department/department-edit-modal';
 
 interface DepartmentItemProps {
   department: any;
@@ -23,7 +26,10 @@ export const DepartmentItem = ({ department, color }: DepartmentItemProps) => {
             >
               {department.name}
             </div>
-            <div>Icons</div>
+            <div className="flex items-center gap-2">
+              <DepartmentEditModal id={department.id} />
+              <DepartmentAddModal parentId={department.id} />
+            </div>
           </div>
           <div className="flex items-center gap-2">
             <Avatar className="bg-transparent w-8 h-8">
