@@ -10,7 +10,7 @@ import {
   ModalInner,
   ModalTitle,
 } from '@/app/components/common/modal-new';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -37,9 +37,15 @@ import { roleList } from '@/app/components/settings/employee/employee';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
+import { getAllFlags } from '@/action/get-flags';
+import { FlagType } from '@/types/call';
+import { Loading } from '../../common/loading';
+import { FlagList } from '@/app/components/settings/employee/flag-list';
+
 const newEmployeeSchema = z.object({
   name: z.string().min(1, "Вкажіть ім'я співробітника"),
   role: z.string(),
+  iso2: z.string(),
   phone: z.string().min(1, 'Вкажіть телефон співробітника'),
   emailType: z.string(), // exists, fromlist, new
   newEmail: z.string().optional(),
@@ -52,6 +58,10 @@ interface EmployeeNewProps {
   className?: string;
 }
 export const EmployeeNewModal = ({ className }: EmployeeNewProps) => {
+  const [isPending, startTransition] = useTransition();
+  const [flags, setFlags] = useState<FlagType[]>([]);
+  const [phoneCode, setPhoneCode] = useState<string>('380');
+
   const [open, setOpen] = useState(false);
   const [userRole, setUserRole] = useState<string>('');
   const router = useRouter();
@@ -62,6 +72,7 @@ export const EmployeeNewModal = ({ className }: EmployeeNewProps) => {
     defaultValues: {
       name: '',
       role: '',
+      iso2: 'UA',
       phone: '',
       emailType: 'exists',
       newEmail: '',
@@ -76,6 +87,17 @@ export const EmployeeNewModal = ({ className }: EmployeeNewProps) => {
     const values = { ...data };
     console.log(values);
   };
+
+  const getFlags = async () => {
+    startTransition(async () => {
+      const data = await getAllFlags();
+      setFlags(data);
+    });
+  };
+
+  useEffect(() => {
+    getFlags();
+  }, []);
 
   useEffect(() => {
     if (watchRole?.toString() !== 'roles') {
@@ -95,6 +117,7 @@ export const EmployeeNewModal = ({ className }: EmployeeNewProps) => {
 
       <Modal open={open} onOpenChange={() => setOpen(false)}>
         <ModalContent className="sm:max-w-[532px] md:max-w-[532px]">
+          {isPending && <Loading />}
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <ModalHeader className="mb-6">
@@ -128,7 +151,26 @@ export const EmployeeNewModal = ({ className }: EmployeeNewProps) => {
                         Телефон:
                       </FormLabel>
                       <FormControl>
-                        <Input placeholder="Телефон" {...field} />
+                        <div className="relative">
+                          <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+                            +{phoneCode}
+                          </span>
+                          <Input
+                            placeholder="(00) 000-00-00"
+                            {...field}
+                            className="pl-16 pr-16"
+                            inputMode="tel"
+                          />
+                          <div className="absolute top-1/2 -translate-y-1/2 right-2">
+                            {flags && flags.length > 0 && !isPending && (
+                              <FlagList
+                                flags={flags}
+                                currentValue={phoneCode}
+                                onChange={setPhoneCode}
+                              />
+                            )}
+                          </div>
+                        </div>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -139,14 +181,16 @@ export const EmployeeNewModal = ({ className }: EmployeeNewProps) => {
                   name="role"
                   render={({ field }) => (
                     <FormItem className="mb-4 space-y-0">
-                      <FormLabel>Роль співробітника:</FormLabel>
+                      <FormLabel className="text-xs text-gray-dark leading-none">
+                        Роль співробітника:
+                      </FormLabel>
                       <Select
                         onValueChange={field.onChange}
                         defaultValue={field.value.toString()}
                       >
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder="Select a verified email to display" />
+                            <SelectValue placeholder="Виберіть роль співробітника" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
@@ -199,6 +243,9 @@ export const EmployeeNewModal = ({ className }: EmployeeNewProps) => {
                   name="emailType"
                   render={({ field }) => (
                     <FormItem className="mb-4">
+                      <FormLabel className="text-xs text-gray-dark leading-none">
+                        E-mail:
+                      </FormLabel>
                       <FormControl>
                         <RadioGroup
                           onValueChange={field.onChange}
