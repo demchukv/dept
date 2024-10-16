@@ -174,7 +174,7 @@ export const Department = () => {
               <div>Icons</div>
             </div>
             <div className="flex items-center gap-2">
-              <Avatar className="bg-transparent">
+              <Avatar className="bg-transparent w-8 h-8">
                 <AvatarImage
                   src={departmentHead.avatar}
                   alt={departmentHead.name}

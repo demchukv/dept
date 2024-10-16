@@ -3,6 +3,7 @@ import { Card } from '@/app/components/card/card';
 import { cn } from '@/lib/utils';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Icon } from '@/components/utils/icon';
+import { DepartmentEmployees } from '@/app/components/settings/department/department-employees';
 
 interface DepartmentItemProps {
   department: any;
@@ -25,7 +26,7 @@ export const DepartmentItem = ({ department, color }: DepartmentItemProps) => {
             <div>Icons</div>
           </div>
           <div className="flex items-center gap-2">
-            <Avatar className="bg-transparent">
+            <Avatar className="bg-transparent w-8 h-8">
               <AvatarImage
                 src={department.manager.avatar}
                 alt={department.manager.name}
@@ -44,6 +45,9 @@ export const DepartmentItem = ({ department, color }: DepartmentItemProps) => {
               {department.manager.name}
             </div>
           </div>
+          {department.employees && department.employees.length > 0 && (
+            <DepartmentEmployees employees={department.employees} />
+          )}
         </Card>
       </div>
       {department.sub && department.sub.length > 0 && (
