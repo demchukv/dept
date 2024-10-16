@@ -96,8 +96,10 @@ export const EmployeeNewModal = ({ className }: EmployeeNewProps) => {
   };
 
   useEffect(() => {
-    getFlags();
-  }, []);
+    if (open) {
+      getFlags();
+    }
+  }, [open]);
 
   useEffect(() => {
     if (watchRole?.toString() !== 'roles') {
