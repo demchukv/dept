@@ -5,6 +5,7 @@ import { SortingState } from '@tanstack/react-table';
 import { DataTable } from '@/app/components/data-table/data-table-employee';
 import { columns } from '@/app/components/data-table/columns/columns-employee';
 import { Card } from '@/app/components/card/card';
+import { EmployeeNewModal } from '@/app/components/settings/employee/employee-new-modal';
 
 const employeeList = [
   {
@@ -89,7 +90,7 @@ export const Employee = () => {
         <h1 className="font-bold text-2xl leading-none text-main-dark mb-4 lg:mb-8">
           Налаштування. Співробітники
         </h1>
-        <Button type="button">Новий співробітник</Button>
+        <EmployeeNewModal />
       </div>
       <Card className="shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)] p-4 md:p-8">
         <DataTable
