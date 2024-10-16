@@ -33,15 +33,29 @@ export const CountryList = ({ currentValue, onChange }: FlagListProps) => {
     getFlags();
   }, []);
 
+  function getPhoneCode(iso2: string | undefined) {
+    if (iso2) {
+      return flags.find((flag) => flag.iso2 === iso2)?.phoneCode || '';
+    }
+    return '';
+  }
+
+  function getIso2ByPhoneCode(phoneCode: string | undefined) {
+    if (phoneCode) {
+      return flags.find((flag) => flag.phoneCode === phoneCode)?.iso2 || '';
+    }
+    return '';
+  }
   return (
     <>
       {isPending && <Loading className="w-6 h-6" />}
       {!isPending && flags && flags.length > 0 && (
         <Select
+          key="flag-select"
           onValueChange={(value) => {
-            onChange(value);
+            onChange(getPhoneCode(value));
           }}
-          defaultValue={currentValue}
+          defaultValue={getIso2ByPhoneCode(currentValue)}
           onOpenChange={(value) => setOpenList(value)}
         >
           <SelectTrigger className="w-min border-0 bg-transparent outline-none shadow-none focus:ring-0">
@@ -49,10 +63,7 @@ export const CountryList = ({ currentValue, onChange }: FlagListProps) => {
           </SelectTrigger>
           <SelectContent>
             {flags.map((flag) => (
-              <SelectItem
-                key={`flag-${flag.iso3}`}
-                value={flag.phoneCode ?? ''}
-              >
+              <SelectItem key={`flag-${flag.iso3}`} value={flag.iso2}>
                 <div key={flag.iso3} className="flex items-center gap-2">
                   <div className="flex items-center justify-center w-6 h-6 text-center overflow-hidden rounded-full object-cover flex-shrink-0">
                     <Image
