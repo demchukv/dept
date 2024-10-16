@@ -91,7 +91,7 @@ export const EmployeeDeleteModal = ({
       </Button>
 
       <Modal open={open} onOpenChange={() => setOpen(false)}>
-        <ModalContent className="sm:max-w-[834px] md:max-w-[834px]">
+        <ModalContent className="sm:max-w-[473px] md:max-w-[473px]">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <ModalHeader className="mb-6">
@@ -238,18 +238,19 @@ export const EmployeeDeleteModal = ({
                 </div>
               </ModalInner>
               <ModalFooter>
-                <div className="w-full flex flex-col sm:justify-end sm:flex-row gap-3">
+                <div className="w-full flex flex-col sm:justify-between sm:flex-row gap-3">
                   <Button
                     type="button"
                     variant="outline"
                     onClick={() => setOpen(false)}
+                    className="w-full"
                   >
                     Відмінити
                   </Button>
                   <Button
                     type="submit"
                     variant="destructive"
-                    className="bg-warning text-white"
+                    className="w-full bg-warning text-white"
                   >
                     Видалити співробітника
                   </Button>
