@@ -36,7 +36,7 @@ import { cn } from '@/lib/utils';
 import { roleList } from '@/app/components/settings/employee/employee';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { CountryList } from '@/app/components/settings/employee/flag-list';
+import { CountryList } from '@/app/components/settings/employee/country-list';
 
 const newEmployeeSchema = z.object({
   name: z.string().min(1, "Вкажіть ім'я співробітника"),
