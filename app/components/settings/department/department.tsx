@@ -8,7 +8,7 @@ import { Icon } from '@/components/utils/icon';
 import { Button } from '@/components/ui/button';
 import { DepartmentAddModal } from '@/app/components/settings/department/department-add-modal';
 import { DepartmentEditModal } from '@/app/components/settings/department/department-edit-modal';
-import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area-department';
 
 const departmentHead = {
   id: 150,
@@ -174,7 +174,12 @@ export const Department = () => {
       ref.current.style.zoom = scale.toString();
     }
   }, [scale]);
-
+  const scrollAreaHeight = () => {
+    return (window.innerHeight - 190).toString() + 'px';
+  };
+  console.log(window.innerHeight);
+  console.log(document.scrollingElement!.scrollHeight);
+  console.log(ref.current?.scrollHeight);
   return (
     <>
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-9">
@@ -183,8 +188,12 @@ export const Department = () => {
         </h1>
       </div>
 
-      <ScrollArea type="always" className="w-[100%] h-[600px]">
-        <div className="origin-top-left mb-4 mr-4" ref={ref}>
+      <ScrollArea
+        type="always"
+        className="w-full"
+        style={{ height: scrollAreaHeight() }}
+      >
+        <div className="origin-top-left mb-6 mr-6" ref={ref}>
           <div className="mb-4">
             <Card className="shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)] p-4 md:p-8 w-[280px] ">
               <div className="flex items-center justify-between mb-3">
@@ -229,12 +238,20 @@ export const Department = () => {
             ))}
           </div>
         </div>
-        <div className="absolute flex items-center gap-2 bottom-3 right-3 text-gray-medium font-medium leading-main-lh">
-          <button type="button" onClick={zoomIn}>
+        <div className="absolute flex items-center gap-2 bottom-6 right-3 text-gray-medium font-medium leading-main-lh">
+          <button
+            type="button"
+            onClick={zoomIn}
+            className="hover:text-main-dark"
+          >
             <Icon iconName="ZoomIn" width={24} height={24} />
           </button>
           <span>{(scale * 100).toFixed(0)}%</span>
-          <button type="button" onClick={zoomOut}>
+          <button
+            type="button"
+            onClick={zoomOut}
+            className="hover:text-main-dark"
+          >
             <Icon iconName="ZoomOut" width={24} height={24} />
           </button>
         </div>
