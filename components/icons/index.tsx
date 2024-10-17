@@ -98,6 +98,8 @@ import User from '@/components/icons/user';
 import UserBalance from '@/components/icons/user-balance';
 import HistoryList from '@/components/icons/history-list';
 import Warning from '@/components/icons/warning';
+import ZoomIn from '@/components/icons/zoom-in';
+import ZoomOut from '@/components/icons/zoom-out';
 
 export const Icons = {
   Academy,
@@ -200,4 +202,6 @@ export const Icons = {
   User,
   UserBalance,
   Warning,
+  ZoomIn,
+  ZoomOut,
 };

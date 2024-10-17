@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+import React, { useEffect, useRef, useState } from 'react';
 import { Card } from '@/app/components/card/card';
 import { cn } from '@/lib/utils';
 import { DepartmentItem } from '@/app/components/settings/department/department-item';
@@ -57,7 +58,7 @@ const departmentsList = [
         ],
         sub: [
           {
-            id: 11,
+            id: 111,
             name: 'Центр',
             manager: {
               id: 22,
@@ -156,6 +157,24 @@ const departmentsList = [
 ];
 
 export const Department = () => {
+  const [scale, setScale] = useState(1);
+  const ref = useRef<HTMLDivElement>(null);
+
+  function zoomIn() {
+    setScale(scale + 0.1);
+  }
+
+  function zoomOut() {
+    setScale(scale - 0.1);
+  }
+
+  useEffect(() => {
+    if (ref.current) {
+      // ref.current.style.transform = `scale(${scale})`;
+      ref.current.style.zoom = scale.toString();
+    }
+  }, [scale]);
+
   return (
     <>
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-9">
@@ -164,8 +183,8 @@ export const Department = () => {
         </h1>
       </div>
 
-      <div className="mr-4 max-w-[100%] max-h-[100%]">
-        <ScrollArea className="pb-4 w-full h-full">
+      <ScrollArea type="always" className="w-[100%] h-[600px]">
+        <div className="origin-top-left mb-4 mr-4" ref={ref}>
           <div className="mb-4">
             <Card className="shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)] p-4 md:p-8 w-[280px] ">
               <div className="flex items-center justify-between mb-3">
@@ -209,10 +228,19 @@ export const Department = () => {
               <DepartmentItem department={department} key={department.id} />
             ))}
           </div>
-          <ScrollBar forceMount={true} orientation="horizontal" className="" />
-          <ScrollBar forceMount={true} orientation="vertical" />
-        </ScrollArea>
-      </div>
+        </div>
+        <div className="absolute flex items-center gap-2 bottom-3 right-3 text-gray-medium font-medium leading-main-lh">
+          <button type="button" onClick={zoomIn}>
+            <Icon iconName="ZoomIn" width={24} height={24} />
+          </button>
+          <span>{(scale * 100).toFixed(0)}%</span>
+          <button type="button" onClick={zoomOut}>
+            <Icon iconName="ZoomOut" width={24} height={24} />
+          </button>
+        </div>
+        <ScrollBar orientation="vertical" />
+        <ScrollBar orientation="horizontal" />
+      </ScrollArea>
     </>
   );
 };
