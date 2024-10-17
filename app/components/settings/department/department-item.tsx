@@ -27,8 +27,11 @@ export const DepartmentItem = ({ department, color }: DepartmentItemProps) => {
               {department.name}
             </div>
             <div className="flex items-center gap-2">
-              <DepartmentEditModal id={department.id} />
-              <DepartmentAddModal parentId={department.id} />
+              <DepartmentEditModal id={department.id} department={department} />
+              <DepartmentAddModal
+                parentId={department.id}
+                parentDepartment={department}
+              />
             </div>
           </div>
           <div className="flex items-center gap-2">

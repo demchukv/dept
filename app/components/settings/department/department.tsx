@@ -177,9 +177,7 @@ export const Department = () => {
   const scrollAreaHeight = () => {
     return (window.innerHeight - 190).toString() + 'px';
   };
-  console.log(window.innerHeight);
-  console.log(document.scrollingElement!.scrollHeight);
-  console.log(ref.current?.scrollHeight);
+
   return (
     <>
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-9">
@@ -206,8 +204,14 @@ export const Department = () => {
                   {departmentHead.title}
                 </div>
                 <div className="flex items-center gap-2">
-                  <DepartmentEditModal id={departmentHead.id} />
-                  <DepartmentAddModal parentId={departmentHead.id} />
+                  <DepartmentEditModal
+                    id={departmentHead.id}
+                    department={departmentHead}
+                  />
+                  <DepartmentAddModal
+                    parentId={departmentHead.id}
+                    parentDepartment={departmentHead}
+                  />
                 </div>
               </div>
               <div className="flex items-center gap-2">

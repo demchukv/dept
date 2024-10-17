@@ -47,10 +47,12 @@ const employeeDeleteSchema = z.object({
 
 interface EmployeeDeleteProps {
   parentId: any;
+  parentDepartment: any;
   className?: string;
 }
 export const DepartmentAddModal = ({
   parentId,
+  parentDepartment,
   className,
 }: EmployeeDeleteProps) => {
   const [open, setOpen] = useState(false);
@@ -91,8 +93,13 @@ export const DepartmentAddModal = ({
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <ModalHeader className="mb-6">
-                <ModalTitle className="flex items-center justify-between">
-                  <div>Додати дочірній підрозділ</div>
+                <ModalTitle className="flex items-center justify-center">
+                  <div className="text-center">
+                    Додати дочірній підрозділ{' '}
+                    <span className="text-main-color">
+                      &nbsp;{parentDepartment.name}
+                    </span>
+                  </div>
                 </ModalTitle>
                 <ModalDescription className="hidden"></ModalDescription>
               </ModalHeader>

@@ -47,9 +47,14 @@ const employeeDeleteSchema = z.object({
 
 interface EmployeeDeleteProps {
   id: any;
+  department: any;
   className?: string;
 }
-export const DepartmentEditModal = ({ id, className }: EmployeeDeleteProps) => {
+export const DepartmentEditModal = ({
+  id,
+  department,
+  className,
+}: EmployeeDeleteProps) => {
   const [open, setOpen] = useState(false);
 
   const form = useForm<z.infer<typeof employeeDeleteSchema>>({
@@ -88,8 +93,13 @@ export const DepartmentEditModal = ({ id, className }: EmployeeDeleteProps) => {
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <ModalHeader className="mb-6">
-                <ModalTitle className="flex items-center justify-between">
-                  <div>Редагування відділу</div>
+                <ModalTitle className="flex items-center justify-center">
+                  <div className="text-center">
+                    Редагування відділу{'  '}
+                    <span className="text-main-color">
+                      &nbsp;{department.name}
+                    </span>
+                  </div>
                 </ModalTitle>
                 <ModalDescription className="hidden"></ModalDescription>
               </ModalHeader>
