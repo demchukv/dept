@@ -30,19 +30,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select-form';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
 import { cn } from '@/lib/utils';
-import { Info } from '@/app/components/common/info';
+import { Input } from '@/components/ui/input';
 
 const transEmail = ['first@mail.com', 'second@mail.com'];
+
+const employeeList = [
+  { id: 2, name: 'Коливан Данило Петрович', avatar: '' },
+  { id: 3, name: 'Хміль Пилип Олегович', avatar: '' },
+  { id: 5, name: 'Рясна Олена Сергіївна', avatar: '' },
+  { id: 6, name: 'Звір Кирило Петрович', avatar: '' },
+];
+
 const employeeDeleteSchema = z.object({
   parentId: z.number(),
-  deleteOption: z.string(),
-  email: z.string(),
-  opt1: z.boolean(),
-  opt2: z.boolean(),
-  opt3: z.boolean(),
+  name: z.string(),
+  managerId: z.coerce.number().min(0, 'Виберіть менеджера'),
 });
 
 interface EmployeeDeleteProps {
@@ -62,15 +66,10 @@ export const DepartmentAddModal = ({
     mode: 'all',
     defaultValues: {
       parentId: parentId,
-      deleteOption: '', // all, transfer
-      email: '',
-      opt1: false,
-      opt2: false,
-      opt3: false,
+      name: '',
+      managerId: 0,
     },
   });
-  const { watch } = form;
-  const watchDeleteOption = watch('deleteOption');
 
   const onSubmit = (data: z.infer<typeof employeeDeleteSchema>) => {
     const values = { ...data };
@@ -106,153 +105,67 @@ export const DepartmentAddModal = ({
               <ModalInner>
                 <FormField
                   control={form.control}
-                  name="deleteOption"
+                  name="name"
                   render={({ field }) => (
-                    <FormItem className="mb-4">
+                    <FormItem className="mb-4 space-y-0">
+                      <FormLabel className="text-xs text-gray-dark leading-none">
+                        Назва відділу:
+                      </FormLabel>
                       <FormControl>
-                        <RadioGroup
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                          className="flex flex-col space-y-1"
-                        >
-                          <FormItem className="flex items-start space-x-3 space-y-0 mb-8">
-                            <FormControl>
-                              <RadioGroupItem value="all" />
-                            </FormControl>
-                            <FormLabel className="font-normal pt-0.5">
-                              Видалити листи та дані поточного акаунту
-                              <Info>
-                                Всі дані акаунту будуть втрачені без можливості
-                                відновлення
-                              </Info>
-                            </FormLabel>
-                          </FormItem>
-                          <FormItem className="flex items-center space-x-3 space-y-0">
-                            <FormControl>
-                              <RadioGroupItem value="transfer" />
-                            </FormControl>
-                            <FormLabel className="font-normal">
-                              Передати листи та дані поточного акаунту
-                            </FormLabel>
-                          </FormItem>
-                        </RadioGroup>
+                        <Input placeholder="Назва відділу" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                <div className="ml-8">
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem className="mb-4 space-y-0">
-                        <Select
-                          onValueChange={field.onChange}
-                          defaultValue={field.value.toString()}
-                          disabled={watchDeleteOption !== 'transfer'}
-                        >
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Обрати акаунт для передачі" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            {transEmail.map((item) => (
-                              <SelectItem key={item} value={item}>
-                                <span className={cn('font-medium')}>
-                                  {item}
-                                </span>
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
 
-                  <FormField
-                    control={form.control}
-                    name="opt1"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-row items-center space-x-3 space-y-0 mb-5">
+                <FormField
+                  control={form.control}
+                  name="managerId"
+                  render={({ field }) => (
+                    <FormItem className="mb-4 space-y-0">
+                      <FormLabel className="text-xs text-gray-dark leading-none">
+                        Керівник:
+                      </FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value.toString()}
+                      >
                         <FormControl>
-                          <Checkbox
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
-                            disabled={watchDeleteOption !== 'transfer'}
-                          />
+                          <SelectTrigger>
+                            <SelectValue placeholder="Оберіть керівника" />
+                          </SelectTrigger>
                         </FormControl>
-                        <div className="space-y-1 leading-none">
-                          <FormLabel>
-                            Призначити акаунту отримувача всі аліаси, що є у
-                            поточного користувача
-                          </FormLabel>
-                        </div>
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="opt2"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-row items-center space-x-3 space-y-0 mb-5">
-                        <FormControl>
-                          <Checkbox
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
-                            disabled={watchDeleteOption !== 'transfer'}
-                          />
-                        </FormControl>
-                        <div className="space-y-1 leading-none">
-                          <FormLabel>
-                            Зробити електронну адресу користувача аліасом в
-                            отримувача даних
-                          </FormLabel>
-                        </div>
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="opt3"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-row items-center space-x-3 space-y-0 mb-5">
-                        <FormControl>
-                          <Checkbox
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
-                            disabled={watchDeleteOption !== 'transfer'}
-                          />
-                        </FormControl>
-                        <div className="space-y-1 leading-none">
-                          <FormLabel>
-                            Додати отримувача в групи, де був присутній
-                            користувач, що видаляється
-                          </FormLabel>
-                        </div>
-                      </FormItem>
-                    )}
-                  />
-                </div>
+                        <SelectContent>
+                          {employeeList.map((item) => (
+                            <SelectItem
+                              key={item.id}
+                              value={item.id.toString()}
+                            >
+                              <span className={cn('font-medium')}>
+                                {item.name}
+                              </span>
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </ModalInner>
               <ModalFooter>
-                <div className="w-full flex flex-col sm:justify-between sm:flex-row gap-3">
+                <div className="w-full flex flex-col sm:justify-end sm:flex-row gap-3">
                   <Button
                     type="button"
                     variant="outline"
                     onClick={() => setOpen(false)}
-                    className="w-full"
+                    className="w-full sm:w-auto"
                   >
                     Відмінити
                   </Button>
-                  <Button
-                    type="submit"
-                    variant="destructive"
-                    className="w-full bg-warning text-white"
-                  >
-                    Видалити співробітника
+                  <Button type="submit" className="w-full sm:w-auto">
+                    Зберегти зміни
                   </Button>
                 </div>
               </ModalFooter>
