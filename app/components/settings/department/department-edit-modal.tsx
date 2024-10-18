@@ -29,6 +29,7 @@ import {
   SelectValue,
 } from '@/components/ui/select-form';
 import { AddEmployee } from '@/app/components/settings/role/add-employee';
+import { DepartmentDeleteModal } from '@/app/components/settings/department/department-delete-modal';
 
 import { cn } from '@/lib/utils';
 import { Input } from '@/components/ui/input';
@@ -186,14 +187,7 @@ export const DepartmentEditModal = ({
                       Зберегти зміни
                     </Button>
                   </div>
-                  <Button
-                    type="button"
-                    variant="destructive"
-                    className="w-full sm:w-auto bg-white text-warning px-0"
-                  >
-                    <Icon iconName="DeleteCircle" width={20} height={20} />
-                    Видалити відділ
-                  </Button>
+                  <DepartmentDeleteModal data={department} />
                 </div>
               </ModalFooter>
             </form>
