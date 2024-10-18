@@ -22,7 +22,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Checkbox } from '@/components/ui/checkbox';
 import {
   Select,
   SelectContent,
@@ -30,26 +29,35 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select-form';
+import { AddEmployee } from '@/app/components/settings/role/add-employee';
 
 import { cn } from '@/lib/utils';
 import { Input } from '@/components/ui/input';
 
-const transEmail = ['first@mail.com', 'second@mail.com'];
-
 const employeeList = [
-  { id: 2, name: 'Коливан Данило Петрович', avatar: '' },
-  { id: 3, name: 'Хміль Пилип Олегович', avatar: '' },
-  { id: 5, name: 'Рясна Олена Сергіївна', avatar: '' },
-  { id: 6, name: 'Звір Кирило Петрович', avatar: '' },
-];
+  { userId: 1, userName: 'Іванов Іван Іванович', userRoleId: 1 },
+  { userId: 2, userName: 'Курбас Іван Леонідович', userRoleId: 2 },
+  { userId: 3, userName: 'Петренко Ірина Василівна', userRoleId: 2 },
+  { userId: 4, userName: 'Кононов Сергій Сергійович', userRoleId: 3 },
+  { userId: 5, userName: 'Жадан Олексій Хомич ', userRoleId: 4 },
+  { userId: 6, userName: 'Петров Іван Іванович', userRoleId: 1 },
+  { userId: 7, userName: 'Іванов Степан Іванович', userRoleId: 1 },
+  { userId: 8, userName: 'Іванов Іван Леонідович', userRoleId: 3 },
+  { userId: 9, userName: 'Іванов Іван Леонідович', userRoleId: 4 },
+  { userId: 10, userName: 'Іванов Іван Леонідович', userRoleId: 4 },
+  { userId: 11, userName: 'Іванов Іван Леонідович', userRoleId: 3 },
+  { userId: 12, userName: 'Іванов Іван Леонідович', userRoleId: 2 },
+  { userId: 13, userName: 'Іванов Іван Леонідович', userRoleId: 1 },
+  ,
+] as any[];
 
-const employeeDeleteSchema = z.object({
+const departmentSchema = z.object({
   parentId: z.number(),
   name: z.string(),
   managerId: z.coerce.number().min(0, 'Виберіть менеджера'),
 });
 
-interface EmployeeDeleteProps {
+interface DepartmentAddProps {
   parentId: any;
   parentDepartment: any;
   className?: string;
@@ -58,11 +66,12 @@ export const DepartmentAddModal = ({
   parentId,
   parentDepartment,
   className,
-}: EmployeeDeleteProps) => {
+}: DepartmentAddProps) => {
   const [open, setOpen] = useState(false);
+  const [usersForRole, setUsersForRole] = useState<object[]>([]);
 
-  const form = useForm<z.infer<typeof employeeDeleteSchema>>({
-    resolver: zodResolver(employeeDeleteSchema),
+  const form = useForm<z.infer<typeof departmentSchema>>({
+    resolver: zodResolver(departmentSchema),
     mode: 'all',
     defaultValues: {
       parentId: parentId,
@@ -71,8 +80,8 @@ export const DepartmentAddModal = ({
     },
   });
 
-  const onSubmit = (data: z.infer<typeof employeeDeleteSchema>) => {
-    const values = { ...data };
+  const onSubmit = (data: z.infer<typeof departmentSchema>) => {
+    const values = { ...data, roleUsers: usersForRole };
     console.log(values);
   };
 
@@ -88,7 +97,7 @@ export const DepartmentAddModal = ({
       </Button>
 
       <Modal open={open} onOpenChange={() => setOpen(false)}>
-        <ModalContent className="sm:max-w-[473px] md:max-w-[473px]">
+        <ModalContent>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <ModalHeader className="mb-6">
@@ -137,21 +146,29 @@ export const DepartmentAddModal = ({
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {employeeList.map((item) => (
-                            <SelectItem
-                              key={item.id}
-                              value={item.id.toString()}
-                            >
-                              <span className={cn('font-medium')}>
-                                {item.name}
-                              </span>
-                            </SelectItem>
-                          ))}
+                          {employeeList &&
+                            employeeList?.map((item) => (
+                              <SelectItem
+                                key={item.userId}
+                                value={item.userId.toString()}
+                              >
+                                <span className={cn('font-medium')}>
+                                  {item.userName}
+                                </span>
+                              </SelectItem>
+                            ))}
                         </SelectContent>
                       </Select>
                       <FormMessage />
                     </FormItem>
                   )}
+                />
+
+                <AddEmployee
+                  usersList={employeeList}
+                  usersForRole={usersForRole}
+                  setUsersForRole={setUsersForRole}
+                  from="department"
                 />
               </ModalInner>
               <ModalFooter>

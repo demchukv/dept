@@ -5,16 +5,19 @@ import { Icon } from '@/components/utils/icon';
 import { Checkbox } from '@/components/ui/checkbox';
 import React, { useEffect, useState } from 'react';
 import { Separator } from '@/components/ui/separator';
+import { cn } from '@/lib/utils';
 
 interface AddEmployeeProps {
   usersList: any;
   usersForRole: any;
   setUsersForRole: React.Dispatch<React.SetStateAction<object[]>>;
+  from?: string;
 }
 export const AddEmployee = ({
   usersList,
   usersForRole,
   setUsersForRole,
+  from,
 }: AddEmployeeProps) => {
   const [open, setOpen] = useState(false);
   const [userFind, setUserFind] = useState('');
@@ -61,7 +64,10 @@ export const AddEmployee = ({
               {checkedUsers.map((userId) => (
                 <div
                   key={userId}
-                  className="rounded border border-gray-light px-5 py-4 font-medium flex items-center justify-between gap-2"
+                  className={cn(
+                    'rounded border border-gray-light px-5 py-4 font-medium flex items-center justify-between gap-2',
+                    from === 'department' && 'bg-bg-color',
+                  )}
                 >
                   {
                     usersList.find((user: any) => user.userId === userId)
@@ -87,7 +93,12 @@ export const AddEmployee = ({
             </div>
           )}
           {checkedUsers.length === 0 && (
-            <div className="w-full rounded border border-gray-light px-5 py-4 font-medium flex items-center justify-between gap-2 mb-4">
+            <div
+              className={cn(
+                'w-full rounded border border-gray-light px-5 py-4 font-medium flex items-center justify-between gap-2 mb-4',
+                from === 'department' && 'bg-bg-color',
+              )}
+            >
               Не додано жодного співробітника
             </div>
           )}
@@ -147,16 +158,21 @@ export const AddEmployee = ({
               >
                 Відмінити
               </Button>
-              <Separator className="my-4" />
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => setOpen(false)}
-                className="w-full text-warning border-0 hover:shadow-none gap-2"
-              >
-                <Icon iconName="DeleteCircle" width={20} height={20} />
-                Відмінити
-              </Button>
+              {!from && from !== 'department' && (
+                <>
+                  {' '}
+                  <Separator className="my-4" />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => setOpen(false)}
+                    className="w-full text-warning border-0 hover:shadow-none gap-2"
+                  >
+                    <Icon iconName="DeleteCircle" width={20} height={20} />
+                    Відмінити
+                  </Button>
+                </>
+              )}
             </div>
           )}
         </>

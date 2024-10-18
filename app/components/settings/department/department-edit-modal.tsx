@@ -1,6 +1,5 @@
 'use client';
 import { Button } from '@/components/ui/button';
-import { Icon } from '@/components/utils/icon';
 import {
   Modal,
   ModalContent,
@@ -10,7 +9,7 @@ import {
   ModalInner,
   ModalTitle,
 } from '@/app/components/common/modal-new';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -22,7 +21,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Checkbox } from '@/components/ui/checkbox';
 import {
   Select,
   SelectContent,
@@ -30,22 +28,35 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select-form';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { AddEmployee } from '@/app/components/settings/role/add-employee';
 
 import { cn } from '@/lib/utils';
-import { Info } from '@/app/components/common/info';
+import { Input } from '@/components/ui/input';
+import { Icon } from '@/components/utils/icon';
 
-const transEmail = ['first@mail.com', 'second@mail.com'];
-const employeeDeleteSchema = z.object({
+const employeeList = [
+  { userId: 1, userName: 'Іванов Іван Іванович', userRoleId: 1 },
+  { userId: 2, userName: 'Курбас Іван Леонідович', userRoleId: 2 },
+  { userId: 3, userName: 'Петренко Ірина Василівна', userRoleId: 2 },
+  { userId: 4, userName: 'Кононов Сергій Сергійович', userRoleId: 3 },
+  { userId: 5, userName: 'Жадан Олексій Хомич ', userRoleId: 4 },
+  { userId: 6, userName: 'Петров Іван Іванович', userRoleId: 1 },
+  { userId: 7, userName: 'Іванов Степан Іванович', userRoleId: 1 },
+  { userId: 8, userName: 'Іванов Іван Леонідович', userRoleId: 3 },
+  { userId: 9, userName: 'Іванов Іван Леонідович', userRoleId: 4 },
+  { userId: 10, userName: 'Іванов Іван Леонідович', userRoleId: 4 },
+  { userId: 11, userName: 'Іванов Іван Леонідович', userRoleId: 3 },
+  { userId: 12, userName: 'Іванов Іван Леонідович', userRoleId: 2 },
+  { userId: 711, userName: 'Іванов Іван Леонідович', userRoleId: 1 },
+  ,
+] as any[];
+
+const departmentSchema = z.object({
   id: z.number(),
-  deleteOption: z.string(),
-  email: z.string(),
-  opt1: z.boolean(),
-  opt2: z.boolean(),
-  opt3: z.boolean(),
+  name: z.string(),
+  managerId: z.coerce.number().min(0, 'Виберіть менеджера'),
 });
-
-interface EmployeeDeleteProps {
+interface DepartmentEitProps {
   id: any;
   department: any;
   className?: string;
@@ -54,26 +65,23 @@ export const DepartmentEditModal = ({
   id,
   department,
   className,
-}: EmployeeDeleteProps) => {
+}: DepartmentEitProps) => {
   const [open, setOpen] = useState(false);
-
-  const form = useForm<z.infer<typeof employeeDeleteSchema>>({
-    resolver: zodResolver(employeeDeleteSchema),
+  const [usersForRole, setUsersForRole] = useState<object[]>([]);
+  console.log(department);
+  console.log(department?.manager?.id || department.id);
+  const form = useForm<z.infer<typeof departmentSchema>>({
+    resolver: zodResolver(departmentSchema),
     mode: 'all',
     defaultValues: {
       id: id,
-      deleteOption: '', // all, transfer
-      email: '',
-      opt1: false,
-      opt2: false,
-      opt3: false,
+      name: department.name,
+      managerId: department?.manager?.id || department.id,
     },
   });
-  const { watch } = form;
-  const watchDeleteOption = watch('deleteOption');
 
-  const onSubmit = (data: z.infer<typeof employeeDeleteSchema>) => {
-    const values = { ...data };
+  const onSubmit = (data: z.infer<typeof departmentSchema>) => {
+    const values = { ...data, roleUsers: usersForRole };
     console.log(values);
   };
 
@@ -89,7 +97,7 @@ export const DepartmentEditModal = ({
       </Button>
 
       <Modal open={open} onOpenChange={() => setOpen(false)}>
-        <ModalContent className="sm:max-w-[473px] md:max-w-[473px]">
+        <ModalContent>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <ModalHeader className="mb-6">
@@ -106,153 +114,85 @@ export const DepartmentEditModal = ({
               <ModalInner>
                 <FormField
                   control={form.control}
-                  name="deleteOption"
+                  name="name"
                   render={({ field }) => (
-                    <FormItem className="mb-4">
+                    <FormItem className="mb-4 space-y-0">
+                      <FormLabel className="text-xs text-gray-dark leading-none">
+                        Назва відділу:
+                      </FormLabel>
                       <FormControl>
-                        <RadioGroup
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                          className="flex flex-col space-y-1"
-                        >
-                          <FormItem className="flex items-start space-x-3 space-y-0 mb-8">
-                            <FormControl>
-                              <RadioGroupItem value="all" />
-                            </FormControl>
-                            <FormLabel className="font-normal pt-0.5">
-                              Видалити листи та дані поточного акаунту
-                              <Info>
-                                Всі дані акаунту будуть втрачені без можливості
-                                відновлення
-                              </Info>
-                            </FormLabel>
-                          </FormItem>
-                          <FormItem className="flex items-center space-x-3 space-y-0">
-                            <FormControl>
-                              <RadioGroupItem value="transfer" />
-                            </FormControl>
-                            <FormLabel className="font-normal">
-                              Передати листи та дані поточного акаунту
-                            </FormLabel>
-                          </FormItem>
-                        </RadioGroup>
+                        <Input placeholder="Назва відділу" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                <div className="ml-8">
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem className="mb-4 space-y-0">
-                        <Select
-                          onValueChange={field.onChange}
-                          defaultValue={field.value.toString()}
-                          disabled={watchDeleteOption !== 'transfer'}
-                        >
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Обрати акаунт для передачі" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            {transEmail.map((item) => (
-                              <SelectItem key={item} value={item}>
+
+                <FormField
+                  control={form.control}
+                  name="managerId"
+                  render={({ field }) => (
+                    <FormItem className="mb-4 space-y-0">
+                      <FormLabel className="text-xs text-gray-dark leading-none">
+                        Керівник:
+                      </FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value.toString()}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Оберіть керівника" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {employeeList &&
+                            employeeList?.map((item) => (
+                              <SelectItem
+                                key={item.userId}
+                                value={item.userId.toString()}
+                              >
                                 <span className={cn('font-medium')}>
-                                  {item}
+                                  {item.userName}
                                 </span>
                               </SelectItem>
                             ))}
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-                  <FormField
-                    control={form.control}
-                    name="opt1"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-row items-center space-x-3 space-y-0 mb-5">
-                        <FormControl>
-                          <Checkbox
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
-                            disabled={watchDeleteOption !== 'transfer'}
-                          />
-                        </FormControl>
-                        <div className="space-y-1 leading-none">
-                          <FormLabel>
-                            Призначити акаунту отримувача всі аліаси, що є у
-                            поточного користувача
-                          </FormLabel>
-                        </div>
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="opt2"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-row items-center space-x-3 space-y-0 mb-5">
-                        <FormControl>
-                          <Checkbox
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
-                            disabled={watchDeleteOption !== 'transfer'}
-                          />
-                        </FormControl>
-                        <div className="space-y-1 leading-none">
-                          <FormLabel>
-                            Зробити електронну адресу користувача аліасом в
-                            отримувача даних
-                          </FormLabel>
-                        </div>
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="opt3"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-row items-center space-x-3 space-y-0 mb-5">
-                        <FormControl>
-                          <Checkbox
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
-                            disabled={watchDeleteOption !== 'transfer'}
-                          />
-                        </FormControl>
-                        <div className="space-y-1 leading-none">
-                          <FormLabel>
-                            Додати отримувача в групи, де був присутній
-                            користувач, що видаляється
-                          </FormLabel>
-                        </div>
-                      </FormItem>
-                    )}
-                  />
-                </div>
+                <AddEmployee
+                  usersList={employeeList}
+                  usersForRole={usersForRole}
+                  setUsersForRole={setUsersForRole}
+                  from="department"
+                />
               </ModalInner>
               <ModalFooter>
-                <div className="w-full flex flex-col sm:justify-between sm:flex-row gap-3">
+                <div className="w-full flex flex-col sm:flex-row-reverse gap-4 sm:justify-between">
+                  <div className="w-full flex flex-col sm:justify-end sm:flex-row gap-4">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => setOpen(false)}
+                      className="w-full sm:w-auto"
+                    >
+                      Відмінити
+                    </Button>
+                    <Button type="submit" className="w-full sm:w-auto">
+                      Зберегти зміни
+                    </Button>
+                  </div>
                   <Button
                     type="button"
-                    variant="outline"
-                    onClick={() => setOpen(false)}
-                    className="w-full"
-                  >
-                    Відмінити
-                  </Button>
-                  <Button
-                    type="submit"
                     variant="destructive"
-                    className="w-full bg-warning text-white"
+                    className="w-full sm:w-auto bg-white text-warning px-0"
                   >
-                    Видалити співробітника
+                    <Icon iconName="DeleteCircle" width={20} height={20} />
+                    Видалити відділ
                   </Button>
                 </div>
               </ModalFooter>
