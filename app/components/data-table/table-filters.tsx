@@ -29,11 +29,13 @@ export const Filter = ({
   column,
   icon,
   placeholder = 'Пошук',
+  defSelectValue,
   className = '',
 }: {
   column: Column<any, unknown>;
   icon?: string;
   placeholder?: string;
+  defSelectValue?: string;
   className?: string;
 }) => {
   const [isLoading, setLoading] = useState(false);
@@ -101,10 +103,10 @@ export const Filter = ({
         defaultValue={columnFilterValue?.toString()}
       >
         <SelectTrigger className="min-w-[130px] w-full py-[9px] border-gray-light">
-          <SelectValue placeholder="Дані пошуку" />
+          <SelectValue placeholder={placeholder ?? 'Дані пошуку'} />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value=" ">Всі статуси</SelectItem>
+          <SelectItem value=" ">{defSelectValue ?? 'Всі статуси'}</SelectItem>
           {selectValues?.map((val: { label: string; value: string }) => (
             <SelectItem key={val.value} value={val.value}>
               {val.label}
