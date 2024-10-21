@@ -43,7 +43,7 @@ export const columns: ColumnDef<electronicType>[] = [
     header: 'Категорія',
     cell: ({ getValue, row }) => {
       const category = getValue<string>();
-      return <Link href={`/electronic/${row.original.id}`}>{category}</Link>;
+      return category;
     },
     meta: {
       filterVariant: 'select',
@@ -63,9 +63,16 @@ export const columns: ColumnDef<electronicType>[] = [
   {
     accessorKey: 'title',
     header: 'Назва / Модель',
-    cell: ({ getValue }) => {
+    cell: ({ getValue, row }) => {
       const title = getValue<string>();
-      return <span className="text-main-color font-semibold">{title}</span>;
+      return (
+        <Link
+          href={`/electronic/${row.original.id}`}
+          className="text-main-color font-semibold"
+        >
+          {title}
+        </Link>
+      );
     },
   },
   {
@@ -99,7 +106,7 @@ export const columns: ColumnDef<electronicType>[] = [
     header: 'Плата за користування грн / міс',
     cell: ({ getValue }) => {
       const cost = getValue<string>();
-      return cost;
+      return <div className="text-right">{cost} грн</div>;
     },
   },
 ];

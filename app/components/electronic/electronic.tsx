@@ -11,7 +11,7 @@ import {
 import { columns } from '@/app/components/data-table/columns/columns-electronic-list';
 import { Button } from '@/components/ui/button';
 
-const dataRepair: electronicType[] = [
+export const dataElectronic: electronicType[] = [
   {
     id: 1,
     category: 'Комп’ютери',
@@ -20,6 +20,7 @@ const dataRepair: electronicType[] = [
     user: 'Остапенко Остап',
     department: 'Відділ продажів',
     cost: '400',
+    toDate: '01.11.24',
   },
   {
     id: 2,
@@ -29,6 +30,7 @@ const dataRepair: electronicType[] = [
     user: 'Остапенко Остап',
     department: 'Відділ продажів',
     cost: '400',
+    toDate: '01.11.24',
   },
   {
     id: 3,
@@ -38,6 +40,7 @@ const dataRepair: electronicType[] = [
     user: 'Остапенко Остап',
     department: 'Відділ продажів',
     cost: '600',
+    toDate: '01.11.24',
   },
   {
     id: 3,
@@ -47,6 +50,7 @@ const dataRepair: electronicType[] = [
     user: 'Галина Бухгалтерівна',
     department: 'Магазин',
     cost: '600',
+    toDate: '01.11.24',
   },
 ];
 
@@ -96,7 +100,7 @@ export const Electronic = () => {
           //   });
           // });
         } else {
-          currentData = dataRepair;
+          currentData = dataElectronic;
         }
         //pagination
         currentData = currentData.slice(
@@ -105,8 +109,8 @@ export const Electronic = () => {
         );
         //sorting
         // setdata
-        setData(dataRepair || []);
-        setRowCount(dataRepair.length || 0);
+        setData(dataElectronic || []);
+        setRowCount(dataElectronic.length || 0);
       }, 500);
 
       //   getTaskList(pagination, sorting, filters).then((res) => {
