@@ -5,10 +5,11 @@ import { Login } from '@/app/components/common/login/login';
 const i18nNamespaces = ['header', 'home'];
 
 export default async function HomePage({
-  params: { locale },
+  params,
 }: {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
+  const { locale } = await params;
   const { t, resources } = await initTranslations(locale, i18nNamespaces);
 
   return (
