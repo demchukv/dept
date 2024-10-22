@@ -22,6 +22,53 @@ export const dataElectronic: electronicType[] = [
     cost: '400',
     fromDate: '01.01.24',
     toDate: '01.11.24',
+    progress: 50,
+    progressTitle: 'Задовільний',
+    serial: 'ARG0151051989460456',
+    description:
+      'Сколи, подряпини, вм’ятини на корпусі, можуть бути описані будь які дефекти, що ідентифікують пристрій',
+    photoList: [
+      {
+        id: 1,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/f6/2b/3586029.png',
+      },
+      {
+        id: 2,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/f4/7c/3586030.jpeg',
+      },
+      {
+        id: 3,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/8d/ad/3586032.jpeg',
+      },
+      {
+        id: 4,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/c8/d8/3586031.jpeg',
+      },
+      {
+        id: 5,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/b2/b7/1279725.png',
+      },
+      {
+        id: 6,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/95/21/1279728.png',
+      },
+      {
+        id: 7,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/f6/2b/3586029.png',
+      },
+      {
+        id: 8,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/95/21/1279728.png',
+      },
+    ],
   },
   {
     id: 2,
@@ -33,6 +80,53 @@ export const dataElectronic: electronicType[] = [
     cost: '400',
     fromDate: '01.01.24',
     toDate: '01.11.24',
+    progress: 90,
+    progressTitle: 'Хороший',
+    serial: 'ARG0151051989460456',
+    description:
+      'Сколи, подряпини, вм’ятини на корпусі, можуть бути описані будь які дефекти, що ідентифікують пристрій',
+    photoList: [
+      {
+        id: 1,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/f6/2b/3586029.png',
+      },
+      {
+        id: 2,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/f4/7c/3586030.jpeg',
+      },
+      {
+        id: 3,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/8d/ad/3586032.jpeg',
+      },
+      {
+        id: 4,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/c8/d8/3586031.jpeg',
+      },
+      {
+        id: 5,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/b2/b7/1279725.png',
+      },
+      {
+        id: 6,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/95/21/1279728.png',
+      },
+      {
+        id: 7,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/f6/2b/3586029.png',
+      },
+      {
+        id: 8,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/95/21/1279728.png',
+      },
+    ],
   },
   {
     id: 3,
@@ -44,6 +138,53 @@ export const dataElectronic: electronicType[] = [
     cost: '600',
     fromDate: '01.01.24',
     toDate: '01.11.24',
+    progress: 30,
+    progressTitle: 'Задовільний',
+    serial: 'ARG0151051989460456',
+    description:
+      'Сколи, подряпини, вм’ятини на корпусі, можуть бути описані будь які дефекти, що ідентифікують пристрій',
+    photoList: [
+      {
+        id: 1,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/f6/2b/3586029.png',
+      },
+      {
+        id: 2,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/f4/7c/3586030.jpeg',
+      },
+      {
+        id: 3,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/8d/ad/3586032.jpeg',
+      },
+      {
+        id: 4,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/c8/d8/3586031.jpeg',
+      },
+      {
+        id: 5,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/b2/b7/1279725.png',
+      },
+      {
+        id: 6,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/95/21/1279728.png',
+      },
+      {
+        id: 7,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/f6/2b/3586029.png',
+      },
+      {
+        id: 8,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/95/21/1279728.png',
+      },
+    ],
   },
   {
     id: 3,
@@ -55,6 +196,53 @@ export const dataElectronic: electronicType[] = [
     cost: '600',
     fromDate: '01.01.24',
     toDate: '01.11.24',
+    progress: 70,
+    progressTitle: 'Задовільний',
+    serial: 'ARG0151051989460456',
+    description:
+      'Сколи, подряпини, вм’ятини на корпусі, можуть бути описані будь які дефекти, що ідентифікують пристрій',
+    photoList: [
+      {
+        id: 1,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/f6/2b/3586029.png',
+      },
+      {
+        id: 2,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/f4/7c/3586030.jpeg',
+      },
+      {
+        id: 3,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/8d/ad/3586032.jpeg',
+      },
+      {
+        id: 4,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/c8/d8/3586031.jpeg',
+      },
+      {
+        id: 5,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/b2/b7/1279725.png',
+      },
+      {
+        id: 6,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/95/21/1279728.png',
+      },
+      {
+        id: 7,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/f6/2b/3586029.png',
+      },
+      {
+        id: 8,
+        imgSrc:
+          'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/95/21/1279728.png',
+      },
+    ],
   },
 ];
 

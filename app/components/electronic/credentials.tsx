@@ -1,6 +1,7 @@
 import React from 'react';
 import { electronicType } from '@/types/electronic';
 import { Button } from '@/components/ui/button';
+import { ElectronicInfoPhoto } from '@/app/components/electronic/electronic-info-photo';
 
 interface CredentialsProps {
   data: electronicType;
@@ -8,9 +9,9 @@ interface CredentialsProps {
 export const Credentials = ({ data }: CredentialsProps) => {
   return (
     <>
-      <div className="w-full flex flex-col gap-4 sm:flex-row sm:gap-4 md:gap-16">
+      <div className="w-full flex flex-col gap-4 sm:flex-row sm:gap-4 md:gap-16 mb-8">
         <div>
-          <p className="font-semibold leading-main-lh">Реальні фото пристрою</p>
+          <ElectronicInfoPhoto data={data} />
         </div>
         <div className="flex flex-col sm:flex-row gap-4">
           <div>
