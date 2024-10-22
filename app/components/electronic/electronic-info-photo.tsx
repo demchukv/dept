@@ -33,7 +33,7 @@ export const ElectronicInfoPhoto = ({ data }: ElectronicInfoPhotoProps) => {
                   {item.imgSrc && (
                     <ImageZoom
                       src={item.imgSrc}
-                      alt={data.device}
+                      alt={data.title}
                       className="w-14 h-14 cursor-pointer"
                     />
                   )}
