@@ -60,7 +60,7 @@ export const ElectronicInfoPhoto = ({ data }: ElectronicInfoPhotoProps) => {
         />
       )}
       <p className="mb-4">{data?.description}</p>
-      <p className="flex justify-between font-semibold mb-2 sm:mb-4 mt-2 sm:mt-0">
+      <p className="flex justify-between font-semibold mb-2 sm:mb-3 mt-2 sm:mt-0">
         Стан пристрою <span className="font-normal">{data?.progressTitle}</span>
       </p>
       {data.progress && <Progress value={progress} className="w-full mb-2" />}

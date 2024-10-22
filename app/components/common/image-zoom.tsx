@@ -1,6 +1,13 @@
 import Image from 'next/image';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 import { DetailedHTMLProps, ImgHTMLAttributes } from 'react';
+import { DialogDescription } from '@radix-ui/react-dialog';
 
 export const ImageZoom = ({
   src,
@@ -28,6 +35,10 @@ export const ImageZoom = ({
         />
       </DialogTrigger>
       <DialogContent className="w-full border-0 bg-transparent p-0 shadow-none">
+        <DialogHeader className="hidden">
+          <DialogTitle>{alt || ''}</DialogTitle>
+          <DialogDescription></DialogDescription>
+        </DialogHeader>
         <div className="relative h-[100vh] w-full overflow-clip rounded-md bg-transparent">
           <Image
             src={src}

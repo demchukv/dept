@@ -69,6 +69,13 @@ export const dataElectronic: electronicType[] = [
           'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/95/21/1279728.png',
       },
     ],
+    complect: ['Macbook Air 2017', 'Apple Magic Mouse 2', 'Зарядний пристрій'],
+    characteristics: [
+      { label: 'Процесор', value: 'Apple M1' },
+      { label: 'Пам’ять', value: '8 Gb' },
+      { label: 'Матриця', value: 'Retina' },
+      { label: 'Жорсткий диск', value: '128 Gb' },
+    ],
   },
   {
     id: 2,
@@ -126,6 +133,13 @@ export const dataElectronic: electronicType[] = [
         imgSrc:
           'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/95/21/1279728.png',
       },
+    ],
+    complect: ['Macbook Air 2017', 'Apple Magic Mouse 2', 'Зарядний пристрій'],
+    characteristics: [
+      { label: 'Процесор', value: 'Apple M1' },
+      { label: 'Пам’ять', value: '8 Gb' },
+      { label: 'Матриця', value: 'Retina' },
+      { label: 'Жорсткий диск', value: '128 Gb' },
     ],
   },
   {
@@ -185,6 +199,13 @@ export const dataElectronic: electronicType[] = [
           'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/95/21/1279728.png',
       },
     ],
+    complect: ['Macbook Air 2017', 'Apple Magic Mouse 2', 'Зарядний пристрій'],
+    characteristics: [
+      { label: 'Процесор', value: 'Apple M1' },
+      { label: 'Пам’ять', value: '8 Gb' },
+      { label: 'Матриця', value: 'Retina' },
+      { label: 'Жорсткий диск', value: '128 Gb' },
+    ],
   },
   {
     id: 3,
@@ -242,6 +263,13 @@ export const dataElectronic: electronicType[] = [
         imgSrc:
           'https://stylus.ua/cdn-cgi/image/width=500,height=500,fit=pad,f=webp/gallery/95/21/1279728.png',
       },
+    ],
+    complect: ['Macbook Air 2017', 'Apple Magic Mouse 2', 'Зарядний пристрій'],
+    characteristics: [
+      { label: 'Процесор', value: 'Apple M1' },
+      { label: 'Пам’ять', value: '8 Gb' },
+      { label: 'Матриця', value: 'Retina' },
+      { label: 'Жорсткий диск', value: '128 Gb' },
     ],
   },
 ];

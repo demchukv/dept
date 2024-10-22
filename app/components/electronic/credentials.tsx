@@ -1,7 +1,8 @@
 import React from 'react';
-import { electronicType } from '@/types/electronic';
+import { electronicType, electronicCharacteristic } from '@/types/electronic';
 import { Button } from '@/components/ui/button';
 import { ElectronicInfoPhoto } from '@/app/components/electronic/electronic-info-photo';
+import { KeyValText } from '../common/key-val-text';
 
 interface CredentialsProps {
   data: electronicType;
@@ -10,15 +11,40 @@ export const Credentials = ({ data }: CredentialsProps) => {
   return (
     <>
       <div className="w-full flex flex-col gap-4 sm:flex-row sm:gap-4 md:gap-16 mb-8">
-        <div>
+        <div className="sm:max-w-2/3">
           <ElectronicInfoPhoto data={data} />
         </div>
-        <div className="flex flex-col sm:flex-row gap-4">
+        <div className="flex flex-col sm:flex-row gap-6">
           <div>
-            <p className="font-semibold leading-main-lh">Характеристики</p>
+            <p className="font-semibold leading-main-lh mb-4">Характеристики</p>
+            {data.characteristics && Array.isArray(data.characteristics) && (
+              <div className="flex flex-col gap-2">
+                {data.characteristics.map(
+                  (item: electronicCharacteristic, ind) => (
+                    <KeyValText
+                      key={ind}
+                      k={item.label}
+                      val={item.value}
+                      className="justify-between"
+                      keyClass="font-medium text-xs"
+                      valClass="text-right whitespace-nowrap font-bold text-xs"
+                    />
+                  ),
+                )}
+              </div>
+            )}
           </div>
           <div>
-            <p className="font-semibold leading-main-lh">Комплектність</p>
+            <p className="font-semibold leading-main-lh mb-4">Комплектність</p>
+            {data.complect && Array.isArray(data.complect) && (
+              <ul className="flex flex-col gap-2">
+                {data.complect.map((item, ind) => (
+                  <li key={ind} className="text-xs font-bold">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
       </div>

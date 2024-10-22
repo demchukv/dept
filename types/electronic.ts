@@ -13,9 +13,16 @@ export type electronicType = {
   serial: string;
   description?: string;
   photoList?: electronicPhoto[];
+  complect?: Array<string>;
+  characteristics?: electronicCharacteristic[];
 };
 
-type electronicPhoto = {
+export type electronicPhoto = {
   id: number;
   imgSrc: string;
+};
+
+export type electronicCharacteristic = {
+  label: string;
+  value: string;
 };
