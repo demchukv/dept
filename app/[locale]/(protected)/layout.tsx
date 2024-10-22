@@ -6,13 +6,14 @@ import TranslationsProvider from '@/components/translations-provider';
 const i18nNamespaces = ['header'];
 interface LayoutProps {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }
 
 export default async function ProtectedLayout({
   children,
-  params: { locale },
+  params,
 }: LayoutProps) {
+  const { locale } = await params;
   const { t, resources } = await initTranslations(locale, i18nNamespaces);
   return (
     <TranslationsProvider

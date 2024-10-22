@@ -6,5 +6,6 @@ export type electronicType = {
   user: string;
   department: string;
   cost: string | number;
+  fromDate?: string;
   toDate?: string;
 };

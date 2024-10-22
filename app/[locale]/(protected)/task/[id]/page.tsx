@@ -14,10 +14,11 @@ export const metadata: Metadata = {
   description: 'Dept - Редагування заявки або задачі',
 };
 const AddTaskPage = async ({
-  params: { locale },
+  params,
 }: {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) => {
+  const { locale } = await params;
   const { t, resources } = await initTranslations(locale, i18nNamespaces);
   return (
     <TranslationsProvider

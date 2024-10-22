@@ -4,9 +4,15 @@ import Link from 'next/link';
 import React from 'react';
 import { Card, CardHeader } from '@/app/components/card/card';
 import { electronicType } from '@/types/electronic';
-
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from '@/components/ui/tabs-server';
 import { dataElectronic } from '@/app/components/electronic/electronic';
 import { useParams } from 'next/navigation';
+import { Credentials } from '@/app/components/electronic/credentials';
 
 export const ElectronicInfo = () => {
   const { id } = useParams();
@@ -28,8 +34,8 @@ export const ElectronicInfo = () => {
         Перегляд пристрою
       </h2>
       <Card className="shadow-[6px_6px_40px_0_rgba(89,125,137,0.1)]">
-        <CardHeader className="flex gap-4 md:gap-9">
-          <div className="flex flex-col sm:flex-row justify-between w-full">
+        <CardHeader className="flex items-center pb-6 gap-4 md:gap-9 border-b border-gray-light">
+          <div className="flex sm:items-center flex-col sm:flex-row justify-between w-full">
             <div>{data.title}</div>
             <div className="font-normal text-sm sm:font-semibold sm:text-base">
               {data.user}
@@ -47,6 +53,22 @@ export const ElectronicInfo = () => {
             до {data.toDate}
           </div>
         </CardHeader>
+        <Tabs defaultValue="credentials" className="w-full">
+          <TabsList>
+            <TabsTrigger value="credentials">Облікові дані</TabsTrigger>
+            <TabsTrigger value="billing">Біллінг</TabsTrigger>
+            <TabsTrigger value="user">Користувач</TabsTrigger>
+            <TabsTrigger value="upgrade">Заміна/апгрейд</TabsTrigger>
+            <TabsTrigger value="history">Історія</TabsTrigger>
+          </TabsList>
+          <TabsContent value="credentials">
+            <Credentials data={data} />
+          </TabsContent>
+          <TabsContent value="billing">Біллінг</TabsContent>
+          <TabsContent value="user">Користувач</TabsContent>
+          <TabsContent value="upgrade">Заміна/апгрейд</TabsContent>
+          <TabsContent value="history">Історія</TabsContent>
+        </Tabs>
       </Card>
     </>
   );

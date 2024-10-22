@@ -12,10 +12,11 @@ export const metadata: Metadata = {
 const i18nNamespaces = ['balance'];
 
 interface BalancePageProps {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }
 
-const BalancePage = async ({ params: { locale } }: BalancePageProps) => {
+const BalancePage = async ({ params }: BalancePageProps) => {
+  const { locale } = await params;
   const { t, resources } = await initTranslations(locale, i18nNamespaces);
 
   // const store = makeStore();

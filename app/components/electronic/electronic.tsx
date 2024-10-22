@@ -20,6 +20,7 @@ export const dataElectronic: electronicType[] = [
     user: 'Остапенко Остап',
     department: 'Відділ продажів',
     cost: '400',
+    fromDate: '01.01.24',
     toDate: '01.11.24',
   },
   {
@@ -30,6 +31,7 @@ export const dataElectronic: electronicType[] = [
     user: 'Остапенко Остап',
     department: 'Відділ продажів',
     cost: '400',
+    fromDate: '01.01.24',
     toDate: '01.11.24',
   },
   {
@@ -40,6 +42,7 @@ export const dataElectronic: electronicType[] = [
     user: 'Остапенко Остап',
     department: 'Відділ продажів',
     cost: '600',
+    fromDate: '01.01.24',
     toDate: '01.11.24',
   },
   {
@@ -50,6 +53,7 @@ export const dataElectronic: electronicType[] = [
     user: 'Галина Бухгалтерівна',
     department: 'Магазин',
     cost: '600',
+    fromDate: '01.01.24',
     toDate: '01.11.24',
   },
 ];
